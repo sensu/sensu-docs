@@ -26,7 +26,7 @@ See [supported platforms][5] for more information.
 
 ## Architecture overview
 
-<img src="/images/install-sensu.png" alt="Sensu architecture diagram">
+{{< figure src="/images/go/install_sensu/basic_architecture.png" alt="Basic Sensu architecture diagram showing agents and the backend" link="/images/go/install_sensu/basic_architecture.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
 The **Sensu backend** gives you flexible, automated workflows to route metrics and alerts.

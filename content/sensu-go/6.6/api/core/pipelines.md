@@ -26,14 +26,17 @@ The `/pipelines` API endpoint provides HTTP GET access to [pipeline][1] data.
 
 ### Example
 
-The following example demonstrates a request to the `/pipelines` API endpoint, resulting in a JSON array that contains [pipeline definitions][1].
+The following example demonstrates a GET request to the `/pipelines` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [pipeline definitions][1] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "metadata": {
@@ -116,7 +119,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "metadata": {
@@ -195,8 +198,7 @@ The `/pipelines` API endpoint provides HTTP POST access to create a pipeline.
 
 ### Example
 
-In the following example, an HTTP POST request is submitted to the `/pipelines` API endpoint to create the pipeline resource `labeled_emails`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP POST request is submitted to the `/pipelines` API endpoint to create the pipeline resource `labeled_emails`:
 
 {{< code shell >}}
 curl -X POST \
@@ -236,9 +238,9 @@ curl -X POST \
   ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification
 
@@ -289,14 +291,17 @@ The `/pipelines/:pipeline` API endpoint provides HTTP GET access to [pipeline da
 
 ### Example
 
-In the following example, querying the `/pipelines/:pipeline` API endpoint returns a JSON map that contains the requested [`:pipeline` definition][1] (in this example, for the `:pipeline` named `labeled_emails`).
+The following example queries the `/pipelines/:pipeline` API endpoint for the `:pipeline` named `labeled_emails`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/labeled_emails \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:pipeline` definition][1] (in this example, `labeled_emails`):
+
+{{< code text >}}
 {
   "metadata": {
     "name": "labeled_emails",
@@ -341,7 +346,7 @@ description          | Returns a pipeline.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/pipelines/labeled_emails
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "metadata": {
     "name": "labeled_emails",
@@ -384,8 +389,7 @@ The `/pipelines/:pipeline` API endpoint provides HTTP PUT access to create or up
 
 ### Example
 
-In the following example, an HTTP PUT request is submitted to the `/pipelines/:pipeline` API endpoint to update `slack_pipeline` to use `javascript_mutator` instead of the `add_labels` mutator.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/pipelines/:pipeline` API endpoint to update `slack_pipeline` to use `javascript_mutator` instead of the `add_labels` mutator:
 
 {{< code shell >}}
 curl -X PUT \
@@ -425,9 +429,9 @@ curl -X PUT \
   ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification
 
@@ -484,7 +488,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/pipelines/:pipeline` API endpoint to update the mutator for `slack_pipeline`, resulting in an HTTP `200 OK` response and the updated pipeline definition.
+In the following example, an HTTP PATCH request is submitted to the `/pipelines/:pipeline` API endpoint to update the mutator for `slack_pipeline`, resulting in an `HTTP/1.1 200 OK` response and the updated pipeline definition.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -504,8 +508,6 @@ curl -X PATCH \
   ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline
-
-HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification
@@ -535,14 +537,12 @@ The `/pipelines/:pipeline` API endpoint provides HTTP DELETE access to delete a 
 
 ### Example
 
-The following example shows a request to the `/pipelines/:pipeline` API endpoint to delete the pipeline ` `, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/pipelines/:pipeline` API endpoint to delete `slack_pipeline`, resulting in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline \
 -H "Authorization: Key $SENSU_API_KEY"
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification
@@ -562,13 +562,16 @@ The `/pipelines` API endpoint supports [response filtering][3] for a subset of p
 
 ### Example
 
-The following example demonstrates a request to the `/pipelines` API endpoint with [response filtering][3], resulting in a JSON array that contains only [pipeline definitions][1] in the `production` namespace.
+The following example demonstrates a request to the `/pipelines` API endpoint with [response filtering][3] for only [pipeline definitions][1] in the `production` namespace:
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/pipelines -G \
 --data-urlencode 'fieldSelector=pipeline.namespace == production'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [pipeline definitions][1] in the `production` namespace:
+
+{{< code text >}}
 [
   {
     "metadata": {
@@ -637,7 +640,7 @@ example url    | http://hostname:8080/api/core/v2/pipelines
 pagination     | This endpoint supports [pagination][4] using the `limit` and `continue` query parameters.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "metadata": {

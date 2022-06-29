@@ -22,7 +22,7 @@ Sensu downloads are provided under the [Sensu commercial license][13]; see the [
 
 ### Architecture overview
 
-<img src="/images/install-sensu.png" alt="Sensu architecture diagram">
+{{< figure src="/images/go/install_sensu/basic_architecture.png" alt="Basic Sensu architecture diagram showing agents and the backend" link="/images/go/install_sensu/basic_architecture.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
 Powered by an an embedded transport and [etcd][16] datastore, the **Sensu backend** gives you flexible, automated workflows to route metrics and alerts.

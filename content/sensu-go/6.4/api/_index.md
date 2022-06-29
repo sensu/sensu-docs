@@ -12,7 +12,7 @@ menu:
 
 **API version: v2**
 
-The Sensu backend REST API provides a centrally managed control plane for automated, repeatable observability workflow configuration and observation data (event) access.
+The Sensu backend REST API provides a centrally managed control plane for automated, repeatable monitoring and observability workflow configuration and observation event data access.
 
 If you have a healthy [clustered][24] backend, you only need to make Sensu API calls to any one of the cluster members.
 The cluster protocol will replicate your changes to all cluster members.
@@ -102,7 +102,7 @@ For information about using Sensu's built-in basic authentication or external au
 
 To set up a local API testing environment, save your Sensu credentials and access token as environment variables.
 
-Save your Sensu credentials as environemnt variables:
+Save your Sensu credentials as environment variables:
 
 {{< code shell >}}
 export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
@@ -221,7 +221,7 @@ sensuctl api-key grant admin
 {{< /code >}}
 
    The response will include the new API key:
-{{< code shell >}}
+{{< code text >}}
 Created: /api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 {{< /code >}}
 

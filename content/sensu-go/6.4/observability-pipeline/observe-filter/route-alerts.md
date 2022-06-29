@@ -4,7 +4,7 @@ linkTitle: "Route Alerts"
 guide_title: "Route alerts with event filters"
 type: "guide"
 description: "Alert the right people using their preferred contact method with Sensu's contact routing and reduce mean time to response and recovery."
-weight: 30
+weight: 80
 version: "6.4"
 product: "Sensu Go"
 platformContent: false
@@ -26,7 +26,7 @@ To achieve this, you'll create two types of Sensu resources:
 Here's a quick overview of the configuration to set up contact routing.
 The check definition includes the `contacts: dev` label, which will result in alerts to the dev team but not to the ops team or the fallback option.
 
-{{< figure src="/images/contact-routing1.png" alt="Diagram that shows an event generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel" link="/images/contact-routing1.png" target="_blank" >}}
+{{< figure src="/images/go/route_alerts/contact_routing_old_dev_team.png" alt="Diagram that shows an event generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel" link="/images/go/route_alerts/contact_routing_old_dev_team.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/f66c930f-295d-458c-bde3-4e55edd9b2e8/0 -->
 
 To follow this guide, you’ll need to [install][1] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
@@ -40,7 +40,7 @@ For an agent to execute a specific check, you must specify the same subscription
 This guide uses an example check that includes the subscription `system`.
 Use [sensuctl][7] to add a `system` subscription to one of your entities.
 
-Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+Before you run the following code, replace `<ENTITY_NAME>` with the name of the entity on your system.
 
 {{% notice note %}}
 **NOTE**: To find an entity's name, run `sensuctl entity list`.
@@ -48,7 +48,7 @@ The `ID` is the name of the entity.
 {{% /notice %}}
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -64,9 +64,9 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Configure contact routing
 
-### 1. Register the has-contact filter dynamic runtime asset
+### 1. Register the sensu/sensu-go-has-contact-filter dynamic runtime asset
 
-Contact routing is powered by the [has-contact filter dynamic runtime asset][12].
+Contact routing is powered by the [sensu/sensu-go-has-contact-filter][12] dynamic runtime asset.
 To add the has-contact dynamic runtime asset to Sensu, use [`sensuctl asset add`][14]:
 
 {{< code shell >}}
@@ -97,7 +97,7 @@ Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ### 2. Create contact filters
 
-The [Bonsai][12] documentation for the asset explains that the has-contact dynamic runtime asset supports two functions:
+The [Bonsai][12] documentation explains that the sensu/sensu-go-has-contact-filter dynamic runtime asset supports two functions:
 
 - `has_contact`, which takes the Sensu event and the contact name as arguments
 - `no_contact`, which is available as a fallback in the absence of contact labels and takes only the event as an argument
@@ -214,7 +214,7 @@ sensuctl filter list
 
 The response should list the new `contact_ops`, `contact_dev`, and `contact_fallback` event filters:
 
-{{< code shell >}}
+{{< code text >}}
         Name         Action           Expressions          
  ────────────────── ──────── ───────────────────────────── 
   contact_dev        allow    (has_contact(event, "dev"))  
@@ -225,7 +225,7 @@ The response should list the new `contact_ops`, `contact_dev`, and `contact_fall
 ### 3. Create a handler for each contact
 
 With your contact filters in place, you can create a handler for each contact: ops, dev, and fallback.
-If you haven't already, add the [Slack handler dynamic runtime asset][8] to Sensu with sensuctl:
+If you haven't already, add the [sensu/sensu-slack-handler][8] dynamic runtime asset to Sensu with sensuctl:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
@@ -255,8 +255,8 @@ In each handler definition, you will specify:
 
 Before you run the following code to create the handlers with sensuctl, make these changes:
 
-- Replace `<alert-ops>`, `<alert-dev>`, and `<alert-all>` with the names of the channels you want to use to receive alerts in your Slack instance.
-- Replace `<slack_webhook_url>` with your Slack webhook URL.
+- Replace `<ALERT_OPS>`, `<ALERT_DEV>`, and `<ALERT_ALL>` with the names of the channels you want to use to receive alerts in your Slack instance.
+- Replace `<SLACK_WEBHOOK_URL>` with your Slack webhook URL.
 
 After you update the code to use your preferred Slack channels and webhook URL, run:
 
@@ -269,9 +269,9 @@ api_version: core/v2
 metadata:
   name: slack_ops
 spec:
-  command: sensu-slack-handler --channel "#<alert-ops>"
+  command: sensu-slack-handler --channel "#<ALERT_OPS>"
   env_vars:
-  - SLACK_WEBHOOK_URL=<slack_webhook_url>
+  - SLACK_WEBHOOK_URL=<SLACK_WEBHOOK_URL>
   filters:
   - is_incident
   - not_silenced
@@ -285,9 +285,9 @@ api_version: core/v2
 metadata:
   name: slack_dev
 spec:
-  command: sensu-slack-handler --channel "#<alert-dev>"
+  command: sensu-slack-handler --channel "#<ALERT_DEV>"
   env_vars:
-  - SLACK_WEBHOOK_URL=<slack_webhook_url>
+  - SLACK_WEBHOOK_URL=<SLACK_WEBHOOK_URL>
   filters:
   - is_incident
   - not_silenced
@@ -301,9 +301,9 @@ api_version: core/v2
 metadata:
   name: slack_fallback
 spec:
-  command: sensu-slack-handler --channel "#<alert-all>"
+  command: sensu-slack-handler --channel "#<ALERT_ALL>"
   env_vars:
-  - SLACK_WEBHOOK_URL=<slack_webhook_url>
+  - SLACK_WEBHOOK_URL=<SLACK_WEBHOOK_URL>
   filters:
   - is_incident
   - not_silenced
@@ -321,9 +321,9 @@ echo '{
     "name": "slack_ops"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel "#<alert-ops>",
+    "command": "sensu-slack-handler --channel "#<ALERT_OPS>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=<slack_webhook_url>
+      "SLACK_WEBHOOK_URL=<SLACK_WEBHOOK_URL>
     ],
     "filters": [
       "is_incident",
@@ -343,9 +343,9 @@ echo '{
     "name": "slack_dev"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel "#<alert-dev>",
+    "command": "sensu-slack-handler --channel "#<ALERT_DEV>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=<slack_webhook_url>
+      "SLACK_WEBHOOK_URL=<SLACK_WEBHOOK_URL>
     ],
     "filters": [
       "is_incident",
@@ -365,9 +365,9 @@ echo '{
     "name": "slack_fallback"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel "#<alert-all>",
+    "command": "sensu-slack-handler --channel "#<ALERT_ALL>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=<slack_webhook_url>
+      "SLACK_WEBHOOK_URL=<SLACK_WEBHOOK_URL>
     ],
     "filters": [
       "is_incident",
@@ -397,9 +397,9 @@ The response should list the new `slack_ops`, `slack_dev`, and `slack_fallback` 
 {{< code shell >}}
        Name        Type   Timeout                    Filters                    Mutator                        Execute                                                Environment Variables                                    Assets         
  ──────────────── ────── ───────── ─────────────────────────────────────────── ───────── ─────────────────────────────────────────────────── ────────────────────────────────────────────────────────────────────────── ───────────────────── 
-  slack_dev        pipe         0   is_incident,not_silenced,contact_dev                  RUN:  sensu-slack-handler --channel "#alert-dev"    SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX      sensu-slack-handler  
-  slack_fallback   pipe         0   is_incident,not_silenced,contact_fallback             RUN:  sensu-slack-handler --channel "#alert-all"    SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX      sensu-slack-handler  
-  slack_ops        pipe         0   is_incident,not_silenced,contact_ops                  RUN:  sensu-slack-handler --channel "#alert-ops"    SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX      sensu-slack-handler
+  slack_dev        pipe         0   is_incident,not_silenced,contact_dev                  RUN:  sensu-slack-handler --channel "#<ALERT_DEV>"    SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX      sensu-slack-handler  
+  slack_fallback   pipe         0   is_incident,not_silenced,contact_fallback             RUN:  sensu-slack-handler --channel "#<ALERT_ALL>"    SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX      sensu-slack-handler  
+  slack_ops        pipe         0   is_incident,not_silenced,contact_ops                  RUN:  sensu-slack-handler --channel "#<ALERT_OPS>"    SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX      sensu-slack-handler
 {{< /code >}}
 
 ### 4. Create a handler set
@@ -449,9 +449,9 @@ The updated output should include the `slack` handler set:
        Name        Type   Timeout                    Filters                    Mutator                       Execute                                                Environment Variables                                  Assets         
  ──────────────── ────── ───────── ─────────────────────────────────────────── ───────── ────────────────────────────────────────────────── ──────────────────────────────────────────────────────────────────────── ───────────────────── 
   slack            set          0                                                         CALL: slack_ops,slack_dev,slack_fallback                                                                                                         
-  slack_dev        pipe         0   is_incident,not_silenced,contact_dev                  RUN:  sensu-slack-handler --channel "#alert-dev"   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX   sensu-slack-handler  
-  slack_fallback   pipe         0   is_incident,not_silenced,contact_fallback             RUN:  sensu-slack-handler --channel "#alert-all"   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX   sensu-slack-handler  
-  slack_ops        pipe         0   is_incident,not_silenced,contact_ops                  RUN:  sensu-slack-handler --channel "#alert-ops"   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX   sensu-slack-handler  
+  slack_dev        pipe         0   is_incident,not_silenced,contact_dev                  RUN:  sensu-slack-handler --channel "#<ALERT_DEV>"   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX   sensu-slack-handler  
+  slack_fallback   pipe         0   is_incident,not_silenced,contact_fallback             RUN:  sensu-slack-handler --channel "#<ALERT_ALL>"   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX   sensu-slack-handler  
+  slack_ops        pipe         0   is_incident,not_silenced,contact_ops                  RUN:  sensu-slack-handler --channel "#<ALERT_OPS>"   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX   sensu-slack-handler  
 {{< /code >}}
 
 Congratulations!
@@ -460,7 +460,7 @@ Next, test your contact filters to make sure they work.
 
 ## Test contact routing
 
-To make sure your contact filters work the way you expect, use the [agent API][13] to create ad hoc events and send them to your Slack pipeline.
+To make sure your contact filters work the way you expect, use the [agent API][13] to create ad hoc events and send them to your Slack handler.
 
 First, create an event without a `contacts` label.
 You may need to modify the URL with your Sensu agent address.
@@ -548,7 +548,7 @@ Save and close the updated check definition.
 A response will confirm the check was updated.
 For example:
 
-{{< code shell >}}
+{{< code text >}}
 Updated /api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
 
@@ -653,9 +653,9 @@ spec:
 
 {{< /language-toggle >}}
 
-Now when the `check_cpu` check generates an incident, Sensu will filter the event according to the `contact_ops` and `contact_dev` event filters and send alerts to #alert-ops and #alert-dev accordingly.
+Now when the `check_cpu` check generates an incident, Sensu will filter the event according to the `contact_ops` and `contact_dev` event filters and send alerts to #<ALERT_OPS> and #<ALERT_DEV> accordingly.
 
-{{< figure src="/images/contact-routing2.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/contact-routing2.png" target="_blank" >}}
+{{< figure src="/images/go/route_alerts/contact_routing_old_dev_ops_teams.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/go/route_alerts/contact_routing_old_dev_ops_teams.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3cbd2ad3-92ed-48cc-bbaa-a97f53dae1ba -->
 
 ### Entities
@@ -664,9 +664,9 @@ You can also specify contacts using an entity label.
 For more information about managing entity labels, read the [entity reference][10].
 
 If contact labels are present in both the check and entity, the check contacts override the entity contacts.
-In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.
+In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #<ALERT_DEV> but not to #<ALERT_OPS> or #<ALERT_ALL>.
 
-{{< figure src="/images/contact-routing3.png" alt="Diagram that shows that check labels override entity labels when both are present in an event" link="/images/contact-routing3.png" target="_blank" >}}
+{{< figure src="/images/go/route_alerts/old_label_overrides.png" alt="Diagram that shows that check labels override entity labels when both are present in an event" link="/images/go/route_alerts/old_label_overrides.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/da41741f-15c5-47f8-b2b4-9197593a67d8/0 -->
 
 ## Next steps

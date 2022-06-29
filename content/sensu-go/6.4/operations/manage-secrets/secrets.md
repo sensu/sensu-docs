@@ -137,22 +137,6 @@ sensuctl secret delete SECRET_NAME
 
 ### Top-level attributes
 
-type         | 
--------------|------
-description  | Top-level attribute that specifies the resource type. For secrets configuration, the type should always be `Secret`.
-required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Secret
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "Secret"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For secrets configuration in this version of Sensu, the api_version should always be `secrets/v1`.
@@ -213,7 +197,39 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
+type         | 
+-------------|------
+description  | Top-level attribute that specifies the resource type. For secrets configuration, the type should always be `Secret`.
+required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Secret
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "Secret"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ### Metadata attributes
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the secret or last updated the secret. Sensu automatically populates the `created_by` field when the secret is created or updated.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 name         |      |
 -------------|------
@@ -243,22 +259,6 @@ namespace: default
 {{< code json >}}
 {
   "namespace": "default"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-| created_by |      |
--------------|------
-description  | Username of the Sensu user who created the secret or last updated the secret. Sensu automatically populates the `created_by` field when the secret is created or updated.
-required     | false
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-created_by: admin
-{{< /code >}}
-{{< code json >}}
-{
-  "created_by": "admin"
 }
 {{< /code >}}
 {{< /language-toggle >}}

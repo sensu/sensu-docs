@@ -16,7 +16,12 @@ Sensu downloads are provided under the [Sensu commercial license][7].
 
 ## Supported packages
 
-Supported packages are available through [sensu/stable][8] on packagecloud and the [downloads page][9].
+This page lists supported packages for the most common platforms.
+Supported packages for common platforms are available from [sensu/stable][8] on packagecloud and the [Sensu downloads page][9].
+
+{{% notice note %}}
+**NOTE**: The [sensu/stable](https://packagecloud.io/sensu/stable/) repository on packagecloud includes packages for every platform Sensu supports, in addition to packages for the common platforms listed on this page.
+{{% /notice %}}
 
 ### Sensu backend
 
@@ -351,6 +356,11 @@ Sensu Go instances built from source do not include [commercial features][3] suc
 Review the [feature comparison matrix][15] to learn more.
 To build Sensu Go from source, read the [Sensu Go installation instructions on GitHub][16].
 
+## Mirror packages
+
+To mirror Sensu Go, follow the packagecloud instructions for [YUM][63] and [APT][64] repository mirroring.
+The [sensu/stable][8] packagecloud repository hosts packages for every Sensu Go version.
+
 
 [1]: #supported-packages
 [2]: #docker-images
@@ -411,3 +421,5 @@ To build Sensu Go from source, read the [Sensu Go installation instructions on G
 [60]: https://github.com/sensu/web
 [61]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.6/sensu-go_6.6.6_darwin_arm64.tar.gz
 [62]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.6/sensu-go_6.6.6_darwin_arm64.zip
+[63]: https://packagecloud.io/sensu/stable/mirror#yum
+[64]: https://packagecloud.io/sensu/stable/mirror#apt

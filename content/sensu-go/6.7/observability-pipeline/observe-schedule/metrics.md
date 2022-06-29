@@ -4,7 +4,7 @@ linkTitle: "Metrics Reference"
 reference_title: "Metrics"
 type: "reference"
 description: "Read this reference to collect service and time-series metrics for your infrastructure and process extracted metrics with the Sensu observability pipeline."
-weight: 33
+weight: 50
 version: "6.7"
 product: "Sensu Go"
 platformContent: false
@@ -30,7 +30,7 @@ For information about HTTP GET access to internal Sensu metrics, read our [/metr
 
 ## Metric check example
 
-This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [Sensu System Check][26] dynamic runtime asset and sends the collected metrics to a pipeline configured with handlers that use the [Sensu Go Graphite Handler][12] dynamic runtime asset:
+This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [sensu/system-check][26] dynamic runtime asset and sends the collected metrics to a pipeline configured with handlers that use the [sensu/sensu-go-graphite-handler][12] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -891,13 +891,116 @@ example              | {{< code plain >}}http_requests_total{method="post",code=
 
 ## Enrich metrics with tags
 
-[Output metric tags][1] are custom tags you can apply to enrich the metric points produced by check output metric extraction.
+In metric check output, metrics data [points][25] include the [`tags`][29] array.
+Tags add information for the metrics points in [events][28].
+For example, a tag can specify the name of the check or entity associated with a specific metrics point.
 
-Use output metric tags for the output metric formats that do not natively support tags: Graphite Plaintext Protocol and Nagios Performance Data.
+Tags can be generated in various ways, like [plugin][31] code or a third-party exporter.
+You can also add specific tags to metrics points with output metric tags.
 
-Values for output metric tags are passed through to the metric points produced by check output metric extraction for formats that natively support tags (InfluxDB Line Protocol, OpenTSDB Data Specification, and Prometheus Exposition Text).
+### Add output metric tags
 
-You can use [check token substitution][22] for the output_metric_tags [value][21] attribute to include any event attribute in an output metric tag.
+[Output metric tags][1] are custom tags you can add to your check definition to enrich the metrics data points produced by check output metric extraction with additional context.
+
+The key-value pairs you add to a check's `output_metric_tags` array will be included in the `tags` array after check output metric extraction.
+For example, suppose you include this `output_metric_tags` array in your check:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+output_metric_tags:
+- name: instance
+  value: sensu-centos-1
+- name: prometheus_type
+  value: gauge
+{{< /code >}}
+
+{{< code json >}}
+{
+  "output_metric_tags": [
+    {
+      "name": "instance",
+      "value": "sensu-centos-1"
+    },
+    {
+      "name": "prometheus_type",
+      "value": "gauge"
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+In check output, the metrics points would include the output metric tags in the `tags` array, similar to this example:
+
+{{< language-toggle >}}
+
+{{< code text "YML" >}}
+points:
+- name: dns_duration
+  value: 0.000251
+  timestamp: 1648220984
+  tags:
+  - name: instance
+    value: sensu-centos-1
+  - name: prometheus_type
+    value: gauge
+- name: tls_handshake_duration
+  value: 0
+  timestamp: 1648220984
+  tags:
+  - name: instance
+    value: sensu-centos-1
+  - name: prometheus_type
+    value: gauge
+{{< /code >}}
+
+{{< code text "JSON" >}}
+{
+  "points": [
+    {
+      "name": "dns_duration",
+      "value": 0.000251,
+      "timestamp": 1648220984,
+      "tags": [
+        {
+          "name": "instance",
+          "value": "sensu-centos-1"
+        },
+        {
+          "name": "prometheus_type",
+          "value": "gauge"
+        }
+      ]
+    },
+    {
+      "name": "tls_handshake_duration",
+      "value": 0,
+      "timestamp": 1648220984,
+      "tags": [
+        {
+          "name": "instance",
+          "value": "sensu-centos-1"
+        },
+        {
+          "name": "prometheus_type",
+          "value": "gauge"
+        }
+      ]
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Sensu adds any output metric tag values to the `tags` array along with any natively supported tags produced by check output metric extraction.
+
+### Use token substitution with output metric tags
+
+Use [token substitution][22] to include any [event attribute][30] in an output metric tag.
+Add token substitution in the output metric tag `value` attribute.
 For example, these tags will list the `event.timestamp` and `event.entity.name` attributes:
 
 {{< language-toggle >}}
@@ -923,6 +1026,361 @@ output_metric_tags:
       "value": "{{ .entity.name }}"
     }
   ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Collect metrics in formats that do not support tags
+
+Output metric tags are useful when you want to collect metrics in a format that does not natively support tags, like Graphite Plaintext Protocol or Nagios Performance Data.
+
+For example, you might want to collect and transmit metrics in Nagios Performance Data format, which does not support tags, and store the metrics in Prometheus, which does support tags.
+In this case, you can specify the tags to include with metrics with output metric tags.
+The `output_metric_format`, `output_metric_handlers`, and `output_metric_tags` attributes in your check definition might look similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+output_metric_format: nagios_perfdata
+output_metric_handlers:
+  - prometheus_gateway
+output_metric_tags:
+  - name: instance
+    value: '{{ .name }}'
+  - name: prometheus_type
+    value: gauge
+  - name: service
+    value: '{{ .labels.service }}'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "output_metric_format": "nagios_perfdata",
+  "output_metric_handlers": [
+    "prometheus_gateway"
+  ],
+  "output_metric_tags": [
+    {
+      "name": "instance",
+      "value": "{{ .name }}"
+    },
+    {
+      "name": "prometheus_type",
+      "value": "gauge"
+    },
+    {
+      "name": "service",
+      "value": "{{ .labels.service }}"
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Metric threshold evaluation
+
+Metric threshold evaluation extends Sensu's service check and metrics processing capabilities so you can get real-time alerts based on the metrics your Sensu checks collect.
+The Sensu agent analyzes output metrics against the thresholds you specify and overrides the event [check status][36] if the metrics values exceed the threshold values.
+ 
+For example, the [check][34] from the Sensu Plus guide uses the [sensu/system-check][35] dynamic runtime asset to collect baseline system metrics.
+Add the [`output_metric_thresholds`][33] array to get alerts based on the Sensu System Check metrics `system_mem_used` (percent of memory used) and `system_host_processes` (number of host processes):
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: system-check
+spec:
+  command: system-check
+  runtime_assets:
+  - system-check
+  subscriptions:
+  - system
+  interval: 10
+  timeout: 5
+  publish: true
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: sensu_to_sumo
+  output_metric_format: prometheus_text
+  output_metric_tags:
+  - name: entity
+    value: "{{ .name }}"
+  - name: namespace
+    value: "{{ .namespace }}"
+  - name: os
+    value: "{{ .system.os }}"
+  - name: platform
+    value: "{{ .system.platform }}"
+  output_metric_thresholds:
+  - name: system_mem_used
+    tags:
+    null_status: 1
+    thresholds:
+    - max: '75.0'
+      min: ''
+      status: 1
+    - max: '90.0'
+      min: ''
+      status: 2
+  - name: system_host_processes
+    tags:
+    - name: namespace
+      value: production
+    null_status: 1
+    thresholds:
+    - max: '50'
+      min: '5'
+      status: 1
+    - max: '75'
+      min: '2'
+      status: 2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "system-check"
+  },
+  "spec": {
+    "command": "system-check",
+    "runtime_assets": [
+      "system-check"
+    ],
+    "subscriptions": [
+      "system"
+    ],
+    "interval": 10,
+    "timeout": 5,
+    "publish": true,
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "sensu_to_sumo"
+      }
+    ],
+    "output_metric_format": "prometheus_text",
+    "output_metric_tags": [
+      {
+        "name": "entity",
+        "value": "{{ .name }}"
+      },
+      {
+        "name": "namespace",
+        "value": "{{ .namespace }}"
+      },
+      {
+        "name": "os",
+        "value": "{{ .system.os }}"
+      },
+      {
+        "name": "platform",
+        "value": "{{ .system.platform }}"
+      }
+    ],
+    "output_metric_thresholds": [
+      {
+        "name": "system_mem_used",
+        "tags": null,
+        "null_status": 1,
+        "thresholds": [
+          {
+            "max": "75.0",
+            "min": "",
+            "status": 1
+          },
+          {
+            "max": "90.0",
+            "min": "",
+            "status": 2
+          }
+        ]
+      },
+      {
+        "name": "system_host_processes",
+        "tags": [
+          {
+            "name": "namespace",
+            "value": "production"
+          }
+        ],
+        "null_status": 1,
+        "thresholds": [
+          {
+            "max": "50",
+            "min": "5",
+            "status": 1
+          },
+          {
+            "max": "75",
+            "min": "2",
+            "status": 2
+          }
+        ]
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+In this example, for both `system_mem_used` and `system_host_processes`, Sensu will compare the output metrics in each event with the thresholds set for each metric.
+If the output metrics match or exceed the thresholds, Sensu will override the check status.
+
+For `system_mem_used`:
+- Set event status to `1` (warning) if the output metrics do not include `system_mem_used`.
+- Set event status to `1` (warning) when 75% of memory is used.
+- Set event status to `2` (critical) when 90% of memory is used.
+
+For `system_host_processes`:
+- Evaluate only output metrics for entities whose tags include `name: namespace` and `value: production`.
+- Set event status to `1` (warning) if the output metrics do not include `system_host_processes`.
+- Set event status to `1` (warning) when the number of host processes reaches 50 or more or 5 or fewer.
+- Set event status to `2` (critical) when the number of host processes reaches 75 or more or 2 or fewer.
+
+{{% notice note %}}
+**NOTE**: The Sensu Plus [example handler](../../../sensu-plus/#create-a-handler-in-sensu) processes and transmits metrics data but cannot send alerts.
+Read [Send data to Sumo Logic with Sensu](../../observe-process/send-data-sumo-logic) to create a handler that sends alerts to Sumo Logic, which you can add to the Sensu Plus [example pipeline](../../../sensu-plus/#configure-a-pipeline).
+{{% /notice %}}
+
+Metric threshold evaluation takes place *after* Sensu extracts metrics and *before* Sensu processes any check hooks.
+If you specify a metric name and tags that match more than one check output metric point, Sensu evaluates all matching metric points against the thresholds.
+
+### Check configuration requirements for metric threshold evaluation
+
+To apply metric threshold evaluation, check definitions must include:
+- The [`output_metric_format`][10] attribute with a value that specifies one of Sensu's [supported output metric formats][9].
+- The [`output_metric_thresholds`][33] array, with values specified for `name` and `thresholds`.
+
+In addition, check status must be 0 (OK), indicating that Sensu successfully collected metrics, for the Sensu agent to evaluate the collected metrics against the specified thresholds.
+
+### Use token substitution in thresholds values
+
+You can use check [token substitution][22] in values for [`thresholds`][32] `max` and `min` attributes instead of specifying a single constant value.
+Check tokens are placeholders that the Sensu agent will replace with the corresponding entity definition attribute values.
+
+This example shows the `thresholds` array configured to use token substitution for the `max` and `min` attribute values:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+thresholds:
+- max: '{{ .annotations.system_cpu_used_warning_threshold | default "70.0" }}'
+  min: '{{ .annotations.system_cpu_used_warning_threshold | default "50.0" }}'
+  status: 1
+- max: '{{ .annotations.system_cpu_used_warning_threshold | default "80.0" }}'
+  min: '{{ .annotations.system_cpu_used_warning_threshold | default "40.0" }}'
+  status: 2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "thresholds": [
+    {
+      "max": "{{ .annotations.system_cpu_used_warning_threshold | default \"70.0\" }}",
+      "min": "{{ .annotations.system_cpu_used_warning_threshold | default \"50.0\" }}",
+      "status": 1
+    },
+    {
+      "max": "{{ .annotations.system_cpu_used_warning_threshold | default \"80.0\" }}",
+      "min": "{{ .annotations.system_cpu_used_warning_threshold | default \"40.0\" }}",
+      "status": 2
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+If an entity has an annotation that matches `system_cpu_used_warning_threshold`, the check will substitute the annotation value when executing the check.
+If an entity does not have a matching annotation, the check will use the specified default values instead.
+
+### Add event annotations based on metric threshold evaluation
+
+If a check definition includes the `output_metric_thresholds` attribute, the check's metric events with non-zero status will include an annotation that lists the reason for the status.
+Sensu adds one annotation per matched threshold rule, one annotation per missing metric (`null_status`), and one annotation that lists the global status for the check.
+
+Annotations based on specified threshold values are similar to this example:
+
+{{< language-toggle >}}
+
+{{< code text "YML" >}}
+annotations:
+  sensu.io/output_metric_thresholds/system_mem_used/min/critical: 'The value of "system_mem_used" exceeded the configured threshold (max: 90, actual: 95)'
+{{< /code >}}
+
+{{< code text "JSON" >}}
+{
+  "annotations": {
+    "sensu.io/output_metric_thresholds/system_mem_used/min/critical": "The value of \"system_mem_used\" exceeded the configured threshold (max: 90, actual: 95)"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Annotations based on `null_status` are similar to this example:
+
+{{< language-toggle >}}
+
+{{< code text "YML" >}}
+annotations:
+  sensu.io/output_metric_thresholds/system_host_processes/null: 'WARNING: no metric matching "system_host_processes" (namespace="production") was found; expected min: 5 - max: 50 (status: warning) min:2 - max: 75 (status: critical)'
+{{< /code >}}
+
+{{< code text "JSON" >}}
+{
+  "annotations": {
+    "sensu.io/output_metric_thresholds/system_host_processes/null": "WARNING: no metric matching \"system_host_processes\" (namespace=\"production\") was found; expected min: 5 - max: 50 (status: warning) min:2 - max: 75 (status: critical)"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Annotations based on global status for the check are similar to this example:
+
+{{< language-toggle >}}
+
+{{< code text "YML" >}}
+annotations:
+  sensu.io/notifications/critical: 'The value of node_load1 exceeded the configured threshold (max: 4.0, actual: 5.263671875).'
+{{< /code >}}
+
+{{< code text "JSON" >}}
+{
+  "annotations": {
+    "sensu.io/notifications/critical": "The value of node_load1 exceeded the configured threshold (max: 4.0, actual: 5.263671875)."
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Annotations based on global `null_status` for the check are similar to this example:
+
+{{< language-toggle >}}
+
+{{< code text "YML" >}}
+annotations:
+  sensu.io/notifications/unknown: 'WARNING: no metric matching "node_load1" (namespace="production") was found; expected min: 4.0 (status: warning); expected max: 6 (status: critical)'
+{{< /code >}}
+
+{{< code text "JSON" >}}
+{
+  "annotations": {
+    "sensu.io/notifications/unknown": "WARNING: no metric matching \"node_load1\" (namespace=\"production\") was found; expected min: 4.0 (status: warning); expected max: 6 (status: critical)"
+  }
 }
 {{< /code >}}
 
@@ -976,13 +1434,22 @@ The event specification describes [metrics attributes in events][5].
 [15]: https://docs.influxdata.com/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/
 [16]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [17]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format
-[18]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
+[18]: ../../../plugins/featured-integrations/#time-series-and-long-term-event-storage
 [19]: ../checks/#output-metric-format
 [20]: ../../observe-events/events/#example-status-and-metrics-event
 [21]: ../checks/#output_metric_tags-attributes
-[22]: ../checks/#check-token-substitution
+[22]: ../tokens/
 [23]: ../../observe-process/pipelines/
 [24]: ../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler
 [25]: ../../observe-events/events/#metrics-points
 [26]: https://bonsai.sensu.io/assets/sensu/system-check
 [27]: ../../observe-process/pipelines/#workflows
+[28]: ../../observe-events/events/
+[29]: ../../observe-events/events/#points-attributes
+[30]: ../../observe-process/handler-templates/#available-event-attributes
+[31]: ../../../plugins/plugins/
+[32]: ../checks/#thresholds-attributes
+[33]: ../checks/#output-metric-thresholds
+[34]: ../../../sensu-plus/#add-a-sensu-check
+[35]: https://bonsai.sensu.io/assets/sensu/system-check
+[36]: ../../observe-events/events/#check-status-attribute

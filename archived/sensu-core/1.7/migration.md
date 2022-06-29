@@ -62,7 +62,7 @@ _**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you m
 
 ### Sensu Go architecture
 
-<img src="/images/install-sensu.png" alt="Sensu architecture diagram">
+{{< figure src="/images/go/install_sensu/basic_architecture.png" alt="Basic Sensu architecture diagram showing agents and the backend" link="/images/go/install_sensu/basic_architecture.png" target="_blank" >}}
 
 The [**Sensu backend**][84] is powered by an embedded transport and [etcd][16] datastore and gives you flexible, automated workflows to route metrics and alerts.
 Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and three exposed ports:

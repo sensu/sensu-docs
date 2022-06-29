@@ -236,12 +236,18 @@ You must set `deregister: true` in `agent.yml` before the agent entity is create
 
 ## Create and manage proxy entities
 
-Proxy entities are dynamically created entities that Sensu adds to the entity store if an entity does not already exist for a check result.
 Proxy entities allow Sensu to monitor external resources on systems where you cannot install a Sensu agent, like a network switch or website.
 
-You can modify proxy entities via the backend with [sensuctl][37], the [core/v2/entities API endpoints][36], and the [web UI][33].
+You can create proxy entities the same way you would create agent entities, but Sensu can also dynamically create them when an entity does not already exist for a check result and add them to the entity store.
+In this case, Sensu will use the [`proxy_entity_name`][45] defined in the check to register proxy entities for your external resources.
 
-If you start an agent with the same name as an existing proxy entity, Sensu will change the proxy entity's class to `agent` and update its `system` field with information from the agent configuration.
+Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result instead of a keepalive message.
+
+Modify proxy entities as needed via the backend with [sensuctl][37], the [core/v2/entities API endpoints][36], and the [web UI][33].
+
+{{% notice note %}}
+**NOTE**: If you start an agent with the same name as an existing proxy entity, Sensu will change the proxy entity's class to `agent` and update its `system` field with information from the agent configuration.
+{{% /notice %}}
 
 ### Proxy entity example
 
@@ -260,12 +266,16 @@ spec:
   deregistration: {}
   entity_class: proxy
   last_seen: 0
-  subscriptions:
-  - proxy
+  sensu_agent_version: 1.0.0
+  subscriptions: null
   system:
+    cloud_provider: ""
+    libc_type: ""
     network:
       interfaces: null
-  sensu_agent_version: 1.0.0
+    processes: null
+    vm_role: ""
+    vm_system: ""
 {{< /code >}}
 
 {{< code json >}}
@@ -277,35 +287,50 @@ spec:
   },
   "spec": {
     "deregister": false,
-    "deregistration": {},
+    "deregistration": {
+    },
     "entity_class": "proxy",
     "last_seen": 0,
-    "subscriptions": [
-      "proxy"
-    ],
+    "sensu_agent_version": "1.0.0",
+    "subscriptions": null,
     "system": {
+      "cloud_provider": "",
+      "libc_type": "",
       "network": {
         "interfaces": null
-      }
-    },
-    "sensu_agent_version": "1.0.0"
+      },
+      "processes": null,
+      "vm_role": "",
+      "vm_system": ""
+    }
   }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
 
+### Checks for proxy entities
+
+Proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed, like a network switch, website, or API endpoint.
+
+You can configure a [proxy check][46] that includes a [`proxy_entity_name`][45] to associate the check results with a specific proxy entity.
+On the first check result, if the named proxy entity does not exist, Sensu will create it.
+You can also use proxy checks to monitor multiple proxy entities based on entity attributes specified in the check definition's [`proxy_requests`][47] attribute. 
+
+When you create a proxy check, make sure the check definition includes a subscription that matches the subscription of at least one agent entity to define which agents will run the check.
+Proxy entities do not use subscriptions.
+
+Read [Monitor external resources with proxy entities][17] for details about creating proxy checks for one or more proxy entities.
+
 ### Proxy entities and round robin scheduling
 
-Proxy entities make [round robin scheduling][18] more useful because they allow you to combine all round robin events into a single event.
+Proxy entities make [round robin check scheduling][18] more useful because they allow you to combine all round robin events into a single event.
 Instead of having a separate event for each agent entity, you have a single event for the entire round robin.
 
 If you don't use a proxy entity for round robin scheduling, you could have several failures in a row, but each event will only be aware of one of the failures.
 
-If you use a proxy entity without round robin scheduling, and several agents share the subscription, they will all execute the check for the proxy entity and you'll get duplicate results.
+If you use a proxy entity without round robin scheduling, and several agents share the same subscription, they will all execute the check for the proxy entity and you'll get duplicate results.
 When you enable round robin, you'll get one agent per interval executing the proxy check, but the event will always be listed under the proxy entity.
-If you don't create a proxy entity, it is created when the check is executed.
-You can modify the proxy entity later if needed.
 
 Use [proxy entity filters][19] to establish a many-to-many relationship between agent entities and proxy entities if you want even more power over the grouping.
 
@@ -317,7 +342,7 @@ For more information, read [Get started with commercial features](../../../comme
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change.
 {{% /notice %}}
 
 Service entities are dynamically created entities that Sensu adds to the entity store when a [service component][39] generates an event.
@@ -358,7 +383,7 @@ spec:
 
 ## Manage entity labels
 
-Labels are custom attributes that Sensu includes with observation data in events that you can use for response and web UI view searches.
+Labels are custom attributes that Sensu includes with observation event data that you can use for response and web UI view searches.
 In contrast to annotations, you can use labels to filter [API responses][14], [sensuctl responses][15], and [web UI search views][23].
 
 Limit labels to metadata you need to use for response filtering and searches.
@@ -388,7 +413,8 @@ Modify existing agent entities via the backend with [sensuctl](../../../sensuctl
 ### Proxy entity labels {#proxy-entities-managed}
 
 For entities with class `proxy`, you can create and manage labels with sensuctl.
-For example, to create a proxy entity with a `url` label using sensuctl create, first create a file named `proxy-example.yml` or `proxy-example.json` with an entity definition that includes labels:
+
+For example, suppose you have a proxy entity like this one:
 
 {{< language-toggle >}}
 
@@ -402,14 +428,7 @@ metadata:
   name: sensu-docs
 spec:
   deregister: false
-  deregistration: {}
   entity_class: proxy
-  last_seen: 0
-  subscriptions:
-  - proxy
-  system:
-    network:
-      interfaces: null
   sensu_agent_version: 1.0.0
 {{< /code >}}
 
@@ -418,24 +437,14 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-docs",
     "labels": {
       "url": "docs.sensu.io"
-    }
+    },
+    "name": "sensu-docs"
   },
   "spec": {
     "deregister": false,
-    "deregistration": {},
     "entity_class": "proxy",
-    "last_seen": 0,
-    "subscriptions": [
-      "proxy"
-    ],
-    "system": {
-      "network": {
-        "interfaces": null
-      }
-    },
     "sensu_agent_version": "1.0.0"
   }
 }
@@ -443,28 +452,13 @@ spec:
 
 {{< /language-toggle >}}
 
-Then run sensuctl create to create the entity based on the definition:
-
-{{< language-toggle >}}
-
-{{< code shell "YML" >}}
-sensuctl create --file proxy-example.yml
-{{< /code >}}
-
-{{< code shell "JSON" >}}
-sensuctl create --file proxy-example.json
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-To add a label to an existing entity, use sensuctl edit.
-For example, to add a `proxy_type` label to the `sensu-docs` entity you just created:
+To add a `proxy_type` label to this existing entity, run the following command to open the entity definition:
 
 {{< code shell >}}
 sensuctl edit entity sensu-docs
 {{< /code >}}
 
-And update the metadata scope to include the `proxy_type` label:
+Then, update the metadata scope in the entity definition to add the `proxy_type` label as shown below:
 
 {{< language-toggle >}}
 
@@ -500,14 +494,7 @@ spec:
 
 {{< /language-toggle >}}
 
-#### Proxy entity checks
-
-Proxy entities allow Sensu to [monitor external resources][17] on systems or devices where a Sensu agent cannot be installed, like a network switch, website, or API endpoint.
-You can configure a check with a proxy entity name to associate the check results with that proxy entity.
-On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
-
-After you create a proxy entity check, define which agents will run the check by configuring a subscription.
-Read [Monitor external resources with proxy entities][17] for details about creating a proxy check for a proxy entity.
+Save your changes to update the proxy entity definition with the `proxy_type` label.
 
 ### Service entity labels
 
@@ -606,22 +593,6 @@ spec:
 ## Entities specification
 
 ### Top-level attributes
-
-type         | 
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][12] resource type. Entities should always be type `Entity`.
-required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Entity
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "Entity"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
@@ -836,7 +807,89 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
+type         | 
+-------------|------
+description  | Top-level attribute that specifies the [`sensuctl create`][12] resource type. Entities should always be type `Entity`.
+required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Entity
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "Entity"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ### Metadata attributes
+
+<a id="annotations-attribute"></a>
+
+| annotations |     |
+-------------|------
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][30].{{% notice note %}}
+**NOTE**: For annotations defined in agent.yml or backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the annotation `webhookURL: "https://my-webhook.com"` in agent.yml or backend.yml, it will be listed as `webhookurl: "https://my-webhook.com"` in entity definitions.<br><br>Key cases are **not** modified for annotations you define with a command line flag or an environment variable.
+{{% /notice %}}
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+annotations:
+  managed-by: ops
+  playbook: www.example.url
+{{< /code >}}
+{{< code json >}}
+{
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the entity or last updated the entity. Sensu automatically populates the `created_by` field when the entity is created or updated.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.{{% notice note %}}
+**NOTE**: For labels that you define in agent.yml or backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the label `proxyType: "website"` in agent.yml or backend.yml, it will be listed as `proxytype: "website"` in entity definitions.<br><br>Key cases are **not** modified for labels you define with a command line flag or an environment variable.
+{{% /notice %}}
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+labels:
+  environment: development
+  region: us-west-2
+{{< /code >}}
+{{< code json >}}
+{
+  "labels": {
+    "environment": "development",
+    "region": "us-west-2"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | name       |      |
 -------------|------
@@ -871,73 +924,42 @@ namespace: production
 {{< /code >}}
 {{< /language-toggle >}}
 
-| created_by |      |
--------------|------
-description  | Username of the Sensu user who created the entity or last updated the entity. Sensu automatically populates the `created_by` field when the entity is created or updated.
-required     | false
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-created_by: admin
-{{< /code >}}
-{{< code json >}}
-{
-  "created_by": "admin"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-| labels     |      |
--------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.{{% notice note %}}
-**NOTE**: For labels that you define in agent.yml or backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the label `proxyType: "website"` in agent.yml or backend.yml, it will be listed as `proxytype: "website"` in entity definitions.<br><br>Key cases are **not** modified for labels you define with a command line flag or an environment variable.
-{{% /notice %}}
-required     | false
-type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-labels:
-  environment: development
-  region: us-west-2
-{{< /code >}}
-{{< code json >}}
-{
-  "labels": {
-    "environment": "development",
-    "region": "us-west-2"
-  }
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-<a id="annotations-attribute"></a>
-
-| annotations |     |
--------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][30].{{% notice note %}}
-**NOTE**: For annotations defined in agent.yml or backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the annotation `webhookURL: "https://my-webhook.com"` in agent.yml or backend.yml, it will be listed as `webhookurl: "https://my-webhook.com"` in entity definitions.<br><br>Key cases are **not** modified for annotations you define with a command line flag or an environment variable.
-{{% /notice %}}
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-annotations:
-  managed-by: ops
-  playbook: www.example.url
-{{< /code >}}
-{{< code json >}}
-{
-  "annotations": {
-    "managed-by": "ops",
-    "playbook": "www.example.url"
-  }
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 ### Spec attributes
+
+deregister   | 
+-------------|------ 
+description  | If the entity should be removed when it stops sending keepalive messages, `true`. Otherwise, `false`.
+required     | false 
+type         | Boolean 
+default      | `false`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+deregister: false
+{{< /code >}}
+{{< code json >}}
+{
+  "deregister": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+deregistration  | 
+-------------|------ 
+description  | Map that contains a handler name to use when an agent entity is deregistered. Read [deregistration attributes][2] for more information.
+required     | false
+type         | Map
+example      | {{< language-toggle >}}
+{{< code yml >}}
+deregistration:
+  handler: email-handler
+{{< /code >}}
+{{< code json >}}
+{
+  "deregistration": {
+    "handler": "email-handler"
+  }
+}{{< /code >}}
+{{< /language-toggle >}}
 
 entity_class |     |
 -------------|------ 
@@ -951,6 +973,57 @@ entity_class: agent
 {{< code json >}}
 {
   "entity_class": "agent"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+last_seen    | 
+-------------|------ 
+description  | Time at which the entity was last seen. In seconds since the Unix epoch.
+required     | false 
+type         | Integer 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+last_seen: 1522798317
+{{< /code >}}
+{{< code json >}}
+{
+  "last_seen": 1522798317
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+redact       | 
+-------------|------ 
+description  | List of items to redact from log messages. If a value is provided, it overwrites the default list of items to be redacted.
+required     | false 
+type         | Array 
+default      | ["password", "passwd", "pass", "api_key", "api_token", "access_key", "secret_key", "private_key", "secret"]
+example      | {{< language-toggle >}}
+{{< code yml >}}
+redact:
+- extra_secret_tokens
+{{< /code >}}
+{{< code json >}}
+{
+  "redact": [
+    "extra_secret_tokens"
+  ]
+}{{< /code >}}
+{{< /language-toggle >}}
+
+sensu_agent_version  | 
+---------------------|------
+description          | Sensu Semantic Versioning (SemVer) version of the agent entity.
+required             | true
+type                 | String
+example              | {{< language-toggle >}}
+{{< code yml >}}
+sensu_agent_version: 1.0.0
+{{< /code >}}
+{{< code json >}}
+{
+  "sensu_agent_version": "1.0.0"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1090,92 +1163,6 @@ system:
 }{{< /code >}}
 {{< /language-toggle >}}
 
-sensu_agent_version  | 
----------------------|------
-description          | Sensu Semantic Versioning (SemVer) version of the agent entity.
-required             | true
-type                 | String
-example              | {{< language-toggle >}}
-{{< code yml >}}
-sensu_agent_version: 1.0.0
-{{< /code >}}
-{{< code json >}}
-{
-  "sensu_agent_version": "1.0.0"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-last_seen    | 
--------------|------ 
-description  | Time at which the entity was last seen. In seconds since the Unix epoch.
-required     | false 
-type         | Integer 
-example      | {{< language-toggle >}}
-{{< code yml >}}
-last_seen: 1522798317
-{{< /code >}}
-{{< code json >}}
-{
-  "last_seen": 1522798317
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-deregister   | 
--------------|------ 
-description  | If the entity should be removed when it stops sending keepalive messages, `true`. Otherwise, `false`.
-required     | false 
-type         | Boolean 
-default      | `false`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-deregister: false
-{{< /code >}}
-{{< code json >}}
-{
-  "deregister": false
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-deregistration  | 
--------------|------ 
-description  | Map that contains a handler name to use when an entity is deregistered. Read [deregistration attributes][2] for more information.
-required     | false
-type         | Map
-example      | {{< language-toggle >}}
-{{< code yml >}}
-deregistration:
-  handler: email-handler
-{{< /code >}}
-{{< code json >}}
-{
-  "deregistration": {
-    "handler": "email-handler"
-  }
-}{{< /code >}}
-{{< /language-toggle >}}
-
-redact       | 
--------------|------ 
-description  | List of items to redact from log messages. If a value is provided, it overwrites the default list of items to be redacted.
-required     | false 
-type         | Array 
-default      | ["password", "passwd", "pass", "api_key", "api_token", "access_key", "secret_key", "private_key", "secret"]
-example      | {{< language-toggle >}}
-{{< code yml >}}
-redact:
-- extra_secret_tokens
-{{< /code >}}
-{{< code json >}}
-{
-  "redact": [
-    "extra_secret_tokens"
-  ]
-}{{< /code >}}
-{{< /language-toggle >}}
-
 | user |      |
 --------------|------
 description   | [Sensu RBAC username][22] used by the entity. Agent entities require get, list, create, update, and delete permissions for events across all namespaces.
@@ -1192,7 +1179,91 @@ user: agent
 {{< /code >}}
 {{< /language-toggle >}}
 
+### Deregistration attributes
+
+handler      | 
+-------------|------ 
+description  | Name of the handler to call when an agent entity is deregistered.
+required     | false 
+type         | String 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+handler: email-handler
+{{< /code >}}
+{{< code json >}}
+{
+  "handler": "email-handler"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ### System attributes
+
+arch         | 
+-------------|------ 
+description  | Entity's system architecture. This value is determined by the Go binary architecture as a function of runtime.GOARCH. An `amd` system running a `386` binary will report the `arch` as `386`.
+required     | false 
+type         | String 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+arch: amd64
+{{< /code >}}
+{{< code json >}}
+{
+  "arch": "amd64"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+arm_version  | 
+-------------|------ 
+description  | Entity's ARM version. Automatically populated upon agent startup for entities with ARM system architecture. For entities that do not use ARM system architecture, the `arm_version` attribute is omitted from the entity definition.
+required     | false 
+type         | Integer 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+arm_version: 7
+{{< /code >}}
+{{< code json >}}
+{
+  "arm_version": 7
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+cloud_provider | 
+---------------|------ 
+description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. Returned empty unless the agent runs on Amazon Elastic Compute Cloud (EC2), Google Cloud Platform (GCP), or Microsoft Azure. {{% notice note %}}
+**NOTE**: This feature can result in several HTTP requests or DNS lookups being performed, so it may not be appropriate for all environments.
+{{% /notice %}}
+required       | false 
+type           | String 
+example        | {{< language-toggle >}}
+{{< code yml >}}
+"cloud_provider": ""
+{{< /code >}}
+{{< code json >}}
+{
+  "cloud_provider": ""
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+float_type   | 
+-------------|------ 
+description  | Type of float the entity's system architecture uses: `hardfloat` or `softfloat`. Automatically populated upon agent startup for entities with MIPS, MIPS LE, MIPS 64, or MIPS 64 LE system architecture. For entities that do not use a MIPS system architecture, the `float_type` attribute is omitted from the entity definition.
+required     | false 
+type         | String 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+float_type: hardfloat
+{{< /code >}}
+{{< code json >}}
+{
+  "float_type": "hardfloat"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 hostname     | 
 -------------|------ 
@@ -1208,6 +1279,65 @@ hostname: example-hostname
   "hostname": "example-hostname"
 }
 {{< /code >}}
+{{< /language-toggle >}}
+
+libc_type    | 
+-------------|------ 
+description  | Entity's libc type.
+required     | false 
+type         | String 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+libc_type: glibc
+{{< /code >}}
+{{< code json >}}
+{
+  "libc_type": "glibc"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+network     | 
+-------------|------ 
+description  | Entity's network interface list. Read [network attributes][3] for more information.
+required     | false
+type         | Map
+example      | {{< language-toggle >}}
+{{< code yml >}}
+network:
+  interfaces:
+  - addresses:
+    - 127.0.0.1/8
+    - ::1/128
+    name: lo
+  - addresses:
+    - 93.184.216.34/24
+    - 2606:2800:220:1:248:1893:25c8:1946/10
+    mac: 52:54:00:20:1b:3c
+    name: eth0
+{{< /code >}}
+{{< code json >}}
+{
+  "network": {
+    "interfaces": [
+      {
+        "name": "lo",
+        "addresses": [
+          "127.0.0.1/8",
+          "::1/128"
+        ]
+      },
+      {
+        "name": "eth0",
+        "mac": "52:54:00:20:1b:3c",
+        "addresses": [
+          "93.184.216.34/24",
+          "2606:2800:220:1:248:1893:25c8:1946/10"
+        ]
+      }
+    ]
+  }
+}{{< /code >}}
 {{< /language-toggle >}}
 
 os           | 
@@ -1274,131 +1404,6 @@ platform_version: 16.04
 {{< /code >}}
 {{< /language-toggle >}}
 
-network     | 
--------------|------ 
-description  | Entity's network interface list. Read [network attributes][3] for more information.
-required     | false
-type         | Map
-example      | {{< language-toggle >}}
-{{< code yml >}}
-network:
-  interfaces:
-  - addresses:
-    - 127.0.0.1/8
-    - ::1/128
-    name: lo
-  - addresses:
-    - 93.184.216.34/24
-    - 2606:2800:220:1:248:1893:25c8:1946/10
-    mac: 52:54:00:20:1b:3c
-    name: eth0
-{{< /code >}}
-{{< code json >}}
-{
-  "network": {
-    "interfaces": [
-      {
-        "name": "lo",
-        "addresses": [
-          "127.0.0.1/8",
-          "::1/128"
-        ]
-      },
-      {
-        "name": "eth0",
-        "mac": "52:54:00:20:1b:3c",
-        "addresses": [
-          "93.184.216.34/24",
-          "2606:2800:220:1:248:1893:25c8:1946/10"
-        ]
-      }
-    ]
-  }
-}{{< /code >}}
-{{< /language-toggle >}}
-
-arch         | 
--------------|------ 
-description  | Entity's system architecture. This value is determined by the Go binary architecture as a function of runtime.GOARCH. An `amd` system running a `386` binary will report the `arch` as `386`.
-required     | false 
-type         | String 
-example      | {{< language-toggle >}}
-{{< code yml >}}
-arch: amd64
-{{< /code >}}
-{{< code json >}}
-{
-  "arch": "amd64"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-libc_type    | 
--------------|------ 
-description  | Entity's libc type. Automatically populated upon agent startup.
-required     | false 
-type         | String 
-example      | {{< language-toggle >}}
-{{< code yml >}}
-libc_type: glibc
-{{< /code >}}
-{{< code json >}}
-{
-  "libc_type": "glibc"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-vm_system    | 
--------------|------ 
-description  | Entity's virtual machine system. Automatically populated upon agent startup.
-required     | false 
-type         | String 
-example      | {{< language-toggle >}}
-{{< code yml >}}
-vm_system: kvm
-{{< /code >}}
-{{< code json >}}
-{
-  "vm_system": "kvm"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-vm_role      | 
--------------|------ 
-description  | Entity's virtual machine role. Automatically populated upon agent startup.
-required     | false 
-type         | String 
-example      | {{< language-toggle >}}
-{{< code yml >}}
-vm_role: host
-{{< /code >}}
-{{< code json >}}
-{
-  "vm_role": "host"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-cloud_provider | 
----------------|------ 
-description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. Returned empty unless the agent runs on Amazon Elastic Compute Cloud (EC2), Google Cloud Platform (GCP), or Microsoft Azure. {{% notice note %}}
-**NOTE**: This feature can result in several HTTP requests or DNS lookups being performed, so it may not be appropriate for all environments.
-{{% /notice %}}
-required       | false 
-type           | String 
-example        | {{< language-toggle >}}
-{{< code yml >}}
-"cloud_provider": ""
-{{< /code >}}
-{{< code json >}}
-{
-  "cloud_provider": ""
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 processes    | 
 -------------|------ 
 description  | List of processes on the local agent. Read [processes attributes][26] for more information.{{% notice note %}}
@@ -1457,13 +1462,45 @@ processes:
 }{{< /code >}}
 {{< /language-toggle >}}
 
+vm_role      | 
+-------------|------ 
+description  | Entity's virtual machine role. Automatically populated upon agent startup.
+required     | false 
+type         | String 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+vm_role: host
+{{< /code >}}
+{{< code json >}}
+{
+  "vm_role": "host"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+vm_system    | 
+-------------|------ 
+description  | Entity's virtual machine system. Automatically populated upon agent startup.
+required     | false 
+type         | String 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+vm_system: kvm
+{{< /code >}}
+{{< code json >}}
+{
+  "vm_system": "kvm"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ### Network attributes
 
-network_interface         | 
+interfaces   | 
 -------------|------ 
-description  | List of network interfaces available on the entity, with their associated MAC and IP addresses. 
+description  | List of network interfaces available on the entity, with their associated MAC and IP addresses. Read [interfaces attributes][4] for more information.
 required     | false 
-type         | Array [NetworkInterface][4] 
+type         | Array 
 example      | {{< language-toggle >}}
 {{< code yml >}}
 interfaces:
@@ -1499,39 +1536,7 @@ interfaces:
 }{{< /code >}}
 {{< /language-toggle >}}
 
-### NetworkInterface attributes
-
-name         | 
--------------|------ 
-description  | Network interface name.
-required     | false 
-type         | String 
-example      | {{< language-toggle >}}
-{{< code yml >}}
-name: eth0
-{{< /code >}}
-{{< code json >}}
-{
-  "name": "eth0"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-mac          | 
--------------|------ 
-description  | Network interface's MAC address.
-required     | false 
-type         | string 
-example      | {{< language-toggle >}}
-{{< code yml >}}
-mac: 52:54:00:20:1b:3c
-{{< /code >}}
-{{< code json >}}
-{
-  "mac": "52:54:00:20:1b:3c"
-}
-{{< /code >}}
-{{< /language-toggle >}}
+### Interfaces attributes
 
 addresses    | 
 -------------|------ 
@@ -1554,20 +1559,34 @@ addresses:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Deregistration attributes
-
-handler      | 
+mac          | 
 -------------|------ 
-description  | Name of the handler to call when an entity is deregistered.
+description  | Network interface's MAC address.
+required     | false 
+type         | string 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+mac: 52:54:00:20:1b:3c
+{{< /code >}}
+{{< code json >}}
+{
+  "mac": "52:54:00:20:1b:3c"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+name         | 
+-------------|------ 
+description  | Network interface name.
 required     | false 
 type         | String 
 example      | {{< language-toggle >}}
 {{< code yml >}}
-handler: email-handler
+name: eth0
 {{< /code >}}
 {{< code json >}}
 {
-  "handler": "email-handler"
+  "name": "eth0"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1584,6 +1603,76 @@ For more information, read [Get started with commercial features](../../../comme
 New events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
+
+background   | 
+-------------|------ 
+description  | If `true`, the process is a background process. Otherwise, `false`.
+required     | false
+type         | Boolean
+example      | {{< language-toggle >}}
+{{< code yml >}}
+background: true
+{{< /code >}}
+{{< code json >}}
+{
+  "background": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+cpu_percent  | 
+-------------|------ 
+description  | Percent of CPU the process is using. The value is returned as a floating-point number where 0.0 = 0% and 1.0 = 100%. For example, the cpu_percent value 0.12639 equals 12.639%. {{% notice note %}}
+**NOTE**: The `cpu_percent` attribute is supported on Linux and macOS.
+It is not supported on Windows.
+{{% /notice %}}
+required     | false
+type         | float
+example      | {{< language-toggle >}}
+{{< code yml >}}
+cpu_percent: 0.12639
+{{< /code >}}
+{{< code json >}}
+{
+  "cpu_percent": 0.12639
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+created      | 
+-------------|------ 
+description  | Time at which the process was created. In seconds since the Unix epoch.
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created: 1586138786
+{{< /code >}}
+{{< code json >}}
+{
+  "created": 1586138786
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+memory_percent | 
+-------------|------ 
+description  | Percent of memory the process is using. The value is returned as a floating-point number where 0.0 = 0% and 1.0 = 100%. For example, the memory_percent value 0.19932 equals 19.932%. {{% notice note %}}
+**NOTE**: The `memory_percent` attribute is supported on Linux and macOS.
+It is not supported on Windows.
+{{% /notice %}}
+required     | false
+type         | float
+example      | {{< language-toggle >}}
+{{< code yml >}}
+memory_percent: 0.19932
+{{< /code >}}
+{{< code json >}}
+{
+  "memory_percent": 0.19932
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 name         | 
 -------------|------ 
@@ -1633,38 +1722,6 @@ ppid: 0
 {{< /code >}}
 {{< /language-toggle >}}
 
-status       | 
--------------|------ 
-description  | Status of the process. Read the [Linux `top` manual page][28] for examples.
-required     | false
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-status: Ss
-{{< /code >}}
-{{< code json >}}
-{
-  "status": "Ss"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-background   | 
--------------|------ 
-description  | If `true`, the process is a background process. Otherwise, `false`.
-required     | false
-type         | Boolean
-example      | {{< language-toggle >}}
-{{< code yml >}}
-background: true
-{{< /code >}}
-{{< code json >}}
-{
-  "background": true
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 running      | 
 -------------|------ 
 description  | If `true`, the process is running. Otherwise, `false`.
@@ -1681,56 +1738,18 @@ running: true
 {{< /code >}}
 {{< /language-toggle >}}
 
-created      | 
+status       | 
 -------------|------ 
-description  | Time at which the process was created. In seconds since the Unix epoch.
+description  | Status of the process. Read the [Linux `top` manual page][28] for examples.
 required     | false
-type         | Integer
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-created: 1586138786
+status: Ss
 {{< /code >}}
 {{< code json >}}
 {
-  "created": 1586138786
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-memory_percent | 
--------------|------ 
-description  | Percent of memory the process is using. The value is returned as a floating-point number where 0.0 = 0% and 1.0 = 100%. For example, the memory_percent value 0.19932 equals 19.932%. {{% notice note %}}
-**NOTE**: The `memory_percent` attribute is supported on Linux and macOS.
-It is not supported on Windows.
-{{% /notice %}}
-required     | false
-type         | float
-example      | {{< language-toggle >}}
-{{< code yml >}}
-memory_percent: 0.19932
-{{< /code >}}
-{{< code json >}}
-{
-  "memory_percent": 0.19932
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-cpu_percent  | 
--------------|------ 
-description  | Percent of CPU the process is using. The value is returned as a floating-point number where 0.0 = 0% and 1.0 = 100%. For example, the cpu_percent value 0.12639 equals 12.639%. {{% notice note %}}
-**NOTE**: The `cpu_percent` attribute is supported on Linux and macOS.
-It is not supported on Windows.
-{{% /notice %}}
-required     | false
-type         | float
-example      | {{< language-toggle >}}
-{{< code yml >}}
-cpu_percent: 0.12639
-{{< /code >}}
-{{< code json >}}
-{
-  "cpu_percent": 0.12639
+  "status": "Ss"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1739,7 +1758,7 @@ cpu_percent: 0.12639
 [1]: #system-attributes
 [2]: #deregistration-attributes
 [3]: #network-attributes
-[4]: #networkinterface-attributes
+[4]: #interfaces-attributes
 [5]: ../../../operations/control-access/namespaces/
 [6]: ../../observe-filter/filters/
 [7]: ../../observe-schedule/tokens/
@@ -1757,7 +1776,7 @@ cpu_percent: 0.12639
 [19]: #proxy-entities-managed
 [20]: #annotations-attribute
 [21]: https://regex101.com/r/zo9mQU/2
-[22]: ../../../operations/control-access/rbac/
+[22]: ../../../operations/control-access/rbac/#agent-user
 [23]: ../../../web-ui/search#search-for-labels
 [24]: ../../observe-schedule/checks#proxy-requests-attributes
 [25]: ../../observe-schedule/agent/#detect-cloud-provider-flag
@@ -1775,3 +1794,10 @@ cpu_percent: 0.12639
 [38]: ../../observe-schedule/business-service-monitoring/
 [39]: ../../observe-schedule/service-components/
 [40]: ../#service-entities
+[41]: ../../observe-schedule/backend/#startup-and-backend-entities
+[42]: ../../../sensuctl/create-manage-resources/
+[43]: ../../../web-ui/view-manage-resources/
+[44]: ../../../operations/control-access/namespaces/#default-namespaces
+[45]: ../../observe-schedule/checks/#proxy-entity-name-attribute
+[46]: ../../observe-schedule/checks/#proxy-checks
+[47]: ../../observe-schedule/checks/#proxy-requests-top-level

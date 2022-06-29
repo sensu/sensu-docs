@@ -19,10 +19,13 @@ Each plugin has self-contained documentation with in-depth information about how
 
 ## Find Sensu plugins
 
-Search [Bonsai, the Sensu asset hub][2], to find Sensu plugins.
+Use the [Sensu Catalog][10] to find and enable many plugins directly from your browser.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
+
+To find many more available Sensu plugins, search [Bonsai, the Sensu asset hub][2].
 Bonsai lists hundreds of Sensu plugins with installation instructions and usage examples.
 
-We also list popular Sensu-supported plugins in the [supported integrations][3] section.
+We also list popular Sensu plugins in the [featured integrations][3] section.
 
 ## Write your own custom plugins
 
@@ -39,10 +42,11 @@ Sensu allows you to bring new life to the 50+ plugins in the official [Nagios Pl
 
 [1]: developer-guidelines/
 [2]: https://bonsai.sensu.io/
-[3]: supported-integrations/
+[3]: featured-integrations/
 [4]: plugins/
 [5]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/pluginapi.html
 [6]: https://www.nagios.org/downloads/nagios-plugins/
 [7]: https://exchange.nagios.org/
 [8]: https://github.com/sensu-plugins/community
 [9]: https://github.com/sensu-community/sensu-plugin-sdk
+[10]: ../web-ui/sensu-catalog/

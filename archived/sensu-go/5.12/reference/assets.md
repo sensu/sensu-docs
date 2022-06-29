@@ -759,9 +759,9 @@ It is also worth noting that deleting an asset does not delete the archive or do
 [32]: ../../installation/plugins/#installing-plugins-using-the-sensu-install-tool
 [33]: ../../installation/configuration-management/
 
-[gh-release-01]: /images/gh-release-01.png
-[gh-release-02]: /images/gh-release-02.png
-[gh-release-03]: /images/gh-release-03.png
-[gh-release-04]: /images/gh-release-04.png
-[sensu-agent-01]: /images/sensu-agent-01.png
+[gh-release-01]: /images/archived_version_images/gh_release_01.png
+[gh-release-02]: /images/archived_version_images/gh_release_02.png
+[gh-release-03]: /images/archived_version_images/gh_release_03.png
+[gh-release-04]: /images/archived_version_images/gh_release_04.png
+[sensu-agent-01]: /images/archived_version_images/sensu_agent_01.png
 [gh-release-doc]: https://help.github.com/en/articles/creating-releases

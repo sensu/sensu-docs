@@ -4,7 +4,7 @@ linkTitle: "Send Email Alerts"
 guide_title: "Send email alerts with the Sensu Go Email Handler"
 type: "guide"
 description: "Send notifications based on Sensu Go observability event data to an email address to alert you of incidents and help you resolve them more quickly."
-weight: 20
+weight: 200
 version: "6.4"
 product: "Sensu Go"
 platformContent: false
@@ -27,9 +27,9 @@ You'll also add an [event filter][5] to make sure you only receive a notificatio
 ## Add the email handler dynamic runtime asset
 
 [Dynamic runtime assets][8] are shareable, reusable packages that help you deploy Sensu plugins.
-In this guide, you'll use the [Sensu Go Email Handler][3] dynamic runtime asset to power an `email` handler.
+In this guide, you'll use the [sensu/sensu-email-handler][3] dynamic runtime asset to power an `email` handler.
 
-Use the following sensuctl example to register the [Sensu Go Email Handler][3] dynamic runtime asset:
+Use the following sensuctl example to register the [sensu/sensu-email-handler][3] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-email-handler -r email-handler
@@ -64,7 +64,7 @@ For a detailed list of everything related to the asset that Sensu added automati
 sensuctl asset info email-handler
 {{< /code >}}
 
-The dynamic runtime asset includes the `sensu-email-handler` command, which you will use when you [create the email handler definition][18] later in this guide.
+The sensu/sensu-email-handler dynamic runtime asset includes the `sensu-email-handler` command, which you will use when you [create the email handler definition][18] later in this guide.
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
@@ -131,7 +131,7 @@ EOF
 
 ## Create the email handler definition
 
-After you add an event filter, create the email handler definition to specify the email address where the `sensu/sensu-email-handler` dynamic runtime asset will send notifications.
+After you add an event filter, create the email handler definition to specify the email address where the handler will send notifications.
 In the handler definition's `command` value, you'll need to change a few things:
 
 - `<sender@example.com>`: Replace with the email address you want to use to send email alerts.
@@ -223,8 +223,9 @@ Verify that the `SENSU_ACCESS_TOKEN` environment variable is set by echoing its 
 
 {{< code shell >}}
 echo $SENSU_ACCESS_TOKEN
-efPxbRciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzkwMzY5NjQsImp0aSI6ImJiMmY0ODY4ZTJhZWEyMDhhMTExOTllMGZkNzkzMDc0Iiwic3ViIjoiYWRtaW4iLCJncm91cHMiOlsiY2x1c3Rlci1hZG1pbnMiLCJzeXN0ZW06dXNlcnMiXSwicHJvdmlkZXIiOnsicHJvdmlkZXJfaWQiOiJiYXNpYyIsInByb3ZpZGVyX3R5cGUiOiIiLCJ1c2VyX2lkIjoiYWRtaW4ifX0.6XmuvblCN743R2maF4yErS3K3sOVczsCBsjib9TenUU
 {{< /code >}}
+
+The response will list the `SENSU_ACCESS_TOKEN` value.
 
 With the environment variables set, you can use the Sensu API to create your ad hoc observability event.
 

@@ -4,7 +4,7 @@ linkTitle: "Send Data to Sumo Logic"
 guide_title: "Send data to Sumo Logic with Sensu"
 type: "guide"
 description: "Put Sensu's observability pipeline into action. Follow this guide to configure a handler to send Sensu data to Sumo Logic for long-term log and metrics storage."
-weight: 19
+weight: 180
 version: "6.7"
 product: "Sensu Go"
 platformContent: false
@@ -38,11 +38,11 @@ sensuctl entity list
 The `ID` in the response is the entity name.
 Select one of the listed entities.
 
-Before you run the following sensuctl command, replace `<entity_name>` with the name of your entity.
+Before you run the following sensuctl command, replace `<ENTITY_NAME>` with the name of your entity.
 Then run the command to add the `system` subscription to your entity:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -58,9 +58,9 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the dynamic runtime asset
 
-The [Sensu Sumo Logic Handler][8] [dynamic runtime asset][5] includes the scripts your [handler][9] will need to send observability data to Sumo Logic.
+The [sensu/sensu-sumologic-handler][8] [dynamic runtime asset][5] includes the scripts your [handler][9] will need to send observability data to Sumo Logic.
 
-To add the Sumo Logic handler asset, run:
+To add the sensu/sensu-sumologic-handler asset, run:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-sumologic-handler:0.3.0 -r sumologic-handler
@@ -85,7 +85,7 @@ To confirm that the asset was added to your Sensu backend, run:
 sensuctl asset info sumologic-handler
 {{< /code >}}
 
-The response will list the available builds for the Sensu Sumo Logic Handler dynamic runtime asset.
+The response will list the available builds for the sensu/sensu-sumologic-handler dynamic runtime asset.
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
@@ -105,52 +105,52 @@ Log in to your Sumo Logic account and follow these instructions:
 
 1. In the Sumo Logic left-navigation menu, click **Manage Data** and then **Collection** to open the Collection tab.
 
-    {{< figure src="/images/manage-data_collection.png" alt="Open the Collections tab" link="/images/manage-data_collection.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/manage_data_collection.png" alt="Open the Collections tab" link="/images/go/sensu_plus/manage_data_collection.png" target="_blank" >}}
 
 2. At the top-right of the Collection tab, click **Add Collector**.
 
-    {{< figure src="/images/add-collector.png" alt="Add a Sumo Logic collector" link="/images/add-collector.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/add_collector.png" alt="Add a Sumo Logic collector" link="/images/go/sensu_plus/add_collector.png" target="_blank" >}}
 
 3. In the Click Selector Type modal window, click **Hosted Collector**.
 
-    {{< figure src="/images/hosted-collector.png" alt="Select the hosted collector option" link="/images/hosted-collector.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/hosted_collector_option.png" alt="Select the hosted collector option" link="/images/go/sensu_plus/hosted_collector_option.png" target="_blank" >}}
 
 4. In the Add Hosted Collector modal window:
     - Type **sensu** in the Name field.
     - Click **Save**.
 
-    {{< figure src="/images/add-hosted-collector.png" alt="Name the hosted collector" link="/images/add-hosted-collector.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/add_hosted_collector.png" alt="Name the hosted collector" link="/images/go/sensu_plus/add_hosted_collector.png" target="_blank" >}}
 
 5. In the Confirm prompt, click **OK**.
 
-    {{< figure src="/images/confirm-prompt.png" alt="Confirm your hosted collector configuration" link="/images/confirm-prompt.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/confirm_prompt.png" alt="Confirm your hosted collector configuration" link="/images/go/sensu_plus/confirm_prompt.png" target="_blank" >}}
 
 6. Under Cloud APIs, click **HTTP Logs & Metrics**.
 
-    {{< figure src="/images/cloud-apis_http-logs-and-metrics.png" alt="Select the HTTP Logs & Metrics source" link="/images/cloud-apis_http-logs-and-metrics.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/cloud_apis_http_logs_and_metrics.png" alt="Select the HTTP Logs & Metrics source" link="/images/go/sensu_plus/cloud_apis_http_logs_and_metrics.png" target="_blank" >}}
 
 7. In the HTTP Logs & Metrics form:
     - Type **sensu-http** in the Name field.
     - Type **sensu-events** in the Source Category field.
     - Click **Save**.
 
-    {{< figure src="/images/http-logs-and-metrics_source.png" alt="Select options for HTTP Logs & Metrics source" link="/images/http-logs-and-metrics_source.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/http_logs_and_metrics_source.png" alt="Select options for HTTP Logs & Metrics source" link="/images/go/sensu_plus/http_logs_and_metrics_source.png" target="_blank" >}}
 
 8. In the HTTP Source Address prompt, copy the listed URL and click OK.
 You will use this URL in the next step as the `SUMOLOGIC_URL` value for the secret in your Sensu [handler][9] definition.
 
-    {{< figure src="/images/http-source-address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/http-source-address_url.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/http_source_address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/go/sensu_plus/http_source_address_url.png" target="_blank" >}}
 
 ## Add the Sumo Logic handler
 
-Now that you've set up a Sumo Logic HTTP Logs and Metrics Source, you can create a [handler][9] that uses the [Sensu Sumo Logic Handler asset][8] to send observability data to Sumo Logic.
+Now that you've set up a Sumo Logic HTTP Logs and Metrics Source, you can create a [handler][9] that uses the [sensu/sensu-sumologic-handler][8] dynamic runtime asset to send observability data to Sumo Logic.
 
 The Sensu Sumo Logic Handler asset requires a `SUMOLOGIC_URL` variable.
 The value for the `SUMOLOGIC_URL` variable is the Sumo Logic HTTP Source Address URL, which you retrieved in the last step of [setting up an HTTP Logs and Metrics Source][12].
 
 {{% notice note %}}
-**NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's built-in `Env` secrets provider.
-Read [Use secrets management in Sensu](../../../operations/manage-secrets/secrets-management/) for more information about [using the Env secrets provider](../../../operations/manage-secrets/secrets-management/#use-env-for-secrets-management).
+**NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's `Env` secrets provider.
+Read [Use secrets management in Sensu](../../../operations/manage-secrets/secrets-management/) for more information about using the `Env` secrets provider.
 {{% /notice %}}
 
 ### Configure the SUMOLOGIC_URL environment variable
@@ -552,15 +552,15 @@ Use the [Live Tail][13] feature to confirm that your data is reaching Sumo Logic
 
 1. In Sumo Logic, click the **+ New** button and select **Live Tail** from the drop-down menu.
 
-    {{< figure src="/images/new-button-live-tail.png" alt="Click the + New button and select Live Tail" link="/images/new-button-live-tail.png" target="_blank" >}}
+    {{< figure src="/images/go/send_data_to_sumo_logic/new_button_live_tail.png" alt="Click the + New button and select Live Tail" link="/images/go/send_data_to_sumo_logic/new_button_live_tail.png" target="_blank" >}}
 
 2. In the Live Tail search field, enter `_collector=sensu` and click **Run**.
 
-    {{< figure src="/images/live-tail-run-button.png" alt="Location of Live Tail Run button" link="/images/live-tail-run-button.png" target="_blank" >}}
+    {{< figure src="/images/go/send_data_to_sumo_logic/live_tail_run_button.png" alt="Location of Live Tail Run button" link="/images/go/send_data_to_sumo_logic/live_tail_run_button.png" target="_blank" >}}
 
 Within a few seconds, the Live Tail page should begin to display your Sensu observability data.
 
-{{< figure src="/images/live-tail-running.png" alt="Live Tail results for the 'sensu' collector" link="/images/live-tail-running.png" target="_blank" >}}
+{{< figure src="/images/go/send_data_to_sumo_logic/live_tail_running.png" alt="Live Tail results for the 'sensu' collector" link="/images/go/send_data_to_sumo_logic/live_tail_running.png" target="_blank" >}}
 
 
 If you see Sensu data on the Live Tail page, well done!
@@ -570,7 +570,7 @@ You have a successful workflow that sends Sensu observability data to your Sumo 
 
 To share and reuse the check, handler, and pipeline like code, [save them to files][6] and start building a [monitoring as code repository][7].
 
-Learn more about the [Sensu Sumo Logic Handler][19] dynamic runtime asset.
+Learn more about the [sensu/sensu-sumologic-handler][19] dynamic runtime asset.
 You can also configure a [Sumo Logic dashboard][10] to search, view, and analyze the Sensu data you're sending to your Sumo Logic HTTP Logs and Metrics Source.
 
 In addition to the traditional handler we used in this example, you can use [Sensu Plus][17], our built-in integration, to send metrics to Sumo Logic with a streaming [Sumo Logic metrics handler][18].
@@ -594,5 +594,5 @@ In addition to the traditional handler we used in this example, you can use [Sen
 [16]: ../../observe-events/
 [17]: ../../../sensu-plus/
 [18]: ../sumo-logic-metrics-handlers/
-[19]: ../../../plugins/supported-integrations/sumologic/
+[19]: ../../../plugins/featured-integrations/sumologic/
 [20]: ../../observe-filter/filters/#built-in-filter-not_silenced

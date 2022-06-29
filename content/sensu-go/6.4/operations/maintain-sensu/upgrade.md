@@ -26,12 +26,12 @@ sudo systemctl daemon-reload
 
 3. Restart the Sensu agent:
 {{< code shell >}}
-sudo service sensu-agent restart
+sudo systemctl restart sensu-agent
 {{< /code >}}
 
 4. Restart the Sensu backend:
 {{< code shell >}}
-sudo service sensu-backend restart
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
 5. Run a single upgrade command on one your Sensu backends to migrate the cluster:
@@ -110,7 +110,7 @@ Upgrading to Sensu Go 6.2.0 requires sensu-backend to upgrade check configuratio
 If you have check configurations that reference non-existent namespaces, the 6.2.0 upgrade operation will fail when it encounters one of these check configurations.
 You will receive an error message like this:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"store-providers","error":"the namespace test does not exist","level":"error","msg":"error enabling round robin scheduling,backend restart required","time":"2020-12-27T08:41:59Z"}
 {{< /code >}}
 
@@ -128,19 +128,26 @@ Then, recreate the missing namespaces referenced in your check configurations an
 These commands use a Sensu backend running on `localhost` in the example URL and the environment variable $SENSU_API_KEY to represent a valid [API key][8].
 
 1. Get a list of existing namespaces.
-In this example, the existing namespaces are `stage` and `dev`.
+Run:
 {{< code shell >}}
 curl -s -H "Authorization: Key $SENSU_API_KEY" http://localhost:8080/api/core/v2/namespaces | jq '[.[].name]'
+{{< /code >}}
+
+     In this example, the existing namespaces are `stage` and `dev`.
+{{< code text >}}
 [
    "stage",
    "dev"
 ]
 {{< /code >}}
 
-2. Print the name and namespace for any checks that reference a namespace that is not specified in the jq expression on the same line.
-Your jq expression should include all of the namespaces you retrieved in step 1 (in this example, `["stage","dev"]`).
+2. Print the name and namespace for any checks that reference a namespace that is not specified in the jq expression on the same line (in this example, `["stage","dev"]`):
 {{< code shell >}}
 curl -s -H "Authorization: Key $SENSU_API_KEY" http://localhost:8080/api/core/v2/checks | jq '["stage","dev"] as $valid | .[] | select(.metadata.namespace as $in | $valid | index($in) | not) | {name: .metadata.name, namespace: .metadata.namespace}'
+{{< /code >}}
+
+     Your jq expression should include all of the namespaces you retrieved in step 1 (`stage` and `dev`).
+{{< code text "JSON" >}}
 {
   "name": "check-cpu",
   "namespace": "test"
@@ -190,13 +197,13 @@ However, if you try to create any new entities via the HTTP API or sensuctl, you
 
 Connections from new agents will fail and result in a log message like this:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"agent","error":"handshake failed with status 402","level":"error","msg":"reconnection attempt failed","time":"2019-11-20T05:49:24-07:00"}
 {{< /code >}}
 
 In the web UI, you will receive the following message when you reach the 100-entity limit:
 
-![Sensu web UI warning when the entity limit is reached][3]
+{{< figure src="/images/go/upgrade/web_ui_entity_warning.png" alt="Example web UI warning message when you reach the 100-entity limit" link="/images/go/upgrade/web_ui_entity_warning.png" target="_blank" >}}
 
 If your Sensu instance includes more than 100 entities, [contact Sales][4] to learn how to upgrade your installation and increase your limit.
 Read [our blog announcement][5] for more information about our usage policy.
@@ -228,13 +235,12 @@ state-dir: "/var/lib/sensu"
 Then restart the backend:
 
 {{< code shell >}}
-sudo service sensu-backend restart
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
 
 [1]: ../../deploy-sensu/install-sensu/
 [2]: ../../../observability-pipeline/observe-schedule/backend#operation
-[3]: /images/web-ui-entity-warning.png
 [4]: https://sensu.io/contact?subject=contact-sales/
 [5]: https://sensu.io/blog/one-year-of-sensu-go
 [6]: ../../../commercial/

@@ -21,14 +21,17 @@ The `/assets` API endpoint provides HTTP GET access to [dynamic runtime asset][1
 
 ### Example {#assets-get-example}
 
-The following example demonstrates a request to the `/assets` API endpoint, resulting in a JSON array that contains [dynamic runtime asset definitions][1].
+The following example demonstrates a GET request to the `/assets` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains [dynamic runtime asset definitions][1], similar to this example:
+
+{{< code text >}}
 [
   {
     "url": "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz",
@@ -79,7 +82,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "url": "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz",
@@ -126,8 +129,7 @@ The `/assets` API endpoint provides HTTP POST access to [dynamic runtime asset][
 
 ### Example {#assets-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/assets` API endpoint to create a role named `sensu-slack-handler`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP POST request is submitted to the `/assets` API endpoint to create a role named `sensu-slack-handler`:
 
 {{< code shell >}}
 curl -X POST \
@@ -150,9 +152,9 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request returns a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#assets-post-specification}
 
@@ -186,14 +188,17 @@ The `/assets/:asset` API endpoint provides HTTP GET access to [dynamic runtime a
 
 ### Example {#assetsasset-get-example}
 
-In the following example, querying the `/assets/:asset` API endpoint returns a JSON map that contains the requested [`:asset` definition][1] (in this example, for the `:asset` named `check_script`).
+The following example queries the `/assets/:asset` API endpoint for the `:asset` named `check_script`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:asset` definition][1] (in this example, for the `:asset` named `check_script`):
+
+{{< code text >}}
 [
   {
     "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
@@ -224,7 +229,7 @@ description          | Returns the specified dynamic runtime asset.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 [
   {
     "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
@@ -253,8 +258,7 @@ The `/assets/:asset` API endpoint provides HTTP PUT access to create or update s
 
 ### Example {#assetsasset-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/assets/:asset` API endpoint to create the dynamic runtime asset `sensu-slack-handler`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/assets/:asset` API endpoint to create the dynamic runtime asset `sensu-slack-handler`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -277,9 +281,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/sensu-slack-handler
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#assetsasset-put-specification}
 
@@ -319,7 +323,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/assets/:asset` API endpoint to add a label for the `sensu-slack-handler` asset, resulting in an HTTP `200 OK` response and the updated asset definition.
+In the following example, an HTTP PATCH request is submitted to the `/assets/:asset` API endpoint to add a label for the `sensu-slack-handler` asset.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -335,9 +339,9 @@ curl -X PATCH \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 200 OK` response.
 
 ### API Specification
 
@@ -366,12 +370,12 @@ The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete 
 
 ### Example {#assetsasset-delete-example}
 
+The following example shows a request to the `/assets/:asset` API endpoint to delete the asset `sensu-slack-handler`, resulting in a successful `HTTP/1.1 204 No Content` response:
+
 {{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
 -H "Authorization: Key $SENSU_API_KEY"
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#assetsasset-delete-specification}
@@ -392,13 +396,20 @@ The `/assets` API endpoint supports [response filtering][3] for a subset of asse
 
 ### Example
 
-The following example demonstrates a request to the `/assets` API endpoint with response filtering, resulting in a JSON array that contains only [dynamic runtime asset definitions][1] that are **not** in the `production` namespace.
+The following example demonstrates a request to the `/assets` API endpoint with response filtering that excludes [dynamic runtime asset definitions][1] that are in the `production` namespace:
 
 {{< code shell >}}
 curl -H "Authorization: Key X" http://127.0.0.1:8080/api/core/v2/assets -G \
 --data-urlencode 'fieldSelector=asset.namespace != "production"'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [dynamic runtime asset definitions][1] that are **not** in the `production` namespace:
+
+{{< code text >}}
 [
   {
     "filters": null,
@@ -477,10 +488,6 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
-{{% /notice %}}
-
 ### API Specification
 
 /assets (GET) with response filters | 
@@ -490,7 +497,7 @@ example url    | http://hostname:8080/api/core/v2/assets
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "filters": null,

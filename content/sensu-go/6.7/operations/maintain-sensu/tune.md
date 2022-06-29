@@ -22,7 +22,7 @@ These pages describe common problems and solutions, planning and optimization co
 If you use embedded etcd for storage, you might notice high network or storage latency.
 
 To make etcd more latency-tolerant, increase the values for the [etcd election timeout][1] and [etcd heartbeat interval][2] backend configuration flags.
-For example, you might increase `etcd-election-timeout` from 100 to 500 and `etcd-heartbeat-interval` from 1000 to 5000.
+For example, you might increase `etcd-election-timeout` from 3000 to 5000 and `etcd-heartbeat-interval` from 300 to 500.
 
 Read the [etcd tuning documentation][3] for etcd-specific tuning best practices.
 

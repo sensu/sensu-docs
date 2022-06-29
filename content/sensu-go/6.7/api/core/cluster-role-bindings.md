@@ -21,14 +21,17 @@ The `/clusterrolebindings` API endpoint provides HTTP GET access to [cluster rol
 
 ### Example {#clusterrolebindings-get-example}
 
-The following example demonstrates a request to the `/clusterrolebindings` API endpoint, resulting in a JSON array that contains [cluster role binding definitions][1].
+The following example demonstrates a GET request to the `/clusterrolebindings` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [cluster role binding definitions][1]:
+
+{{< code text >}}
 [
   {
     "subjects": [
@@ -75,7 +78,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "subjects": [
@@ -118,7 +121,7 @@ The `/clusterrolebindings` API endpoint provides HTTP POST access to create a [c
 ### Example {#clusterrolebindings-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/clusterrolebindings` API endpoint to create a cluster role binding that assigns the `cluster-admin` cluster role to the user `bob`.
-The request includes the cluster role binding definition in the request body and returns a successful HTTP `200 OK` response and the created cluster role binding definition.
+The request includes the cluster role binding definition in the request body,
 
 {{< code shell >}}
 curl -X POST \
@@ -140,9 +143,9 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#clusterrolebindings-post-specification}
 
@@ -175,14 +178,17 @@ The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP GET ac
 
 ### Example {#clusterrolebindingsclusterrolebinding-get-example}
 
-In the following example, querying the `/clusterrolebindings/:clusterrolebinding` API endpoint returns a JSON map that contains the requested [`:clusterrolebinding` definition][1] (in this example, for the `:clusterrolebinding` named `bob-binder`).
+The following example queries the `/clusterrolebindings/:clusterrolebinding` API endpoint for the `:clusterrolebinding` named `bob-binder`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/bob-binder \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:clusterrolebinding` definition][1] (in this example, `bob-binder`):
+
+{{< code text >}}
 {
   "subjects": [
     {
@@ -209,7 +215,7 @@ description          | Returns the specified cluster role binding.
 example url          | http://hostname:8080/api/core/v2/clusterrolebindings/bob-binder
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "subjects": [
     {
@@ -235,7 +241,7 @@ The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP PUT ac
 ### Example {#clusterrolebindingsclusterrolebinding-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/clusterrolebindings/:clusterrolebinding` API endpoint to create a cluster role binding that assigns the `cluster-admin` cluster role to users in the group `ops`.
-The request includes the cluster role binding definition in the request body and returns a successful HTTP `200 OK` response and the created cluster role binding definition.
+The request includes the cluster role binding definition in the request body:
 
 {{< code shell >}}
 curl -X PUT \
@@ -257,9 +263,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-group-binder
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#clusterrolebindingsclusterrolebinding-put-specification}
 
@@ -298,7 +304,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/clusterrolebindings/:clusterrolebinding` API endpoint to update the subjects array for the `ops-group-binder` cluster role binding, resulting in an HTTP `200 OK` response and the updated cluster role binding definition.
+In the following example, an HTTP PATCH request is submitted to the `/clusterrolebindings/:clusterrolebinding` API endpoint to update the subjects array for the `ops-group-binder` check, resulting in a `HTTP/1.1 200 OK` response and the updated cluster role binding definition.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -319,8 +325,6 @@ curl -X PATCH \
   ]
 }' \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-group-binder
-
-HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification
@@ -351,14 +355,12 @@ The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP DELETE
 
 ### Example {#clusterrolebindingsclusterrolebinding-delete-example}
 
-The following example shows a request to the `/clusterrolebindings/:clusterrolebinding` API endpoint to delete the cluster role binding `ops-binding`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/clusterrolebindings/:clusterrolebinding` API endpoint to delete the check named `ops-binding`, which will result in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-binding
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#clusterrolebindingsclusterrolebinding-delete-specification}
@@ -379,13 +381,16 @@ The `/clusterrolebindings` API endpoint supports [response filtering][3] for a s
 
 ### Example
 
-The following example demonstrates a request to the `/clusterrolebindings` API endpoint with [response filtering][3], resulting in a JSON array that contains only [cluster role binding definitions][1] whose `role_ref.name` includes `cluster-user`.
+The following example demonstrates a request to the `/clusterrolebindings` API endpoint with [response filtering][3] to retrieve only [cluster role binding definitions][1] whose `role_ref.name` includes `cluster-user`:
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/clusterrolebindings -G \
 --data-urlencode 'fieldSelector="cluster-user" in clusterrolebinding.role_ref.name'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [cluster role binding definitions][1] whose `role_ref.name` includes `cluster-user`:
+
+{{< code text >}}
 [
   {
     "subjects": [
@@ -435,7 +440,7 @@ example url    | http://hostname:8080/api/core/v2/clusterrolebindings
 pagination     | This endpoint supports [pagination][4] using the `limit` and `continue` query parameters.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "subjects": [
@@ -473,7 +478,7 @@ output         | {{< code shell >}}
 {{< /code >}}
 
 
-[1]: ../../../operations/control-access/rbac/
+[1]: ../../../operations/control-access/rbac/#role-bindings-and-cluster-role-bindings
 [2]: ../../#pagination
 [3]: ../../#response-filtering
 [4]: https://tools.ietf.org/html/rfc7396

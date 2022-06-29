@@ -3,7 +3,7 @@ title: "Use secrets management in Sensu"
 linkTitle: "Use Secrets Management"
 guide_title: "Use secrets management in Sensu"
 type: "guide"
-description: "Follow this guide to use Sensu's built-in secrets provider or HashiCorp Vault to avoid exposing sensitive information in your Sensu configuration."
+description: "Follow this guide to use Sensu's Env secrets provider or HashiCorp Vault to avoid exposing sensitive information in your Sensu configuration."
 weight: 10
 version: "6.5"
 product: "Sensu Go"
@@ -19,7 +19,7 @@ For more information, read [Get started with commercial features](../../../comme
 {{% /notice %}}
 
 Sensu's secrets management allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration.
-In this guide, you'll learn how to use Sensu's built-in secrets provider, `Env`, or [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing your secrets.
+In this guide, you'll learn how to use Sensu's `Env` secrets provider or [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing your secrets.
 You'll set up your PagerDuty Integration Key as a secret, create a PagerDuty handler definition that requires the secret, and configure a pipeline that includes the PagerDuty handler.
 Your Sensu backend can then execute the pipeline with any check.
 
@@ -46,18 +46,18 @@ Here's how to find your Integration Key in PagerDuty so you can set it up as you
 4. Click the **Integrations** tab.
 The Integration Key is listed in the second column.
 
-{{< figure src="/images/sensu-pagerduty-integration-key.png" alt="PagerDuty Integration Key location" link="/images/sensu-pagerduty-integration-key.png" target="_blank" >}}
+{{< figure src="/images/go/secrets-management/old_pagerduty_integration_key.png" alt="PagerDuty Integration Key location" link="/images/go/secrets-management/old_pagerduty_integration_key.png" target="_blank" >}}
 
 Make a note of your Integration Key &mdash; you'll need it to create your [backend environment variable][28] or [HashiCorp Vault secret][29].
 
 ## Use Env for secrets management
 
-The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][21] on your Sensu backend nodes.
+The [Sensu Go commercial distribution][1] includes a secrets provider, `Env`, that exposes secrets from [environment variables][21] on your Sensu backend nodes.
 The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
 
 ### Create your backend environment variable
 
-To use the built-in `Env` secrets provider, you will add your secret as a backend environment variable.
+To use the `Env` secrets provider, add your secret as a backend environment variable.
 
 First, make sure you have created the files you need to store [backend environment variables][21]. 
 
@@ -163,7 +163,7 @@ The command output includes a `Root Token` line.
 Find this line in your command output and copy the `Root Token` value.
 You will use it next to create your Vault secrets provider.
 
-{{< figure src="/images/vault-dev-root-token.png" alt="HashiCorp Vault Root Token location" link="/images/vault-dev-root-token.png" target="_blank" >}}
+{{< figure src="/images/go/secrets_management/location_vault_dev_root_token.png" alt="HashiCorp Vault Root Token location" link="/images/go/secrets_management/location_vault_dev_root_token.png" target="_blank" >}}
 
 Leave the Vault dev server running.
 Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:8200` in your shell environment.
@@ -371,9 +371,9 @@ In the [add a handler][19] section, you'll use your `pagerduty_key` secret in yo
 
 ## Add a handler
 
-### Register the PagerDuty Handler dynamic runtime asset
+### Register the sensu/sensu-pagerduty-handler dynamic runtime asset
 
-To begin, register the [Sensu PagerDuty Handler dynamic runtime asset][23] with [`sensuctl asset add`][22]:
+To begin, register the [sensu/sensu-pagerduty-handler][23] dynamic runtime asset with [`sensuctl asset add`][22]:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:2.2.0 -r pagerduty-handler

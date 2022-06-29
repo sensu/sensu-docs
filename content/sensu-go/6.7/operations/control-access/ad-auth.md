@@ -19,7 +19,7 @@ For more information, read [Get started with commercial features](../../../comme
 
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
-In addition to the [built-in basic authentication provider][4], Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for single sign-on (SSO) authentication.
+In addition to the [built-in basic authentication][4], Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for single sign-on (SSO) authentication.
 The AD authentication provider is based on the [LDAP authentication provider][44].
 
 To use AD authentication for Azure, follow Microsoft's tutorial to [set up secure LDAP in your Azure account][10] and create the host and certificates you need.
@@ -203,7 +203,7 @@ spec:
 
 After you configure AD to use the `memberOf` attribute, the `debug` log level will include the following log entries:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"authentication/v2","level":"debug","msg":"using the \"memberOf\" attribute to determine the group membership of user \"user1\"","time":"2020-06-25T14:10:58-04:00"}
 {"component":"authentication/v2","level":"debug","msg":"found 1 LDAP group(s): [\"sensu\"]","time":"2020-06-25T14:10:58-04:00"}
 {{< /code >}}
@@ -962,7 +962,7 @@ The Sensu backend logs each attempt made to authorize an RBAC request.
 This is useful for determining why a specific binding didn't grant the request.
 For example:
 
-{{< code shell >}}
+{{< code text >}}
 [...] the user is not a subject of the ClusterRoleBinding cluster-admin [...]
 [...] could not authorize the request with the ClusterRoleBinding system:user [...]
 [...] could not authorize the request with any ClusterRoleBindings [...]

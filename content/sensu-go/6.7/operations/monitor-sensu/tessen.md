@@ -65,22 +65,6 @@ sensuctl tessen opt-in
 
 ### Top-level attributes
 
-type         | 
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][7] resource type. Tessen configuration should always be type `TessenConfig`.
-required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: TessenConfig
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "TessenConfig"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For Tessen configuration in this version of Sensu, the `api_version` should always be `core/v2`.
@@ -112,6 +96,22 @@ spec:
   "spec": {
     "opt_out": false
     }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+type         | 
+-------------|------
+description  | Top-level attribute that specifies the [`sensuctl create`][7] resource type. Tessen configuration should always be type `TessenConfig`.
+required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: TessenConfig
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "TessenConfig"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -167,7 +167,7 @@ spec:
 For unlicensed instances that opt in to Tessen and all licensed instances, Sensu sends various metrics back to the Tessen service.
 In the example metrics log below, Sensu is sending the number of check hooks back to the Tessen service. 
 
-{{< code json >}}
+{{< code text >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -180,7 +180,7 @@ In the example metrics log below, Sensu is sending the number of check hooks bac
 
 Sensu also sends other metrics, such as the number of handlers:
 
-{{< code json >}}
+{{< code text >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -193,7 +193,7 @@ Sensu also sends other metrics, such as the number of handlers:
 
 Or the number of filters:
 
-{{< code json >}}
+{{< code text >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -206,7 +206,7 @@ Or the number of filters:
 
 Or the number of authentication providers, secrets providers, and secrets:
 
-{{< code json >}}
+{{< code text >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -217,7 +217,7 @@ Or the number of authentication providers, secrets providers, and secrets:
 }
 {{< /code >}}
 
-{{< code json >}}
+{{< code text >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -228,7 +228,7 @@ Or the number of authentication providers, secrets providers, and secrets:
 }
 {{< /code >}}
 
-{{< code json >}}
+{{< code text >}}
 {
     "component": "tessend",
     "level": "debug",

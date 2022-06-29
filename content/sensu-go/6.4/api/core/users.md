@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: The `core/v2/users` API endpoints allow you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../../operations/control-access#use-built-in-basic-authentication).
+**NOTE**: The `core/v2/users` API endpoints allow you to create and manage user credentials with Sensu's built-in [basic authentication](../../../operations/control-access#use-built-in-basic-authentication).
 To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../../operations/control-access/ldap-auth/), [Active Directory (AD)](../../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../../operations/control-access/oidc-auth/), use Sensu's [enterprise/authentication/v2 API endpoints](../../enterprise/authproviders/).<br><br>
 Requests to `core/v2/users` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-auth-api-endpoints).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
@@ -23,14 +23,17 @@ The `/users` API endpoint provides HTTP GET access to [user][1] data.
 
 ### Example {#users-get-example}
 
-The following example demonstrates a request to the `/users` API, resulting in a JSON array that contains [user definitions][1].
+The following example demonstrates a GET request to the `/users` API:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/users \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains all [user definitions][1]:
+
+{{< code text >}}
 [
   {
     "username": "admin",
@@ -59,7 +62,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][8].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "username": "admin",
@@ -84,7 +87,7 @@ The `/users` API endpoint provides HTTP POST access to create a [user][1] using 
 
 ### Example {#users-post-example}
 
-The following example demonstrates a POST request to the `/users` API endpoint to create the user `alice`, resulting in an HTTP `201 Created` response and the created user definition.
+The following example demonstrates a POST request to the `/users` API endpoint to create the user `alice`:
 
 {{< code shell >}}
 curl -X POST \
@@ -99,9 +102,9 @@ curl -X POST \
   "disabled": false
 }' \
 http://127.0.0.1:8080/api/core/v2/users
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#usersuser-post-specification}
 
@@ -128,14 +131,17 @@ The `/users/:user` API endpoint provides HTTP GET access to [user data][1] for a
 
 ### Example {#usersuser-get-example}
 
-In the following example, querying the `/users/:user` API returns a JSON map that contains the requested [`:user` definition][1] (in this example, for the `alice` user).
+The following example queries the `/users/:user` API for the `alice` user:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/users/alice \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:user` definition][1] (in this example, `alice`):
+
+{{< code text >}}
 {
   "username": "alice",
   "groups": [
@@ -153,7 +159,7 @@ description          | Returns the specified user.
 example url          | http://hostname:8080/api/core/v2/users/alice
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "username": "alice",
   "groups": [
@@ -173,7 +179,7 @@ The `/users/:user` API endpoint provides HTTP PUT access to create or update [us
 
 ### Example {#users-put-example}
 
-The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (for example, to add the user to the `devel` group), resulting in an HTTP `201 Created` response.
+The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (for example, to add the user to the `devel` group):
 
 {{< code shell >}}
 curl -X PUT \
@@ -189,9 +195,9 @@ curl -X PUT \
   "disabled": false
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#usersuser-put-specification}
 
@@ -212,20 +218,18 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## Delete a user {#usersuser-delete}
+## Disable a user {#usersuser-delete}
 
 The `/users/:user` API endpoint provides HTTP DELETE access to disable a specific user by `username`.
 
 ### Example {#usersuser-delete-example}
 
-In the following example, an HTTP DELETE request is submitted to the `/users/:user` API endpoint to disable the user `alice`, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP DELETE request is submitted to the `/users/:user` API endpoint to disable the user `alice`, resulting in a successful `HTTP/1.1 204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/users/alice
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 {{% notice note %}}
@@ -253,7 +257,7 @@ This differs from the `/users/:user/password` API endpoint, which allows users t
 
 ### Example {#usersuserresetpassword-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/reset_password` API endpoint to reset the password for the user `alice`, resulting in an HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/reset_password` API endpoint to reset the password for the user `alice`.
 
 The `password_hash` is the user's new password, hashed via [bcrypt][3].
 Use `sensuctl user hash-password` to [generate the `password_hash`][4].
@@ -267,9 +271,9 @@ curl -X PUT \
   "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice/reset_password
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#usersuserresetpassword-put-specification}
 
@@ -297,7 +301,7 @@ This differs from the `/users/:user/reset_password` API endpoint, which requires
 
 ### Example {#usersuserpassword-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`.
 
 The `password` is your current password in cleartext.
 The `password_hash` is your new password hashed via [bcrypt][3].
@@ -313,9 +317,9 @@ curl -X PUT \
   "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice/password
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#usersuserpassword-put-specification}
 
@@ -339,16 +343,16 @@ The `/users/:user/reinstate` API endpoint provides HTTP PUT access to reinstate 
 
 ### Example {#usersuserreinstate-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API endpoint to reinstate the disabled user `alice`, resulting in an HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API endpoint to reinstate the disabled user `alice`:
 
 {{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 http://127.0.0.1:8080/api/core/v2/users/alice/reinstate
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#usersuserreinstate-put-specification}
 
@@ -364,14 +368,12 @@ The `/users/:user/groups` API endpoint provides HTTP DELETE access to remove the
 
 ### Example {#usersusergroups-delete-example}
 
-In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups` API endpoint to remove the user `alice` from all groups within Sensu, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups` API endpoint to remove the user `alice` from all groups within Sensu, resulting in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#usersusergroups-delete-specification}
@@ -388,15 +390,15 @@ The `/users/:user/groups/:group` API endpoint provides HTTP PUT access to assign
 
 ### Example {#usersusergroupsgroup-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/groups/:group` API endpoint to add the user `alice` to the group `ops`, resulting in a successful HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/groups/:group` API endpoint to add the user `alice` to the group `ops`:
 
 {{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#usersusergroupsgroup-put-specification}
 
@@ -412,14 +414,12 @@ The `/users/:user/groups/:group` API endpoint provides HTTP DELETE access to rem
 
 ### Example {#usersusergroupsgroup-delete-example}
 
-In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups/:group` API endpoint to remove the user `alice` from the group `ops`, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups/:group` API endpoint to remove the user `alice` from the group `ops`, resulting in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#usersusergroupsgroup-delete-specification}
@@ -440,13 +440,16 @@ The `/users` API endpoint supports [response filtering][3] for a subset of user 
 
 ### Example
 
-The following example demonstrates a request to the `/users` API endpoint with [response filtering][3], resulting in a JSON array that contains only [user definitions][1] that are in the `default` namespace.
+The following example demonstrates a request to the `/users` API endpoint with [response filtering][3] for only [user definitions][1] whose user.groups include `dev`:
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/users -G \
 --data-urlencode 'fieldSelector="dev" in user.groups'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [user definitions][1] whose user.groups include `dev`:
+
+{{< code text >}}
 [
   {
     "username": "alice",
@@ -480,7 +483,7 @@ example url    | http://hostname:8080/api/core/v2/users
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "username": "alice",

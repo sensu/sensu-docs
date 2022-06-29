@@ -4,7 +4,7 @@ linkTitle: "Plugins Reference"
 reference_title: "Plugins"
 type: "reference"
 description: "Read this reference for information about Sensu plugins, which provide executables that you can use as a Sensu check, handler, or mutator command."
-weight: 80
+weight: 40
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -15,9 +15,9 @@ menu:
 Sensu plugins provide executable scripts or other programs that you can use as Sensu checks, handlers, and mutators.
 Sensu plugins must comply with the following specification:
 
-- Accept input/data via `STDIN` (handler and mutator plugins only)
+- Accept input/data via stdin (handler and mutator plugins only)
   - Optionally able to parse a JSON data payload (that is, observation data in an event)
-- Output data to `STDOUT` or `STDERR`
+- Output data to stdout or stderr
 - Produce an exit status code to indicate state:
   - `0` indicates `OK`
   - `1` indicates `WARNING`
@@ -47,6 +47,13 @@ Plugins must be executable files that are discoverable on the Sensu system (that
 As a result, executable scripts (for example, plugins) located in `/etc/sensu/plugins` will be valid commands.
 This allows command attributes to use relative paths for Sensu plugin commands, such as `"command": "http-check --url https://sensu.io"`.
 {{% /notice %}}
+
+## Plugin configuration overrides
+
+Many plugins support configuration overrides on a per-entity or per-check basis.
+For example, some plugins allow you to use annotations in individual entities and checks to set arguments that will override any arguments set in a resource command or in backend runtime environment variables for only that entity or check.
+
+Read the [Bonsai][12] documentation for a plugin to learn about any configuration overrides the plugin supports.
 
 ## Go plugin example
 
@@ -125,13 +132,13 @@ The following example demonstrates a very basic Sensu plugin in the Ruby program
 #
 require 'json'
 
-# Read the incoming JSON data from STDIN
-event = JSON.parse(STDIN.read, :symbolize_names => true)
+# Read the incoming JSON data from stdin
+event = JSON.parse(stdin.read, :symbolize_names => true)
 
 # Create an output object using Ruby string interpolation
 output = "The check named #{event[:check][:name]} generated the following output: #{event[:output]}"
 
-# Convert the mutated event data back to JSON and output it to STDOUT
+# Convert the mutated event data back to JSON and output it to stdout
 puts output
 {{< /code >}}
 

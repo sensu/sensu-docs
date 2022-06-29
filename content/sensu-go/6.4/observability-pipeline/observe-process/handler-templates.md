@@ -4,7 +4,7 @@ linkTitle: "Create Handler Templates"
 guide_title: "Create handler templates"
 type: "guide"
 description: "Add meaningful, actionable context to alerts with event-based templating for your handlers. Read this guide to learn how to create handler templates."
-weight: 55
+weight: 120
 version: "6.4"
 product: "Sensu Go"
 menu:
@@ -80,9 +80,9 @@ You can also use the [template toolkit command][11] to print available event att
 
 ## Template toolkit command
 
-The [Sensu template toolkit command][8] is a sensuctl command plugin you can use to print a list of available event attributes in handler template dot notation syntax and validate your handler template output.
+The [sensu/template-toolkit-command][8] dynamic runtime asset provides a sensuctl command plugin you can use to print a list of available event attributes in handler template dot notation syntax and validate your handler template output.
 
-The template toolkit command uses event data you supply via STDIN in JSON format.
+The template toolkit command uses event data you supply via stdin in JSON format.
 
 Add the Sensu template toolkit command asset to Sensu:
 
@@ -96,7 +96,7 @@ You can also download the latest asset definition from [Bonsai][8].
 
 Run `sensuctl asset list` to confirm that the asset is ready to use:
 
-{{< code shell >}}
+{{< code text >}}
             Name                                                         URL                                                Hash    
  ────────────────────────── ───────────────────────────────────────────────────────────────────────────────────────────── ───────── 
   template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_windows_amd64.tar.gz              019ccf3  
@@ -117,7 +117,7 @@ cat event.json | sensuctl command exec template-toolkit-command -- --dump-names
 
 The response lists the available attributes for the event:
 
-{{< code shell >}}
+{{< code text >}}
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
 .Event{
     .Timestamp: 1580310179,
@@ -142,7 +142,7 @@ sensuctl event info server01 server-health --format json | sensuctl command exec
 
 The response lists the available attributes for the event:
 
-{{< code shell >}}
+{{< code text >}}
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
 .Event{
     .Timestamp: 1580310179,
@@ -169,7 +169,7 @@ cat event.json | sensuctl command exec template-toolkit-command -- --template "{
 
 The response will list the template output:
 
-{{< code shell >}}
+{{< code text >}}
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
 executing command with --template {{.Check.Name}}
 Template String Output: keepalive
@@ -185,7 +185,7 @@ sensuctl event info webserver01 check-http --format json | sensuctl command exec
 
 The response will list the template output:
 
-{{< code shell >}}
+{{< code text >}}
 Executing command with --template Server: {{.Entity.Name}} Check: {{.Check.Name}} Status: {{.Check.State}}
 Template String Output: Server: "webserver01 Check: check-http Status: passing"
 {{< /code >}}
@@ -222,12 +222,12 @@ Sensu<br>
 
 {{< /code >}}
 
-The Sensu Email Handler plugin also includes a UnixTime function that allows you to print timestamp values from events in human-readable format.
-Read the [Sensu Email Handler Bonsai page][9] for details.
+The sensu/sensu-email-handler dynamic runtime asset also includes a UnixTime function that allows you to print timestamp values from events in human-readable format.
+Read the [sensu/sensu-email-handler Bonsai page][9] for details.
 
 ## Sensu PagerDuty Handler example
 
-The [Sensu PagerDuty Handler plugin][10] includes a basic template for the PagerDuty alert summary:
+The [sensu/sensu-pagerduty-handler][10] dynamic runtime asset includes a basic template for the PagerDuty alert summary:
 
 {{< code shell >}}
 "{{.Entity.Name}}/{{.Check.Name}} : {{.Check.Output}}"

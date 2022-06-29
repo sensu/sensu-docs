@@ -16,13 +16,16 @@ The `/version` API endpoint provides HTTP GET access to the Sensu backend and et
 
 ### Example {#version-get-example}
 
-The following example demonstrates a request to the `/version` API endpoint, resulting in a JSON map that contains Sensu version data.
+The following example demonstrates a GET request to the `/version` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/version
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON map that contains Sensu version data:
+
+{{< code text >}}
 {
   "etcd": {
     "etcdserver": "3.5.0",
@@ -40,7 +43,7 @@ description         | Returns the etcd server version and Sensu backend version.
 example url         | http://hostname:8080/version
 response type       | Map
 response codes      | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 {
   "etcd": {
     "etcdserver": "3.5.0",

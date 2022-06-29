@@ -15,13 +15,13 @@ menu:
 For more information, read [Get started with commercial features](../commercial/).
 {{% /notice %}}
 
-The Sensu backend includes the **Sensu web UI**: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
+The Sensu backend includes the **Sensu web UI**: a unified view of your events, entities, and checks with user-friendly tools that provide single-pane-of-glass visibility and reduce alert fatigue.
 
 <a id="webui-homepage"></a>
 
 The web UI homepage provides a high-level overview of the overall health of the systems under Sensu's management, with a summary of active incidents, the number of incidents by severity, the types of entities under management, and the numbers of entities and incidents per namespace.
 
-{{< figure src="/images/web-ui-6-6-0.png" alt="Sensu web UI homepage" link="/images/web-ui-6-6-0.png" target="_blank" >}}
+{{< figure src="/images/go/web_ui_index/web_ui_660.png" alt="Sensu web UI homepage" link="/images/go/web_ui_index/web_ui_660.png" target="_blank" >}}
 
 ## Access the web UI
 
@@ -59,6 +59,10 @@ In this case, the web UI homepage will display all data for both namespaces: `de
 ## Change web UI themes
 
 Use the preferences menu to change the theme or switch to the dark theme.
+
+## Troubleshoot web UI errors
+
+Read [Troubleshoot Sensu][8] to resolve and investigate web UI errors.
 
 
 [1]: ../observability-pipeline/observe-schedule/backend#start-the-service

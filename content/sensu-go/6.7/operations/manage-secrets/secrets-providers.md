@@ -30,7 +30,7 @@ Unencrypted connections must not transmit privileged information.
 For checks, hooks, and dynamic runtime assets, you must [enable mutual TLS (mTLS)][13].
 Sensu will not transmit secrets to agents that do not use mTLS.
 
-The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
+The [Sensu Go commercial distribution][1] includes a secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
 You can also use the secrets provider `VaultProvider` to authenticate via the HashiCorp Vault integration's [token auth method][10] or [TLS certificate auth method][11].
 
 You can configure any number of `VaultProvider` secrets providers.
@@ -94,7 +94,7 @@ spec:
 
 ## Env secrets provider example
 
-Sensu's built-in `Env` secrets provider exposes secrets from [backend environment variables][4].
+Sensu's `Env` secrets provider exposes secrets from [backend environment variables][4].
 The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
 
 Using the `Env` secrets provider may require you to synchronize environment variables in Sensu backend clusters.
@@ -124,9 +124,9 @@ spec: {}
 
 {{< /language-toggle >}}
 
-## Secrets providers configuration
+## Secrets provider configuration
 
-You can use the [enterprise/secrets/v1 API endpoints][2] to create, view, and manage your secrets providers configuration.
+You can use the [enterprise/secrets/v1 API endpoints][2] to create, view, and manage your secrets provider configuration.
 
 For example, to retrieve the list of secrets providers:
 
@@ -136,30 +136,14 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 -H "Authorization: Key $SENSU_API_KEY"
 {{< /code >}}
  
-## Secrets providers specification
+## Secrets provider specification
 
 {{% notice note %}}
 **NOTE**: The attribute descriptions in this section use the `VaultProvider` datatype.
-The [secrets providers examples](#env-example) section includes an example for the `Env` datatype.
+The [secrets provider examples](#env-example) section includes an example for the `Env` datatype.
 {{% /notice %}}
 
 ### Top-level attributes
-
-type         | 
--------------|------
-description  | Top-level attribute that specifies the resource type. May be either `Env` (if you are using Sensu's built-in secrets provider) or `VaultProvider` (if you are using HashiCorp Vault as the secrets provider).
-required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: VaultProvider
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "VaultProvider"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
@@ -240,23 +224,23 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Metadata attributes
-
-name         |      |
+type         | 
 -------------|------
-description  | Provider name used internally by Sensu.
-required     | true
+description  | Top-level attribute that specifies the resource type. May be either `Env` (if you are using Sensu's secrets provider) or `VaultProvider` (if you are using HashiCorp Vault as the secrets provider).
+required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: vault
+type: VaultProvider
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "vault"
+  "type": "VaultProvider"
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+### Metadata attributes
 
 | created_by |      |
 -------------|------
@@ -270,6 +254,22 @@ created_by: admin
 {{< code json >}}
 {
   "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+name         |      |
+-------------|------
+description  | Provider name used internally by Sensu.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: vault
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "vault"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -352,7 +352,7 @@ max_retries: 2
 
 rate_limiter | 
 -------------|------ 
-description  | Maximum [rate and burst limits][17] for the secrets API.
+description  | Maximum rate and burst limits for the [enterprise/secrets/v1][2] API endpoint. Read [rate_limiter attributes][17] for more information.
 required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -448,29 +448,11 @@ version: v1
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a id="rate-limiter-attributes"></a>
-
-#### Rate limiter attributes
-
-limit        | 
--------------|------ 
-description  | Maximum number of secrets requests per second that can be transmitted to the backend with enterprise/secrets/v1.
-required     | false
-type         | Float
-example      | {{< language-toggle >}}
-{{< code yml >}}
-limit: 10.0
-{{< /code >}}
-{{< code json >}}
-{
-  "limit": 10.0
-}
-{{< /code >}}
-{{< /language-toggle >}}
+##### Rate limiter attributes
 
 burst        | 
 -------------|------ 
-description  | Maximum amount of burst allowed in a rate interval for enterprise/secrets/v1.
+description  | Maximum amount of burst allowed in a rate interval for the [enterprise/secrets/v1][2] API endpoint.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -480,6 +462,22 @@ burst: 100
 {{< code json >}}
 {
   "burst": 100
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+limit        | 
+-------------|------ 
+description  | Maximum number of secrets requests per second that can be transmitted to the backend with the [enterprise/secrets/v1][2] API endpoint.
+required     | false
+type         | Float
+example      | {{< language-toggle >}}
+{{< code yml >}}
+limit: 10.0
+{{< /code >}}
+{{< code json >}}
+{
+  "limit": 10.0
 }
 {{< /code >}}
 {{< /language-toggle >}}

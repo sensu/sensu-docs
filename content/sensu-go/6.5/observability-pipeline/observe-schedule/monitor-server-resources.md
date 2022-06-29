@@ -4,7 +4,7 @@ linkTitle: "Monitor Server Resources"
 guide_title: "Monitor server resources with checks"
 type: "guide"
 description: "Sensu lets you monitor server resources with checks. Read this guide to learn about Sensu checks and how to use checks to monitor servers."
-weight: 40
+weight: 220
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -39,11 +39,11 @@ sensuctl entity list
 
 The `ID` is the name of your entity.
 
-Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][16] command.
+Replace `<ENTITY_NAME>` with the name of your agent entity in the following [sensuctl][16] command.
 Run:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -63,11 +63,11 @@ You can write shell scripts in the `command` field of your check definitions, bu
 Check plugins must be available on the host where the agent is running for the agent to execute the check.
 This guide uses [dynamic runtime assets][2] to manage plugin installation.
 
-### Register the Sensu CPU usage check asset
+### Register the sensu/check-cpu-usage asset
 
-The [Sensu CPU usage check][1] dynamic runtime asset includes the `check-cpu-usage` command, which your CPU check will rely on.
+The [sensu/check-cpu-usage][1] dynamic runtime asset includes the `check-cpu-usage` command, which your CPU check will rely on.
 
-To register the Sensu CPU usage check dynamic runtime asset, `sensu/check-cpu-usage:0.2.2`, run:
+To register the sensu/check-cpu-usage dynamic runtime asset, run:
 
 {{< code shell >}}
 sensuctl asset add sensu/check-cpu-usage:0.2.2 -r check-cpu-usage
@@ -102,9 +102,9 @@ To confirm that both dynamic runtime assets are ready to use, run:
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `check-cpu-usage` and `sensu-processes-check` dynamic runtime assets:
+The response should list the renamed check-cpu-usage and sensu-processes-check dynamic runtime assets:
 
-{{< code shell >}}
+{{< code text >}}
           Name                                                 URL                                         Hash    
 ──────────────────────── ─────────────────────────────────────────────────────────────────────────────── ──────────
   check-cpu-usage         //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_windows_amd64.tar.gz         900cfdf  
@@ -130,7 +130,7 @@ Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ## Create a check to monitor a server
 
-Now that the dynamic runtime assets are registered, create a check named `check_cpu` that runs the command `check-cpu-usage -w 75 -c 90` with the `check-cpu-usage` dynamic runtime asset at an interval of 60 seconds for all entities subscribed to the `system` subscription.
+Now that the dynamic runtime assets are registered, create a check named `check_cpu` that runs the command `check-cpu-usage -w 75 -c 90` with the check-cpu-usage dynamic runtime asset at an interval of 60 seconds for all entities subscribed to the `system` subscription.
 This check generates a warning event (`-w`) when CPU usage reaches 75% and a critical alert (`-c`) at 90%.
 
 {{< code shell >}}
@@ -143,7 +143,7 @@ sensuctl check create check_cpu \
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Created
 {{< /code >}}
 
@@ -243,7 +243,7 @@ If you want to share, reuse, and maintain this check just like you would code, y
 ### Validate the CPU check
 
 The Sensu agent uses WebSocket to communicate with the Sensu backend, sending event data as JSON messages.
-As your checks run, the Sensu agent captures check standard output (`STDOUT`) or standard error (`STDERR`).
+As your checks run, the Sensu agent captures check standard output (stdout) or standard error (stderr).
 This data will be included in the JSON payload the agent sends to your Sensu backend as the event data.
 
 It might take a few moments after you create the check for the check to be scheduled on the entity and the event to return to Sensu backend.
@@ -255,7 +255,7 @@ sensuctl event list
 
 The response should list the `check_cpu` check, returning an OK status (`0`)
 
-{{< code shell >}}
+{{< code text >}}
      Entity        Check                                                                                                      Output                                                                                                    Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────── ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   sensu-centos   check_cpu   check-cpu-usage OK: 1.02% CPU usage | cpu_idle=98.98, cpu_system=0.51, cpu_user=0.51, cpu_nice=0.00, cpu_iowait=0.00, cpu_irq=0.00, cpu_softirq=0.00, cpu_steal=0.00, cpu_guest=0.00, cpu_guestnice=0.00        0   false      2021-10-06 19:25:43 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
@@ -291,9 +291,9 @@ Verify that NGINX is serving webpages:
 curl -sI http://localhost
 {{< /code >}}
 
-The response should include `HTTP/1.1 200 OK` to indicates that NGINX processed your request as expected:
+The response should include `HTTP/1.1 200 OK` to indicate that NGINX processed your request as expected:
 
-{{< code shell >}}
+{{< code text >}}
 HTTP/1.1 200 OK
 Server: nginx/1.20.1
 Date: Wed, 06 Oct 2021 19:35:14 GMT
@@ -364,7 +364,7 @@ EOF
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Created
 {{< /code >}}
 
@@ -469,7 +469,7 @@ sensuctl event list
 
 The response should list the `nginx_service` check, returning an OK status (`0`):
 
-{{< code shell >}}
+{{< code text >}}
      Entity          Check                                       Output                                   Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   sensu-centos   nginx_service   OK       | 2 >= 1 (found >= required) evaluated true for "nginx"              0   false      2021-11-08 16:59:34 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
@@ -494,7 +494,7 @@ sensuctl event list
 
 The response should list the `nginx_service` check, returning a CRITICAL status (`2`):
 
-{{< code shell >}}
+{{< code text >}}
      Entity          Check                                       Output                                   Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   sensu-centos   nginx_service   CRITICAL | 0 >= 1 (found >= required) evaluated false for "nginx"             2   false      2021-11-08 17:02:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  

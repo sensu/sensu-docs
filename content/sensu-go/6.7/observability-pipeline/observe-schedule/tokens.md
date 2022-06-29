@@ -4,7 +4,7 @@ linkTitle: "Tokens Reference"
 reference_title: "Tokens"
 type: "reference"
 description: "Use tokens in Sensu checks as placeholders that agents replace with entity data to fine-tune check attributes while reusing check definitions."
-weight: 100
+weight: 120
 version: "6.7"
 product: "Sensu Go"
 menu:
@@ -32,12 +32,12 @@ This example demonstrates a reusable disk usage check.
 The [check command][5] includes `-w` (warning) and `-c` (critical) arguments with default values for the thresholds (as percentages) for generating warning or critical events.
 The check will compare every subscribed entity's disk space against the default threshold values to determine whether to generate a warning or critical event.
 
-However, the check command also includes token substitution, which means you can add entity labels that correspond to the check commnand tokens to specify different warning and critical values for individual entities.
+However, the check command also includes token substitution, which means you can add entity labels that correspond to the check command tokens to specify different warning and critical values for individual entities.
 Instead of creating a different check for every set of thresholds, you can use the same check to apply the defaults in most cases and the token-substituted values for specific entities.
 
 Follow this example to set up a reusable check for disk usage:
 
-1. Add the [Sensu disk usage check][13] dynamic runtime asset, which includes the command you will need for your check:
+1. Add the [sensu/check-disk-usage][13] dynamic runtime asset, which includes the command you will need for your check:
 {{< code shell >}}
 sensuctl asset add sensu/check-disk-usage:0.6.0
 {{< /code >}}
@@ -266,6 +266,7 @@ With this asset definition, which includes the `.labels.asset_url` token substit
 Handlers and mutators can also include `sensu-go-hello-world` as a dynamic runtime asset, but Sensu Go will use the token subtitution for the backend's entity instead of the agent's entity.
 
 You can also use token substitution to customize dynamic runtime asset headers (for example, to include secure information for authentication).
+Sensu also provides an [`assetPath` function][14] that allows you to substitute a dynamic runtime asset’s local path on disk.
 
 {{% notice note %}}
 **NOTE**: To maintain security, you cannot use token substitution for a dynamic runtime asset's SHA512 value.
@@ -315,7 +316,7 @@ For example, to provide `"substitution"` as a default value for entities that ar
 If a token is unmatched during check preparation, the agent check handler will return an error, and the check will not be executed.
 Unmatched token errors are similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 error: unmatched token: template: :1:22: executing "" at <.system.hostname>: map has no entry for key "System"
 {{< /code >}}
 
@@ -343,3 +344,4 @@ Token substitution **can** be used for alerting thresholds because those values 
 [11]: ../../observe-transform/mutators/
 [12]: ../../../plugins/assets/
 [13]: https://bonsai.sensu.io/assets/sensu/check-disk-usage
+[14]: ../../../plugins/assets/#assetpath-function-for-dynamic-runtime-asset-paths

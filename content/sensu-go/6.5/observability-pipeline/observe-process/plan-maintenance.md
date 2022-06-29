@@ -4,7 +4,7 @@ linkTitle: "Plan Maintenance Windows"
 guide_title: "Plan maintenance windows with silencing"
 type: "guide"
 description: "Use Sensu's silencing feature to suppress event handling during system maintenance so you can coordinate and perform maintenance without getting alerts."
-weight: 70
+weight: 140
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -36,10 +36,10 @@ Use sensuctl to add the `website` subscription to an entity the Sensu agent is o
 The `ID` is the name of your entity.
 {{% /notice %}}
 
-Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+Before you run the following code, replace `<ENTITY_NAME>` with the name of the entity on your system.
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -55,10 +55,10 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the http-checks dynamic runtime asset
 
-To power the check in your silenced entry, you'll use the [http-checks][12] dynamic runtime asset.
+To power the check in your silenced entry, you'll use the [sensu/http-checks][12] dynamic runtime asset.
 This community-tier asset includes `http-check`, the http status check command that [your check][11] will rely on.
 
-Register the http-checks dynamic runtime asset, `sensu/http-checks`:
+Register the sensu/http-checks dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/http-checks:0.5.0 -r http-checks
@@ -73,9 +73,9 @@ Use sensuctl to confirm that the dynamic runtime asset is ready to use:
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `http-checks` dynamic runtime asset:
+The response should list the sensu/http-checks dynamic runtime asset (renamed to `http-checks`):
 
-{{< code shell >}}
+{{< code text >}}
      Name                                       URL                                    Hash    
 ────────────── ───────────────────────────────────────────────────────────────────── ──────────
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_windows_amd64.tar.gz   52ae075  
@@ -154,7 +154,7 @@ sensuctl check list
 
 The response should list `check-sensu-site`:
 
-{{< code shell >}}
+{{< code text >}}
       Name                     Command                Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets      Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
 ──────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ───────────── ─────── ────────── ──────── ─────────────── ──────────────────
   check-website   http-check --url https://sensu.io         15                0     0   website                    http-checks           true       false                                     
@@ -180,7 +180,7 @@ sensuctl silenced create \
 
 {{% notice note %}}
 **NOTE**: Sensuctl supports several [time formats](../../../sensuctl/create-manage-resources/#time-formats) for the `begin` flag.
-This example uses RFC3339 with space delimiters and numeric zone offset.
+This example uses [RFC 3339 format](https://www.ietf.org/rfc/rfc3339.txt) with space delimiters and numeric zone offset.
 {{% /notice %}}
 
 Use sensuctl to verify that the silenced entry against the entity `sensu-site` was created properly:
@@ -288,3 +288,4 @@ Read the [silencing reference][7] for in-depth documentation about silenced entr
 [17]: ../send-email-alerts/
 [18]: ../send-pagerduty-alerts/
 [19]: ../send-slack-alerts/
+[20]: https://www.ietf.org/rfc/rfc3339.txt

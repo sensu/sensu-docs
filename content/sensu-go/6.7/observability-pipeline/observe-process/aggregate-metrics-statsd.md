@@ -4,7 +4,7 @@ linkTitle: "Aggregate StatsD Metrics"
 guide_title: "Aggregate metrics with the Sensu StatsD listener"
 type: "guide"
 description: "Sensu agents include a StatsD listener you can use to send application performance, CPU, I/O, and network utilization metrics to your observability pipeline."
-weight: 40
+weight: 100
 version: "6.7"
 product: "Sensu Go"
 platformContent: false
@@ -41,7 +41,7 @@ Use flags to configure the Sensu StatsD Server when you start up a `sensu-agent`
 
 The following flags allow you to configure event handlers, flush interval, address, and port:
 
-{{< code shell >}}
+{{< code text >}}
 --statsd-disable                      disables the statsd listener and metrics server
 --statsd-event-handlers stringSlice   comma-delimited list of event handlers for statsd metrics
 --statsd-flush-interval int           number of seconds between statsd flush (default 10)

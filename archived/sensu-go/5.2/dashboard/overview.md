@@ -19,7 +19,7 @@ menu:
 The Sensu backend includes the **Sensu dashboard**:
 a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
 
-![Sensu dashboard events view](/images/dashboard-events.png)
+![Sensu dashboard events view](/images/archived_version_images/dashboard_events.png)
 
 ### Accessing the dashboard
 After [starting the Sensu backend][1], you can access the dashboard in your browser
@@ -35,7 +35,7 @@ The dashboard displays events, entities, checks, and silences for a single names
 By default, the dashboard displays the `default` namespace.
 To switch namespaces, select the menu icon in the upper-left corner, and choose a namespace from the dropdown.
 
-<img src="/images/dashboard-namespace-switcher.png" alt="Screenshot of the Sensu dashboard namespace switcher">
+<img src="/images/archived_version_images/dashboard_namespace_switcher.png" alt="Screenshot of the Sensu dashboard namespace switcher">
 
 <p style="text-align:center"><i>Sensu dashboard namespace switcher</i></p>
 

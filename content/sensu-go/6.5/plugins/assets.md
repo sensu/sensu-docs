@@ -4,7 +4,7 @@ linkTitle: "Assets Reference"
 reference_title: "Assets"
 type: "reference"
 description: "Use Sensu's dynamic runtime assets to provide the plugins, libraries, and runtimes you need to create automated monitoring and observability workflows."
-weight: 60
+weight: 20
 version: "6.5"
 product: "Sensu Go"
 platformContent: false 
@@ -67,6 +67,12 @@ spec:
 
 {{< /language-toggle >}}
 
+## Install location for dynamic runtime assets
+
+If you use a Sensu [package][32], dynamic runtime assets are installed at `/var/cache`.
+
+If you use a Sensu [Docker image][31], dynamic runtime assets are installed at `/var/lib`.
+
 ## Dynamic runtime asset builds
 
 A dynamic runtime asset build is the combination of an artifact URL, SHA512 checksum, and optional [Sensu query expression][1] filters.
@@ -79,7 +85,7 @@ We recommend using [multiple-build asset defintions](#asset-example-multiple-bui
 
 ### Asset example: Multiple builds
 
-This example shows the resource definition for a dynamic runtime asset with multiple builds:
+This example shows the resource definition for the [sensu/check-cpu-usage][46] dynamic runtime asset, which has multiple builds:
 
 {{< language-toggle >}}
 
@@ -88,39 +94,48 @@ This example shows the resource definition for a dynamic runtime asset with mult
 type: Asset
 api_version: core/v2
 metadata:
-  name: check_cpu
-  labels:
-    origin: bonsai
+  name: check-cpu-usage
+  labels: 
   annotations:
-    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
-    version: 0.0.3
+    io.sensu.bonsai.url: https://bonsai.sensu.io/assets/sensu/check-cpu-usage
+    io.sensu.bonsai.api_url: https://bonsai.sensu.io/api/v1/assets/sensu/check-cpu-usage
+    io.sensu.bonsai.tier: Community
+    io.sensu.bonsai.version: 0.2.2
+    io.sensu.bonsai.namespace: sensu
+    io.sensu.bonsai.name: check-cpu-usage
+    io.sensu.bonsai.tags: ''
 spec:
   builds:
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
-    sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
-    filters:
-    - entity.system.os == 'linux'
-    - entity.system.arch == 'amd64'
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz
-    sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
-    filters:
-    - entity.system.os == 'linux'
-    - entity.system.arch == 'arm'
-    - entity.system.arm_version == 7
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz
-    sha512: 10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_windows_amd64.tar.gz
+    sha512: 900cfdf28d6088b929c4bf9a121b628971edee5fa5cbc91a6bc1df3bd9a7f8adb1fcfb7b1ad70589ed5b4f5ec87d9a9a3ba95bcf2acda56b0901406f14f69fe7
     filters:
     - entity.system.os == 'windows'
     - entity.system.arch == 'amd64'
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_darwin_amd64.tar.gz
+    sha512: db81ee70426114e4cd4b3f180f2b0b1e15b4bffc09d7f2b41a571be2422f4399af3fbd2fa2918b8831909ab4bc2d3f58d0aa0d7b197d3a218b2391bb5c1f6913
+    filters:
+    - entity.system.os == 'darwin'
+    - entity.system.arch == 'amd64'
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_armv7.tar.gz
+    sha512: 400aacce297176e69f3a88b0aab0ddfdbe9dd6a37a673cb1774c8d4750a91cf7713a881eef26ea21d200f74cb20818161c773490139e6a6acb92cbd06dee994c
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'armv7'
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_arm64.tar.gz
+    sha512: bef7802b121ac2a2a5c5ad169d6003f57d8b4f5e83eae998a0e0dd1e7b89678d4a62e678d153edacdd65fd1d0123b5f51308622690455e77cec6deccfa183397
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'arm64'
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_386.tar.gz
+    sha512: a2dcb5324952567a61d76a2e331c1c16df69ef0e0b9899515dad8d1531b204076ad0c008f59fc2f4735a5a779afb0c1baa132268c41942b203444e377fe8c8e5
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == '386'
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_amd64.tar.gz
+    sha512: 24539739b5eb19bbab6eda151d0bcc63a0825afdfef3bc1ec3670c7b0a00fbbb2fd006d605a7a038b32269a22026d8947324f2bc0acdf35e8563cf4cb8660d7f
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
 {{< /code >}}
 
 {{< code json >}}
@@ -128,53 +143,67 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check_cpu",
-    "labels": {
-      "origin": "bonsai"
-    },
+    "name": "check-cpu-usage",
+    "labels": null,
     "annotations": {
-      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
-      "version": "0.0.3"
+      "io.sensu.bonsai.url": "https://bonsai.sensu.io/assets/sensu/check-cpu-usage",
+      "io.sensu.bonsai.api_url": "https://bonsai.sensu.io/api/v1/assets/sensu/check-cpu-usage",
+      "io.sensu.bonsai.tier": "Community",
+      "io.sensu.bonsai.version": "0.2.2",
+      "io.sensu.bonsai.namespace": "sensu",
+      "io.sensu.bonsai.name": "check-cpu-usage",
+      "io.sensu.bonsai.tags": ""
     }
   },
   "spec": {
     "builds": [
       {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
-        "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'amd64'"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
-      },
-      {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz",
-        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'arm'",
-          "entity.system.arm_version == 7"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
-      },
-      {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz",
-        "sha512": "10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f",
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_windows_amd64.tar.gz",
+        "sha512": "900cfdf28d6088b929c4bf9a121b628971edee5fa5cbc91a6bc1df3bd9a7f8adb1fcfb7b1ad70589ed5b4f5ec87d9a9a3ba95bcf2acda56b0901406f14f69fe7",
         "filters": [
           "entity.system.os == 'windows'",
           "entity.system.arch == 'amd64'"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_darwin_amd64.tar.gz",
+        "sha512": "db81ee70426114e4cd4b3f180f2b0b1e15b4bffc09d7f2b41a571be2422f4399af3fbd2fa2918b8831909ab4bc2d3f58d0aa0d7b197d3a218b2391bb5c1f6913",
+        "filters": [
+          "entity.system.os == 'darwin'",
+          "entity.system.arch == 'amd64'"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_armv7.tar.gz",
+        "sha512": "400aacce297176e69f3a88b0aab0ddfdbe9dd6a37a673cb1774c8d4750a91cf7713a881eef26ea21d200f74cb20818161c773490139e6a6acb92cbd06dee994c",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'armv7'"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_arm64.tar.gz",
+        "sha512": "bef7802b121ac2a2a5c5ad169d6003f57d8b4f5e83eae998a0e0dd1e7b89678d4a62e678d153edacdd65fd1d0123b5f51308622690455e77cec6deccfa183397",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'arm64'"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_386.tar.gz",
+        "sha512": "a2dcb5324952567a61d76a2e331c1c16df69ef0e0b9899515dad8d1531b204076ad0c008f59fc2f4735a5a779afb0c1baa132268c41942b203444e377fe8c8e5",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == '386'"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_amd64.tar.gz",
+        "sha512": "24539739b5eb19bbab6eda151d0bcc63a0825afdfef3bc1ec3670c7b0a00fbbb2fd006d605a7a038b32269a22026d8947324f2bc0acdf35e8563cf4cb8660d7f",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ]
       }
     ]
   }
@@ -275,8 +304,8 @@ Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][4
 
 ### Dynamic runtime asset build execution
 
-The directory path of each dynamic runtime asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator, or check `command` is executed.
-Subsequent handler, filter, mutator, or check executions look for the dynamic runtime asset in the local cache and ensure that the contents match the configured checksum.
+The directory path of each dynamic runtime asset listed in a check, event filter, handler, or mutator resource's `runtime_assets` array is appended to the `PATH` before the resource's `command` is executed.
+Subsequent check, event filter, handler, or mutator executions look for the dynamic runtime asset in the local cache and ensure that the contents match the configured checksum.
 
 The following example demonstrates a use case with a Sensu check resource and an asset:
 
@@ -390,7 +419,7 @@ Sensu expects dynamic runtime assets to be retrieved over HTTP or HTTPS.
 
 ### Example dynamic runtime asset structure
 
-{{< code shell >}}
+{{< code text >}}
 sensu-example-handler_1.0.0_linux_amd64
 ├── CHANGELOG.md
 ├── LICENSE
@@ -408,45 +437,86 @@ Most of the time, you won't need to know this path &mdash; except in cases where
 
 The dynamic runtime asset directory path includes the asset's checksum, which changes every time underlying asset artifacts are updated.
 This would normally require you to manually update the commands for any of your checks, handlers, hooks, or mutators that consume the dynamic runtime asset.
-However, because the dynamic runtime asset directory path is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function for token substitution][17], you can avoid these manual updates.
+However, because the dynamic runtime asset directory path is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function][17], you can avoid these manual updates.
 
 You can retrieve the dynamic runtime asset's path as an environment variable in the `command` context for checks, handlers, hooks, and mutators.
 Token substitution with the `assetPath` custom function is only available for check and hook commands.
+
+The Sensu Windows agent uses `cmd.exe` for the check execution environment.
+For all other operating systems, the Sensu agent uses the Bourne shell (sh).
 
 ### Environment variables for dynamic runtime asset paths
 
 For each dynamic runtime asset, a corresponding environment variable will be available in the `command` context.
 
-Sensu generates the environment variable name by capitalizing the dynamic runtime asset name, replacing any special characters with underscores, and appending the `_PATH` suffix.
+Sensu generates the environment variable name by capitalizing the dynamic runtime asset's complete name, replacing any special characters with underscores, and appending the `_PATH` suffix.
 The value of the variable will be the path on disk where the dynamic runtime asset build has been unpacked.
 
-For example, for a Sensu Windows agent, the environment variable path for the dynamic runtime asset [`sensu-windows-powershell-checks`][4] would be:
+Each asset page in Bonsai lists the asset's complete name.
+This example shows where the complete name for the [sensu/http-checks][22] dynamic runtime asset is located in Bonsai:
 
-`%SENSU_WINDOWS_POWERSHELL_CHECKS_PATH%/include/config.yaml`
+{{< figure src="/images/go/assets_reference/complete_name_location_bonsai_asset_paths.png" alt="Bonsai page for the Sensu http-checks dynamic runtime asset showing the location of the asset namespace and name" link="/images/go/assets_reference/complete_name_location_bonsai_asset_paths.png" target="_blank" >}}
 
-The Windows console environment interprets the content between the [paired `%` characters][44] as an environment variable name and will substitute the value of that [environment variable][45].
+An asset's complete name includes both the part before the forward slash (sometimes called the Bonsai namespace) and the part after the forward slash.
 
-{{% notice note %}}
-**NOTE**: The Sensu Windows agent uses `cmd.exe` for the check execution environment.
-For all other operating systems, the Sensu agent uses the Bourne shell (sh) and `${VARIABLE_NAME}` [shell syntax](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux).
-{{% /notice %}}
+Consequently, the environment variable for the [sensu/http-checks][22] asset path is:
 
-### Token substitution for dynamic runtime asset paths
+{{< code shell >}}
+SENSU_HTTP_CHECKS_PATH
+{{< /code >}}
 
-The `assetPath` token subsitution function allows you to substitute the dynamic runtime asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
+#### Linux environment variable example
+
+The Linux environment interprets the content between the `${` and `}` characters as an environment variable name and will substitute the value of that environment variable.
+
+For example, to reference the path for the [sensu/http-checks][22] asset in your checks, handlers, hooks, and mutators:
+
+{{< code shell >}}
+${SENSU_HTTP_CHECKS_PATH}
+{{< /code >}}
+
+#### Windows environment variable example
+
+The Windows console environment interprets the content between [paired `%` characters][44] as an environment variable name and will substitute the value of that [environment variable][45].
+
+For example, to reference the path for the [sensu/sensu-windows-powershell-checks][4] asset in your checks, handlers, hooks, and mutators:
+
+{{< code shell "Environment variable" >}}
+%SENSU_SENSU_WINDOWS_POWERSHELL_CHECKS_PATH%
+{{< /code >}}
+
+### assetPath function for dynamic runtime asset paths
+
+The `assetPath` token subsitution function allows you to substitute a dynamic runtime asset's local path on disk so that you will not need to manually update your check or hook commands every time the asset is updated.
 
 {{% notice note %}}
 **NOTE**: The `assetPath` function is only available where token substitution is available: the `command` attribute of a check or hook resource.
-If you want to access a dynamic runtime asset path in a handler or mutator command, you must use the [environment variable](#environment-variables-for-dynamic-runtime-asset-paths).
+To access a dynamic runtime asset path in a handler or mutator command, you must use the [environment variable](#environment-variables-for-dynamic-runtime-asset-paths).
 {{% /notice %}}
 
-For example, you can reference the dynamic runtime asset [`sensu-windows-powershell-checks`][4] from your check or hook resources using either the environment variable or the `assetPath` function:
+#### Linux assetPath example
 
-- `%SENSU_WINDOWS_POWERSHELL_CHECKS_PATH%/include/config.yaml`
-- `${{assetPath "sensu-windows-powershell-checks"}}/include/config.yaml`
+To use the `assetPath` token substitution function in a Linux environment, place it immediately after the `$` character.
+
+For example, to use the `assetPath` function to reference the path for the [sensu/http-checks][22] asset in your check or hook resources:
+
+{{< code shell >}}
+${{assetPath "sensu/http-checks"}}
+{{< /code >}}
+
+#### Windows assetPath example
+
+To use the `assetPath` token substitution function in a Linux environment, place it between [paired `%` characters][44].
+
+For example, to use the `assetPath` function to reference the path for the [sensu/sensu-windows-powershell-checks][4] asset in your check or hook resources:
+
+{{< code shell "assetPath" >}}
+%{{assetPath "sensu/sensu-windows-powershell-checks"}}%
+{{< /code >}}
 
 When running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
-To correctly capture exit status codes from PowerShell plugins distributed as dynamic runtime assets, use the asset path to construct the command:
+To correctly capture exit status codes from PowerShell plugins distributed as dynamic runtime assets, use the asset path to construct the command.
+The following example uses the `assetPath` function for this purpose:
 
 {{< language-toggle >}}
 
@@ -457,14 +527,14 @@ api_version: core/v2
 metadata:
   name: win-cpu-check
 spec:
-  command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu-windows-powershell-checks"}}%\bin\check-windows-cpu-load.ps1 90 95
+  command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu/sensu-windows-powershell-checks"}}%\bin\check-windows-cpu-load.ps1 90 95
   subscriptions:
   - windows
   handlers:
   - slack
   - email
   runtime_assets:
-  - sensu-windows-powershell-checks
+  - sensu/sensu-windows-powershell-checks
   interval: 10
   publish: true
 {{< /code >}}
@@ -477,7 +547,7 @@ spec:
     "name": "win-cpu-check"
   },
   "spec": {
-    "command": "powershell.exe -ExecutionPolicy ByPass -f %{{assetPath \"sensu-windows-powershell-checks\"}}%\\bin\\check-windows-cpu-load.ps1 90 95",
+    "command": "powershell.exe -ExecutionPolicy ByPass -f %{{assetPath \"sensu/sensu-windows-powershell-checks\"}}%\\bin\\check-windows-cpu-load.ps1 90 95",
     "subscriptions": [
       "windows"
     ],
@@ -486,7 +556,7 @@ spec:
       "email"
     ],
     "runtime_assets": [
-      "sensu-windows-powershell-checks"
+      "sensu/sensu-windows-powershell-checks"
     ],
     "interval": 10,
     "publish": true
@@ -495,10 +565,6 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
-
-{{% notice note %}}
-**NOTE**: In this example, the check command uses the Windows console syntax for accessing the environment variables used to configure the PowerShell command line arguments. 
-{{% /notice %}}
 
 ## Asset hello world Bourne shell example
 
@@ -550,7 +616,7 @@ tree
 {{< /code >}}
 
    The response should list the `hello-world.sh` script in the `/bin` directory:
-   {{< code shell >}}
+   {{< code text >}}
 .
 └── bin
     └── hello-world.sh
@@ -581,7 +647,6 @@ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
 3. Generate a SHA512 sum for the tar.gz archive (this is required for the dynamic runtime asset to work):
 {{< code shell >}}
 sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
-dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
 {{< /code >}}
 
 From here, you can host your dynamic runtime asset wherever you’d like.
@@ -805,7 +870,7 @@ created_by: admin
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][20], [sensuctl responses][21], and [web UI views][39] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][20], [sensuctl responses][21], and [web UI views][39] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -827,7 +892,7 @@ labels:
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][20], [sensuctl response filtering][21], or [web UI views][39].
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][20], [sensuctl response filtering][21], or [web UI views][39].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -976,7 +1041,7 @@ headers:
 
 Use the [entity.system attributes][10] in dynamic runtime asset [filters][42] to specify which systems and configurations an asset or asset builds can be used with.
 
-For example, the [Sensu Go Ruby Runtime][43] dynamic runtime asset definition includes several builds, each with filters for several `entity.system` attributes:
+For example, the [sensu/sensu-ruby-runtime][43] dynamic runtime asset definition includes several builds, each with filters for several `entity.system` attributes:
 
 {{< language-toggle >}}
 
@@ -1193,8 +1258,9 @@ example      | {{< code yml >}}
 
 ## Delete dynamic runtime assets
 
-Delete dynamic runtime assets with the `/assets (DELETE)` endpoint or via `sensuctl` (`sensuctl asset delete`).
-When you remove a dynamic runtime asset from Sensu, this _*does not*_ remove references to the deleted asset in any other resource (including checks, filters, mutators, handlers, and hooks).
+Delete dynamic runtime assets with a DELETE request to the [`/assets` API endpoint][47] or with the [`sensuctl asset delete` command][48].
+
+Removing a dynamic runtime asset from Sensu *does not* remove references to the deleted asset in any other resource (including checks, filters, mutators, handlers, and hooks).
 You must also update resources and remove any reference to the deleted dynamic runtime asset.
 Failure to do so will result in errors like `sh: asset.sh: command not found`. 
 
@@ -1221,11 +1287,12 @@ You must remove the archive and downloaded files from the asset cache manually.
 [14]: #environment-variables-for-dynamic-runtime-asset-paths
 [15]: #example-dynamic-runtime-asset-structure
 [16]: https://bonsai.sensu.io/
-[17]: #token-substitution-for-dynamic-runtime-asset-paths
+[17]: #assetpath-function-for-dynamic-runtime-asset-paths
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
 [20]: ../../api/#response-filtering
 [21]: ../../sensuctl/filter-responses/
+[22]: https://bonsai.sensu.io/assets/sensu/http-checks
 [23]: ../use-assets-to-install-plugins/
 [24]: https://github.com
 [25]: https://help.github.com/articles/about-releases/
@@ -1234,6 +1301,8 @@ You must remove the archive and downloaded files from the asset cache manually.
 [28]: https://github.com/sensu/sensu-go-plugin/
 [29]: ../plugins/
 [30]: ../../observability-pipeline/observe-schedule/agent#disable-assets
+[31]: ../../platforms/#docker-images
+[32]: ../../platforms/#supported-packages
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
 [39]: ../../web-ui/search#search-for-labels
@@ -1243,3 +1312,6 @@ You must remove the archive and downloaded files from the asset cache manually.
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [44]: https://devblogs.microsoft.com/oldnewthing/20060823-00/?p=29993
 [45]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.1
+[46]: https://bonsai.sensu.io/assets/sensu/check-cpu-usage
+[47]: ../../api/core/assets/
+[48]: ../../sensuctl/create-manage-resources/#delete-resources

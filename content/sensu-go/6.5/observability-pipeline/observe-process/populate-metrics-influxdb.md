@@ -4,7 +4,7 @@ linkTitle: "Populate Metrics in InfluxDB"
 guide_title: "Populate metrics in InfluxDB with handlers"
 type: "guide"
 description: "Follow this guide to populate Sensu metrics into the time-series database InfluxDB with a handler, an action the Sensu backend executes when an event occurs."
-weight: 50
+weight: 160
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -28,7 +28,7 @@ For an agent to execute a specific check, you must specify the same subscription
 The example in this guide uses the `prometheus_metrics` check from [Collect Prometheus metrics with Sensu][10], which includes the subscription `app_tier`.
 Use [sensuctl][15] to add an `app_tier` subscription to one of your entities.
 
-Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+Before you run the following code, replace `<ENTITY_NAME>` with the name of the entity on your system.
 
 {{% notice note %}}
 **NOTE**: To find your entity name, run `sensuctl entity list`.
@@ -36,7 +36,7 @@ The `ID` is the name of your entity.
 {{% /notice %}}
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -53,9 +53,9 @@ The response should indicate `active (running)` for both the Sensu backend and a
 ## Register the dynamic runtime asset
 
 [Dynamic runtime assets][12] are shareable, reusable packages that make it easier to deploy Sensu plugins.
-This example uses the [Sensu InfluxDB Handler][13] dynamic runtime asset to power an InfluxDB handler.
+This example uses the [sensu/sensu-influxdb-handler][13] dynamic runtime asset to power an InfluxDB handler.
 
-Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] dynamic runtime asset:
+Use [`sensuctl asset add`][5] to register the [sensu/sensu-influxdb-handler][13] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.7.0 -r sensu-influxdb-handler
@@ -85,7 +85,7 @@ Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ## Create the handler
 
-Now that you have registered the dynamic runtime asset, use sensuctl to create a handler called `influxdb-handler` that pipes observation data (events) to InfluxDB with the `sensu-influxdb-handler` dynamic runtime asset.
+Now that you have registered the dynamic runtime asset, use sensuctl to create a handler called `influxdb-handler` that pipes observation data (events) to InfluxDB with the sensu/sensu-influxdb-handler dynamic runtime asset.
 Edit the command below to replace the placeholders for database name, address, username, and password with the information for your own InfluxDB database.
 For more information about the Sensu InfluxDB handler, read the [asset page in Bonsai][13].
 
@@ -99,7 +99,7 @@ sensuctl handler create influxdb-handler \
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Created
 {{< /code >}}
 
@@ -292,7 +292,7 @@ pipelines:
 Save the two changes and exit the text editor.
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Updated /api/core/v2/namespaces/default/checks/prometheus_metrics
 {{< /code >}}
 

@@ -4,7 +4,7 @@ linkTitle: "Use Assets to Install Plugins"
 guide_title: "Use dynamic runtime assets to install plugins"
 type: "guide"
 description: "Use Sensu's shareable, reusable dynamic runtime assets to deploy the plugins, libraries, and runtimes you need for your monitoring and observability workflows."
-weight: 40
+weight: 80
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
@@ -16,16 +16,16 @@ menu:
 Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 Read the [asset reference][1] for more information about dynamic runtime assets.
-This guide uses the [Sensu PagerDuty Handler dynamic runtime asset][7] as an example.
+This guide uses the [sensu/sensu-pagerduty-handler][7] dynamic runtime asset as an example.
 
 {{% notice note %}}
 **NOTE**: Dynamic runtime assets are not required to use Sensu Go.
 You can install Sensu plugins using the [sensu-install](../install-plugins#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../operations/deploy-sensu/configuration-management/) solution.
 {{% /notice %}}
 
-## Register the Sensu PagerDuty Handler asset
+## Register an asset
 
-To add the [Sensu PagerDuty Handler dynamic runtime asset][7] to Sensu, use [`sensuctl asset add <namespace/name>:<version>`][6]:
+To add the [sensu/sensu-pagerduty-handler][7] dynamic runtime asset to Sensu, use [sensuctl asset add][6]:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:2.2.0 -r pagerduty-handler
@@ -43,7 +43,7 @@ resource, populate the "runtime_assets" field with ["pagerduty-handler"].
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: We recommend specifying the asset version you want to install to maintain the stability of your observability infrastructure.
+**NOTE**: Specify the asset version you want to install to maintain the stability of your observability infrastructure.
 If you do not specify a version to install, Sensu automatically installs the latest version, which may include breaking changes.
 {{% /notice %}}
 
@@ -56,12 +56,15 @@ You can also open the **Release Assets** tab on asset pages in [Bonsai][3] to do
 Read the [asset reference](../assets#dynamic-runtime-asset-builds) for more information about asset builds.
 {{% /notice %}}
 
+If you are using a Sensu [package][9], the asset is installed at `/var/cache`.
+If you are using a Sensu [Docker image][17], the asset is installed at `/var/lib`.
+
 ## Adjust the asset definition
 
 Asset definitions tell Sensu how to download and verify the asset when required by a check, filter, mutator, or handler.
 
 After you add or download the asset definition, open the file and adjust the `namespace` and `filters` for your Sensu instance.
-Here's the asset definition for version 2.2.0 of the [Sensu PagerDuty Handler][7] asset for Linux AMD64:
+Here's the asset definition for version 2.2.0 of the [sensu/sensu-pagerduty-handler][7] asset for Linux AMD64:
 
 {{< language-toggle >}}
 
@@ -235,6 +238,7 @@ Follow [Send PagerDuty alerts with Sensu][8] to configure a check that generates
 [6]: ../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [8]: ../../observability-pipeline/observe-process/send-pagerduty-alerts/
+[9]: ../../platforms/#supported-packages
 [10]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
 [11]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
 [12]: ../../commercial/
@@ -242,3 +246,4 @@ Follow [Send PagerDuty alerts with Sensu][8] to configure a check that generates
 [14]: ../assets#dynamic-runtime-asset-format-specification
 [15]: ../assets#share-an-asset-on-bonsai
 [16]: https://bonsai.sensu.io
+[17]: ../../platforms/#docker-images

@@ -30,7 +30,7 @@ By default, this transport operates on port 8081.
 The agent subscriptions are used to determine which check execution requests the backend publishes via the transport.
 Sensu agents locally execute checks as requested by the backend and publish check results back to the transport to be processed.
 
-Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password][34] or [mutual transport layer security (mTLS)][31] authentication.
+Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password authentication][34] or [mutual transport layer security (mTLS) authentication][31].
 
 To secure the WebSocket transport, first [generate the certificates][32] you will need to set up transport layer security (TLS).
 Then, [secure Sensu][33] by configuring either TLS or mTLS to make Sensu production-ready.
@@ -203,7 +203,7 @@ You will receive prompts for username, password, and API key in interactive mode
 Provide your username and password to complete initialization.
 The API key is optional &mdash; press `return` to skip it.
 
-{{< code shell >}}
+{{< code text >}}
 Cluster Admin Username: <username>
 Cluster Admin Password: <password>
 Retype Cluster Admin Password: <password>
@@ -226,7 +226,7 @@ sensu-backend init --help
 
 The response will list command information and configuration flags for `sensu-backend init`:
 
-{{< code shell >}}
+{{< code text >}}
 Usage:
   sensu-backend init [flags]
 
@@ -320,7 +320,7 @@ If you do not provide any configuration flags, the backend loads configuration f
 To start the backend using a service manager:
 
 {{< code shell >}}
-service sensu-backend start
+sudo systemctl start sensu-backend
 {{< /code >}}
 
 ### Stop the service
@@ -328,7 +328,7 @@ service sensu-backend start
 To stop the backend service using a service manager:
 
 {{< code shell >}}
-service sensu-backend stop
+sudo systemctl stop sensu-backend
 {{< /code >}}
 
 ### Restart the service
@@ -338,7 +338,7 @@ You must restart the backend to implement any configuration updates.
 To restart the backend using a service manager:
 
 {{< code shell >}}
-service sensu-backend restart
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
 ### Enable on boot
@@ -346,13 +346,13 @@ service sensu-backend restart
 To enable the backend to start on system boot:
 
 {{< code shell >}}
-systemctl enable sensu-backend
+sudo systemctl enable sensu-backend
 {{< /code >}}
 
 To disable the backend from starting on system boot:
 
 {{< code shell >}}
-systemctl disable sensu-backend
+sudo systemctl disable sensu-backend
 {{< /code >}}
 
 {{% notice note %}}
@@ -364,7 +364,7 @@ systemctl disable sensu-backend
 To view the status of the backend service using a service manager:
 
 {{< code shell >}}
-service sensu-backend status
+sudo systemctl status sensu-backend
 {{< /code >}}
 
 ### Get service version
@@ -405,7 +405,7 @@ To configure a cluster, see:
 ### Synchronize time
 
 System clocks between agents and the backend should be synchronized to a central NTP server.
-If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
+If system time is out of sync, it may cause issues with keepalive, metric, and check alerts.
 
 ## Configuration via flags
 
@@ -1500,7 +1500,7 @@ Each backend configuration flag has an associated environment variable.
 You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
 Here's how.
 
-1. Create the files from which the `sensu-backend` service configured by our supported packages will read environment variables: `/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems.
+1. Create the files from which the `sensu-backend` service configured by our supported packages will read environment variables:
 
      {{< language-toggle >}}
      
@@ -1523,7 +1523,7 @@ All environment variables that control Sensu backend configuration begin with `S
      For a custom environment variable, you do not have to prepend `SENSU_BACKEND`.
      For example, `TEST_VAR_1` is a valid custom environment variable name.
 
-3. Add the environment variable to the environment file (`/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems).
+3. Add the environment variable to the environment file.
 
      For example, to create `api-listen-address` as an environment variable and set it to `192.168.100.20:8080`:
      
@@ -1539,7 +1539,7 @@ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/s
 
      {{< /language-toggle >}}
 
-4. Restart the sensu-backend service so these settings can take effect.
+4. Restart the sensu-backend service so these settings can take effect:
 
      {{< language-toggle >}}
 
@@ -1867,7 +1867,7 @@ platform-metrics-logging-interval: 60s{{< /code >}}
 [23]: #etcd-listen-client-urls
 [24]: ../../../operations/deploy-sensu/install-sensu#2-configure-and-start
 [25]: ../../../operations/deploy-sensu/install-sensu#3-initialize
-[26]: ../../../sensuctl/#change-admin-users-password
+[26]: ../../../sensuctl/#change-the-admin-users-password
 [27]: https://golang.org/pkg/net/http/pprof/
 [28]: ../subscriptions/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly

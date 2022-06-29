@@ -105,7 +105,7 @@ sudo -u postgres psql
 CREATE DATABASE sensu_events;
 {{< /code >}}
 
-   Postgres will return a confirmation message: `CREATE DATABASE`.
+   PostgreSQL will return a confirmation message: `CREATE DATABASE`.
 
 3. Create the `sensu` role with a password:
 
@@ -113,7 +113,7 @@ CREATE DATABASE sensu_events;
 CREATE USER sensu WITH ENCRYPTED PASSWORD 'mypass';
 {{< /code >}}
 
-   Postgres will return a confirmation message: `CREATE ROLE`.
+   PostgreSQL will return a confirmation message: `CREATE ROLE`.
 
 4. Grant the `sensu` role all privileges for the `sensu_events` database:
 
@@ -121,11 +121,11 @@ CREATE USER sensu WITH ENCRYPTED PASSWORD 'mypass';
 GRANT ALL PRIVILEGES ON DATABASE sensu_events TO sensu;
 {{< /code >}}
 
-   Postgres will return a confirmation message: `GRANT`.
+   PostgreSQL will return a confirmation message: `GRANT`.
 
 5. Type `\q` to exit the PostgreSQL prompt.
 
-With this configuration complete, Postgres will have a `sensu_events` database for storing Sensu events and a `sensu` user with permissions to that database.
+With this configuration complete, PostgreSQL will have a `sensu_events` database for storing Sensu events and a `sensu` user with permissions to that database.
 
 By default, the Postgres user you've just added will not be able to authenticate via password, so you'll also need to make a change to the `pg_hba.conf` file.
 The required change will depend on how Sensu will connect to Postgres.
@@ -209,7 +209,7 @@ Aside from event history, which is not migrated from etcd, there's no observable
 
 To verify that the change was effective and your connection to Postgres was successful, look at the [sensu-backend log][4]:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"store","level":"warning","msg":"trying to enable external event store","time":"2019-10-02T23:31:38Z"}
 {"component":"store","level":"warning","msg":"switched event store to postgres","time":"2019-10-02T23:31:38Z"}
 {{< /code >}}
@@ -228,9 +228,9 @@ sudo -u postgres psql
 \c sensu_events
 {{< /code >}}
 
-   Postgres will return a confirmation message:
+   PostgreSQL will return a confirmation message:
 
-   {{< code postgresql >}}
+   {{< code text >}}
 You are now connected to database "sensu_events" as user "postgres".
 {{< /code >}}
 
@@ -242,9 +242,9 @@ You are now connected to database "sensu_events" as user "postgres".
 \dt
 {{< /code >}}
 
-   Postgres will list the tables:
+   PostgreSQL will list the tables:
 
-   {{< code postgresql >}}
+   {{< code text >}}
              List of relations
  Schema |       Name        | Type  | Owner 
 --------+-------------------+-------+-------
@@ -259,9 +259,9 @@ You are now connected to database "sensu_events" as user "postgres".
 select sensu_entity from events where sensu_check = 'keepalive';
 {{< /code >}}
 
-   Postgres will return a list of the entities:
+   PostgreSQL will return a list of the entities:
 
-   {{< code postgresql >}}
+   {{< code text >}}
  sensu_entity 
 --------------
  i-414141
@@ -289,12 +289,12 @@ sensuctl delete --file my-postgres.json
 
 To verify that the change was effective, look for messages similar to these in the [sensu-backend log][4]:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"store","level":"warning","msg":"store configuration deleted","store":"/sensu.io/api/enterprise/store/v1/provider/postgres01","time":"2019-10-02T23:29:06Z"}
 {"component":"store","level":"warning","msg":"switched event store to etcd","time":"2019-10-02T23:29:06Z"}
 {{< /code >}}
 
-Similar to enabling Postgres, switching back to the etcd datastore does not migrate current observability event data from one store to another.
+Similar to enabling PostgreSQL, switching back to the etcd datastore does not migrate current observability event data from one store to another.
 The web UI or sensuctl output may list outdated events until the etcd datastore catches up with the current state of your monitored infrastructure.
 
 ## Configure Postgres streaming replication
@@ -319,7 +319,7 @@ sudo -u postgres psql
 CREATE ROLE repl PASSWORD '<your-password>' LOGIN REPLICATION;
 {{< /code >}}
 
-   Postgres will return a confirmation message: `CREATE ROLE`.
+   PostgreSQL will return a confirmation message: `CREATE ROLE`.
 
 3. Type `\q` to exit the PostgreSQL prompt.
 
@@ -412,9 +412,9 @@ sudo -u postgres pg_basebackup -h $PRIMARY_IP -D /var/lib/pgsql/data -P -U repl 
 Password: 
 {{< /code >}}
 
-After you enter your password, Postgres will list database copy progress:
+After you enter your password, PostgreSQL will list database copy progress:
 
-{{< code postgresql >}}
+{{< code text >}}
 30318/30318 kB (100%), 1/1 tablespace
 {{< /code >}}
 
@@ -437,8 +437,8 @@ sudo systemctl start postgresql
 sudo -u postgres psql -c "select pg_current_wal_lsn()"
 {{< /code >}}
 
-   Postgres will list the primary host commit log location:
-{{< code postgresql >}}
+   PostgreSQL will list the primary host commit log location:
+{{< code text >}}
  pg_current_wal_lsn 
 --------------------------
  0/3000568
@@ -453,14 +453,14 @@ sudo -u postgres psql -c "select pg_last_wal_receive_lsn()"
 sudo -u postgres psql -c "select pg_last_wal_replay_lsn()"
 {{< /code >}}
 
-   Postgres will list the standby host commit log location:
-{{< code postgresql >}}
+   PostgreSQL will list the standby host commit log location:
+{{< code text >}}
  pg_last_wal_receive_lsn 
 -------------------------------
  0/3000568
 (1 row)
 {{< /code >}}
-{{< code postgresql >}}
+{{< code text >}}
  pg_last_wal_replay_lsn 
 ------------------------------
  0/3000568

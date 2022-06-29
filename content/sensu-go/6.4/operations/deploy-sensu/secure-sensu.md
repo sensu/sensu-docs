@@ -25,7 +25,7 @@ After you generate certificates, follow this reference to secure Sensu for produ
 {{% notice note %}}
 **NOTE**: Sensu Go 6.4.0 upgraded the Go version from 1.13.15 to 1.16.5.
 As of [Go 1.15](https://golang.google.cn/doc/go1.15#commonname), certificates must include their Common Name (CN) as a Subject Alternative Name (SAN) field.
-To prevent connection errors after upgrading to Sensu Go 6.4.0, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
+To prevent connection errors after upgrading to Sensu Go 6.4.0 or later versions, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
 {{% /notice %}}
 
 ## Secure etcd peer communication
@@ -39,14 +39,14 @@ To properly secure etcd communication, replace the default parameter values in y
 
 1. Replace the placeholder with the path to your certificate and key for the `etcd-cert-file` and `etcd-key-file` to secure client communication:
 {{< code yml >}}
-etcd-cert-file: "/etc/sensu/tls/backend-1.pem"
-etcd-key-file: "/etc/sensu/tls/backend-1-key.pem"
+etcd-cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
+etcd-key-file: "/etc/sensu/tls/backend-1.example.com-key.pem"
 {{< /code >}}
 
 2. Replace the placeholder with the path to your certificate and key for the `etcd-peer-cert-file` and `etcd-peer-key-file` to secure cluster communication:
 {{< code yml >}}
-etcd-peer-cert-file: "/etc/sensu/tls/backend-1.pem"
-etcd-peer-key-file: "/etc/sensu/tls/backend-1-key.pem"
+etcd-peer-cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
+etcd-peer-key-file: "/etc/sensu/tls/backend-1.example.com-key.pem"
 {{< /code >}}
 
 3. Replace the placeholder with the path to your `ca.pem` certificate for the `etcd-trusted-ca-file` and `etcd-peer-trusted-ca-file` to secure communication with the etcd client server and between etcd cluster members:
@@ -93,8 +93,8 @@ Configure the following backend secure sockets layer (SSL) attributes in `/etc/s
 1. Replace the placeholders with the paths to your CA root, backend certificate, and backend key files for the `trusted-ca-file`, `cert-file`, and `key-file` parameters:
 {{< code yml >}}
 trusted-ca-file: "/etc/sensu/tls/ca.pem"
-cert-file: "/etc/sensu/tls/backend-1.pem"
-key-file: "/etc/sensu/tls/backend-1-key.pem"
+cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
+key-file: "/etc/sensu/tls/backend-1.example.com-key.pem"
 {{< /code >}}
 
 2. Set the `insecure-skip-tls-verify` parameter to `false`:
@@ -106,6 +106,12 @@ insecure-skip-tls-verify: false
 For this reason, you must also specify `https://` schema for the `api-url` parameter for backend API configuration:
 {{< code yml >}}
 api-url: "https://localhost:8080"
+{{< /code >}}
+
+Restart the `sensu-backend` service:
+
+{{< code shell >}}
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
 After you restart the `sensu-backend` service, the parameters will load and you will able to access the web UI at https://localhost:3000.
@@ -194,7 +200,7 @@ For this use case, create a user that matches the Common Name (CN) of the agent'
 To ensure that agents with incorrect CN fields can't access the backend, remove the default `system:agents` group.
 {{% /notice %}}
 
-To view a certificate's CN with openssl, run:
+For example, if you have a certificate named `client.pem`, you can run the following command to view the certificate's CN with openssl:
 
 {{< code bash >}}
 openssl x509 -in client.pem -text -noout
@@ -202,7 +208,7 @@ openssl x509 -in client.pem -text -noout
 
 The response should be similar to this example:
 
-{{< code bash >}}
+{{< code text >}}
 Certificate:
     Data:
         Version: 3 (0x2)
@@ -223,14 +229,14 @@ To enable agent mTLS authentication:
 
 1. Create and distribute a new Certificate Authority (CA) root certificate and new agent and backend certificates and keys according to the [Generate certificates][12] guide.
 
-2. Add the following parameters and values to the backend configuration:
+2. Add the following parameters and values to the backend configuration `/etc/sensu/backend.yml`:
 {{< code yml >}}
-agent-auth-cert-file: "/etc/sensu/tls/backend-1.pem"
-agent-auth-key-file: "/etc/sensu/tls/backend-1-key.pem"
+agent-auth-cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
+agent-auth-key-file: "/etc/sensu/tls/backend-1.example.com-key.pem"
 agent-auth-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
-3. Add the following parameters and values to the agent configuration:
+3. Add the following parameters and values to the agent configuration in `/etc/sensu/agent.yml`:
 {{< code yml >}}
 cert-file: "/etc/sensu/tls/agent.pem"
 key-file: "/etc/sensu/tls/agent-key.pem"

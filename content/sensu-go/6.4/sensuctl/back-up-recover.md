@@ -11,7 +11,7 @@ menu:
     parent: sensuctl
 ---
 
-The sensuctl dump command allows you to export your [resources][6] to standard out (STDOUT) or to a file.
+The sensuctl dump command allows you to export your [resources][6] to standard out (stdout) or to a file.
 You can export all resources or a subset of them based on a list of resource types.
 The `dump` command supports exporting in `wrapped-json` and `yaml`.
 
@@ -46,7 +46,7 @@ This page explains how to back up your resources for two common use cases: befor
 
 ## Example sensuctl dump commands
 
-To export only checks for only the current namespace to STDOUT in YAML or JSON format:
+To export only checks for only the current namespace to stdout in YAML or JSON format:
 
 {{< language-toggle >}}
 
@@ -343,7 +343,7 @@ sensuctl describe-type all
 
 The response will list the names and other details for the supported resource types:
 
-{{< code shell >}}
+{{< code text >}}
       Fully Qualified Name           Short Name           API Version             Type          Namespaced  
  ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
   authentication/v2.Provider                           authentication/v2   Provider             false

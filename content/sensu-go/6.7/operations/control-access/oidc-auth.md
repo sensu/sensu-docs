@@ -19,7 +19,7 @@ For more information, read [Get started with commercial features](../../../comme
 
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
-In addition to the [built-in basic authentication provider][7], Sensu offers [commercial support][6] for single sign-on (SSO) authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
+In addition to the [built-in basic authentication][7], Sensu offers [commercial support][6] for single sign-on (SSO) authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
 The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
 For general information about configuring authentication providers, read [Configure single sign-on (SSO) authentication][12].
@@ -403,7 +403,7 @@ The steps may be different if you are using the Okta Classic UI.
     - Select the sign-in method `OIDC - OpenID Connect`.
     - Select the application type `Web Application`.
 4. Click **Next**.
-5. In the *New Web App Integration* wizard:
+5. In the *New Web App Integration* dialog:
     - In the *App integration name* field, enter the app name.
 You can also upload a logo if desired.
     - Under *Grant type*, click to select `Refresh Token` in the *Client acting on behalf of a user* list.
@@ -538,7 +538,7 @@ For example, the URL `http://127.0.0.1:8080/api/enterprise/authentication/v2/oid
 
 If you see the following error when you open the web UI, the [`groups_claim`][10] value in your Sensu OIDC definition is incorrect:
 
-{{< code shell >}}
+{{< code text >}}
 {"message":"could not find the groups claim \"okta:groups\" in the user's claims: [\"sub\" \"email\" \"email_verified\"]","code":0}
 {{< /code >}}
 

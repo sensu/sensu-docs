@@ -4,7 +4,7 @@ linkTitle: "Send PagerDuty Alerts"
 guide_title: "Send PagerDuty alerts with Sensu"
 type: "guide"
 description: "Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
-weight: 25
+weight: 220
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
@@ -37,11 +37,11 @@ sensuctl entity list
 
 The `ID` in the response is the name of your entity.
 
-Replace `<entity_name>` with the name of your entity in the [sensuctl][12] command below.
+Replace `<ENTITY_NAME>` with the name of your entity in the [sensuctl][12] command below.
 Then run the command to add the `system` [subscription][13] to your entity:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -57,9 +57,9 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the dynamic runtime asset
 
-The [Sensu PagerDuty Handler][8] dynamic runtime asset includes the scripts you will need to send events to PagerDuty.
+The [sensu/sensu-pagerduty-handler][8] dynamic runtime asset includes the scripts you will need to send events to PagerDuty.
 
-To add the PagerDuty handler asset, run:
+To add the sensu/sensu-pagerduty-handler asset, run:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:2.2.0 -r pagerduty-handler
@@ -95,14 +95,14 @@ Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 Now that you've added the dynamic runtime asset, you can create a [handler][9] that uses the asset to send non-OK events to PagerDuty.
 
-In the following command, replace `<pagerduty_key>` with your [PagerDuty API integration key][1].
+In the following command, replace `<PAGERDUTY_KEY>` with your [PagerDuty API integration key][1].
 Then run the updated command:
 
 {{< code shell >}}
 sensuctl handler create pagerduty \
 --type pipe \
 --runtime-assets pagerduty-handler \
---command "sensu-pagerduty-handler -t <pagerduty_key>"
+--command "sensu-pagerduty-handler -t <PAGERDUTY_KEY>"
 {{< /code >}}
 
 {{% notice note %}}
@@ -137,7 +137,7 @@ api_version: core/v2
 metadata:
   name: pagerduty
 spec:
-  command: sensu-pagerduty-handler -t <pagerduty_key>
+  command: sensu-pagerduty-handler -t <PAGERDUTY_KEY>
   env_vars: null
   handlers: null
   runtime_assets:
@@ -155,7 +155,7 @@ spec:
     "name": "pagerduty"
   },
   "spec": {
-    "command": "sensu-pagerduty-handler -t <pagerduty_key>",
+    "command": "sensu-pagerduty-handler -t <PAGERDUTY_KEY>",
     "env_vars": null,
     "handlers": null,
     "runtime_assets": [
@@ -179,7 +179,7 @@ spec:
 With your handler configured, you can add it to a [pipeline][17] workflow.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-In this case, the pipeline includes the built-in [is_incident][21] and [not_silenced][22] event filters, as well as the PagerDuty handler you've already configured.
+In this case, the pipeline includes the built-in [is_incident][21] and [not_silenced][22] event filters, as well as the `pagerduty` handler you've already configured.
 To create the pipeline, run:
 
 {{< language-toggle >}}
@@ -385,13 +385,13 @@ Replace the `-w` value in the `command` line with `1` and save the updated check
 
 You should see a response to confirm the update:
 
-{{< code shell >}}
+{{< code text >}}
 Updated /api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
 
 After Sensu detects a non-OK event, the handler in your pipeline will send the alert to your PagerDuty account, where you should see an event similar to this one:
 
-{{< figure src="/images/pipeline_pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/pipeline_pagerduty_alert_example.png" target="_blank" >}}
+{{< figure src="/images/go/send_pagerduty_alerts/pipeline_pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/go/send_pagerduty_alerts/pipeline_pagerduty_alert_example.png" target="_blank" >}}
 
 ## Resolve the alert in PagerDuty
 
@@ -416,9 +416,9 @@ To view the resolved event with sensuctl, run:
 sensuctl event list
 {{< /code >}}
 
-The response should show that the `cpu_check` has an OK (0) status:
+The response should show that `cpu_check` has an OK (0) status:
 
-{{< code shell >}}
+{{< code text >}}
      Entity        Check                                                                                                      Output                                                                                                    Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────── ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   sensu-centos   check_cpu   check-cpu-usage OK: 4.17% CPU usage | cpu_idle=95.83, cpu_system=1.04, cpu_user=3.13, cpu_nice=0.00, cpu_iowait=0.00, cpu_irq=0.00, cpu_softirq=0.00, cpu_steal=0.00, cpu_guest=0.00, cpu_guestnice=0.00        0   false      2021-11-17 21:09:07 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
@@ -448,8 +448,8 @@ Learn more about the [Sensu PagerDuty integration][14] and our curated, configur
 [11]: ../../../web-ui/
 [12]: ../../../sensuctl/
 [13]: ../../observe-schedule/subscriptions/
-[14]: ../../../plugins/supported-integrations/pagerduty/
-[15]: ../../../plugins/supported-integrations/pagerduty/#get-the-plugin
+[14]: ../../../plugins/featured-integrations/pagerduty/
+[15]: ../../../plugins/featured-integrations/pagerduty/#get-the-plugin
 [16]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pagerduty-severity-mapping
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pager-teams
 [18]: ../handler-templates/

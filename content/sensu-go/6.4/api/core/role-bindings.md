@@ -1,6 +1,6 @@
 ---
 title: "core/v2/rolebindings"
-description: "Read this API documentation for information about Sensu's core/v2/rolebindings API endpoints, including examples for retrieving and managing role bindings.."
+description: "Read this API documentation for information about Sensu's core/v2/rolebindings API endpoints, including examples for retrieving and managing role bindings."
 core_api_title: "core/v2/rolebindings"
 type: "core_api"
 version: "6.4"
@@ -21,14 +21,17 @@ The `/rolebindings` API endpoint provides HTTP GET access to [role binding][1] d
 
 ### Example {#rolebindings-get-example}
 
-The following example demonstrates a request to the `/rolebindings` API endpoint, resulting in a JSON array that contains [role binding definitions][1].
+The following example demonstrates a GET request to the `/rolebindings` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [role binding definitions][1] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "subjects": [
@@ -60,7 +63,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "subjects": [
@@ -88,8 +91,7 @@ The `/rolebindings` API endpoint provides HTTP POST access to create Sensu role 
 
 ### Example {#rolebindings-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/rolebindings` API endpoint to create a role binding named `readers-group-binding`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP POST request is submitted to the `/rolebindings` API endpoint to create a role binding named `readers-group-binding`:
 
 {{< code shell >}}
 curl -X POST \
@@ -112,9 +114,9 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#rolebindings-post-specification}
 
@@ -148,14 +150,17 @@ The `/rolebindings/:rolebinding` API endpoint provides HTTP GET access to [role 
 
 ### Example {#rolebindingsrolebinding-get-example}
 
-In the following example, querying the `/rolebindings/:rolebinding` API endpoint returns a JSON map that contains the requested [`:rolebinding` definition][1] (in this example, for the `:rolebinding` named `readers-group-binding`).
+The following example queries the `/rolebindings/:rolebinding` API endpoint for the `:rolebinding` named `readers-group-binding`).
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:rolebinding` definition][1] (in this example, `readers-group-binding`):
+
+{{< code text >}}
 {
   "subjects": [
     {
@@ -183,7 +188,7 @@ description          | Returns the specified role binding.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "subjects": [
     {
@@ -209,8 +214,7 @@ The `/rolebindings/:rolebinding` API endpoint provides HTTP PUT access to create
 
 ### Example {#rolebindingsrolebinding-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/rolebindings/:rolebinding` API endpoint to create the role binding `dev-binding`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/rolebindings/:rolebinding` API endpoint to create the role binding `dev-binding`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -233,9 +237,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#rolebindingsrolebinding-put-specification}
 
@@ -275,7 +279,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/rolebindings/:rolebinding` API endpoint to add a group to the subjects array for the `dev-binding` role binding, resulting in an HTTP `200 OK` response and the updated role binding definition.
+In the following example, an HTTP PATCH request is submitted to the `/rolebindings/:rolebinding` API endpoint to add a group to the subjects array for the `dev-binding` role binding, resulting in an `HTTP/1.1 200 OK` response and the updated role binding definition.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -295,17 +299,17 @@ curl -X PATCH \
     }
   ]
 }' \
-http://127.0.0.1:8080/api/core/v2/rolebindings/dev-binding
-
-HTTP/1.1 200 OK
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification
 
 /rolebindings/:rolebinding (PATCH) | 
 ----------------|------
 description     | Updates the specified Sensu role binding.
-example URL     | http://hostname:8080/api/core/v2/rolebindings/dev-binding
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 payload         | {{< code shell >}}
 {
   "subjects": [
@@ -328,14 +332,12 @@ The `/rolebindings/:rolebinding` API endpoint provides HTTP DELETE access to del
 
 ### Example {#rolebindingsrolebinding-delete-example}
 
-The following example shows a request to the `/rolebindings/:rolebinding` API endpoint to delete the role binding `dev-binding`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/rolebindings/:rolebinding` API endpoint to delete the role binding `dev-binding`, resulting in a successful `HTTP/1.1 204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding \
 -H "Authorization: Key $SENSU_API_KEY"
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#rolebindingsrolebinding-delete-specification}
@@ -357,13 +359,16 @@ The `/rolebindings` API endpoint supports [response filtering][3] for a subset o
 
 ### Example
 
-The following example demonstrates a request to the `/rolebindings` API endpoint with [response filtering][3], resulting in a JSON array that contains only [role binding definitions][1] that are in the `default` namespace.
+The following example demonstrates a request to the `/rolebindings` API endpoint with [response filtering][3] for only [role binding definitions][1] with `event-reader` as the rolebinding.role_ref.name:
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/rolebindings -G \
 --data-urlencode 'fieldSelector="event-reader" in rolebinding.role_ref.name'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [role binding definitions][1] with `event-reader` as the rolebinding.role_ref.name:
+
+{{< code text >}}
 [
   {
     "subjects": [
@@ -413,7 +418,7 @@ example url    | http://hostname:8080/api/core/v2/rolebindings
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "subjects": [
@@ -451,7 +456,7 @@ output         | {{< code shell >}}
 {{< /code >}}
 
 
-[1]: ../../../operations/control-access/rbac/
+[1]: ../../../operations/control-access/rbac/#role-bindings-and-cluster-role-bindings
 [2]: ../../#pagination
 [3]: ../../#response-filtering
 [4]: https://tools.ietf.org/html/rfc7396

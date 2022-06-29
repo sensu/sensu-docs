@@ -14,17 +14,19 @@ menu:
 
 Use Sensu's [/health API][1] to make sure your backend is up and running and check the health of your etcd cluster members and [PostgreSQL datastore resources][2].
 
-A request to the health endpoint retrieves a JSON map with health data for your Sensu instance.
+A request to the /health API endpoint retrieves a JSON map with health data for your Sensu instance.
+Here's an example request to the health endpoint:
+
+{{< code shell >}}
+curl -X GET \
+http://127.0.0.1:8080/health
+{{< /code >}}
 
 ## Healthy cluster example
 
 In this example, all cluster members are healthy. 
 
-{{< code shell >}}
-curl -X GET \
-http://127.0.0.1:8080/health
-
-HTTP/1.1 200 OK
+{{< code text >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -75,11 +77,7 @@ HTTP/1.1 200 OK
 
 In this example, one cluster member is unhealthy: it cannot communicate with the other cluster members.
 
-{{< code shell >}}
-curl -X GET \
-http://127.0.0.1:8080/health
-
-HTTP/1.1 200 OK
+{{< code text >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -192,9 +190,24 @@ example        | {{< code shell >}}
   ]
 {{< /code >}}
 
-### ClusterHealth attributes
+#### ClusterHealth attributes
 
-Member ID    | 
+Err          | 
+-------------|------ 
+description  | Any errors Sensu encountered while checking the etcd cluster member's health.
+required     | true
+type         | String
+example      | {{< code shell >}}"Err": ""{{< /code >}}
+
+Healthy      | 
+-------------|------ 
+description  | `true` if the etcd cluster member is connected. Otherwise, `false`.
+required     | true
+type         | Boolean
+default      | `false`
+example      | {{< code shell >}}"Healthy": true{{< /code >}}
+
+MemberID     | 
 -------------|------ 
 description  | The etcd cluster member's ID.
 required     | true
@@ -213,24 +226,9 @@ Name         |
 description  | The etcd cluster member's name.
 required     | true
 type         | String
-example      | {{< code shell >}}Name": "default"{{< /code >}}
+example      | {{< code shell >}}"Name": "default"{{< /code >}}
 
-Err          | 
--------------|------ 
-description  | Any errors Sensu encountered while checking the etcd cluster member's health.
-required     | true
-type         | String
-example      | {{< code shell >}}"Err": ""{{< /code >}}
-
-Healthy      | 
--------------|------ 
-description  | `true` if the etcd cluster member is connected. Otherwise, `false`.
-required     | true
-type         | Boolean
-default      | `false`
-example      | {{< code shell >}}"Healthy": true{{< /code >}}
-
-### Header attributes
+#### Header attributes
 
 cluster_id   | 
 -------------|------ 
@@ -253,14 +251,7 @@ required     | true
 type         | Integer
 example      | {{< code shell >}}"raft_term": 26{{< /code >}}
 
-### PostgresHealth attributes
-
-Name         | 
--------------|------ 
-description  | The PostgreSQL configuration resource. Sensu retrieves the `Name` from [datastore metadata][3].
-required     | true
-type         | String
-example      | {{< code shell >}}"Name": "postgres"{{< /code >}}
+#### PostgresHealth attributes
 
 Active       | 
 -------------|------ 
@@ -277,6 +268,13 @@ required     | true
 type         | Boolean
 default      | `false`
 example      | {{< code shell >}}"Healthy": true{{< /code >}}
+
+Name         | 
+-------------|------ 
+description  | The PostgreSQL configuration resource. Sensu retrieves the `Name` from [datastore metadata][3].
+required     | true
+type         | String
+example      | {{< code shell >}}"Name": "postgres"{{< /code >}}
 
 
 [1]: ../../../api/other/health/

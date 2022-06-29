@@ -4,7 +4,7 @@ linkTitle: "Send Slack Alerts"
 guide_title: "Send Slack alerts with a pipeline"
 type: "guide"
 description: "Send alerts to Slack with Sensu pipelines, which allow you to send events to alert you of incidents and help you resolve them more quickly."
-weight: 30
+weight: 240
 version: "6.7"
 product: "Sensu Go"
 platformContent: false
@@ -35,11 +35,11 @@ sensuctl entity list
 
 The `ID` in the response is the name of your entity.
 
-Replace `<entity_name>` with the name of your entity in the [sensuctl][20] command below.
+Replace `<ENTITY_NAME>` with the name of your entity in the [sensuctl][20] command below.
 Then run the command to add the `system` [subscription][21] to your entity:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -56,9 +56,9 @@ The response should indicate `active (running)` for both the Sensu backend and a
 ## Register the dynamic runtime asset
 
 [Dynamic runtime assets][13] are shareable, reusable packages that help you deploy Sensu plugins.
-In this guide, you'll use the [Sensu Slack Handler][14] dynamic runtime asset to power a `slack` handler.
+In this guide, you'll use the [sensu/sensu-slack-handler][14] dynamic runtime asset to power a `slack` handler.
 
-Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] dynamic runtime asset:
+Use [`sensuctl asset add`][10] to register the [sensu/sensu-slack-handler][14] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
@@ -93,7 +93,7 @@ After you save your webhook, you can find the webhook URL under **Integration Se
 
 ## Create a handler
 
-Use sensuctl to create a handler called `slack` that pipes observation data (events) to Slack using the `sensu-slack-handler` dynamic runtime asset.
+Use sensuctl to create a handler called `slack` that pipes observation data (events) to Slack using the sensu/sensu-slack-handler dynamic runtime asset.
 Before you run the sensuctl command below, edit it to include your Slack webhook URL and the channel where you want to receive events:
 
 {{< code shell >}}
@@ -106,7 +106,7 @@ sensuctl handler create slack \
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Created
 {{< /code >}}
 
@@ -282,7 +282,7 @@ Replace the `pipelines: []` line with the following array and save the updated c
 
 You should see a response to confirm the update:
 
-{{< code shell >}}
+{{< code text >}}
 Updated /api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
 
@@ -387,7 +387,7 @@ spec:
 It might take a few moments after you add the pipeline to the check for the check to be scheduled on entities with the `system` subscription and the result sent back to Sensu backend.
 After an event is handled, you should receive a message like this in Slack:
 
-{{< figure src="/images/pipeline_cpu-check-alerts.png" alt="Example Slack message" link="/images/pipeline_cpu-check-alerts.png" target="_blank" >}}
+{{< figure src="/images/go/send_slack_alerts/check_cpu_usage_example_alert.png" alt="Example Slack message" link="/images/go/send_slack_alerts/check_cpu_usage_example_alert.png" target="_blank" >}}
 
 Verify proper handler behavior with `sensu-backend` logs.
 Read [Troubleshoot Sensu][7] for log locations by platform.

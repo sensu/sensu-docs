@@ -4,7 +4,7 @@ linkTitle: "Hooks Reference"
 reference_title: "Hooks"
 type: "reference"
 description: "Read this reference to free up precious operator time with hooks, which allow you to automate data collection that operators would typically perform manually."
-weight: 80
+weight: 40
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
@@ -16,7 +16,7 @@ menu:
 Hooks are reusable commands the agent executes in response to a check result before creating an observability event.
 You can create, manage, and reuse hooks independently of checks.
 Hooks enrich observability event context by gathering relevant information based on the exit status code of a check (ex: `1`).
-Hook commands can also receive JSON serialized Sensu client data via `STDIN`.
+Hook commands can also receive JSON serialized Sensu client data via stdin.
 
 ## Hook example
 
@@ -80,14 +80,16 @@ You can use `sensuctl` to view hook command data:
 {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl event info entity_name check_name --format yaml
+sensuctl event info <entity_name> <check_name> --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl event info entity_name check_name --format wrapped-json
+sensuctl event info <entity_name> <check_name> --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+The response lists the specified event, which includes the hook command data:
 
 {{< language-toggle >}}
 
@@ -154,22 +156,6 @@ spec:
 ## Hook specification
 
 ### Top-level attributes
-
-type         | 
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][1] resource type. Hooks should always be type `HookConfig`.
-required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: HookConfig
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "HookConfig"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
@@ -243,7 +229,83 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
+type         | 
+-------------|------
+description  | Top-level attribute that specifies the [`sensuctl create`][1] resource type. Hooks should always be type `HookConfig`.
+required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: HookConfig
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "HookConfig"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ### Metadata attributes
+
+| annotations |     |
+-------------|------
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][4]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][13].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+annotations:
+  managed-by: ops
+  playbook: www.example.url
+{{< /code >}}
+{{< code json >}}
+{
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the hook or last updated the hook. Sensu automatically populates the `created_by` field when the hook is created or updated.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][10], [sensuctl responses][11], and [web UI views][12] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+labels:
+  environment: development
+  region: us-west-2
+{{< /code >}}
+{{< code json >}}
+{
+  "labels": {
+    "environment": "development",
+    "region": "us-west-2"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | name       |      |
 -------------|------
@@ -278,66 +340,6 @@ namespace: production
 {{< /code >}}
 {{< /language-toggle >}}
 
-| created_by |      |
--------------|------
-description  | Username of the Sensu user who created the hook or last updated the hook. Sensu automatically populates the `created_by` field when the hook is created or updated.
-required     | false
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-created_by: admin
-{{< /code >}}
-{{< code json >}}
-{
-  "created_by": "admin"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-| labels     |      |
--------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][10], [sensuctl responses][11], and [web UI views][12] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
-required     | false
-type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-labels:
-  environment: development
-  region: us-west-2
-{{< /code >}}
-{{< code json >}}
-{
-  "labels": {
-    "environment": "development",
-    "region": "us-west-2"
-  }
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-| annotations |     |
--------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][4]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][13].
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-annotations:
-  managed-by: ops
-  playbook: www.example.url
-{{< /code >}}
-{{< code json >}}
-{
-  "annotations": {
-    "managed-by": "ops",
-    "playbook": "www.example.url"
-  }
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 ### Spec attributes
 
 command      | 
@@ -352,40 +354,6 @@ command: sudo /etc/init.d/nginx start
 {{< code json >}}
 {
   "command": "sudo /etc/init.d/nginx start"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-timeout      | 
--------------|------
-description  | Hook execution duration timeout (hard stop). In seconds.
-required     | false
-type         | Integer
-default      | 60
-example      | {{< language-toggle >}}
-{{< code yml >}}
-timeout: 30
-{{< /code >}}
-{{< code json >}}
-{
-  "timeout": 30
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-stdin        | 
--------------|------
-description  | If `true`, the Sensu agent writes JSON serialized Sensu entity and check data to the command process `STDIN`. Otherwise, `false`. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins or Nagios plugins because the Sensu agent will wait indefinitely for the hook process to read and close STDIN.
-required     | false
-type         | Boolean
-default      | `false`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-stdin: true
-{{< /code >}}
-{{< code json >}}
-{
-  "stdin": true
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -405,6 +373,40 @@ runtime_assets:
   "runtime_assets": [
     "log-context"
   ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+stdin        | 
+-------------|------
+description  | If `true`, the Sensu agent writes JSON serialized Sensu entity and check data to the command process stdin. Otherwise, `false`. The command must expect the JSON data via stdin, read it, and close stdin. This attribute cannot be used with existing Sensu check plugins or Nagios plugins because the Sensu agent will wait indefinitely for the hook process to read and close stdin.
+required     | false
+type         | Boolean
+default      | `false`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+stdin: true
+{{< /code >}}
+{{< code json >}}
+{
+  "stdin": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+timeout      | 
+-------------|------
+description  | Hook execution duration timeout (hard stop). In seconds.
+required     | false
+type         | Integer
+default      | 60
+example      | {{< language-toggle >}}
+{{< code yml >}}
+timeout: 30
+{{< /code >}}
+{{< code json >}}
+{
+  "timeout": 30
 }
 {{< /code >}}
 {{< /language-toggle >}}

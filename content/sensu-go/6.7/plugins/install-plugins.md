@@ -2,7 +2,7 @@
 title: "Install Sensu plugins"
 linkTitle: "Install Plugins"
 description: "Learn how to install plugins to extend Sensu's functionality with executables for performing checks, mutators, and handlers."
-weight: 20
+weight: 60
 version: "6.7"
 product: "Sensu Go"
 menu:
@@ -15,18 +15,18 @@ Extend Sensu's functionality with plugins, which provide executables for perform
 ## Install plugins with dynamic runtime assets
 
 Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
-To start using and deploying assets, read [Use dynamic runtime assets to install plugins][7] to become familiar with workflows that involve assets.
+Read [Use dynamic runtime assets to install plugins][7] to become familiar with workflows that involve assets.
 
 {{% notice note %}}
 **NOTE**: Dynamic runtime assets are not required to use Sensu Go.
 You can install Sensu plugins using the [sensu-install](#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../operations/deploy-sensu/configuration-management/) solution.
 {{% /notice %}}
 
-## Use Bonsai, the Sensu asset hub
+Use the [Sensu Catalog][10] to find, configure, and install many plugins directly from your browser.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 
-[Bonsai, the Sensu asset hub][8], is a centralized place for downloading and sharing dynamic runtime assets.
-Make Bonsai your first stop when you need to find an asset.
-Bonsai includes plugins, libraries, and runtimes you need to automate your monitoring workflows.
+You can also use [Bonsai, the Sensu asset hub][8], a centralized place for downloading and sharing dynamic runtime assets.
+Bonsai lists hundreds of plugins, libraries, and runtimes with instructions and examples to help you automate your monitoring workflows.
 You can also [share your asset on Bonsai][9].
 
 ## Install plugins with the sensu-install tool
@@ -60,7 +60,7 @@ sensu-install --help
 
 The response will be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 Usage: sensu-install [options]
     -h, --help                       Display this message
     -v, --verbose                    Enable verbose logging
@@ -139,3 +139,4 @@ sudo yum groupinstall "Development Tools"
 [7]: ../use-assets-to-install-plugins/
 [8]: https://bonsai.sensu.io/
 [9]: ../assets#share-an-asset-on-bonsai
+[10]: ../../web-ui/sensu-catalog/

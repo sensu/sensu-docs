@@ -4,7 +4,7 @@ linkTitle: "Subscriptions Reference"
 reference_title: "Subscriptions"
 type: "reference"
 description: "Use Sensu subscriptions to configure checks in a one-to-many model and write checks even if you don't know the names of the entities that should run the checks."
-weight: 35
+weight: 100
 version: "6.4"
 product: "Sensu Go"
 platformContent: false
@@ -25,7 +25,7 @@ For example, the `check_cpu` check includes the `system` subscription.
 All three entities include the `system` subscription, so all three entities will execute the `check_cpu` check.
 However, only the `server01` and `database01` entities will execute `check_sshd_process` &mdash; the `webserver01` entity does not include the `linux` subscription required to execute `check_sshd_process`.
 
-{{< figure src="/images/subscriptions_line.png" alt="Example of Sensu check execution based on subscriptions" link="/images/subscriptions_line.png" target="_blank" >}}
+{{< figure src="/images/go/subscriptions_reference/subscriptions_diagram.png" alt="Diagram showing example of Sensu check execution based on subscriptions" link="/images/go/subscriptions_reference/subscriptions_diagram.png" target="_blank" >}}
 
 <!--Source at https://lucid.app/lucidchart/invitations/accept/inv_e898337e-e3f2-4194-8a33-fc8a6a474234-->
 
@@ -33,6 +33,11 @@ Sensu subscriptions are equivalent to topics in a traditional publish/subscribe 
 Sensu entities become subscribers to these topics via the strings you specify with the agent `subscriptions` flag.
 Sensu checks have a `subscriptions` attribute, where you specify strings to indicate which subscribers will execute the checks.
 For Sensu to execute a check, the check definition must include a subscription that matches the subscription of at least one Sensu entity.
+
+{{% notice note %}}
+**NOTE**: [Proxy entities](../../observe-entities/entities/#create-and-manage-proxy-entities) do not use subscriptions.
+Instead, use [proxy checks](../checks/#proxy-checks) to generate events for proxy entities.
+{{% /notice %}}
 
 As loosely coupled references, subscriptions avoid the fragility of traditional host-based monitoring systems.
 Subscriptions allow you to configure check requests in a one-to-many model for entire groups or subgroups of entities rather than a traditional one-to-one mapping of configured hosts or observability checks.
@@ -156,7 +161,7 @@ For example, suppose you want to set up monitoring for these servers:
 
 This diagram shows the subscriptions to list for each of the 12 servers (the entities) and for each check to achieve the example monitoring configuration:
 
-{{< figure src="/images/subscriptions_multiple_servers.png" alt="Example of Sensu check execution for multiple server entities based on subscriptions" link="/images/subscriptions_multiple_servers.png" target="_blank" >}}
+{{< figure src="/images/go/subscriptions_reference/subscriptions_multiple_servers.png" alt="Diagram showing an example of Sensu check execution for multiple server entities based on subscriptions" link="/images/go/subscriptions_reference/subscriptions_multiple_servers.png" target="_blank" >}}
 
 <!--Source at https://lucid.app/lucidchart/invitations/accept/inv_b8325487-1e67-4fba-bc20-45eb088c0d7c-->
 

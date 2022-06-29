@@ -4,7 +4,7 @@ linkTitle: "Sumo Logic Metrics Handlers Reference"
 reference_title: "Sumo Logic metrics handlers"
 type: "reference"
 description: "Read this reference to learn about Sumo Logic metrics handlers, which provide a persistent connection for sending Sensu data to Sumo Logic."
-weight: 16
+weight: 80
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -32,7 +32,7 @@ Sumo Logic metrics handlers will reuse the available connections as long as they
 
 {{% notice note %}}
 **NOTE**: Sumo Logic metrics handlers only accept metrics events.
-To send status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) instead.
+To send status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/featured-integrations/sumologic/) instead.
 {{% /notice %}}
 
 ## Sumo Logic metrics handler examples
@@ -331,7 +331,7 @@ created_by: admin
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][15], [sensuctl responses][16], and [web UI views][25] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][15], [sensuctl responses][16], and [web UI views][25] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -353,7 +353,7 @@ labels:
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][15], [sensuctl response filtering][16], or [web UI views][28].
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][15], [sensuctl response filtering][16], or [web UI views][28].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`

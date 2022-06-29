@@ -43,7 +43,7 @@ However, a single configuration file that includes every resource type isn't the
 [SensuFlow][5], our GitHub Action for managing Sensu resources via repository commits, requires a repository structure organized by clusters and namespaces.
 All resources of each type for each namespace are saved in a single configuration file:
 
-{{< code shell >}}
+{{< code text >}}
 .sensu/
   cluster/
     namespaces.yml
@@ -195,7 +195,7 @@ sensuctl <resource> info <resource_name> --format wrapped-json > resource.json
 
 {{< /language-toggle >}}
 
-- Copy the resource defintion to a new file (or overwrite an existing file with the same name) and show the resource definition in STDOUT:
+- Copy the resource defintion to a new file (or overwrite an existing file with the same name) and show the resource definition in stdout:
 
   {{< language-toggle >}}
 
@@ -223,7 +223,7 @@ sensuctl <resource> info <resource_name> --format wrapped-json >> resource.json
 
 {{< /language-toggle >}}
 
-- Append the resource defintion to an existing file and show the resource definition in STDOUT:
+- Append the resource defintion to an existing file and show the resource definition in stdout:
 
   {{< language-toggle >}}
 
@@ -331,7 +331,7 @@ Read the [SensuFlow GitHub Action marketplace page][1] and [Monitoring as code w
 
 [1]: https://github.com/marketplace/actions/sensuflow
 [2]: ../../sensuctl/
-[3]: ../../sensuctl/create-manage-resources/#sensuctl-prune
+[3]: ../../sensuctl/create-manage-resources/#prune-resources
 [4]: ../control-access/rbac/
 [5]: #use-sensuflow-for-cicd-monitoring-as-code
 [6]: #build-as-you-go

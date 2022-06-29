@@ -4,7 +4,7 @@ linkTitle: "Augment Event Data"
 guide_title: "Augment event data with check hooks"
 type: "guide"
 description: "Free up precious operator time: use Sensu check hooks to automate data collection that operators would otherwise perform manually to investigate alerts."
-weight: 90
+weight: 140
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
@@ -80,9 +80,9 @@ Verify that NGINX is serving webpages:
 curl -sI http://localhost
 {{< /code >}}
 
-The response should include `HTTP/1.1 200 OK` to indicates that NGINX processed your request as expected:
+The response should include `HTTP/1.1 200 OK` to indicate that NGINX processed your request as expected:
 
-{{< code shell >}}
+{{< code text >}}
 HTTP/1.1 200 OK
 Server: nginx/1.20.1
 Date: Wed, 06 Oct 2021 19:35:14 GMT
@@ -158,7 +158,7 @@ spec:
 ## Assign the hook to a check
 
 {{% notice note %}}
-**NOTE**: Before you proceed, make sure you have added the [sensu-processes-check](../monitor-server-resources/#register-the-sensu-processes-check-asset) dynamic runtime asset and [`nginx_service` check](../monitor-server-resources/#create-a-check-to-monitor-a-webserver) from the [Monitor server resources](../monitor-server-resources/) guide.
+**NOTE**: Before you proceed, make sure you have added the [sensu/sensu-processes-check](../monitor-server-resources/#register-the-sensu-processes-check-asset) dynamic runtime asset and the [`nginx_service` check](../monitor-server-resources/#create-a-check-to-monitor-a-webserver) from the [Monitor server resources](../monitor-server-resources/) guide.
 The hook you create in this step relies on the `nginx_service` check.
 {{% /notice %}}
 
@@ -293,7 +293,7 @@ sensuctl event list
 
 The response should list the `nginx_service` check, returning a CRITICAL status (`2`):
 
-{{< code shell >}}
+{{< code text >}}
      Entity          Check                                       Output                                   Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   sensu-centos   nginx_service   CRITICAL | 0 >= 1 (found >= required) evaluated false for "nginx"             2   false      2021-11-08 17:02:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
@@ -393,7 +393,7 @@ You can also view check hook command results in the web UI.
 On the Events page, click the `nginx_service` event for your entity.
 Scroll down to the `HOOK` section and click it to expand and review hook command results.
 
-{{< figure src="/images/hook_command_webui.gif" alt="Hook command results displayed in the Sensu web UI" link="/images/hook_command_webui.gif" target="_blank" >}}
+{{< figure src="/images/go/augment_event_data/hook_command_results_webui.gif" alt="Hook command results displayed in the Sensu web UI" link="/images/go/augment_event_data/hook_command_results_webui.gif" target="_blank" >}}
 
 Restart the NGINX service to clear the event:
 

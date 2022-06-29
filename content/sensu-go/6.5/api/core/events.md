@@ -12,7 +12,7 @@ menu:
 
 {{% notice protip %}}
 **PRO TIP**: The `core/v2/events` API endpoints are primarily designed to provide HTTP access to event data created by agent-executed checks.
-To test your Sensu observability pipeline, use the [agent API](../../../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-agent-api) to create new ad hoc events or [sensuctl](../../../sensuctl/create-manage-resources/#sensuctl-check) or the [web UI](../../../web-ui/view-manage-resources/#manage-configuration-resources) to execute existing checks on demand.
+To test your Sensu observability pipeline, use the [agent API](../../../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-agent-api) to create new ad hoc events or [sensuctl](../../../sensuctl/create-manage-resources/#execute-a-check-on-demand) or the [web UI](../../../web-ui/view-manage-resources/#manage-configuration-resources) to execute existing checks on demand.
 {{% /notice %}}
 
 {{% notice note %}}
@@ -32,8 +32,11 @@ The following example demonstrates a request to the `/events` API endpoint, resu
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [event definitions][1] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "check": {
@@ -80,7 +83,7 @@ HTTP/1.1 200 OK
       "output_metric_handlers": null,
       "env_vars": null,
       "metadata": {
-        "name": "check-cpu",
+        "name": "check_cpu",
         "namespace": "default"
       },
       "secrets": null,
@@ -182,7 +185,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][10].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "check": {
@@ -229,7 +232,7 @@ output         | {{< code shell >}}
       "output_metric_handlers": null,
       "env_vars": null,
       "metadata": {
-        "name": "check-cpu",
+        "name": "check_cpu",
         "namespace": "default"
       },
       "secrets": null,
@@ -328,7 +331,7 @@ The `/events` API endpoint provides HTTP POST access to create an event and send
 ### Example {#events-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/events` API endpoint to create an event.
-The request includes information about the check and entity represented by the event and returns a successful HTTP `201 Created` response and the event definition.
+The request includes information about the check and entity represented by the event:
 
 {{< code shell >}}
 curl -X POST \
@@ -360,10 +363,9 @@ curl -X POST \
   ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events
-
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 To create useful, actionable events, we recommend using check attributes like `status` (`0` for OK, `1` for warning, `2` for critical) and `output`, as well as adding `pipelines`, as shown in this example.
 For more information about event attributes and their available values, read the [event specification][8].
@@ -421,14 +423,17 @@ The `/events/:entity` API endpoint provides HTTP GET access to [event data][1] s
 
 ### Example {#eventsentity-get-example}
 
-In the following example, querying the `/events/:entity` API endpoint returns a list of Sensu events for the `server1` entity and a successful HTTP `200 OK` response.
+The following example queries the `/events/:entity` API endpoint for Sensu events for the `server1` entity:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1 \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the Sensu events for the `server1` entity:
+
+{{< code text >}}
 [
   {
     "check": {
@@ -475,7 +480,7 @@ HTTP/1.1 200 OK
       "output_metric_handlers": null,
       "env_vars": null,
       "metadata": {
-        "name": "check-cpu",
+        "name": "check_cpu",
         "namespace": "default"
       },
       "secrets": null,
@@ -712,7 +717,7 @@ example url          | http://hostname:8080/api/core/v2/namespaces/default/event
 pagination           | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 [
   {
     "check": {
@@ -759,7 +764,7 @@ output               | {{< code json >}}
       "output_metric_handlers": null,
       "env_vars": null,
       "metadata": {
-        "name": "check-cpu",
+        "name": "check_cpu",
         "namespace": "default"
       },
       "secrets": null,
@@ -993,15 +998,17 @@ The `/events/:entity/:check` API endpoint provides HTTP GET access to [event][1]
 
 ### Example {#eventsentitycheck-get-example}
 
-In the following example, an HTTP GET request is submitted to the `/events/:entity/:check` API endpoint to retrieve the event for the `server1` entity and the `check-cpu` check.
+In the following example, an HTTP GET request is submitted to the `/events/:entity/:check` API endpoint to retrieve the event for the `server1` entity and the `check_cpu` check:
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/check-cpu \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/check_cpu \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the Sensu events for the `server1` entity and `check_cpu` check:
 
+{{< code text >}}
 {
   "check": {
     "command": "check-cpu-usage -w 75 -c 90",
@@ -1038,7 +1045,7 @@ HTTP/1.1 200 OK
     "output_metric_handlers": null,
     "env_vars": null,
     "metadata": {
-      "name": "check-cpu",
+      "name": "check_cpu",
       "namespace": "default"
     },
     "secrets": null,
@@ -1129,17 +1136,15 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-The request returns an HTTP `200 OK` response and the resulting event definition.
-
 ### API Specification {#eventsentitycheck-get-specification}
 
 /events/:entity/:check (GET) | 
 ---------------------|------
 description          | Returns an event for the specified entity and check.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/events/server1/check-cpu
+example url          | http://hostname:8080/api/core/v2/namespaces/default/events/server1/check_cpu
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "check": {
     "command": "check-cpu-usage -w 75 -c 90",
@@ -1176,7 +1181,7 @@ output               | {{< code json >}}
     "output_metric_handlers": null,
     "env_vars": null,
     "metadata": {
-      "name": "check-cpu",
+      "name": "check_cpu",
       "namespace": "default"
     },
     "secrets": null,
@@ -1305,9 +1310,9 @@ curl -X POST \
   ]
 } \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 {{% notice note %}}
 **NOTE**: A namespace is not required to create the event.
@@ -1322,7 +1327,7 @@ sensuctl event list
 
 The response should list the event with the status and output specified in the request:
 
-{{< code shell >}}
+{{< code text >}}
     Entity        Check                   Output                 Status   Silenced             Timestamp            
 ────────────── ───────────── ─────────────────────────────────── ──────── ────────── ─────────────────────────────── 
     server1    server-health   Server error                         1       false      2019-03-14 16:56:09 +0000 UTC 
@@ -1411,10 +1416,9 @@ curl -X PUT \
   ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
-
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 {{% notice note %}}
 **NOTE**: A namespace is not required to create the event.
@@ -1429,7 +1433,7 @@ sensuctl event list
 
 The response should list the event with the status and output specified in the request:
 
-{{< code shell >}}
+{{< code text >}}
     Entity        Check                   Output                 Status   Silenced             Timestamp            
 ────────────── ───────────── ─────────────────────────────────── ──────── ────────── ─────────────────────────────── 
     server1    server-health   Server error                         1       false      2019-03-14 16:56:09 +0000 UTC 
@@ -1504,6 +1508,8 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
 {{< /code >}}
 
+The request will return a successful `HTTP/1.1 201 Created` response.
+
 The minimum required attributes let you create an event using the `/events/:entity/:check` PUT endpoint, but the request can include any attributes defined in the [event specification][8].
 To create useful, actionable events, we recommend adding check attributes such as the event `status` (`0` for OK, `1` for warning, `2` for critical), an `output` message, and one or more `pipelines`.
 For more information about these attributes and their available values, review the [event specification][8].
@@ -1540,6 +1546,8 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 #### Create metrics events
 
@@ -1598,18 +1606,18 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-metrics
 {{< /code >}}
 
+The request will return a successful `HTTP/1.1 201 Created` response.
+
 ## Delete an event {#eventsentitycheck-delete}
 
 ### Example {#eventsentitycheck-delete-example}
 
-The following example shows a request to the `/events/:entity/:check` API endpoint to delete the event produced by the `server1` entity and `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/events/:entity/:check` API endpoint to delete the event produced by the `server1` entity and `check_cpu` check, resulting in a successful `HTTP/1.1 204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/check-cpu \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/check_cpu \
 -H "Authorization: Key $SENSU_API_KEY"
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#eventsentitycheck-delete-specification}
@@ -1617,7 +1625,7 @@ HTTP/1.1 204 No Content
 /events/:entity/:check (DELETE) | 
 --------------------------|------
 description               | Deletes the event created by the specified entity using the specified check.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/events/server1/check-cpu 
+example url               | http://hostname:8080/api/core/v2/namespaces/default/events/server1/check_cpu 
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get a subset of events with response filtering
@@ -1642,13 +1650,16 @@ The `/events` API endpoint supports [response filtering][10] for a subset of eve
 
 ### Example
 
-The following example demonstrates a request to the `/events` API endpoint with [response filtering][10], resulting in a JSON array that contains only [event definitions][1] for entities whose subscriptions include `linux`.
+The following example demonstrates a request to the `/events` API endpoint with [response filtering][10] for events from entities whose subscriptions include `linux`:
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/events -G \
 --data-urlencode 'fieldSelector="linux" in event.entity.subscriptions'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [event definitions][1] for entities whose subscriptions include `linux`:
+
+{{< code text >}}
 [
   {
     "timestamp": 1644848031,
@@ -1879,7 +1890,7 @@ example url    | http://hostname:8080/api/core/v2/events
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "timestamp": 1644848031,
@@ -2105,7 +2116,7 @@ output         | {{< code shell >}}
 [5]: #eventsentitycheck-put-parameters
 [6]: ../../../observability-pipeline/observe-entities/entities#entities-specification
 [7]: ../../../observability-pipeline/observe-schedule/checks#check-specification
-[8]: ../../../observability-pipeline/observe-events/events/#events-specification
+[8]: ../../../observability-pipeline/observe-events/events/#event-specification
 [9]: ../../../observability-pipeline/observe-events/events#metrics-attribute
 [10]: ../../#response-filtering
 [11]: #eventsentitycheck-put

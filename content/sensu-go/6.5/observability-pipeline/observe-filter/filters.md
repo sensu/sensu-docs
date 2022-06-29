@@ -4,7 +4,7 @@ linkTitle: "Event Filter Reference"
 reference_title: "Event filters"
 type: "reference"
 description: "Read this reference to use Sensu's built-in event filters (or create your own) to control which events Sensu handlers will take action on."
-weight: 10
+weight: 20
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -27,6 +27,7 @@ Before executing any handlers listed in the pipeline, Sensu applies any event fi
 * Filter `expressions` are compared with event data.
 
 Event filters can be inclusive (only matching events are handled) or exclusive (matching events are not handled).
+Read [Inclusive and exclusive event filters][1] for details.
 
 As soon as a filter removes an event, no further analysis is performed and the pipeline workflow's handler will not be executed.
 
@@ -68,22 +69,30 @@ spec:
 
 ## Inclusive and exclusive event filters
 
-Event filters can be _inclusive_ (`"action": "allow"`; replaces `"negate": false` in Sensu Core) or _exclusive_ (`"action": "deny"`; replaces `"negate": true` in Sensu Core).
-Configuring a pipeline to use multiple _inclusive_ event filters is the equivalent of using an `AND` query operator (only handle events if they match the _inclusive_ filter: `x AND y AND z`).
-Configuring a pipeline to use multiple _exclusive_ event filters is the equivalent of using an `OR` operator (only handle events if they don’t match `x OR y OR z`).
+Event filters can be *inclusive* or *exclusive*:
 
-In **inclusive filtering**, by setting the event filter definition attribute `"action": "allow"`, only events that match the defined filter expressions are handled.
+- In *inclusive* filtering, only events that match the defined filter expressions will be handled.
+- In *exclusive* filtering, events will be handled only if they do not match the defined filter expressions. 
 
-In **exclusive filtering**, by setting the event filter definition attribute `"action": "deny"`, events are only handled if they do not match the defined filter expressions.
+Use the [`action` attribute][34] in the event filter definition to control whether the filter is inclusive or exclusive:
 
-### Filter expression comparison
+- To use inclusive filtering, set the `action` attribute to `allow` in the event filter definition (`"action": "allow"`).
+- To use exclusive filtering, set the `action` attribute to `deny` in the event filter definition (`"action": "deny"`).
+
+### Multiple inclusive or exclusive event filters
+
+Multiple *inclusive* event filters are equivalent to using an `AND` query operator: Sensu will only handle events if they match *all* of the inclusive filters (`x AND y AND z`).
+
+Multiple *exclusive* event filters are equivalent to using an `OR` operator: Sensu will only handle events if they *don’t* match *any* of the exclusive filters (`x OR y OR z`).
+
+## Filter expression comparison
 
 Event filter expressions are compared directly with their event data counterparts.
-For inclusive event filter definitions (`"action": "allow"`), matching expressions will result in the filter returning a `true` value.
-For exclusive event filter definitions (`"action": "deny"`), matching expressions will result in the filter returning a `false` value, and the event will not pass through the filter.
-If an event filter returns a `true` value, the event will continue to be processed via additional filters (if defined), mutators (if defined), and handlers.
 
-### Filter expression evaluation
+- For *inclusive* event filter definitions (`"action": "allow"`), matching expressions will result in the filter returning a `true` value. The event will pass through the filter and continue to be processed with additional filters (if defined), mutators (if defined), and handlers.
+- For *exclusive* event filter definitions (`"action": "deny"`), matching expressions will result in the filter returning a `false` value, and the event will not pass through the filter.
+
+## Filter expression evaluation
 
 When more complex conditional logic is needed than direct filter expression comparison, Sensu event filters provide support for expression evaluation using [Otto][31].
 Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions provided in an event filter.
@@ -163,7 +172,7 @@ spec:
 
 ### Filter dynamic runtime assets
 
-Sensu event filters can have dynamic runtime assets that are included in their execution context.
+Sensu event filters can include dynamic runtime assets in their execution context.
 When valid dynamic runtime assets are associated with an event filter, Sensu evaluates any files it finds that have a `.js` extension before executing the filter.
 The result of evaluating the scripts is cached for a given asset set for the sake of performance.
 For an example of how to implement an event filter as an asset, read [Reduce alert fatigue][30].
@@ -462,7 +471,7 @@ For more information about event attributes, read the [event reference][28].
 `event.check.runtime_assets`         | array   | Sensu [dynamic runtime assets][17] used by the check
 `event.check.state`                  | string  | The state of the check: `passing` (status `0`), `failing` (status other than `0`), or `flapping`
 `event.check.status`                 | integer | Exit status code produced by the check: `0` (OK), `1` (warning), `2` (critical), or other status (unknown or custom status)
-`event.check.stdin`                  | Boolean | Whether the Sensu agent writes JSON-serialized entity and check data to the command process’ STDIN
+`event.check.stdin`                  | Boolean | Whether the Sensu agent writes JSON-serialized entity and check data to the command process’ stdin
 `event.check.subscriptions`          | array   | Subscriptions that the check belongs to
 `event.check.timeout`                | integer | The check execution duration timeout in seconds
 `event.check.total_state_change`     | integer | The total state change percentage for the check’s history
@@ -570,27 +579,11 @@ For example:
 sensu.ListEvents()
 {{< /code >}}
 
-The events in the returned array use the same format as responses for the [core/v2/events API]][43].
+The events in the returned array use the same format as responses for the [core/v2/events API][43].
 
 ## Event filter specification
 
 ### Top-level attributes
-
-type         | 
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][33] resource type. Event filters should always be type `EventFilter`.
-required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: EventFilter
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "EventFilter"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
@@ -667,37 +660,42 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Metadata attributes
-
-| name       |      |
+type         | 
 -------------|------
-description  | Unique string used to identify the event filter. Filter names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][35]). Each filter must have a unique name within its namespace.
-required     | true
+description  | Top-level attribute that specifies the [`sensuctl create`][33] resource type. Event filters should always be type `EventFilter`.
+required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: filter-weekdays-only
+type: EventFilter
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "filter-weekdays-only"
+  "type": "EventFilter"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-| namespace  |      |
+### Metadata attributes
+
+| annotations | |
 -------------|------
-description  | Sensu [RBAC namespace][10] that the event filter belongs to.
+description  | Non-identifying metadata to include with event data that you can access with event filters. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][36], [sensuctl response filtering][37], or [web UI views][42].
 required     | false
-type         | String
-default      | `default`
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-namespace: production
+annotations:
+  managed-by: ops
+  playbook: www.example.url
 {{< /code >}}
 {{< code json >}}
 {
-  "namespace": "production"
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -740,24 +738,35 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-| annotations | |
+| name       |      |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with event filters. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][36], [sensuctl response filtering][37], or [web UI views][42].
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
+description  | Unique string used to identify the event filter. Filter names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][35]). Each filter must have a unique name within its namespace.
+required     | true
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-annotations:
-  managed-by: ops
-  playbook: www.example.url
+name: filter-weekdays-only
 {{< /code >}}
 {{< code json >}}
 {
-  "annotations": {
-    "managed-by": "ops",
-    "playbook": "www.example.url"
-  }
+  "name": "filter-weekdays-only"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| namespace  |      |
+-------------|------
+description  | Sensu [RBAC namespace][10] that the event filter belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: production
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "production"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -902,7 +911,7 @@ spec:
 The following event filter discards events with a custom entity label `"environment": "production"`, allowing handling only for events without an `environment` label or events with `environment` set to something other than `production`.
 
 {{% notice note %}}
-**NOTE**: `action` is `deny`, so this is an exclusive event filter.
+**NOTE**: The value for the `action` attribute is `deny`, so this is an exclusive event filter.
 If evaluation returns false, the event is handled.
 {{% /notice %}}
 
@@ -1284,7 +1293,7 @@ spec:
 [22]: ../../observe-process/handlers/
 [23]: ../../observe-events/events#metrics-attributes
 [24]: ../../observe-entities/entities#metadata-attributes
-[25]: ../../../operations/control-access/rbac/#default-roles-and-cluster-roles
+[25]: ../../../operations/control-access/rbac/#agent-user
 [26]: ../../observe-schedule/agent#keepalive-monitoring
 [27]: ../../observe-filter/sensu-query-expressions/
 [28]: ../../observe-events/events#event-format

@@ -357,7 +357,7 @@ spec:
 
 A successful PostgreSQL health check result will look like this:
 
-{{< figure src="/images/sensu-postgres-health.png" alt="Successful Postgres health check in Sensu Go web UI" link="/images/sensu-postgres-health.png" target="_blank" >}}
+{{< figure src="/images/archived_version_images/sensu_postgres_health.png" alt="Successful Postgres health check in Sensu Go web UI" link="/images/archived_version_images/sensu_postgres_health.png" target="_blank" >}}
 
 
 [1]: ../../../plugins/use-assets-to-install-plugins/

@@ -1,6 +1,6 @@
 ---
 title: "/metrics"
-description: "The Read this API documentation to use the Sensu /metrics API endpoint, which provides HTTP access to internal Sensu metrics in Prometheus format."
+description: "Read this API documentation to use the Sensu /metrics API endpoint, which provides HTTP access to internal Sensu metrics in Prometheus format."
 other_api_title: "/metrics"
 type: "other_api"
 version: "6.4"
@@ -16,13 +16,16 @@ The `/metrics` API endpoint provides HTTP GET access to internal Sensu metrics i
 
 ### Example {#metrics-get-example}
 
-The following example demonstrates a request to the `/metrics` API endpoint, resulting in plaintext output that contains internal Sensu metrics.
+The following example demonstrates a GET request to the `/metrics` API endpoint:
 
-{{< code text >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/metrics
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and plaintext output that contains internal Sensu metrics:
+
+{{< code text >}}
 # HELP etcd_debugging_mvcc_compact_revision The revision of the last compaction in store.
 # TYPE etcd_debugging_mvcc_compact_revision gauge
 etcd_debugging_mvcc_compact_revision 300
@@ -63,5 +66,6 @@ etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds_bucket{le="1"} 0
 etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds_bucket{le="2"} 0
 ...
 {{< /code >}}
+
 
 [1]: https://prometheus.io/docs/concepts/data_model/

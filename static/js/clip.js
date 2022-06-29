@@ -6,8 +6,11 @@
 (function(document, Clipboard) {
 
     var $codes = document.querySelectorAll('pre');
-
     function addCopy(element) {
+      const codelangtext = element.querySelectorAll('.language-text');
+      if (codelangtext.length > 0) {
+        return;
+      }
         var copy = document.createElement("button");
         copy.className = "copy";
         copy.innerText = "Copy";

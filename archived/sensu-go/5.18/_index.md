@@ -20,7 +20,7 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 
 **Automate your monitoring workflows**: Limitless pipelines let you validate and correlate events, [mutate data formats][10], [send alerts][11], manage incidents, [collect and store metrics][12], and more.
 
-<img alt="Sensu event pipeline diagram" title="Sensu lets you take monitoring events from your system and use pipelines to take the right action for your workflow." src="/images/pipeline-ce.png">
+<img alt="Sensu event pipeline diagram" title="Sensu lets you take monitoring events from your system and use pipelines to take the right action for your workflow." src="/images/archived_version_images/pipeline_ce.png">
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/84ff2574-4290-49dc-88e0-18b15ba373ec -->
 
 **Reduce alert fatigue**: Sensu gives you full control over your alerts with flexible [filters][8], [context-rich notifications][19], reporting, [event handling][17], and auto-remediation.
@@ -33,7 +33,7 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 
 > Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [Greg Poirier, Monitorama 2016](https://vimeo.com/173610062)
 
-<img alt="Sensu system diagram" src="/images/system-ce.png">
+<img alt="Sensu system diagram" src="/images/archived_version_images/system_ce.png">
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/edb92c4b-101c-4c3f-89ec-a00c889a6b05 -->
 
 Sensu is an agent-based monitoring tool that you install on your organization's infrastructure.

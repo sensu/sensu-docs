@@ -112,11 +112,11 @@ Provides the `ifIndex` type with an integer value of `2` (i.e., the 2nd port on 
 
 That’s it. That’s all we need to generate a trap. Running the command will give you no confirmation via the command line, but you should see something similar to the following in your Sensu Enterprise Dashboard:
 
-![snmp link down](/images/snmp_link_down.PNG)
+{{< figure src="/images/core/snmp_sensu_guide/snmp_link_down.png" alt="Sensu Enterprise Dashboard confirmation of SNMP link down" link="/images/core/snmp_sensu_guide/snmp_link_down.png" target="_blank" >}}
 
 And in detail:
 
-![snmp link down detail](/images/snmp_link_down_detail.PNG)
+{{< figure src="/images/core/snmp_sensu_guide/snmp_link_down_detail.png" alt="Sensu Enterprise Dashboard confirmation of SNMP link down, in detail" link="/images/core/snmp_sensu_guide/snmp_link_down_detail.png" target="_blank" >}}
 
 To resolve the alert, we pass a similar trap command:
 
@@ -125,7 +125,7 @@ sudo snmptrap -v 2c -c sensutest localhost:1062 '' IF-MIB::linkUp ifIndex i 2{{<
 
 Which yields:
 
-![snmp link up](/images/snmp_link_up.PNG)
+{{< figure src="/images/core/snmp_sensu_guide/snmp_link_up.png" alt="Sensu Enterprise Dashboard confirmation of SNMP link up" link="/images/core/snmp_sensu_guide/snmp_link_up.png" target="_blank" >}}
 
 You can then delete the result from the dashboard. 
 

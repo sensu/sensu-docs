@@ -227,7 +227,7 @@ the OAuth 2.0 authorization server to be enabled in PingFederate:
   - `SAML 2.0`
 4. Click `Save`.
 
-{{< figure src="/images/enterprise-dashboard-oidc-pingfederate-1.png" alt="Configure server settings in PingFederate" link="/images/enterprise-dashboard-oidc-pingfederate-1.png" target="_blank" >}}
+{{< figure src="/images/enterprise_dashboard/rbac_for_oidc/configure_oauth_server_pingfederate.png" alt="Configure the OAuth 2.0 authorization server in PingFederate" link="/images/enterprise_dashboard/rbac_for_oidc/configure_oauth_server_pingfederate.png" target="_blank" >}}
 
 
 #### Create a Credential Validator
@@ -253,8 +253,7 @@ configured. These steps assume that Active Directory is used:
 7. Review your configuation and click the `Done` button.
 8. Click `Save`.
 
-{{< figure src="/images/enterprise-dashboard-oidc-pingfederate-2.png" alt="Configure a Credential Validator in PingFederate" link="/images/enterprise-dashboard-oidc-pingfederate-2.png" target="_blank" >}}
-
+{{< figure src="/images/enterprise_dashboard/rbac_for_oidc/configure_credential_validator_pingfederate.png" alt="Configure a Credential Validator in PingFederate" link="/images/enterprise_dashboard/rbac_for_oidc/configure_credential_validator_pingfederate.png" target="_blank" >}}
 
 #### Configure the PingFederate Authorization Server
 
@@ -279,7 +278,7 @@ configured. These steps assume that Active Directory is used:
 
 4. Click `Save`.
 
-{{< figure src="/images/enterprise-dashboard-oidc-pingfederate-3.png" alt="Configure Scope Management in PingFederate" link="/images/enterprise-dashboard-oidc-pingfederate-3.png" target="_blank" >}}
+{{< figure src="/images/enterprise_dashboard/rbac_for_oidc/configure_scope_management_pingfederate.png" alt="Configure Scope Management in PingFederate" link="/images/enterprise_dashboard/rbac_for_oidc/configure_scope_management_pingfederate.png" target="_blank" >}}
 
 
 #### Create the application
@@ -376,7 +375,9 @@ and within the `APPLICATION INTEGRATION` section, click on `Adapters`.
   - `mail`
   - `memberOf` (check Nested Groups or not depending on your needs)
   - `userPrincipalName`
-      {{< figure src="/images/enterprise-dashboard-oidc-pingfederate-4.png" alt="Configure attributes in PingFederate" link="/images/enterprise-dashboard-oidc-pingfederate-4.png" target="_blank" >}}
+
+      {{< figure src="/images/enterprise_dashboard/rbac_for_oidc/configure_policy_attributes_pingfederate.png" alt="Configure policy attributes in PingFederate" link="/images/enterprise_dashboard/rbac_for_oidc/configure_policy_attributes_pingfederate.png" target="_blank" >}}
+
 11. Click `Next`.
 12. In the LDAP Filter section, enter the following information in the **FILTER** textarea:
 
@@ -393,8 +394,7 @@ and within the `APPLICATION INTEGRATION` section, click on `Adapters`.
     name     | LDAP (Active Directory LDAP) | displayName
     sub      | LDAP (Active Directory LDAP) | userPrincipalName
     
-    {{< figure src="/images/enterprise-dashboard-oidc-pingfederate-5.png" alt="Configure attribute contract details in PingFederate" link="/images/enterprise-dashboard-oidc-pingfederate-5.png" target="_blank" >}}
-
+    {{< figure src="/images/enterprise_dashboard/rbac_for_oidc/configure_contract_fulfillment_pingfederate.png" alt="Configure contract fulfillment information in PingFederate" link="/images/enterprise_dashboard/rbac_for_oidc/configure_contract_fulfillment_pingfederate.png" target="_blank" >}}
 
 17. Click `Next`.
 18. In the Issuance Criteria section, click `Next`.

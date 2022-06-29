@@ -195,22 +195,6 @@ No restarts or Sensu backend configuration changes are required to disable the P
 
 ### Top-level attributes
 
-type         |      |
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][16] resource type. PostgreSQL datastore configs should always be type `PostgresConfig`.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: PostgresConfig
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "PostgresConfig"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  |      |
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For PostgreSQL datastore configs, the `api_version` should be `store/v1`.
@@ -283,23 +267,23 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Metadata attributes
-
-name         |      |
+type         |      |
 -------------|------
-description  | PostgreSQL datastore name used internally by Sensu.
+description  | Top-level attribute that specifies the [`sensuctl create`][16] resource type. PostgreSQL datastore configs should always be type `PostgresConfig`.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: my-postgres
+type: PostgresConfig
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "my-postgres"
+  "type": "PostgresConfig"
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+### Metadata attributes
 
 | created_by |      |
 -------------|------
@@ -313,6 +297,22 @@ created_by: admin
 {{< code json >}}
 {
   "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+name         |      |
+-------------|------
+description  | PostgreSQL datastore name used internally by Sensu.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: my-postgres
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "my-postgres"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -392,6 +392,25 @@ dsn: 'postgresql://user:secret@host:port/dbname'
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="round-robin-postgresql"></a>
+
+enable_round_robin |      |
+-------------|------
+description  | If `true`, enables [round robin scheduling][5] on PostgreSQL. Any existing round robin scheduling will stop and migrate to PostgreSQL as entities check in with keepalives. Sensu will gradually delete the existing etcd scheduler state as keepalives on the etcd scheduler keys expire over time. Otherwise, `false`.<br><br>We recommend using PostgreSQL rather than etcd for round robin scheduling because etcd leases are not reliable enough to produce precise [round robin behavior][5]. 
+required     | false
+default      | false
+type         | Boolean
+example      | {{< language-toggle >}}
+{{< code yml >}}
+enable_round_robin: true
+{{< /code >}}
+{{< code json >}}
+{
+  "enable_round_robin": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 max_conn_lifetime    |      |
 -------------|------
 description  | Maximum time a connection can persist before being destroyed. Specify values with a numeral and a letter indicator: `s` to indicate seconds, `m` to indicate minutes, and `h` to indicate hours. For example, `1m`, `2h`, and `2h1m3s` are valid. 
@@ -446,7 +465,7 @@ pool_size: 20
 
 strict       |      |
 -------------|------
-description  | If `true`, when the PostgresConfig resource is created, configuration validation will include connecting to the PostgreSQL database and executing a query to confirm whether the connected user has permission to create database tables. Otherwise, `false`.<br><br>We recommend setting `strict: true` in most cases. If the connection fails or the user does not have permission to create database tables, resource configuration will fail and the configuration will not be persisted. This extended configuration is useful for debugging when you are not sure whether the configuration is correct or the database is working properly.
+description  | If `true`, when the PostgresConfig resource is created, configuration validation will include connecting to the PostgreSQL database and executing a query to confirm whether the connected user has permission to create database tables. Otherwise, `false`.<br><br>If `strict: true`, sensu-backend will try to connect to PostgreSQL indefinitely at 5-second intervals instead of reverting to etcd after 3 attempts.<br><br>We recommend setting `strict: true` in most cases. If the connection fails or the user does not have permission to create database tables, resource configuration will fail and the configuration will not be persisted. This extended configuration is useful for debugging when you are not sure whether the configuration is correct or the database is working properly.
 required     | false
 default     | false
 type         | Boolean
@@ -461,25 +480,6 @@ strict: true
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a id="round-robin-postgresql"></a>
-
-enable_round_robin |      |
--------------|------
-description  | If `true`, enables [round robin scheduling][5] on PostgreSQL. Any existing round robin scheduling will stop and migrate to PostgreSQL as entities check in with keepalives. Sensu will gradually delete the existing etcd scheduler state as keepalives on the etcd scheduler keys expire over time. Otherwise, `false`.<br><br>We recommend using PostgreSQL rather than etcd for round robin scheduling because etcd leases are not reliable enough to produce precise [round robin behavior][5]. 
-required     | false
-default      | false
-type         | Boolean
-example      | {{< language-toggle >}}
-{{< code yml >}}
-enable_round_robin: true
-{{< /code >}}
-{{< code json >}}
-{
-  "enable_round_robin": true
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 
 [1]: ../../../sensuctl/#first-time-setup-and-authentication
 [2]: ../../maintain-sensu/troubleshoot/
@@ -490,7 +490,7 @@ enable_round_robin: true
 [7]: https://etcd.io/docs/latest/op-guide/clustering/
 [8]: ../cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../../web-ui/
-[10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
+[10]: ../../../sensuctl/create-manage-resources/#manually-resolve-events
 [11]: ../../../api/core/events/
 [12]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
 [14]: https://www.postgresql.org
@@ -501,4 +501,3 @@ enable_round_robin: true
 [19]: ../install-sensu/#ports
 [20]: https://www.postgresql.org/docs/current/config-setting.html
 [21]: https://etcd.io/docs/latest/op-guide/clustering/
-

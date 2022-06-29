@@ -17,7 +17,7 @@ menu:
 [Example Sensu agent configuration file](../../../files/agent.yml) (download)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
-Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
+Agents register with the Sensu backend as [entities][3] with `type: "agent"`.
 Agent entities are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
 
 The Sensu agent is available for Linux, macOS, and Windows.
@@ -28,7 +28,7 @@ Read the [installation guide][1] to install the agent.
 
 ## Agent authentication
 
-The Sensu agent authenticates to the Sensu backend via [WebSocket][45] transport by either built-in basic (username and password) or mutual transport layer security (mTLS) authentication.
+The Sensu agent authenticates to the Sensu backend via [WebSocket][45] transport by either built-in basic authentication (username and password) or mutual transport layer security (mTLS) authentication.
 
 ### Username and password authentication
 
@@ -52,10 +52,15 @@ When mTLS is configured for both the Sensu agent and backend, the agent uses mTL
 Sensu backends that are configured for mTLS authentication will no longer accept agent authentication via username and password.
 Agents that are configured to use mTLS authentication cannot authenticate with the backend unless the backend is configured for mTLS.
 
-To [configure the agent and backend][58] for mTLS authentication:
+To configure the agent and backend for mTLS authentication:
 
 - In the backend configuration, specify valid certificate and key files as values for the `agent-auth-cert-file` and `agent-auth-key-file` parameters (e.g. `backend-1.pem` and `backend-1-key.pem`, respectively).
 - In the agent configuration, specify valid certificate and key files as values for the `cert-file` and `key-file` parameters (e.g. `agent.pem` and `agent-key.pem`, respectively).
+
+{{% notice note %}}
+**NOTE**: For detailed information about the certificates and keys required for mTLS authentication, read [Generate certificates for your Sensu installation](../../../operations/deploy-sensu/generate-certificates/).
+For information about using the certificates and keys to secure your configuration, read [Secure Sensu](../../../operations/deploy-sensu/secure-sensu/). 
+{{% /notice %}}
 
 The agent and backend will compare the provided certificates with the trusted CA certificate either in the system trust store or specified explicitly as the `agent-auth-trusted-ca-file` in the backend configuration and `trusted-ca-file` in the agent configuration.
 
@@ -66,6 +71,14 @@ When using mTLS authentication, sensu-agent sends the following HTTP headers in 
 - `Sensu-Namespace`: the agent's configured namespace in plaintext
 
 If the Sensu agent is configured for mTLS authentication, it will not send the `Authorization` HTTP header.
+
+#### Certificate bundles or chains
+
+The Sensu agent supports all types of certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
+This is because the Go standard library assumes that the first certificate listed in the PEM file is the leaf certificate &mdash; the certificate that the program will use to show its own identity.
+
+If you send the leaf certificate alone instead of sending the whole bundle with the leaf certificate first, you will receive a `certificate not signed by trusted authority` error.
+You must present the whole chain to the remote so it can determine whether it trusts the presented certificate through the chain.
 
 #### Certificate revocation check
 
@@ -80,44 +93,157 @@ This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
 {{% notice note %}}
-**NOTE**: For information about your agent transport status, use the [/health API](../../../api/other/health/#get-health-data-for-your-agent-transport).
+**NOTE**: For information about agent transport status, use the [/health API](../../../api/other/health/#get-health-data-for-your-agent-transport).
 {{% /notice %}}
+
+## Connection failure
+
+Although connection failure may be due to socket errors like unexpectedly closed connections and TLS handshake failures, the Sensu agent generally keeps retrying connections to each URL in the `backend-url` list until it is successfully connected to a backend URL or you stop the process.
+
+When you start up a Sensu agent configured with multiple `backend-url` values, the agent shuffles the `backend-url` list and attempts to connect to the first URL in the shuffled list.
+If the agent cannot establish a WebSocket connection with the first URL within the number of seconds specified for the [`backend-handshake-timeout`][43], the agent abandons the connection attempt and tries the next URL in the shuffled list.
+
+When the agent establishes a WebSocket connection with a backend URL within the `backend-handshake-timeout` period, the agent sends a heartbeat message to the backend at the specified [`backend-heartbeat-interval`][34].
+For every heartbeat the agent sends, the agent expects the connected backend to send a heartbeat response within the number of seconds specified for the `backend-heartbeat-timeout`.
+If the connected backend does not respond within the `backend-heartbeat-timeout` period, the agent closes the connection and attempts to connect to the next backend URL in the shuffled list.
+
+The agent iterates through the shuffled `backend-url` list until it successfully establishes a WebSocket connection with a backend, returning to the first URL if it fails to connect with the last URL in the list.
+
+{{% notice note %}}
+**NOTE**: Sensu's WebSocket connection heartbeat message and [keepalive monitoring](#keepalive-monitoring) mechanism are different, although they have similar purposes.<br><br>
+The `backend-heartbeat-interval` and `backend-heartbeat-timeout` are specifically configured for the WebSocket connection heartbeat message the agent sends when it connects to a backend URL.<br><br>
+Keepalive monitoring is more fluid &mdash; it permits agents to reconnect any number of times within the configured timeout.
+As long as the agent can successfully send one event to any backend within the timeout, the keepalive logic is satisfied.
+{{% /notice %}}
+
+## Synchronize time between agents and the backend
+
+System clocks between agents and the backend should be synchronized to a central NTP server.
+If system time is out of sync, it may cause issues with keepalive, metric, and check alerts.
+
+## Agent connection to a cluster
+
+Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16].
+
+For more information about clustering, read [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
+
+## Keepalive monitoring
+
+Sensu keepalives are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
+Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval`][4] configuration flag.
+
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout`][4] configuration flag, the Sensu backend creates a keepalive **critical** alert in the Sensu web UI.
+The `keepalive-critical-timeout` is set to `0` (disabled) by default to help ensure that it will not interfere with your `keepalive-warning-timeout` setting.
+
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout`][58] configuration flag, the Sensu backend creates a keepalive **warning** alert in the Sensu web UI.
+The value you specify for `keepalive-warning-timeout` must be lower than the value you specify for `keepalive-critical-timeout`.
+
+{{% notice note %}}
+**NOTE**: If you set the [deregister flag](#ephemeral-agent-configuration-flags) to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.<br><br>
+Deregistration prevents and clears alerts for failing keepalives for agent entities &mdash; the backend does not distinguish between intentional shutdown and failure.
+As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not receive alerts for keepalive events in the web UI.<br><br>
+If you want to receive alerts for failing keepalives, set the [deregister](#ephemeral-agent-configuration-flags) configuration flag to `false`.
+{{% /notice %}}
+
+You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
+In addition, the agent maps [`keepalive-critical-timeout`][4] and [`keepalive-warning-timeout`][58] values to certain event check attributes, so you can [create time-based event filters][57] to reduce alert fatigue for agent keepalive events.
+
+{{% notice note %}}
+**NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
+Use the [core/v2/events API](../../../api/core/events/) to send manual keepalive events for proxy entities.
+{{% /notice %}}
+
+### Handle keepalive events
+
+You can use a keepalive handler to connect keepalive events to your monitoring workflows.
+Sensu looks for an [event handler][8] named `keepalive` and automatically uses it to process keepalive events.
+
+Suppose you want to receive Slack notifications for keepalive alerts, and you already have a [Slack handler set up to process events][40].
+To process keepalive events using the Slack handler, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
+The resulting `keepalive` handler set configuration looks like this:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: keepalive
+spec:
+  handlers:
+  - slack
+  type: set
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "keepalive"
+  },
+  "spec": {
+    "type": "set",
+    "handlers": [
+      "slack"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+You can also use the [`keepalive-handlers`][53] flag to send keepalive events to any handler you have configured.
+If you do not specify a keepalive handler with the `keepalive-handlers` flag, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
 
 ## Create observability events using service checks
 
+The Sensu backend coordinates check execution for you by comparing the subscriptions you specify in your checks and entities to determine which entities should receive execution requests for a given check.
+
 Sensu uses the [publish/subscribe pattern of communication][15], which allows automated registration and deregistration of ephemeral systems.
-At the core of this model are Sensu [subscriptions][28]: a list of roles and responsibilities assigned to the system (for example, a webserver or database).
-These subscriptions determine which [monitoring checks][14] the agent will execute.
-For an agent to execute a service check, you must specify the same subscription in the [agent configuration][28] and the [check definition][14].
+At the core of this model are Sensu [subscriptions][28], which you specify in checks and entities to determine which entities should receive execution requests for a given check.
+Subscriptions often correspond with the roles and responsibilities assigned to the entity, such as `webserver` or `database`.
+
+Subscriptions determine which [checks][14] the agent will execute.
+For an agent to execute a check, at least one [entity][3] must include a subscription that matches a subscription in the check definition.
+Read the [subscriptions reference][28] for more information.
 
 After receiving a check request from the Sensu backend, the agent:
 
 1. Applies any [tokens][27] that match attribute values in the check definition.
 2. Fetches [dynamic runtime assets][29] and stores them in its local cache.
-By default, agents cache dynamic runtime asset data at `/var/cache/sensu/sensu-agent` (`C:\ProgramData\sensu\cache\sensu-agent` on Windows systems) or as specified by the the [`cache-dir` flag][30].
-3. Executes the [check `command`][14].
+
+    By default, agents cache dynamic runtime asset data at `/var/cache/sensu/sensu-agent` (Linux) or `C:\ProgramData\sensu\cache\sensu-agent` (Windows).
+    To specify a different cache location, use the [`cache-dir`][30] configuration attribute.
+
+3. Executes the [check command][14].
 4. Executes any [hooks][31] specified by the check based on the exit status.
 5. Creates an [event][7] that contains information about the applicable entity, check, and metric.
 
-Read the [subscriptions reference][28] for more information.
+The Sensu backend then processes the event by applying event filters, mutators, and handlers.
 
 ### Proxy entities
 
-Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch).
+Proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed, like a network switch.
+
 The [Sensu backend][2] stores proxy entity definitions (unlike agent entities, which the agent stores).
 When the backend requests a check that includes a [`proxy_entity_name`][32], the agent includes the provided entity information in the observation data in events in place of the agent entity data.
-read the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
+
+Read the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
 
 ## Create observability events using the agent API
 
 The Sensu agent API allows external sources to send monitoring data to Sensu without requiring the external sources to know anything about Sensu's internal implementation.
-The agent API listens on the address and port specified by the [API configuration flags][18].
-Only unsecured HTTP (no HTTPS) is supported at this time.
-Any requests for unknown endpoints result in an HTTP `404 Not Found` response.
+The agent API listens on the address and port specified with the [API configuration attributes][18].
+
+The agent API supports only unsecured HTTP requests (no HTTPS).
+Requests for unknown endpoints will result in an `HTTP 404 Not Found` response.
 
 ### `/events` (POST)
 
-The agent API provides HTTP POST access to publish [observability events][7] to the Sensu backend pipeline via the `/events/` endpoint.
+The agent API provides HTTP POST access to publish [observability events][7] to the Sensu backend via the `/events` endpoint.
+
 The agent places events created via the agent API `/events` endpoint into a queue stored on disk.
 In case of a loss of connection with the backend or agent shutdown, the agent preserves queued event data.
 When the connection is reestablished, the agent sends the queued events to the backend.
@@ -125,17 +251,17 @@ When the connection is reestablished, the agent sends the queued events to the b
 The agent API `/events` endpoint uses a configurable burst limit and rate limit for relaying events to the backend.
 Read [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
 
-#### Example POST request to events endpoint {#events-post-example}
+#### Example POST request to events endpoint
 
 The following example submits an HTTP POST request to the agent API `/events` endpoint.
-The request creates event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning).
-The agent responds with an HTTP `202 Accepted` response to indicate that the event has been added to the queue to be sent to the backend.
+The request creates an event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning).
+The agent responds with an `HTTP 202 Accepted` response to indicate that the event has been added to the queue to be sent to the backend.
 
-The event will be handled according to an `email` handler definition.
+In this example, the event will be processed according to an `incident_alerts` [pipeline][63].
 
 {{% notice note %}}
-**NOTE**: For HTTP `POST` requests to the agent API `/events` endpoint, check [spec attributes](../checks/#spec-attributes) are not required.
-When doing so, the spec attributes are listed as individual [top-level attributes](../checks/#top-level-attributes) in the check definition instead.
+**NOTE**: For HTTP POST requests to the agent API `/events` endpoint, check-specific [spec attributes](../checks/#spec-attributes) are not required.
+If you do want to include spec attributes, list them as individual [top-level attributes](../checks/#top-level-attributes) within the event's `check` scope.
 {{% /notice %}}
 
 {{< code shell >}}
@@ -158,8 +284,6 @@ curl -X POST \
   ]
 }' \
 http://127.0.0.1:3031/events
-
-HTTP/1.1 202 Accepted
 {{< /code >}}
 
 {{% notice protip %}}
@@ -168,24 +292,23 @@ HTTP/1.1 202 Accepted
 
 #### Detect silent failures
 
-You can use the Sensu agent API in combination with the check time-to-live (TTL) attribute to detect silent failures.
+You can use the Sensu agent API in combination with the check [time-to-live (TTL) attribute][44] to detect silent failures.
 This creates what's commonly referred to as a ["dead man's switch"][20].
 
 With check TTLs, Sensu can set an expectation that a Sensu agent will publish additional events for a check within the period of time specified by the TTL attribute.
 If a Sensu agent fails to publish an event before the check TTL expires, the Sensu backend creates an event with a status of `1` (warning) to indicate the expected event was not received.
 For more information about check TTLs, read the [checks reference][44].
 
-You can use the Sensu agent API to enable tasks that run outside of Sensu's check scheduling to emit events.
-Using the check TTL attribute, these events create a dead man's switch: if the task fails for any reason, the lack of an "all clear" event from the task will notify operators of a silent failure (which might otherwise be missed).
-If an external source sends a Sensu event with a check TTL to the Sensu agent API, Sensu expects another event from the same external source before the TTL expires.
+If you use the check TTL attribute along with the Sensu agent API to enable tasks that run outside of Sensu's check scheduling to emit events, these events create a dead man's switch: if the task fails for any reason, the lack of an "all clear" event from the task will notify operators of the silent failure, which might otherwise be missed.
+If an external source sends an event with a check TTL to the Sensu agent API, Sensu expects another event from the same external source before the TTL expires.
 
-In this example, external event input via the Sensu agent API uses a check TTL to create a dead man's switch for MySQL backups.
+Here's an example of external event input via the Sensu agent API that uses a check TTL to create a dead man's switch for MySQL backups.
 Assume that a MySQL backup script runs periodically, and you expect the job to take a little less than 7 hours to complete.
 
 - If the job completes successfully, you want a record of it, but you don't need to receive an alert.
 - If the job fails or continues running longer than the expected 7 hours, you do need to receive an alert.
 
-This script sends an event that tells the Sensu backend to expect an additional event with the same name within 7 hours of the first event:
+The script can send an event that tells the Sensu backend to expect an additional event with the same name within 7 hours of the first event:
 
 {{< code shell >}}
 curl -X POST \
@@ -203,12 +326,12 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-With this initial event submitted to the agent API, you recorded in the Sensu backend that your script started.
-You also configured the dead man's switch so that you'll receive an alert if the job fails or runs for too long.
+When the script submitted this initial event to the agent API, you recorded in the Sensu backend that your script started.
+You also configured the dead man's switch by including the `ttl` attribute, so you'll receive an alert if the job fails or runs for too long.
 Although it is possible for your script to handle errors gracefully and emit additional observability events, this approach allows you to worry less about handling every possible error case.
 A lack of additional events before the 7-hour period elapses results in an alert.
 
-If your backup script runs successfully, you can send an additional event without the TTL attribute, which removes the dead man's switch:
+If your backup script runs successfully, it can send an additional event without the TTL attribute, which removes the dead man's switch:
 
 {{< code shell >}}
 curl -X POST \
@@ -225,7 +348,7 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-When you omit the TTL attribute from this event, you also remove the dead man's switch being monitored by the Sensu backend.
+Omitting the TTL attribute from this event also removes the dead man's switch being monitored by the Sensu backend.
 This effectively sounds the "all clear" for this iteration of the task.
 
 #### API specification {#events-post-specification}
@@ -260,7 +383,7 @@ curl http://127.0.0.1:3031/healthz
 
 The request results in a healthy response:
 
-{{< code shell >}}
+{{< code text >}}
 ok
 {{< /code >}}
 
@@ -268,7 +391,7 @@ ok
 
 /healthz (GET) | 
 ----------------|------
-description     | Returns the agent status: `ok` if the agent is active and connected to a Sensu backend or `sensu backend unavailable` if the agent cannot connect to a backend.
+description     | Returns the agent status:<br>- `ok` if the agent is active and connected to a Sensu backend.<br>- `sensu backend unavailable` if the agent cannot connect to a backend.
 example url     | http://hostname:3031/healthz
 
 ## Create observability events using the StatsD listener
@@ -286,17 +409,17 @@ Sensu does not store metrics received through the StatsD listener, so it's impor
 
 ### StatsD line protocol
 
-The Sensu StatsD listener accepts messages formatted according to the StatsD line protocol:
+The Sensu StatsD listener accepts messages that are formatted according to the StatsD line protocol:
 
-{{< code text >}}
+{{< code shell >}}
 <metricname>:<value>|<type>
 {{< /code >}}
 
-For more information, read the [StatsD documentation][21].
+For more information about StatsD, read the [StatsD documentation][21].
 
 ### Configure the StatsD listener
 
-To configure the StatsD listener, specify the [`statsd-event-handlers` configuration flag][22] in the [agent configuration][24], and start the agent.
+To configure the StatsD listener, specify the [`statsd-event-handlers`][22] configuration flag in the [agent configuration][24] and start the agent.
 For example, to start an agent that sends StatsD metrics to InfluxDB, run:
 
 {{< code shell >}}
@@ -313,7 +436,7 @@ sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd
 ## Create observability events using the agent TCP and UDP sockets
 
 {{% notice note %}}
-**NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API](#events-post-specification).
+**NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API](#create-observability-events-using-the-agent-api).
 {{% /notice %}}
 
 Sensu agents listen for external monitoring data using TCP and UDP sockets.
@@ -481,296 +604,17 @@ example      | {{< code json >}}{
   "handlers": ["slack", "influxdb"]
 }{{< /code >}}
 
-## Keepalive monitoring
-
-Sensu `keepalives` are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
-Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval` flag][4].
-
-If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout` flag][4], the Sensu backend creates a keepalive **critical** alert in the Sensu web UI.
-The `keepalive-critical-timeout` is set to `0` (disabled) by default to help ensure that it will not interfere with your `keepalive-warning-timeout` setting.
-
-If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout` flag][4], the Sensu backend creates a keepalive **warning** alert in the Sensu web UI.
-The value you specify for `keepalive-warning-timeout` must be lower than the value you specify for `keepalive-critical-timeout`.
-
-{{% notice note %}}
-**NOTE**: If you set the [deregister flag](#ephemeral-agent-configuration-flags) to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.<br><br>
-Deregistration prevents and clears alerts for failing keepalives &mdash; the backend does not distinguish between intentional shutdown and failure.
-As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not receive alerts for keepalive events in the web UI.<br><br>
-If you want to receive alerts for failing keepalives, set the [deregister flag](#ephemeral-agent-configuration-flags) to `false`.
-{{% /notice %}}
-
-You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
-In addition, the agent maps [`keepalive-critical-timeout` and `keepalive-warning-timeout`][4] values to certain event check attributes, so you can [create time-based event filters][57] to reduce alert fatigue for agent keepliave events.
-
-{{% notice note %}}
-**NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
-Use the [core/v2/events API](../../../api/core/events/) to send manual keepalive events for proxy entities.
-{{% /notice %}}
-
-### Handle keepalive events
-
-You can use a keepalive handler to connect keepalive events to your monitoring workflows.
-Sensu looks for an [event handler][8] named `keepalive` and automatically uses it to process keepalive events.
-
-Suppose you want to receive Slack notifications for keepalive alerts, and you already have a [Slack handler set up to process events][40].
-To process keepalive events using the Slack pipeline, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
-The resulting `keepalive` handler set configuration looks like this:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: keepalive
-spec:
-  handlers:
-  - slack
-  type: set
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata" : {
-    "name": "keepalive"
-  },
-  "spec": {
-    "type": "set",
-    "handlers": [
-      "slack"
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-You can also use the [`keepalive-handlers`][53] flag to send keepalive events to any handler you have configured.
-If you do not specify a keepalive handler with the `keepalive-handlers` flag, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
-
-## Connection failure
-
-Although connection failure may be due to different kinds of socket errors (such as unexpectedly closed connections and TLS handshake failures), the Sensu agent generally keeps retrying connections to each URL in the `backend-url` list until it is successfully connected to a backend URL or you stop the process.
-
-When you start up a Sensu agent configured with multiple `backend-url` values, the agent shuffles the `backend-url` list and attempts to connect to the first URL in the shuffled list.
-
-If the agent cannot establish a WebSocket connection with the first URL within the number of seconds specified for the [`backend-handshake-timeout`][43], the agent abandons the connection attempt and tries the next URL in the shuffled list.
-
-When the agent establishes a WebSocket connection with a backend URL within the `backend-handshake-timeout` period, the agent sends a heartbeat message to the backend at the specified [`backend-heartbeat-interval`][34].
-For every heartbeat the agent sends, the agent expects the connected backend to send a heartbeat response within the number of seconds specified for the [`backend-heartbeat-timeout`][42].
-If the connected backend does not respond within the `backend-heartbeat-timeout` period, the agent closes the connection and attempts to connect to the next backend URL in the shuffled list.
-
-The agent iterates through the shuffled `backend-url` list until it successfully establishes a WebSocket connection with a backend, returning to the first URL if it fails to connect with the last URL in the list.
-
-{{% notice note %}}
-**NOTE**: Sensu's WebSocket connection heartbeat message and [keepalive monitoring](#keepalive-monitoring) mechanism are different, although they have similar purposes.<br><br>
-The WebSocket `backend-heartbeat-interval` and `backend-heartbeat-timeout` are specifically configured for the WebSocket connection heartbeat message the agent sends when it connects to a backend URL.<br><br>
-Keepalive monitoring is more fluid &mdash; it permits agents to reconnect any number of times within the configured timeout.
-As long as the agent can successfully send one event to any backend within the timeout, the keepalive logic is satisfied.
-{{% /notice %}}
-
-## Service management
-
-### Start the service
-
-Use the `sensu-agent` tool to start the agent and apply configuration flags.
-
-{{< platformBlock "Linux" >}}
-
-**Linux**
-
-To start the agent with [configuration flags][24]:
-
-{{< code shell >}}
-sensu-agent start --subscriptions disk-checks --log-level debug
-{{< /code >}}
-
-To view available configuration flags and defaults:
-
-{{< code shell >}}
-sensu-agent start --help
-{{< /code >}}
-
-To start the agent using a service manager:
-
-{{< code shell >}}
-sudo service sensu-agent start
-{{< /code >}}
-
-If you do not provide any configuration flags, the agent loads configuration from the location specified by the `config-file` attribute (default is `/etc/sensu/agent.yml`).
-
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-Run the following command as an admin to install and start the agent:
-
-{{< code text >}}
-sensu-agent service install
-{{< /code >}}
-
-By default, the agent loads configuration from `%ALLUSERSPROFILE%\sensu\config\agent.yml` (for example, `C:\ProgramData\sensu\config\agent.yml`) and stores service logs to `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log` (for example, `C:\ProgramData\sensu\log\sensu-agent.log`).
-
-Configure the configuration file and log file locations using the `config-file` and `log-file` flags:
-
-{{< code text >}}
-sensu-agent service install --config-file 'C:\\monitoring\\sensu\\config\\agent.yml' --log-file 'C:\\monitoring\\sensu\\log\\sensu-agent.log'
-{{< /code >}}
-
-{{< platformBlockClose >}}
-
-### Stop the service
-
-To stop the agent service using a service manager:
-
-{{< language-toggle >}}
-
-{{< code shell "Linux" >}}
-sudo service sensu-agent stop
-{{< /code >}}
-
-{{< code shell "Windows" >}}
-sc.exe stop SensuAgent
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Restart the service
-
-You must restart the agent to implement any configuration updates.
-
-To restart the agent using a service manager:
-
-{{< language-toggle >}}
-
-{{< code shell "Linux" >}}
-sudo service sensu-agent restart
-{{< /code >}}
-
-{{< code shell "Windows" >}}
-sc.exe start SensuAgent
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Enable on boot
-
-To enable the agent to start on system boot:
-
-{{< language-toggle >}}
-
-{{< code shell "Linux" >}}
-sudo systemctl enable sensu-agent
-{{< /code >}}
-
-{{< code shell "Windows" >}}
-The service is configured to start automatically on boot by default.
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-{{% notice note %}}
-**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent.
-{{% /notice %}}
-
-To disable the agent from starting on system boot:
-
-{{< language-toggle >}}
-
-{{< code shell "Linux" >}}
-sudo systemctl disable sensu-agent
-{{< /code >}}
-
-{{< code shell "Windows" >}}
-The service is configured to start automatically on boot by default.
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-{{% notice note %}}
-**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent off` to disable the agent.
-{{% /notice %}}
-
-### Get service status
-
-To view the status of the agent service using a service manager:
-
-{{< language-toggle >}}
-
-{{< code shell "Linux" >}}
-service sensu-agent status
-{{< /code >}}
-
-{{< code shell "Windows" >}}
-sc.exe query SensuAgent
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Get service version
-
-There are two ways to get the current agent version: the `sensu-agent` tool and the agent version API.
-
-To get the version of the current `sensu-agent` tool:
-
-{{< code shell >}}
-sensu-agent version
-{{< /code >}}
-
-To get the version of the running `sensu-agent` service:
-
-{{< code shell >}}
-curl http://127.0.0.1:3031/version
-{{< /code >}}
-
-### Uninstall the service
-
-To uninstall the sensu-agent service, run:
-
-{{< language-toggle >}}
-
-{{< code shell "Linux" >}}
-systemctl sensu-agent stop
-{{< /code >}}
-
-{{< code shell "Windows" >}}
-sensu-agent service uninstall
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Get help
-
-The `sensu-agent` tool provides general and command-specific help flags.
-
-To view sensu-agent commands, run:
-
-{{< code shell >}}
-sensu-agent help
-{{< /code >}}
-
-To list options for a specific command (in this case, sensu-agent start), run: 
-
-{{< code shell >}}
-sensu-agent start --help
-{{< /code >}}
-
-### Registration, endpoint management, and service discovery
+## Registration, endpoint management, and service discovery
 
 Sensu agents automatically discover and register infrastructure components and the services running on them.
-When an agent process stops, the Sensu backend can automatically create and process a deregistration event.
+When an agent process stops, the Sensu backend can automatically create and process a deregistration event for the agent entities.
 
 In practice, agent registration happens when a Sensu backend processes an agent keepalive event for an agent that is not already registered in the Sensu agent registry (based on the configured agent `name`).
 The [Sensu backend][2] stores this agent registry, and it is accessible via [`sensuctl entity list`][6].
 
 All Sensu agent data provided in keepalive events gets stored in the agent registry and used to add context to Sensu [events][7] and detect Sensu agents in an unhealthy state.
 
-#### Registration events
+### Registration events
 
 If a [Sensu event handler][8] named `registration` is configured, the [Sensu backend][2] creates and processes an [event][7] for agent registration, applying any configured [filters][9] and [mutators][10] before executing the configured [handler][8].
 
@@ -788,44 +632,32 @@ The handlers reference includes an [example registration event handler][41].
 However, all registration events are logged in the [Sensu backend log](../backend/#event-logging).
 {{% /notice %}}
 
-#### Deregistration events
+### Deregistration events
 
 As with registration events, the Sensu backend can create and process a deregistration event when the Sensu agent process stops.
 You can use deregistration events to trigger a handler that updates external CMDBs or performs an action to update ephemeral infrastructures.
 To enable deregistration events, use the [`deregister` flag][13], and specify the event handler using the [`deregistration-handler` flag][13].
 You can specify a deregistration handler per agent using the [`deregistration-handler` agent flag][13] or by setting a default for all agents using the [`deregistration-handler` backend configuration flag][37].
 
-### Cluster
-
-Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16].
-For more information about clustering, read [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
-
-### Synchronize time
-
-System clocks between agents and the backend should be synchronized to a central NTP server.
-If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
+{{% notice note %}}
+**NOTE**: Deregistration is supported for [agent entities](../../observe-entities/#agent-entities) that have sent at least one keepalive.
+Deregistration is **not** supported for [proxy entities](../../observe-entities/#proxy-entities), which do not send keepalives, and the backend does not automatically create and process deregistration events for proxy entities.
+{{% /notice %}}
 
 ## Configuration via flags
 
+For Linux agents, customize the agent configuration with `sensu-agent start` command line flags or in a `.yml` file.
+The default agent configuration file path for Linux is `/etc/sensu/agent.yml`.
+Configuration via command line flags overrides attributes specified in a configuration file.
+Read [Create overrides][68] to learn more.
+
+For Windows agents, customize the agent configuration in a `.yml` file.
+The default agent configuration file path for Windows is `C:\ProgramData\sensu\config\agent.yml.example`.
+
+Review the [example Sensu agent configuration file][5] for a complete list of flags and default values.
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
-{{< platformBlock "Linux" >}}
-
-### Linux
-
-Specify the agent configuration with either a `.yml` file or `sensu-agent start` command line flags.
-Configuration via command line flags overrides attributes specified in a configuration file.
-Review the [example Sensu agent configuration file][5] for flags and defaults.
-
-### Certificate bundles or chains
-
-The Sensu agent supports all types of certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
-This is because the Go standard library assumes that the first certificate listed in the PEM file is the leaf certificate &mdash; the certificate that the program will use to show its own identity.
-
-If you send the leaf certificate alone instead of sending the whole bundle with the leaf certificate first, you will receive a `certificate not signed by trusted authority` error.
-You must present the whole chain to the remote so it can determine whether it trusts the presented certificate through the chain.
-
-### Configuration summary
+### Agent configuration flag summary
 
 {{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu.
@@ -901,17 +733,6 @@ Flags:
       --user string                         agent user (default "agent")
 {{< /code >}}
 
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-### Windows
-
-Specify the agent configuration using a `.yml` file.
-Review the [example agent configuration file][5] (also provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example`; default `C:\ProgramData\sensu\config\agent.yml.example`).
-
-{{< platformBlockClose >}}
-
 ### General configuration flags
 
 {{% notice note %}}
@@ -936,7 +757,7 @@ agent-managed-entity: true{{< /code >}}
 
 | allow-list |      |
 ------------------|------
-description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. Read [allow list configuration commands][49] and the [example allow list configuration file][48] for information about building a configuration file.
+description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. Read [allow list configuration commands][49] and the [example allow list configuration][48] for information about building a configuration file.
 type              | String
 default           | `""`
 environment variable | `SENSU_ALLOW_LIST`
@@ -1314,7 +1135,7 @@ detect-cloud-provider: false{{< /code >}}
 
 | keepalive-critical-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../../observe-events/events/#checks-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../../observe-events/events/#check-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for [creating time-based event filters](../../observe-filter/filters#filter-to-reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
 {{% /notice %}}
 type                | Integer
 default             | `0`
@@ -1351,9 +1172,11 @@ sensu-agent start --keepalive-interval 30{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 keepalive-interval: 30{{< /code >}}
 
+<a id="keepalive-warning-timeout-flag"></a>
+
 | keepalive-warning-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../../observe-events/events/#checks-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../../observe-events/events/#check-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for [creating time-based event filters](../../observe-filter/filters#filter-to-reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
 {{% /notice %}}
 type                | Integer
 default             | `120`
@@ -1662,7 +1485,7 @@ sha512: 4f926bf4328...
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### Example allow list configuration file
+#### Example allow list configuration
 
 {{< language-toggle >}}
 
@@ -1720,7 +1543,7 @@ Each agent configuration flag has an associated environment variable.
 You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
 Here's how.
 
-1. Create the files from which the `sensu-agent` service configured by our supported packages will read environment variables: `/etc/default/sensu-agent` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-agent` for RHEL/CentOS systems.
+1. Create the files from which the `sensu-agent` service configured by our supported packages will read environment variables:
 
      {{< language-toggle >}}
      
@@ -1730,6 +1553,14 @@ sudo touch /etc/default/sensu-agent
 
 {{< code shell "RHEL/CentOS" >}}
 sudo touch /etc/sysconfig/sensu-agent
+{{< /code >}}
+
+{{< code shell "Windows" >}}
+# By default, the agent loads configuration from %ALLUSERSPROFILE%\sensu\config\agent.yml.
+# If you did not change the location for the configuration file during installation,
+# the sensu-agent configuration file path is:
+
+C:\ProgramData\sensu\config\agent.yml
 {{< /code >}}
      
      {{< /language-toggle >}}
@@ -1743,7 +1574,7 @@ All environment variables that control Sensu agent configuration begin with `SEN
      For a custom environment variable, you do not have to prepend `SENSU`.
      For example, `TEST_VAR_1` is a valid custom environment variable name.
 
-3. Add the environment variable to the environment file (`/etc/default/sensu-agent` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-agent` for RHEL/CentOS systems).
+3. Add the environment variable to the environment file.
 
      In this example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`:
      
@@ -1757,9 +1588,16 @@ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
 echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
+{{< code shell "Windows" >}}
+# Save the following environment variable in the configuration file
+# at C:\ProgramData\sensu\config\agent.yml:
+
+SENSU_API_HOST="0.0.0.0"
+{{< /code >}}
+
      {{< /language-toggle >}}
 
-4. Restart the sensu-agent service so these settings can take effect.
+4. Restart the sensu-agent service so these settings can take effect:
 
      {{< language-toggle >}}
 
@@ -1769,6 +1607,10 @@ sudo systemctl restart sensu-agent
 
 {{< code shell "RHEL/CentOS" >}}
 sudo systemctl restart sensu-agent
+{{< /code >}}
+
+{{< code shell "Windows" >}}
+sc.exe start SensuAgent
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1936,6 +1778,194 @@ To configure the desired log level in the config file, add this line to agent.ym
 log-level: debug
 {{< /code >}}
 
+## Service management
+
+### Start the service
+
+Use the `sensu-agent` tool to start the agent and apply configuration flags.
+
+{{< platformBlock "Linux" >}}
+
+**Linux**
+
+Start the agent with [configuration flags][24]:
+
+{{< code shell >}}
+sensu-agent start --subscriptions disk-checks --log-level debug
+{{< /code >}}
+
+View available configuration flags and defaults:
+
+{{< code shell >}}
+sensu-agent start --help
+{{< /code >}}
+
+Start the agent using a service manager:
+
+{{< code shell >}}
+sudo systemctl start sensu-agent
+{{< /code >}}
+
+If you do not provide any configuration flags, the agent loads configuration from the location specified by the `config-file` attribute (default is `/etc/sensu/agent.yml`).
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+Run the following command as the admin user to install and start the agent:
+
+{{< code shell >}}
+sensu-agent service install
+{{< /code >}}
+
+By default, the agent loads configuration from `%ALLUSERSPROFILE%\sensu\config\agent.yml` (for example, `C:\ProgramData\sensu\config\agent.yml`) and stores service logs to `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log` (for example, `C:\ProgramData\sensu\log\sensu-agent.log`).
+
+Configure the configuration file and log file locations using the `config-file` and `log-file` flags:
+
+{{< code shell >}}
+sensu-agent service install --config-file 'C:\\ProgramData\\sensu\\config\\agent.yml' --log-file 'C:\\ProgramData\\sensu\\log\\sensu-agent.log'
+{{< /code >}}
+
+{{< platformBlockClose >}}
+
+### Stop the service
+
+Stop the agent service using a service manager:
+
+{{< language-toggle >}}
+
+{{< code shell "Linux" >}}
+sudo systemctl stop sensu-agent
+{{< /code >}}
+
+{{< code shell "Windows" >}}
+sc.exe stop SensuAgent
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Restart the service
+
+Restart the agent using a service manager:
+
+{{< language-toggle >}}
+
+{{< code shell "Linux" >}}
+sudo systemctl restart sensu-agent
+{{< /code >}}
+
+{{< code shell "Windows" >}}
+sc.exe start SensuAgent
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+You must restart the agent to implement any configuration updates.
+
+### Enable on boot
+
+Enable the agent to start on system boot:
+
+{{< language-toggle >}}
+
+{{< code shell "Linux" >}}
+sudo systemctl enable sensu-agent
+{{< /code >}}
+
+{{< code shell "Windows" >}}
+The service is configured to start automatically on boot by default.
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent.
+{{% /notice %}}
+
+### Disable on boot
+
+Disable the agent from starting on system boot:
+
+{{< language-toggle >}}
+
+{{< code shell "Linux" >}}
+sudo systemctl disable sensu-agent
+{{< /code >}}
+
+{{< code shell "Windows" >}}
+The service is configured to start automatically on boot by default.
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent off` to disable the agent.
+{{% /notice %}}
+
+### Get service status
+
+View the status of the agent service using a service manager:
+
+{{< language-toggle >}}
+
+{{< code shell "Linux" >}}
+sudo systemctl status sensu-agent
+{{< /code >}}
+
+{{< code shell "Windows" >}}
+sc.exe query SensuAgent
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Get service version
+
+Get the version of the current `sensu-agent` tool:
+
+{{< code shell >}}
+sensu-agent version
+{{< /code >}}
+
+Get the version of the running `sensu-agent` service:
+
+{{< code shell >}}
+curl http://127.0.0.1:3031/version
+{{< /code >}}
+
+### Uninstall the service
+
+Uninstall the sensu-agent service:
+
+{{< language-toggle >}}
+
+{{< code shell "Linux" >}}
+sudo systemctl stop sensu-agent
+{{< /code >}}
+
+{{< code shell "Windows" >}}
+sensu-agent service uninstall
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Get help
+
+The `sensu-agent` tool provides general and command-specific help flags.
+
+View sensu-agent commands:
+
+{{< code shell >}}
+sensu-agent help
+{{< /code >}}
+
+List options for a specific command (in this case, `sensu-agent start`): 
+
+{{< code shell >}}
+sensu-agent start --help
+{{< /code >}}
+
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [2]: ../backend/
@@ -1975,7 +2005,7 @@ log-level: debug
 [36]: ../../../operations/deploy-sensu/cluster-sensu/
 [37]: ../backend#general-configuration-flags
 [38]: #name
-[39]: ../../../operations/control-access/rbac/
+[39]: ../../../operations/control-access/rbac/#agent-user
 [40]: ../../observe-process/send-slack-alerts/
 [41]: ../../observe-process/handlers/#send-registration-events
 [42]: #backend-heartbeat-timeout
@@ -1984,7 +2014,7 @@ log-level: debug
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
 [46]: ../../../operations/deploy-sensu/secure-sensu/
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
-[48]: #example-allow-list-configuration-file
+[48]: #example-allow-list-configuration
 [49]: #allow-list-configuration-commands
 [50]: #configuration-via-environment-variables
 [51]: #events-post-specification
@@ -1992,9 +2022,10 @@ log-level: debug
 [53]: #keepalive-handlers-flag
 [54]: ../../../web-ui/search#search-for-labels
 [56]: #allow-list
-[57]: ../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events
-[58]: ../../../operations/deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
+[57]: ../../observe-filter/filters#filter-to-reduce-alert-fatigue-for-keepalive-events
+[58]: #keepalive-warning-timeout-flag
 [59]: ../../../operations/control-access/#use-built-in-basic-authentication
 [60]: #log-level
 [61]: #retry-min
 [62]: #retry-multiplier
+[68]: #create-overrides

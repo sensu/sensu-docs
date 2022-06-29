@@ -4,7 +4,7 @@ linkTitle: "Collect Service Metrics"
 guide_title: "Collect service metrics with Sensu checks"
 type: "guide"
 description: "Collect service metrics for an NGINX webserver with a Sensu check and output the metrics data in Nagios Performance Data format."
-weight: 50
+weight: 180
 version: "6.7"
 product: "Sensu Go"
 platformContent: false
@@ -35,11 +35,11 @@ sensuctl entity list
 
 The `ID` is the name of your entity.
 
-Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][17] command.
+Replace `<ENTITY_NAME>` with the name of your agent entity in the following [sensuctl][17] command.
 Run:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -55,8 +55,8 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the dynamic runtime asset
 
-To power the check to collect service metrics, you will use a check in the [http-checks][7] dynamic runtime asset.
-Use sensuctl to register the http-checks dynamic runtime asset, `sensu/http-checks`:
+To power the check to collect service metrics, you will use a check in the [sensu/http-checks][7] dynamic runtime asset.
+Use sensuctl to register the sensu/http-checks dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/http-checks:0.5.0 -r http-checks
@@ -85,7 +85,7 @@ sensuctl asset list
 
 The sensuctl response should list http-checks: 
 
-{{< code shell >}}
+{{< code text >}}
      Name                                       URL                                    Hash    
 ────────────── ───────────────────────────────────────────────────────────────────── ──────────
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_windows_amd64.tar.gz   52ae075  
@@ -127,9 +127,9 @@ Verify that NGINX is serving webpages:
 curl -sI http://localhost
 {{< /code >}}
 
-The response should include `HTTP/1.1 200 OK` to indicates that NGINX processed your request as expected:
+The response should include `HTTP/1.1 200 OK` to indicate that NGINX processed your request as expected:
 
-{{< code shell >}}
+{{< code text >}}
 HTTP/1.1 200 OK
 Server: nginx/1.20.1
 Date: Tue, 02 Nov 2021 20:15:40 GMT
@@ -267,7 +267,7 @@ The event will include a top-level [metrics section][11] populated with [metrics
 
 If you add the debug handler and configure the `collect-metrics` check to use it, the metrics event printed to the debug-event.json file will be similar to this example:
 
-{{< code json >}}
+{{< code text >}}
 {
   "check": {
     "command": "http-perf --url http://localhost --warning 1s --critical 2s",

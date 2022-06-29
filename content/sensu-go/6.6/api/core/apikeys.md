@@ -21,15 +21,17 @@ The `/apikeys` GET endpoint retrieves all API keys.
 
 ### Example {#apikeys-get-example}
 
-The following example demonstrates a request to the `/apikeys` API endpoint, resulting in a JSON array that contains all API keys.
+The following example demonstrates a request to the `/apikeys` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/apikeys \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains all API keys, similar to this example:
 
+{{< code text >}}
 [
   {
     "metadata": {
@@ -38,6 +40,14 @@ HTTP/1.1 200 OK
     },
     "username": "admin",
     "created_at": 1570640363
+  },
+  {
+    "metadata": {
+      "name": "94jhid83j-96kg-2ewr-bab3-ppd3d49tdd94",
+      "created_by": "admin"
+    },
+    "username": "admin",
+    "created_at": 1651257929
   }
 ]
 {{< /code >}}
@@ -51,7 +61,7 @@ example url    | http://hostname:8080/api/core/v2/apikeys
 pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. Read the [API overview][1] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "metadata": {
@@ -60,6 +70,14 @@ output         | {{< code shell >}}
     },
     "username": "admin",
     "created_at": 1570640363
+  },
+  {
+    "metadata": {
+      "name": "94jhid83j-96kg-2ewr-bab3-ppd3d49tdd94",
+      "created_by": "admin"
+    },
+    "username": "admin",
+    "created_at": 1651257929
   }
 ]
 {{< /code >}}
@@ -71,7 +89,6 @@ The `/apikeys` API endpoint provides HTTP POST access to create a new API key.
 ### Example {#apikeys-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/apikeys` API endpoint to create a new API key.
-The request returns a successful HTTP `201 Created` response, along with a `Location` header that contains the relative path to the new API key.
 
 {{% notice note %}}
 **NOTE**: For the `/apikeys` POST endpoint, authenticate with a Sensu access token, which you can generate with [/auth API endpoints](../../#authenticate-with-auth-api-endpoints) or [sensuctl](../../#generate-an-api-access-token-with-sensuctl).
@@ -87,9 +104,9 @@ curl -X POST \
   "username": "admin"
 }' \
 http://127.0.0.1:8080/api/core/v2/apikeys
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request returns a successful HTTP `HTTP/1.1 201 Created` response, along with a `Location` header that contains the relative path to the new API key.
 
 ### API Specification {#apikeys-post-specification}
 
@@ -110,14 +127,17 @@ The `/apikeys/:apikey` GET endpoint retrieves the specified API key.
 
 ### Example {#apikeysapikey-get-example}
 
-In the following example, querying the `/apikeys/:apikey` API returns the requested `:apikey` definition or an error if the key is not found.
+The following example queries the `/apikeys/:apikey` API:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request returns a successful `HTTP/1.1 200 OK` response and the requested `:apikey` definition, similar to the example below, or an error if the key is not found:
+
+{{< code text >}}
 {
   "metadata": {
     "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b",
@@ -136,7 +156,7 @@ description          | Returns the specified API key.
 example url          | http://hostname:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "metadata": {
     "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b",
@@ -157,7 +177,7 @@ The `/apikeys/:apikey` PATCH endpoint updates the specified API key.
 
 ### Example
 
-In the following example, querying the `/apikeys/:apikey` API updates the username for the specified `:apikey` definition.
+The following example queries the `/apikeys/:apikey` API updates the username for the specified `:apikey` definition and returns a successful `HTTP/1.1 200 OK` response.
 
 We support [JSON merge patches][2], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -169,8 +189,6 @@ curl -X PATCH \
   "username": "devteam"
 } \
 http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
-
-HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification
@@ -193,14 +211,12 @@ The `/apikeys/:apikey` API endpoint provides HTTP DELETE access to remove an API
 
 ### Example {#apikeysapikey-delete-example}
 
-The following example shows a request to the `/apikeys/:apikey` API endpoint to delete the API key `83abef1e-e7d7-4beb-91fc-79ad90084d5b`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/apikeys/:apikey` API endpoint to delete the API key `83abef1e-e7d7-4beb-91fc-79ad90084d5b`, resulting in a successful `HTTP/1.1 204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#apikeysapikey-delete-specification}

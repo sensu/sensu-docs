@@ -143,7 +143,7 @@ register an OAuth application for Sensu Enterprise:
    `github.com/organizations/YOUR-GITHUB-ORGANIZATION/settings/applications`),
    and selection "Applications" => "Register new application".
 
-   {{< figure src="/images/enterprise-dashboard-github-app.png" alt="Register a new application in GitHub" link="/images/enterprise-dashboard-github-app.png" target="_blank" >}}
+    {{< figure src="/images/enterprise_dashboard/rbac_for_github/enterprise_dashboard_github_app.png" alt="Register a new OAuth application in GitHub" link="/images/enterprise_dashboard/rbac_for_github/enterprise_dashboard_github_app.png" target="_blank" >}}
 
 2. Give your application a name (e.g. "Sensu Enterprise Dashboard")
 
@@ -158,10 +158,9 @@ register an OAuth application for Sensu Enterprise:
 4. Select "Register application" and note the application Client ID and Client
    Secret.
 
-   {{< figure src="/images/enterprise-dashboard-github-secret.png" alt="Client ID and Client Secret for registered GitHub application" link="/images/enterprise-dashboard-github-secret.png" target="_blank" >}}
+    {{< figure src="/images/enterprise_dashboard/rbac_for_github/enterprise_dashboard_github_secret.png" alt="Location of the Client ID and Client Secret for the registered GitHub OAuth application" link="/images/enterprise_dashboard/rbac_for_github/enterprise_dashboard_github_secret.png" target="_blank" >}}
 
 
-[?]:  #
 [0]:  ../overview
 [1]:  https://github.com
 [2]:  https://enterprise.github.com/home

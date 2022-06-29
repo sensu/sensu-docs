@@ -163,7 +163,7 @@ Get-Content -  Path "C:\scripts\test.txt" -Wait
 
 The following errors are expected when starting up a Sensu backend with the default configuration:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"etcd","level":"warning","msg":"simple token is not cryptographically signed","pkg":"auth","time":"2019-11-04T10:26:31-05:00"}
 {"component":"etcd","level":"warning","msg":"set the initial cluster version to 3.5","pkg":"etcdserver/membership","time":"2019-11-04T10:26:31-05:00"}
 {"component":"etcd","level":"warning","msg":"serving insecure client requests on 127.0.0.1:2379, this is strongly discouraged!","pkg":"embed","time":"2019-11-04T10:26:33-05:00"}
@@ -180,7 +180,7 @@ As of [Go 1.15][27], certificates must include their CommonName (CN) as a Subjec
 
 The following logged error indicates that a certificate used to secure Sensu does not include the CN as a SAN field:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"agent","error":"x509: certificate relies on legacy Common Name field, use SANs or temporarily enable Common Name matching with GODEBUG=x509ignoreCN=0","level":"error","msg":"reconnection attempt failed","time":"2021-06-29T11:07:51+02:00"}
 {{< /code >}}
 
@@ -191,7 +191,7 @@ To prevent connection errors after upgrading to Sensu Go 6.4.0, follow [Generate
 The Sensu user and group must own files and folders within `/var/cache/sensu/` and `/var/lib/sensu/`.
 You will receive a logged error like those listed here if there is a permission issue with either the sensu-backend or the sensu-agent:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"agent","error":"open /var/cache/sensu/sensu-agent/assets.db: permission denied","level":"fatal","msg":"error executing sensu-agent","time":"2019-02-21T22:01:04Z"}
 {"component":"backend","level":"fatal","msg":"error starting etcd: mkdir /var/lib/sensu: permission denied","time":"2019-03-05T20:24:01Z"}
 {{< /code >}}
@@ -644,10 +644,10 @@ To clear etcd alarms:
 etcdctl alarm disarm
 {{< /code >}}
 
-### Restore a cluster with an oversized database 
+### Restore a cluster with an oversized database
 
-The etcd default maximum database size is 2 GB.
-If you suspect your etcd database exceeds the maximum size, run this command to confirm cluster size:
+The default Sensu backend configuration sets the maximum etcd database size to 4 GB.
+If you suspect your etcd database exceeds 4 GB, run this command to confirm cluster size:
 
 {{< code shell >}}
 etcdctl endpoint status
@@ -655,13 +655,13 @@ etcdctl endpoint status
 
 The response will list the current cluster status and database size:
 
-{{< code shell >}}
-https://backend01:2379, 88db026f7feb72b4, 3.5.0, 2.1GB, false, 144, 18619245
-https://backend02:2379, e98ad7a888d16bd6, 3.5.0, 2.1GB, true, 144, 18619245
-https://backend03:2379, bc4e39432cbb36d, 3.5.0, 2.1GB, false, 144, 18619245
+{{< code text >}}
+https://backend01:2379, 88db026f7feb72b4, 3.5.0, 4.1GB, false, 144, 18619245
+https://backend02:2379, e98ad7a888d16bd6, 3.5.0, 4.1GB, true, 144, 18619245
+https://backend03:2379, bc4e39432cbb36d, 3.5.0, 4.1GB, false, 144, 18619245
 {{< /code >}}
 
-To restore an etcd cluster with a database size that exceeds 2 GB:
+To restore an etcd cluster with a database size that exceeds 4 GB:
 
 1. Get the current revision number:
 {{< code shell >}}
@@ -684,7 +684,7 @@ etcdctl endpoint status
 {{< /code >}}
 
    The response should list the current cluster status and database size:
-{{< code shell >}}
+{{< code text >}}
 https://backend01:2379, 88db026f7feb72b4, 3.5.0, 1.0 MB, false, 144, 18619245
 https://backend02:2379, e98ad7a888d16bd6, 3.5.0, 1.0 MB, true, 144, 18619245
 https://backend03:2379, bc4e39432cbb36d, 3.5.0, 1.0 MB, false, 144, 18619245
@@ -723,7 +723,7 @@ systemctl status sensu-backend
 {{< /code >}}
 
     For each backend, the response should begin with the following lines:
-    {{< code shell >}}
+    {{< code text >}}
 ● sensu-backend.service - The Sensu Backend service.
 Loaded: loaded (/usr/lib/systemd/system/sensu-backend.service; disabled; vendor preset: disabled)
 Active: inactive (dead)
@@ -742,7 +742,7 @@ sensu-backend init --interactive
 {{< /code >}}
     
     When you receive prompts for your username and password, replace `<YOUR_USERNAME>` and `<YOUR_PASSWORD>` with the administrator username and password you want to use for the cluster members:
-{{< code shell >}}
+{{< code text >}}
 Admin Username: <YOUR_USERNAME>
 Admin Password: <YOUR_PASSWORD>
 {{< /code >}}
@@ -772,7 +772,7 @@ To maximize Sensu Go performance, we recommend that you:
 
 At the Sensu backend's default "warn" log level, you may receive messages like these from your backend:
 
-{{< code json >}}
+{{< code text >}}
 {"component":"etcd","level":"warning","msg":"read-only range request \"key:\\\"/sensu.io/handlers/default/keepalive\\\" limit:1 \" with result \"range_response_count:0 size:6\" took too long (169.767546ms) to execute","pkg":"etcdserver","time":"..."}
 {{< /code >}}
 
@@ -791,13 +791,13 @@ When Sensu's etcd component doesn't recieve sufficient CPU cycles or its file sy
 
 A message like this indicates that syncing the etcd database to disk exceeded another threshold:
 
-{{< code json >}}
+{{< code text >}}
 {"component":"etcd","level":"warning","msg":"sync duration of 1.031759056s, expected less than 1s","pkg":"wal","time":"..."}
 {{< /code >}}
 
 These subsequent "retrying of unary invoker failed" messages indicate failing requests to etcd:
 
-{{< code json >}}
+{{< code text >}}
 {"level":"warn","ts":"...","caller":"clientv3/retry_interceptor.go:62","msg":"retrying of unary invoker failed","target":"endpoint://client-6f6bfc7e-cf31-4498-a564-78d6b7b3a44e/localhost:2379","attempt":0,"error":"rpc error: code = Canceled desc = context canceled"}
 {{< /code >}}
 
@@ -805,13 +805,57 @@ On busy systems you may also receive output like "message repeated 5 times" indi
 
 In many cases, the backend service detects and attempts to recover from errors like these, so you may receive a message like this:
 
-{{< code json >}}
+{{< code text >}}
 {"component":"backend","error":"error from keepalived: internal error: etcdserver: request timed out","level":"error","msg":"backend stopped working and is restarting","time":"..."}
 {{< /code >}}
 
 This may result in a crash loop that is difficult to recover from.
 You may observe that the Sensu backend process continues running but is not listening for connections on the agent WebSocket, API, or web UI ports.
 The backend will stop listening on those ports when the etcd database is unavailable.
+
+## Web UI errors
+
+If the web UI experiences an error, you may see the following message in the web UI:
+
+{{< figure src="/images/go/troubleshoot/web_ui_error.png" alt="Web UI error message with options for clearing state and reloading" link="/images/go/troubleshoot/web_ui_error.png" target="_blank" >}}
+
+The error message indicates something unexpected happened, such as the server failing to return the correct response.
+Clicking **RELOAD** can resolve most common problems.
+
+More rarely, the error can result from issues like a corrupt cache or a bad persistent state.
+In these cases, clicking **CLEAR STATE & RELOAD** usually resolves the issue.
+
+### Investigate a web UI error
+
+To get more information about a web UI error, open your web browser's developer console to view the error messages your browser logged.
+
+Use these keyboard shortcuts to open the developer console on different operating systems:
+
+Operating system | Keyboard shortcut
+------- | ------------
+Linux | Press `Control` + `Shift` + `J`
+macOS | Press `Command` + `Option` + `J`
+Windows | Press `Control` + `Shift` + `J`
+
+You can also open the developer console from the browser's menu:
+
+Browser | Menu path
+------- | ------------
+Chrome | Click the ⋮ menu icon, then `More Tools` > `Developer Tools`
+Edge | `Tools` > `Developer` > `JavaScript Console`
+Firefox | Click the ☰ menu icon, then `More Tools` > `Developer Console`
+Safari | `Develop` > `Show JavaScript Console`<br><br>If you do not see the `Develop` option, open `Safari` > `Preferences` > `Advanced` and select the checkbox for `Show Develop menu in menu bar`
+
+Depending on your browser, the developer console may open in a separate browser window or within the current browser window as shown in this example:
+
+{{< figure src="/images/go/troubleshoot/web_ui_developer_console.png" alt="Developer console open in a Chrome browswer window displaying the web UI error message with options for clearing state and reloading." link="/images/webui_devconsole.png" target="_blank" >}}
+
+The developer console lists all errors for the current page.
+Click an error for more information about it.
+
+The developer console is part of web developer tools that are included in all modern browsers.
+These tools may have different names in different browsers (for example, DevTools in Chrome and Developer Tools in Firefox), but they offer similar features.
+Read the documentation for your browser to learn more about the web developer tools your browser provides.
 
 
 [1]: ../../../observability-pipeline/observe-schedule/agent#operation

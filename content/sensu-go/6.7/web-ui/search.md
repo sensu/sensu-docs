@@ -2,7 +2,7 @@
 title: "Search in the web UI"
 linkTitle: "Search in the Web UI"
 description: "Search and filter in the Sensu web UI and build customized views of your events, entities, silences, checks, handlers, filters, and mutators pages."
-weight: 30
+weight: 35
 version: "6.7"
 product: "Sensu Go"
 platformContent: false
@@ -12,7 +12,7 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the web UI in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the web UI, basic and advanced web UI searching, and saved searches in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
@@ -88,11 +88,6 @@ If you are using the [basic web UI search functions][5], you can create a search
 
 ## Create advanced searches
 
-{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access advanced web UI searches in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
-{{% /notice %}}
-
 Sensu supports advanced web UI searches using a wider range of attributes, including custom labels.
 You can use the same methods, fields, and examples for web UI searches as for [API response filtering][3], with some [syntax differences][4].
 
@@ -100,37 +95,37 @@ To search resources based on fields and labels, you'll write a brief search stat
 Depending on the [operator][9] you're using, the web UI search syntax is either:
 
 {{< code text >}}
-SEARCH_TERM OPERATOR FIELD
+<SEARCH_TERM> <OPERATOR> <FIELD>
 {{< /code >}}
 
 or
 
 {{< code text >}}
-FIELD OPERATOR SEARCH_TERM
+<FIELD> <OPERATOR> <SEARCH_TERM>
 {{< /code >}}
 
 Fields are specific [resource attributes][2] in dot notation.
 For example, this search will retrieve all events for entities with the `linux` subscription:
 
-{{< code text >}}
+{{< code shell >}}
 "linux" in event.entity.subscriptions
 {{< /code >}}
 
 This search will retrieve all events that whose status is *not* equal to `passing`:
 
-{{< code text >}}
+{{< code shell >}}
 event.check.state != "passing"
 {{< /code >}}
 
 To display only events for checks with the subscription `webserver`, enter this search statement on the **Events page**:
 
-{{< code text >}}
+{{< code shell >}}
 "webserver" in event.check.subscriptions
 {{< /code >}}
 
 To display only checks that use the `slack` handler, enter this search statement on the **Checks page**:
 
-{{< code text >}}
+{{< code shell >}}
 "slack" in check.handlers
 {{< /code >}}
 
@@ -138,21 +133,21 @@ To display only checks that use the `slack` handler, enter this search statement
 
 If you are searching for a value that begins with a number, place the value in single or double quotes:
 
-{{< code text >}}
+{{< code shell >}}
 entity.name == '1b04994n'
 entity.name == "1b04994n"
 {{< /code >}}
 
 Likewise, to search string values that include special characters like hyphens and underscores, place the value in single or double quotes:
 
-{{< code text >}}
+{{< code shell >}}
 entity.labels.region == 'us-west-1'
 entity.labels.region == "us-west-1"
 {{< /code >}}
 
 To display only events at `2` (CRITICAL) status:
 
-{{< code text >}}
+{{< code shell >}}
 event.check.status == "2"
 {{< /code >}}
 
@@ -162,13 +157,13 @@ Labels are treated like any other field in web UI searches.
 
 For example, to search based on a check label `version`, use:
 
-{{< code text >}}
+{{< code shell >}}
 check.labels.version matches "7"
 {{< /code >}}
 
 To display only checks with the `type` label set to `server`, enter this search statement on the **Checks page**:
 
-{{< code text >}}
+{{< code shell >}}
 check.labels.type == "server"
 {{< /code >}}
 
@@ -189,7 +184,7 @@ For label-based event searches, the web UI merges check and entity labels into a
 
 For example, to display events with the `type` label set to `server`, enter this search statement on the **Events** page:
 
-{{< code text >}}
+{{< code shell >}}
 event.labels.type == "server"
 {{< /code >}}
 
@@ -199,27 +194,22 @@ This search will retrieve events with the `type` label set to `server`, no matte
 
 To use the logical AND operator (`&&`) to return checks that include a `linux` subscription and the `slack` handler:
 
-{{< code text >}}
+{{< code shell >}}
 "linux" in check.subscriptions && "slack" in check.handlers
 {{< /code >}}
 
 To return events that include a `windows` check subscription and any email handler:
 
-{{< code text >}}
+{{< code shell >}}
 "windows" in event.check.subscriptions && event.check.handlers matches "email"
 {{< /code >}}
 
 ## Save a search
 
-{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access saved web UI searches in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
-{{% /notice %}}
-
 To save a web UI search:
 
 1. [Create a web UI search][4].
-2. Click ![save icon](/images/save_icon-6-6-0.png) at the right side of the search bar.
+2. Click ![save icon](/images/go/bsm_module/save_icon_660.png) at the right side of the search bar.
 3. Click **Save this search**.
 4. Type the name you want to use for the saved search.
 5. Press **Return/Enter**.
@@ -231,7 +221,7 @@ The role-based access control (RBAC) reference includes [example workflows][13] 
 
 ### Recall a saved search
 
-To recall a saved search, click ![save icon](/images/save_icon-6-6-0.png) at the right side of the search bar and select the name of the search you want to recall.
+To recall a saved search, click ![save icon](/images/go/bsm_module/save_icon_660.png) at the right side of the search bar and select the name of the search you want to recall.
 
 You can combine an existing saved search with a new search to create a new saved search.
 To do this, recall a saved search, add the new search statement in the search bar, and [save the combination as a new saved search][8].
@@ -240,8 +230,8 @@ To do this, recall a saved search, add the new search statement in the search ba
 
 To delete a saved search:
 
-1. Click ![save icon](/images/save_icon-6-6-0.png) at the right side of the search bar.
-2. Find the saved search you want to delete and click the ![delete icon](/images/delete_icon-6-6-0.png) next to it.
+1. Click ![save icon](/images/go/bsm_module/save_icon_660.png) at the right side of the search bar.
+2. Find the saved search you want to delete and click the ![delete icon](/images/go/bsm_module/delete_icon_660.png) next to it.
 
 ## Use the sort function
 

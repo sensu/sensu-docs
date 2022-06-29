@@ -18,7 +18,7 @@ If you haven't already, [install the backend, agent, and sensuctl][2] and [confi
 
 Log in to your Sensu account at [account.sensu.io][1] and click **Download license** to download your license file.
 
-{{< figure src="/images/go-license-download.png" alt="Screenshot of Sensu account license download" link="/images/go-license-download.png" target="_blank" >}}
+{{< figure src="/images/go/commercial/license_download.png" alt="Screenshot of Sensu account license download" link="/images/go/commercial/license_download.png" target="_blank" >}}
 
 Save your license to a file such as `sensu_license.yml` or `sensu_license.json`.
 With the license file downloaded and saved to a file, you can activate your license with sensuctl or the [/license API][4].
@@ -49,7 +49,7 @@ sensuctl license info
 
 For an active license, the response should be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 === You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
 Account Name: Training Team - Sensu
 Account ID:   123
@@ -64,7 +64,7 @@ Valid Until:  2021-02-15 00:00:00 -0800 -0800
 
 This response means you do not have an active license:
 
-{{< code shell >}}
+{{< code text >}}
 Error: not found
 {{< /code >}}
 
@@ -102,7 +102,7 @@ sensuctl license info --format tabular
 
 The response in tabular format should be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 === You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
 Account Name: Training Team - Sensu
 Account ID:   123
@@ -118,7 +118,7 @@ Valid Until:  2021-02-15 00:00:00 -0800 -0800
 If you have an unlimited entity count, the `sensuctl license info` response title will still include a current count for each type of entity you are using.
 For example:
 
-{{< code shell >}}
+{{< code text >}}
 === You are currently using 10/unlimited total entities, 5/unlimited agent entities, and 5/unlimited proxy entities
 {{< /code >}}
 
@@ -137,7 +137,7 @@ In YAML and JSON formats, the entity count and limit are included as labels:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
 ---
 type: LicenseFile
 api_version: licensing/v2
@@ -153,7 +153,7 @@ spec:
 [...]
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "LicenseFile",
   "api_version": "licensing/v2",
@@ -185,7 +185,7 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Author
 
 The response headers will include your current entity count and limit:
 
-{{< code shell >}}
+{{< code text >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
 Sensu-Entity-Count: 10
@@ -204,10 +204,7 @@ If your license expires, you will still have access to [commercial features][5],
 ## Quick links
 
 - [Log in to your Sensu account][1]
-- [Configure authentication providers][10]
 - [Use the license management API][4]
-- [Discover enterprise-tier dynamic runtime assets][11]
-- [Use dynamic runtime assets to install plugins][12]
 - [Contact Sensu support][8]
 - [Contact Sensu sales][7]
 
@@ -221,6 +218,3 @@ If your license expires, you will still have access to [commercial features][5],
 [7]: https://sensu.io/contact?subject=contact-sales
 [8]: https://account.sensu.io/support
 [9]: ../../../api/
-[10]: ../../control-access/
-[11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
-[12]: ../../../plugins/use-assets-to-install-plugins/

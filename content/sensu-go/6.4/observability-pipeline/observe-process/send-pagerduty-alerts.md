@@ -4,7 +4,7 @@ linkTitle: "Send PagerDuty Alerts"
 guide_title: "Send PagerDuty alerts with Sensu"
 type: "guide"
 description: "Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
-weight: 25
+weight: 220
 version: "6.4"
 product: "Sensu Go"
 platformContent: false
@@ -34,11 +34,11 @@ sensuctl entity list
 
 The `ID` in the response is the name of your entity.
 
-Replace `<entity_name>` with the name of your entity in the [sensuctl][12] command below.
+Replace `<ENTITY_NAME>` with the name of your entity in the [sensuctl][12] command below.
 Then run the command to add the `system` [subscription][13] to your entity:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -182,9 +182,9 @@ In the next step, you'll configure your workflow for sending Sensu alerts to you
 
 ## Add the PagerDuty handler
 
-The [Sensu PagerDuty Handler][8] dynamic runtime asset includes the scripts you will need to send events to PagerDuty.
+The [sensu/sensu-pagerduty-handler][8] dynamic runtime asset includes the scripts you will need to send events to PagerDuty.
 
-To add the PagerDuty handler asset, run:
+To add the sensu/sensu-pagerduty-handler asset, run:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler
@@ -201,7 +201,7 @@ The response will list the available builds for the PagerDuty handler dynamic ru
 Now that you've added the Sensu PagerDuty Handler dynamic runtime asset, you can create a [handler][9] that uses the asset to send non-OK events to PagerDuty.
 This requires you to update the handler command by adding your PagerDuty API key.
 
-In the following command, replace `<pagerduty_key>` with your [PagerDuty API integration key][1].
+In the following command, replace `<PAGERDUTY_KEY>` with your [PagerDuty API integration key][1].
 Then run the updated command:
 
 {{< code shell >}}
@@ -209,7 +209,7 @@ sensuctl handler create pagerduty \
 --type pipe \
 --filters is_incident,not_silenced \
 --runtime-assets sensu/sensu-pagerduty-handler \
---command "sensu-pagerduty-handler -t <pagerduty_key>"
+--command "sensu-pagerduty-handler -t <PAGERDUTY_KEY>"
 {{< /code >}}
 
 {{% notice note %}}
@@ -241,7 +241,7 @@ api_version: core/v2
 metadata:
   name: pagerduty
 spec:
-  command: sensu-pagerduty-handler -t <pagerduty_key>
+  command: sensu-pagerduty-handler -t <PAGERDUTY_KEY>
   env_vars: null
   filters:
   - is_incident
@@ -262,7 +262,7 @@ spec:
     "name": "pagerduty"
   },
   "spec": {
-    "command": "sensu-pagerduty-handler -t <pagerduty_key>",
+    "command": "sensu-pagerduty-handler -t <PAGERDUTY_KEY>",
     "env_vars": null,
     "filters": [
       "is_incident",
@@ -317,7 +317,7 @@ The failing check's events will be listed on the Events page.
 After Sensu detects the non-OK event, the handler you set up will send the alert to PagerDuty.
 Log in to your PagerDuty account to view an event similar to this one:
 
-{{< figure src="/images/pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/pagerduty_alert_example.png" target="_blank" >}}
+{{< figure src="/images/go/send_pagerduty_alerts/pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/go/send_pagerduty_alerts/pagerduty_alert_example.png" target="_blank" >}}
 
 ## Resolve the alert in PagerDuty
 
@@ -367,8 +367,8 @@ Learn more about the [Sensu PagerDuty integration][14] and our curated, configur
 [11]: ../../../web-ui/
 [12]: ../../../sensuctl/
 [13]: ../../observe-schedule/subscriptions/
-[14]: ../../../plugins/supported-integrations/pagerduty/
-[15]: ../../../plugins/supported-integrations/pagerduty/#get-the-plugin
+[14]: ../../../plugins/featured-integrations/pagerduty/
+[15]: ../../../plugins/featured-integrations/pagerduty/#get-the-plugin
 [16]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pagerduty-severity-mapping
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pager-teams
 [18]: ../handler-templates/

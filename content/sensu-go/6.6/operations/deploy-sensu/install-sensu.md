@@ -44,7 +44,7 @@ The backend sends specific checks for each agent to execute according to the [su
 Sensu automatically downloads the files needed to run the checks from an asset repository like [Bonsai][42] or a local repo and schedules the checks on each agent.
 The agents execute the checks the backend sends to their subscriptions and send the resulting status and metric events to the backend event pipeline, which gives you flexible, automated workflows to route these events.
 
-{{< figure src="/images/install-sensu.png" alt="Sensu architecture diagram" link="/images/install-sensu.png" target="_blank" >}}
+{{< figure src="/images/go/install_sensu/basic_architecture.png" alt="Basic Sensu architecture diagram showing agents and the backend" link="/images/go/install_sensu/basic_architecture.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
 The Sensu backend keeps track of all self-registered agents.
@@ -171,10 +171,10 @@ volumes:
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/backend.yml -o /etc/sensu/backend.yml
 
 # Start sensu-backend using a service manager
-sudo service sensu-backend start
+sudo systemctl start sensu-backend
 
 # Verify that the backend is running
-service sensu-backend status
+sudo systemctl status sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
@@ -182,10 +182,10 @@ service sensu-backend status
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/backend.yml -o /etc/sensu/backend.yml
 
 # Start sensu-backend using a service manager
-sudo service sensu-backend start
+sudo systemctl start sensu-backend
 
 # Verify that the backend is running
-service sensu-backend status
+sudo systemctl status sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -317,7 +317,7 @@ sudo cp sensuctl /usr/local/bin/
 To start using sensuctl, run `sensuctl configure` and log in with your user credentials, namespace, and [Sensu backend][21] URL.
 To configure sensuctl using default values:
 
-{{< code shell >}}
+{{< code text >}}
 sensuctl configure -n \
 --username 'YOUR_USERNAME' \
 --password 'YOUR_PASSWORD' \
@@ -434,7 +434,7 @@ volumes:
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/agent.yml -o /etc/sensu/agent.yml
 
 # Start sensu-agent using a service manager
-service sensu-agent start
+sudo systemctl start sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
@@ -442,7 +442,7 @@ service sensu-agent start
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/agent.yml -o /etc/sensu/agent.yml
 
 # Start sensu-agent using a service manager
-service sensu-agent start
+sudo systemctl start sensu-agent
 {{< /code >}}
 
 {{< code powershell "Windows" >}}
@@ -491,8 +491,8 @@ http://127.0.0.1:3031/events
 
 This request creates a `warning` event that you can [view in your web UI Events page][32].
 
-To create an `OK` event, change the `status` to `0` and resend.
-You can change the `output` value to `connected to mysql` to use a different message for the `OK` event.
+To create an OK event, change the `status` to `0` and resend.
+You can change the `output` value to `connected to mysql` to use a different message for the OK event.
 
 ## Next steps
 
@@ -568,7 +568,7 @@ sensuctl license info
 [12]: ../../../observability-pipeline/observe-process/send-email-alerts/
 [13]: https://sensu.io/licenses
 [14]: ../../../platforms/#supported-packages
-[15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
+[15]: ../../../observability-pipeline/observe-schedule/agent/#example-post-request-to-events-endpoint
 [16]: https://etcd.io/
 [17]: ../../../plugins/assets/
 [18]: #install-sensu-agents

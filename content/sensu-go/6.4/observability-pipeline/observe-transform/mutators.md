@@ -25,8 +25,8 @@ If the mutator executes successfully (returns an exit status code of `0`), the m
 Exit codes other than `0` indicate failure.
 If the mutator fails to execute (returns a non-zero exit status code or fails to complete within its configured timeout), an error is logged and the handler will not execute.
 
-Mutators accept input/data via `STDIN` and can parse JSON event data.
-They output JSON data (modified event data) to `STDOUT` or `STDERR`.
+Mutators accept input/data via stdin and can parse JSON event data.
+They output JSON data (modified event data) to stdout or stderr.
 
 ## Mutator examples
 
@@ -167,22 +167,6 @@ spec:
 
 ### Top-level attributes
 
-type         | 
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][5] resource type. Mutators should always be type `Mutator`.
-required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Mutator
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "Mutator"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For mutators in this version of Sensu, the `api_version` should always be `core/v2`.
@@ -257,37 +241,42 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Metadata attributes
-
-| name       |      |
+type         | 
 -------------|------
-description  | Unique string used to identify the mutator. Mutator names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][7]). Each mutator must have a unique name within its namespace.
-required     | true
+description  | Top-level attribute that specifies the [`sensuctl create`][5] resource type. Mutators should always be type `Mutator`.
+required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: example-mutator
+type: Mutator
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "example-mutator"
+  "type": "Mutator"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-| namespace  |      |
+### Metadata attributes
+
+| annotations | |
 -------------|------
-description  | Sensu [RBAC namespace][3] that the mutator belongs to.
+description  | Non-identifying metadata to include with event data that you can access with [event filters][12]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][8], [sensuctl response filtering][9], or [web UI views][15].
 required     | false
-type         | String
-default      | `default`
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-namespace: production
+annotations:
+  managed-by: ops
+  playbook: www.example.url
 {{< /code >}}
 {{< code json >}}
 {
-  "namespace": "production"
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -330,24 +319,35 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-| annotations | |
+| name       |      |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][12]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][8], [sensuctl response filtering][9], or [web UI views][15].
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
+description  | Unique string used to identify the mutator. Mutator names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][7]). Each mutator must have a unique name within its namespace.
+required     | true
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-annotations:
-  managed-by: ops
-  playbook: www.example.url
+name: example-mutator
 {{< /code >}}
 {{< code json >}}
 {
-  "annotations": {
-    "managed-by": "ops",
-    "playbook": "www.example.url"
-  }
+  "name": "example-mutator"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| namespace  |      |
+-------------|------
+description  | Sensu [RBAC namespace][3] that the mutator belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: production
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "production"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -366,22 +366,6 @@ command: /etc/sensu/plugins/mutated.go
 {{< code json >}}
 {
   "command": "/etc/sensu/plugins/mutated.go"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-timeout      | 
--------------|------ 
-description  | Mutator execution duration timeout (hard stop). In seconds.
-required     | false 
-type         | integer 
-example      | {{< language-toggle >}}
-{{< code yml >}}
-timeout: 30
-{{< /code >}}
-{{< code json >}}
-{
-  "timeout": 30
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -449,6 +433,22 @@ secrets:
       "secret": "sensu-ansible-token"
     }
   ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+timeout      | 
+-------------|------ 
+description  | Mutator execution duration timeout (hard stop). In seconds.
+required     | false 
+type         | integer 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+timeout: 30
+{{< /code >}}
+{{< code json >}}
+{
+  "timeout": 30
 }
 {{< /code >}}
 {{< /language-toggle >}}

@@ -18,10 +18,10 @@ menu:
 For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
-Sensu's [enterprise/federation/v1 API endpoints][1] allow you to register external clusters, gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI, and mirror your changes in one cluster to follower clusters.
+Sensu's [enterprise/federation/v1 API endpoints][1] allow you to register external clusters, gain single-pane-of-glass visibility into the health of your infrastructure and services across multiple distinct Sensu instances within the web UI, and mirror your changes in one cluster to follower clusters.
 This is useful when you want to provide a single entry point for Sensu users who need to manage monitoring across multiple distinct physical data centers, cloud regions, or providers.
 
-{{< figure src="/images/federation-switcher-clusters.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-clusters.gif" target="_blank" >}}
+{{< figure src="/images/go/use_federation/federation_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/go/use_federation/federation_switcher.gif" target="_blank" >}}
 
 After you configure federation, you can also create, update, and delete clusters using sensuctl [create][5], [edit][6], and [delete][7] commands.
 
@@ -52,7 +52,7 @@ This guide assumes a single sensu-backend in each cluster, but named clusters co
 
 This diagram depicts the federation relationship documented in this guide:
 
-{{< figure src="/images/federation-guide-diagram.png" alt="Diagram depicting this guide's example federation architecture" link="/images/federation-guide-diagram.png" target="_blank" >}}
+{{< figure src="/images/go/use_federation/example_federation.png" alt="Diagram depicting this guide's example federation architecture" link="/images/go/use_federation/example_federation.png" target="_blank" >}}
 <!-- Federation diagram source: https://www.lucidchart.com/documents/edit/1b676df9-534e-40e4-9881-6313013ecd28/n~8S.VTyl5JQ -->
 
 Complete the steps in this guide to browse events, entities, checks, and other resources in the `gateway`, `alpha`, and `beta` clusters from the `gateway` cluster web UI.
@@ -67,7 +67,7 @@ In addition to the certificate's [Common Name (CN)][15], [Subject Alternative Na
 {{% notice note %}}
 **NOTE**: Sensu Go 6.4.0 upgraded the Go version from 1.13.15 to 1.16.5.
 As of [Go 1.15](https://golang.google.cn/doc/go1.15#commonname), certificates must include their CN as an SAN field.
-To prevent connection errors after upgrading to Sensu Go 6.4.0, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
+To prevent connection errors after upgrading to Sensu Go 6.4.0 or later versions, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
 {{% /notice %}}
 
 To continue with this guide, make sure you have the required TLS credentials in place:
@@ -81,8 +81,8 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 
 | Backend property             | Description |
 |------------------------------|-------------|
-| `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications (for example, `/etc/sensu/tls/backend-1.pem`.  |
-| `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate (for example, `/etc/sensu/tls/backend-1-key.pem`. |
+| `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications (for example, `/etc/sensu/tls/backend-1.example.com.pem`.  |
+| `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate (for example, `/etc/sensu/tls/backend-1-key.example.com.pem`. |
 | `etcd-trusted-ca-file`       | Path to CA certificate chain file (for example, `/etc/sensu/tls/ca.pem`. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
 | `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. Set to `true` to secure etcd communication. |
 | `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (for example, `https://sensu.beta.example.com:2379`). |
@@ -128,7 +128,7 @@ jwt-public-key-file: /etc/sensu/certs/jwt_public.pem
 
 5. Restart the Sensu backend so that your settings take effect:
 {{< code shell >}}
-sensu-backend start
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
 ## Add a user and a cluster role binding
@@ -141,7 +141,7 @@ sensuctl config view
 {{< /code >}}
 
     The response will list the active configuration:
-{{< code shell >}}
+{{< code text >}}
 === Active Configuration
 API URL:   https://sensu.gateway.example.com:8080
 Namespace: default
@@ -324,7 +324,7 @@ sensuctl cluster-role-binding info federation-viewer-readonly
 {{< /code >}}
 
     The `federation-viewer-readonly` binding you created in the previous section should be listed in the output from each cluster:
-{{< code shell >}}
+{{< code text >}}
 === federation-viewer-readonly
 Name:         federation-viewer-readonly
 Cluster Role: view
@@ -417,7 +417,7 @@ spec:
 After you create clusters using enterprise/federation/v1 API endpoints, you can log in to the `gateway` Sensu web UI to view them as the `federation-viewer` user.
 Use the namespace switcher to change between namespaces across federated clusters:
 
-{{< figure src="/images/federation-switcher-animated.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-animated.gif" target="_blank" >}}
+{{< figure src="/images/go/use_federation/federation_namespace_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/go/use_federation/federation_namespace_switcher.gif" target="_blank" >}}
 
 Because the `federation-viewer` user is granted only permissions provided by the built-in `view` role, this user should be able to view all resources across all clusters but should not be able to make any changes.
 If you haven't changed the permissions of the default `admin` user, that user should be able to view, create, delete, and update resources across all clusters.

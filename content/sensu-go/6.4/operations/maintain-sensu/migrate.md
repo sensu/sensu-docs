@@ -59,7 +59,7 @@ Read [Sensu concepts and terminology][1] to learn more about new terms in Sensu 
 
 In Sensu Go, an embedded transport and [etcd datastore][2] replace the external RabbitMQ transport and Redis datastore in Sensu Core.
 
-{{< figure src="/images/standalone_architecture.png" alt="Single Sensu Go backend or standalone architecture" link="/images/standalone_architecture.png" target="_blank" >}}
+{{< figure src="/images/go/deployment_architecture/single_backend_standalone_architecture.png" alt="Single Sensu Go backend or standalone architecture" link="/images/go/deployment_architecture/single_backend_standalone_architecture.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/d239f2db-15db-41c4-a191-b9b46990d156/0 -->
 
 *<p style="text-align:center">Single Sensu Go backend or standalone architecture</p>*
@@ -107,7 +107,7 @@ The Sensu backend coordinates check execution by comparing the [subscriptions][9
 
 ### Subdue
 
-Sensu Go checks do not include the `subdue` attribute.
+check subdues are not implemented in Sensu Go.
 Instead, use [cron scheduling][99] in Sensu Go checks to specify when checks should be executed.
 
 ### Standalone checks
@@ -143,20 +143,20 @@ As a result, Sensu Go does not include the built-in occurrence-based event filte
 To replicate the Sensu Core occurrence-based filter's functionality, use Sensu Go's [repeated events filter definition][10].
 
 Sensu Go includes three built-in [event filters][9]: [is_incident][63], [not_silenced][61], and [has_metrics][101].
-Sensu Go does not include a built-in check dependencies filter, but you can use the [Core Dependencies Filter][23] dynamic runtime asset to replicate the built-in check dependencies filter functionality from Sensu Core.
+Sensu Go does not include a built-in check dependencies filter, but you can use the [sensu/sensu-dependencies-filter][23] dynamic runtime asset to replicate the built-in check dependencies filter functionality from Sensu Core.
 
 Sensu Go event filters do not include the `when` event filter attribute.
 Use Sensu query expressions to build [custom functions][106] that provide granular control of time-based filter expressions.
 
 ### Fatigue check filter
 
-The [Sensu Go Fatigue Check Filter][11] dynamic runtime asset is a JavaScript implementation of the `occurrences` filter from Sensu Core.
+The [sensu/sensu-go-fatigue-check-filter][11] dynamic runtime asset is a JavaScript implementation of the `occurrences` filter from Sensu Core.
 This filter looks for [check and entity annotations][33] in each event it receives and uses the values of those annotations to configure the filter's behavior on a per-event basis.
 
 The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core check definition and outputs them as annotations in a Sensu Go check definition, compatible with the fatigue check filter.
 
-However, the Sensu Translator doesn't automatically add the [Sensu Go Fatigue Check Filter][11] dynamic runtime asset or the filter configuration you need to run it.
-To use the Sensu Go Fatigue Check Filter dynamic runtime asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
+However, the Sensu Translator doesn't automatically add the [sensu/sensu-go-fatigue-check-filter][11] dynamic runtime asset or the filter configuration you need to run it.
+To use the sensu/sensu-go-fatigue-check-filter dynamic runtime asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
 
 ## Dynamic runtime assets
 
@@ -184,7 +184,7 @@ The syntax for token substitution changed to [double curly braces][16] in Sensu 
 
 ## Aggregates
 
-Sensu Go supports check aggregates with the [Sensu Go Aggregate Check Plugin][28], which is a [commercial][27] resource.
+Sensu Go supports check aggregates with the [sensu/sensu-aggregate-check][28] dynamic runtime asset.
 
 ## API
 
@@ -217,8 +217,7 @@ Read the [installation guide][53] to install and configure sensuctl.
 
 #### 4. Set up Sensu users
 
-Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
-RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
+Use Sensu's built-in [RBAC][13] to manage and access users and resources based on namespaces, groups, roles, and bindings.
 To set up RBAC in Sensu Go, read the [RBAC reference][13] and [Create a read-only user][14].
 
 In Sensu Go, [namespaces][107] partition resources within a Sensu instance.
@@ -273,7 +272,7 @@ As an option, you can also translate your configuration in sections according to
 
 If translation is successful, you should receive a few callouts followed by `DONE!`, similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 Sensu 1.x filter translation is not yet supported
 Unable to translate Sensu 1.x filter: only_production {:attributes=>{:check=>{:environment=>"production"}}}
 DONE!
@@ -309,12 +308,12 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `metrics: true` | Review the [translate metric checks][71] section.
 `proxy_requests` | Review the [translate proxy requests][72] section.
 `subscribers: roundrobin...` | Remove `roundrobin` from the subscription name, and add the `round_robin` check attribute set to `true`.
-`aggregate` | Check aggregates are supported through the [commercial][27] [Sensu Go Aggregate Check Plugin][28].
+`aggregate` | Check aggregates are supported through the [sensu/sensu-aggregate-check][28].
 `hooks` | Review the [translate hooks][73] section.
-`dependencies`| Use the [Core Dependencies Filter][23] dynamic runtime asset.
+`dependencies`| Use the [sensu/sensu-dependencies-filter][23] dynamic runtime asset.
 
 {{% notice protip %}}
-**PRO TIP**: When using token substitution in Sensu Go and accessing labels or annotations that include `.` (for example: `sensu.io.json_attributes`), use the `index` function.
+**PRO TIP**: When using token substitution in Sensu Go and accessing labels or annotations that include `.`, like `sensu.io.json_attributes`, use the `index` function.
 For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation.
 {{% /notice %}}
 
@@ -425,9 +424,9 @@ Review your Sensu Core check configuration for the following attributes and make
 
 | Core attribute | Manual updates required in Sensu Go config |
 | -------------- | ------------- |
-`filters: occurrences` | Replicate the built-in occurrences filter in Sensu Core with the [Sensu Go Fatigue Check Filter][65].
+`filters: occurrences` | Replicate the built-in occurrences filter in Sensu Core with the [sensu/sensu-go-fatigue-check-filter][65].
 `type: transport` | Achieve similar functionailty to transport handlers in Sensu Core with a Sensu Go pipe handler that connects to a message bus and injects event data into a queue.
-`filters: check_dependencies` | Use the [Core Dependencies Filter][23] dynamic runtime asset.
+`filters: check_dependencies` | Use the [sensu/sensu-dependencies-filter][23] dynamic runtime asset.
 `severities` | Sensu Go does not support severities.
 `handle_silenced` | Silencing is disabled by default in Sensu Go and must be explicitly enabled using sensuctl, the web UI, or core/v2/silenced API endpoints.
 `handle_flapping` | All check results are considered events in Sensu Go and are processed by [handlers][103].
@@ -517,7 +516,7 @@ Read the [guide to installing plugins with assets][50] to register assets with S
 
 #### Contact routing
 
-Contact routing is available in Sensu Go using the has-contact filter asset.
+Contact routing is available in Sensu Go woth the [sensu/sensu-go-has-contact-filter][30] dynamic runtime asset.
 Read [Route alerts with event filters][90] to set up contact routing in Sensu Go.
 
 #### LDAP
@@ -559,6 +558,7 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [27]: ../../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
 [29]: ../../../observability-pipeline/observe-schedule/backend#operation
+[30]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
 [33]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter/#configuration
 [34]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler
 [36]: https://etcd.io/

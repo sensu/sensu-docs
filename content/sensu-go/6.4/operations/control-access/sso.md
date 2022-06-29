@@ -17,7 +17,7 @@ For more information, read [Get started with commercial features](../../../comme
 
 Sensu requires username and password authentication to access the [web UI][1], [API][3], and [sensuctl][2] command line tool.
 
-In addition to the [built-in basic authentication provider][4], Sensu offers [commercial support][5] for using Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC) for single sign-on (SSO) authentication.
+In addition to the [built-in basic authentication][4], Sensu offers [commercial support][5] for using Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC) for single sign-on (SSO) authentication.
 
 This guide describes general information for configuring an authentication provider for SSO.
 Read the [LDAP][8], [AD][6], or [OIDC][7] reference documentation for provider-specific examples and specifications.
@@ -56,7 +56,7 @@ sensuctl auth list
 
 The response will list your authentication provider types and names:
 
-{{< code shell >}}
+{{< code text >}}
  Type     Name    
 ────── ────────── 
  ldap   openldap  
