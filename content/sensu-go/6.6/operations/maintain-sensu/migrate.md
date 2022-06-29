@@ -186,7 +186,7 @@ The syntax for token substitution changed to [double curly braces][16] in Sensu 
 
 ## Aggregates
 
-Sensu Go supports check aggregates with the [sensu/sensu-aggregate-check][28] dynamic runtime asset, which is a [commercial][27] resource.
+Sensu Go supports check aggregates with the [sensu/sensu-aggregate-check][28] dynamic runtime asset.
 
 ## API
 
@@ -310,7 +310,7 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `metrics: true` | Review the [translate metric checks][71] section.
 `proxy_requests` | Review the [translate proxy requests][72] section.
 `subscribers: roundrobin...` | Remove `roundrobin` from the subscription name, and add the `round_robin` check attribute set to `true`.
-`aggregate` | Check aggregates are supported through the [commercial][27] [sensu/sensu-aggregate-check][28].
+`aggregate` | Check aggregates are supported through the [sensu/sensu-aggregate-check][28].
 `hooks` | Review the [translate hooks][73] section.
 `dependencies`| Use the [sensu/sensu-dependencies-filter][23] dynamic runtime asset.
 
