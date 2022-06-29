@@ -1258,7 +1258,7 @@ example      | {{< code yml >}}
 
 ## Delete dynamic runtime assets
 
-Delete dynamic runtime assets with a DELETE request to the `/assets` API endpoint or with the `sensuctl asset delete` command.
+Delete dynamic runtime assets with a DELETE request to the [`/assets` API endpoint][47] or with the [`sensuctl asset delete` command][48].
 
 Removing a dynamic runtime asset from Sensu *does not* remove references to the deleted asset in any other resource (including checks, filters, mutators, handlers, and hooks).
 You must also update resources and remove any reference to the deleted dynamic runtime asset.
@@ -1313,3 +1313,5 @@ You must remove the archive and downloaded files from the asset cache manually.
 [44]: https://devblogs.microsoft.com/oldnewthing/20060823-00/?p=29993
 [45]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.1
 [46]: https://bonsai.sensu.io/assets/sensu/check-cpu-usage
+[47]: ../../api/core/assets/
+[48]: ../../sensuctl/create-manage-resources/#delete-resources
