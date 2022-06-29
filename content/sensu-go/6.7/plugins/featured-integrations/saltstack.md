@@ -16,9 +16,9 @@ For more information, read [Get started with commercial features](../../../comme
 
 The [Sensu SaltStack Handler plugin][4] is a Sensu [handler][1] that launches SaltStack functions for automated remediation based on Sensu event data.
 
-{{% notice note %}}
-**NOTE**: The Sensu SaltStack Handler plugin is an example of Sensu's auto-remediation integrations.
-To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
+{{% notice protip %}}
+**PRO TIP**: Use the [Sensu Catalog](../../../web-ui/sensu-catalog/) to enable this integration directly from your browser.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
 ## Features
