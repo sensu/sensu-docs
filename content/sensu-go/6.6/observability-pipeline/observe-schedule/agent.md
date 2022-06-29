@@ -1106,6 +1106,8 @@ sensu-agent start --deregister{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 deregister: true{{< /code >}}
 
+<a id="agent-deregistration-handler-attribute"></a>
+
 | deregistration-handler |      |
 -------------------------|------
 description              | Name of the event handler to use when processing the agent's deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37].

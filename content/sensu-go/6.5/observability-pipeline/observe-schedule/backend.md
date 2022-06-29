@@ -656,6 +656,8 @@ sensu-backend start --debug{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 debug: true{{< /code >}}
 
+<a id="deregistration-handler-attribute"></a>
+
 | deregistration-handler |      |
 -------------------------|------
 description              | Name of the default event handler to use when processing agent deregistration events.
