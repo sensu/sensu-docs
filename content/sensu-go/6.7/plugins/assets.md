@@ -17,7 +17,10 @@ Dynamic runtime assets are shareable, reusable packages that make it easier to d
 You can use dynamic runtime assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 Sensu supports dynamic runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
-You can discover, download, and share dynamic runtime assets using [Bonsai, the Sensu asset hub][16].
+Use the [Sensu Catalog][33] to find, configure, and install many dynamic runtime assets directly from your browser.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
+
+You can also discover, download, and share dynamic runtime assets using [Bonsai, the Sensu asset hub][16].
 Read [Use assets to install plugins][23] to get started.
 
 {{% notice note %}}
@@ -1258,7 +1261,7 @@ example      | {{< code yml >}}
 
 ## Delete dynamic runtime assets
 
-Delete dynamic runtime assets with a DELETE request to the `/assets` API endpoint or with the `sensuctl asset delete` command.
+Delete dynamic runtime assets with a DELETE request to the [`/assets` API endpoint][47] or with the [`sensuctl asset delete` command][48].
 
 Removing a dynamic runtime asset from Sensu *does not* remove references to the deleted asset in any other resource (including checks, filters, mutators, handlers, and hooks).
 You must also update resources and remove any reference to the deleted dynamic runtime asset.
@@ -1303,6 +1306,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [30]: ../../observability-pipeline/observe-schedule/agent#disable-assets
 [31]: ../../platforms/#docker-images
 [32]: ../../platforms/#supported-packages
+[33]: ../../web-ui/sensu-catalog/
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
 [39]: ../../web-ui/search#search-for-labels
@@ -1313,3 +1317,5 @@ You must remove the archive and downloaded files from the asset cache manually.
 [44]: https://devblogs.microsoft.com/oldnewthing/20060823-00/?p=29993
 [45]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.1
 [46]: https://bonsai.sensu.io/assets/sensu/check-cpu-usage
+[47]: ../../api/core/assets/
+[48]: ../../sensuctl/create-manage-resources/#delete-resources
