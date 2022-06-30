@@ -23,7 +23,7 @@ No human user needs to log into the service, and the service does not need edit 
 A limited service account can provide only the necessary access and permissions.
 
 Limited service accounts are also useful for performing automated processes.
-This guide explains how to create a limited service account to use with the [sensu/sensu-ec2-handler][3] integration to automatically remove AWS EC2 instances that are not in a pending or running state.
+This guide explains how to create a limited service account to use with the [sensu/sensu-ec2-handler][13] dynamic runtime asset to automatically remove AWS EC2 instances that are not in a pending or running state.
 
 By default, Sensu includes a `default` namespace and an `admin` user with full permissions to create, modify, and delete resources within Sensu, including the RBAC resources required to configure a limited service account.
 This guide requires a running Sensu backend and a sensuctl instance configured to connect to the backend as the [`admin` user][2].
