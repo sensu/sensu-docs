@@ -817,42 +817,7 @@ spec:
 
 If you configure a Sensu event handler named `registration`, the Sensu backend will create and process an event for the agent registration, apply any configured filters and mutators, and execute the registration handler.
 
-You can use registration events to execute one-time handlers for new Sensu agents to update an external configuration management database (CMDB).
-This example demonstrates how to configure a registration event handler to create or update a ServiceNow incident or event with the [Sensu Go ServiceNow Handler][17] &mdash; read about the [ServiceNow integration][36] for more information:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: registration
-spec:
-  handlers:
-  - servicenow-cmdb
-  type: set
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "registration"
-  },
-  "spec": {
-    "handlers": [
-      "servicenow-cmdb"
-    ],
-    "type": "set"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-The [agent reference][27] describes agent registration and registration events in more detail.
+Read [Automatically register and deregister entities][] for more information and a registration handler example.
 
 ## Execute multiple handlers (handler set)
 
