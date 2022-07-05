@@ -817,7 +817,7 @@ spec:
 
 If you configure a Sensu event handler named `registration`, the Sensu backend will create and process an event for the agent registration, apply any configured filters and mutators, and execute the registration handler.
 
-Read [Automatically register and deregister entities][] for more information and a registration handler example.
+Read [Automatically register and deregister entities][37] for more information and a registration handler example.
 
 ## Execute multiple handlers (handler set)
 
@@ -948,3 +948,4 @@ spec:
 [34]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [35]: ../../observe-process/send-slack-alerts/
 [36]: ../../../plugins/featured-integrations/servicenow/
+[37]: ../../observe-entities/discover-entities/

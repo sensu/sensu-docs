@@ -146,8 +146,8 @@ As a result, if you set the deregister flag to `true` and an agent process stops
 If you want to receive alerts for failing keepalives, set the [deregister](#ephemeral-agent-configuration-flags) configuration flag to `false`.
 {{% /notice %}}
 
-You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
-In addition, the agent maps [`keepalive-critical-timeout`][4] and [`keepalive-warning-timeout`][58] values to certain event check attributes, so you can [create time-based event filters][57] to reduce alert fatigue for agent keepalive events.
+You can use keepalives to identify unhealthy systems and network partitions, send notifications, trigger auto-remediation, and [automatically register and deregister agent entities][11], among other useful actions.
+The agent maps [`keepalive-critical-timeout`][4] and [`keepalive-warning-timeout`][58] values to certain event check attributes, so you can also [create time-based event filters][57] to reduce alert fatigue for agent keepalive events.
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
@@ -637,7 +637,7 @@ example      | {{< code json >}}{
 Sensu agents automatically discover and register infrastructure components and the services running on them.
 When an agent process stops, the Sensu backend can automatically create and process a deregistration event for the agent entities.
 
-Read [Automatically register and deregister entities][] for more information.
+Read [Automatically register and deregister entities][11] for more information.
 
 ## Configuration via flags
 
@@ -2003,9 +2003,7 @@ sensu-agent start --help
 [8]: ../../observe-process/handlers/
 [9]: ../../observe-filter/filters/
 [10]: ../../observe-transform/mutators/
-[11]: https://en.wikipedia.org/wiki/Configuration_management_database
-[12]: https://www.servicenow.com/products/it-operations-management.html
-[13]: #ephemeral-agent-configuration-flags
+[11]: ../../observe-entities/discover-entities/
 [14]: ../checks/
 [15]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [16]: #general-configuration-flags
@@ -2029,7 +2027,7 @@ sensu-agent start --help
 [34]: #backend-heartbeat-interval
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../../operations/deploy-sensu/cluster-sensu/
-[37]: ../backend#general-configuration-flags
+[37]: ../backend#deregistration-handler-attribute
 [38]: #name
 [39]: ../../../operations/control-access/rbac/#agent-user
 [40]: ../../observe-process/send-slack-alerts/
