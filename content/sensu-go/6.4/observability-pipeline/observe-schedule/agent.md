@@ -72,6 +72,14 @@ When using mTLS authentication, sensu-agent sends the following HTTP headers in 
 
 If the Sensu agent is configured for mTLS authentication, it will not send the `Authorization` HTTP header.
 
+#### Certificate bundles or chains
+
+The Sensu agent supports all types of certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
+This is because the Go standard library assumes that the first certificate listed in the PEM file is the leaf certificate &mdash; the certificate that the program will use to show its own identity.
+
+If you send the leaf certificate alone instead of sending the whole bundle with the leaf certificate first, you will receive a `certificate not signed by trusted authority` error.
+You must present the whole chain to the remote so it can determine whether it trusts the presented certificate through the chain.
+
 #### Certificate revocation check
 
 The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for agent mTLS, etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
@@ -818,14 +826,6 @@ The agent loads configuration upon startup, so you must restart the agent for an
 Specify the agent configuration with either a `.yml` file or `sensu-agent start` command line flags.
 Configuration via command line flags overrides attributes specified in a configuration file.
 Review the [example Sensu agent configuration file][5] for flags and defaults.
-
-### Certificate bundles or chains
-
-The Sensu agent supports all types of certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
-This is because the Go standard library assumes that the first certificate listed in the PEM file is the leaf certificate &mdash; the certificate that the program will use to show its own identity.
-
-If you send the leaf certificate alone instead of sending the whole bundle with the leaf certificate first, you will receive a `certificate not signed by trusted authority` error.
-You must present the whole chain to the remote so it can determine whether it trusts the presented certificate through the chain.
 
 ### Configuration summary
 

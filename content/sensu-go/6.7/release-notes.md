@@ -2339,7 +2339,7 @@ To get started with Sensu Go:
 [215]: /sensu-go/6.4/commercial/
 [216]: /sensu-go/6.4/platforms/#macos
 [217]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#etcd-log-level
-[218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout-and-wait-flags
+[218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout
 [219]: https://etcd.io/docs/v3.5/metrics/etcd-metrics-latest.txt
 [220]: /sensu-go/6.4/web-ui/webconfig-reference/#sign-in-message
 [221]: /sensu-go/6.4/web-ui/webconfig-reference/#page-preferences-attributes
@@ -2373,7 +2373,7 @@ To get started with Sensu Go:
 [249]: /sensu-go/6.5/web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
 [250]: /sensu-go/6.5/web-ui/view-manage-resources/#execute-checks-on-demand
 [251]: /sensu-go/6.5/observability-pipeline/observe-events/events/#processedby-attribute
-[253]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#initialization-ignore-already-initialized-flag
+[253]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#ignore-already-initialized
 [254]: /sensu-go/6.5/observability-pipeline/observe-transform/mutators/#env-vars-attribute
 [255]: #652-release-notes
 [256]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#api-write-timeout

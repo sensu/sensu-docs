@@ -72,7 +72,7 @@ Sensu backends require persistent storage for their embedded database, disk spac
 
 - 2379 (gRPC) Sensu storage client: Required for Sensu backends using an external etcd instance
 - 2380 (gRPC) Sensu storage peer: Required for other Sensu backends in a [cluster][37]
-- 3000 (HTTP/HTTPS) [Sensu web UI][29]: Required for all Sensu backends using a Sensu web UI
+- 3000 (HTTP/HTTPS) [Sensu web UI][39]: Required for all Sensu backends using a Sensu web UI
 - 8080 (HTTP/HTTPS) [Sensu API][40]: Required for all users accessing the Sensu API
 - 8081 (WS/WSS) Agent API: Required for all Sensu agents connecting to a Sensu backend
 
@@ -557,7 +557,6 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [26]: https://sensu.io/blog/self-service-monitoring-checks-in-sensu-go/
 [27]: ../../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
-[29]: ../../../observability-pipeline/observe-schedule/backend#operation
 [30]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
 [33]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter/#configuration
 [34]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler

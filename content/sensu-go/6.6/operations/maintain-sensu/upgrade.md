@@ -245,7 +245,7 @@ sudo systemctl restart sensu-backend
 
 
 [1]: ../../deploy-sensu/install-sensu/
-[2]: ../../../observability-pipeline/observe-schedule/backend#operation
+[2]: ../../../observability-pipeline/observe-schedule/backend/
 [4]: https://sensu.io/contact?subject=contact-sales/
 [5]: https://sensu.io/blog/one-year-of-sensu-go
 [6]: ../../../commercial/

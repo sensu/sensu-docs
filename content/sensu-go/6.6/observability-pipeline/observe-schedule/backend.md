@@ -16,49 +16,12 @@ menu:
 [Example Sensu backend configuration file](../../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and observability data.
-Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, and the Sensu [API][14], Sensu [web UI][6], and [sensuctl][37] command line tool.
+Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], [handlers][11], and [pipelines][70], an embedded [etcd][2] datastore for storing configuration and state, and the Sensu [API][14], Sensu [web UI][6], and [sensuctl][37] command line tool.
 
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 For these operating systems, the Sensu backend uses the Bourne shell (sh) for the execution environment.
 
 Read the [installation guide][1] to install the backend.
-
-## Backend transport
-
-The Sensu backend listens for agent communications via [WebSocket][30] transport.
-By default, this transport operates on port 8081.
-The agent subscriptions are used to determine which check execution requests the backend publishes via the transport.
-Sensu agents locally execute checks as requested by the backend and publish check results back to the transport to be processed.
-
-Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password authentication][34] or [mutual transport layer security (mTLS) authentication][31].
-
-To secure the WebSocket transport, first [generate the certificates][32] you will need to set up transport layer security (TLS).
-Then, [secure Sensu][33] by configuring either TLS or mTLS to make Sensu production-ready.
-
-Read the [Sensu architecture overview][35] for a diagram that includes the WebSocket transport.
-
-## Create event pipelines
-
-Sensu backend event pipelines process observation data and executes event filters, mutators, and handlers.
-These pipelines are powerful tools to automate your monitoring workflows.
-To learn more about event filters, mutators, and handlers, see:
-
-- [Send Slack alerts with handlers][7]
-- [Reduce alert fatigue with event filters][8]
-- [Event filters reference documentation][9]
-- [Mutators reference documentation][10]
-- [Handlers reference documentation][11]
-
-## Schedule checks
-
-The backend is responsible for storing check definitions and scheduling check requests.
-Check scheduling is subscription-based: the backend sends check requests to subscriptions. where they're picked up by subscribing agents.
-
-For information about creating and managing checks, see:
-
-- [Monitor server resources with checks][3]
-- [Collect metrics with checks][4]
-- [Checks reference documentation][5]
 
 ## Initialization
 
@@ -69,8 +32,8 @@ Although initialization is required for every new installation, the implementati
 - If you are using Ubuntu/Debian or RHEL/CentOS, you must specify admin credentials during [step 3 of the backend installation process][25].
 Sensu does not apply default admin credentials for Ubuntu/Debian or RHEL/CentoOS installations.
 
-This step bootstraps the first admin user account for your Sensu installation.
-This account will be granted the cluster admin role.
+The initialization step bootstraps the first admin user account for your Sensu installation.
+This first account will be granted the cluster admin role.
 
 {{% notice warning %}}
 **WARNING**: If you plan to [run a Sensu cluster](../../../operations/deploy-sensu/cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
@@ -252,168 +215,45 @@ Store Flags:
       --etcd-trusted-ca-file string          path to the client server TLS trusted CA cert file
 {{< /code >}}
 
-#### Initialization ignore-already-initialized flag
+For more information about the initialization store flags, read [Datastore and cluster configuration flags][72] and [Advanced configuration options][73].
 
-If you run sensu-backend init on a cluster that has already been initialized, the command returns a non-zero exit status.
-Add the `ignore-already-initialized` flag to sensu-backend init to suppress the "already initialized" response and return an exit code 0 if the cluster has already been initialized:
+<a id="ignore-already-initialized"></a>
 
-{{< code shell >}}
-sensu-backend init --ignore-already-initialized
-{{< /code >}}
+| ignore-already-initialized |      |
+-------------|------
+description  | If you run sensu-backend init on a cluster that has already been initialized, the command returns a non-zero exit status. Add the `ignore-already-initialized` flag to suppress the "already initialized" response and return an exit code 0 if the cluster has already been initialized.
+example      | {{< code shell >}}
+sensu-backend init --ignore-already-initialized{{< /code >}}
 
-#### Initialization timeout and wait flags
+<a id="initialization-timeout"></a>
 
-When you initialize the sensu-backend, you can specify how long the backend should wait to establish a connection to etcd.
+| timeout    |      |
+-------------|------
+description  | Specify how long the backend should continue trying to establish a connection to etcd before timing out.<br><br>To specify the timeout duration, use an integer paired with a unit of time: `s` for seconds, `m` for minutes, or `h` for hours. {{% notice note %}}
+**NOTE**: Sensu interprets timeout values less than 1 second and integer-only values as seconds. For example, Sensu will convert both `20ms` and `20` to `20s` (20 seconds).{{% /notice %}}
+type         | String
+example      | {{< code shell >}}
+sensu-backend init --timeout 30s{{< /code >}}
 
-If the backend should try to establish a connection to etcd for a certain period before timing out, use the `timeout` flag.
-To specify the timeout duration, use an integer paired with a unit of time:
+| wait       |      |
+-------------|------
+description  | Instruct the backend to continue trying to establish a connection to etcd until it is successful.
+example      | {{< code shell >}}
+sensu-backend init --wait{{< /code >}}
 
-- `s` for seconds
-- `m` for minutes
-- `h` for hours
+## Backend transport
 
-For example, to specify a 30-second timeout period:
+The Sensu backend listens for agent communications via [WebSocket][30] transport.
+By default, this transport operates on port 8081.
+The agent [subscriptions][28] are used to determine which check execution requests the backend publishes via the transport.
+Sensu agents locally execute checks as requested by the backend and publish check results back to the transport to be processed.
 
-{{< code shell >}}
-sensu-backend init --timeout 30s
-{{< /code >}}
+Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password authentication][34] or [mutual transport layer security (mTLS) authentication][31].
 
-To specify a 5-minute timeout period:
+To secure the WebSocket transport, first [generate the certificates][32] you will need to set up transport layer security (TLS).
+Then, [secure Sensu][33] by configuring either TLS or mTLS to make Sensu production-ready.
 
-{{< code shell >}}
-sensu-backend init --timeout 5m
-{{< /code >}}
-
-Sensu interprets timeout values less than 1 second and integer-only values as seconds.
-For example, Sensu will convert both `20ms` and `20` to 20 seconds.
-
-If the backend should repeatedly try to establish a connection to etcd until it is successful, use the `wait` flag:
-
-{{< code shell >}}
-sensu-backend init --wait
-{{< /code >}}
-
-## Operation and service management {#operation}
-
-{{% notice note %}}
-**NOTE**: Commands in this section may require administrative privileges.
-{{% /notice %}}
-
-### Start the service
-
-Use the `sensu-backend` tool to start the backend and apply configuration flags.
-
-To start the backend with [configuration flags][15]:
-
-{{< code shell >}}
-sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
-{{< /code >}}
-
-To view available configuration flags and defaults:
-
-{{< code shell >}}
-sensu-backend start --help
-{{< /code >}}
-
-If you do not provide any configuration flags, the backend loads configuration from `/etc/sensu/backend.yml` by default.
-
-To start the backend using a service manager:
-
-{{< code shell >}}
-sudo systemctl start sensu-backend
-{{< /code >}}
-
-### Stop the service
-
-To stop the backend service using a service manager:
-
-{{< code shell >}}
-sudo systemctl stop sensu-backend
-{{< /code >}}
-
-### Restart the service
-
-You must restart the backend to implement any configuration updates.
-
-To restart the backend using a service manager:
-
-{{< code shell >}}
-sudo systemctl restart sensu-backend
-{{< /code >}}
-
-### Enable on boot
-
-To enable the backend to start on system boot:
-
-{{< code shell >}}
-sudo systemctl enable sensu-backend
-{{< /code >}}
-
-To disable the backend from starting on system boot:
-
-{{< code shell >}}
-sudo systemctl disable sensu-backend
-{{< /code >}}
-
-{{% notice note %}}
-**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the backend and `sudo chkconfig sensu-server off` to disable the backend.
-{{% /notice %}}
-
-### Get service status
-
-To view the status of the backend service using a service manager:
-
-{{< code shell >}}
-sudo systemctl status sensu-backend
-{{< /code >}}
-
-### Get service version
-
-To get the current backend version using the `sensu-backend` tool:
-
-{{< code shell >}}
-sensu-backend version
-{{< /code >}}
-
-### Get help
-
-The `sensu-backend` tool provides general and command-specific help flags.
-
-To view sensu-backend commands, run:
-
-{{< code shell >}}
-sensu-backend help
-{{< /code >}}
-
-To list options for a specific command (in this case, sensu-backend start), run: 
-
-{{< code shell >}}
-sensu-backend start --help
-{{< /code >}}
-
-### Cluster
-
-You can run the backend as a standalone service, but running a cluster of backends makes Sensu more highly available, reliable, and durable.
-Sensu backend clusters build on the [etcd clustering system][2].
-Clustering lets you synchronize data between backends and get the benefits of a highly available configuration.
-
-To configure a cluster, see:
-
-- [Datastore configuration flags][12]
-- [Run a Sensu cluster][13]
-
-### Synchronize time
-
-System clocks between agents and the backend should be synchronized to a central NTP server.
-If system time is out of sync, it may cause issues with keepalive, metric, and check alerts.
-
-## Configuration via flags
-
-You can specify the backend configuration with either a `/etc/sensu/backend.yml` file or `sensu-backend start` [configuration flags][15].
-The backend requires that the `state-dir` flag is set before starting.
-All other required flags have default values.
-Review the [example backend configuration file][17] for flags and defaults.
-The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
+Read the [Sensu architecture overview][35] for a diagram that includes the WebSocket transport.
 
 ### Certificate bundles or chains
 
@@ -426,6 +266,42 @@ You must present the whole chain to the remote so it can determine whether it tr
 ### Certificate revocation check
 
 The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for mutual transport layer security (mTLS), etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
+
+## Synchronize time between agents and the backend
+
+System clocks between agents and the backend should be synchronized to a central NTP server.
+If system time is out of sync, it may cause issues with keepalive, metric, and check alerts.
+
+## Backend clusters
+
+You can run the backend as a standalone service, but running a cluster of backends makes Sensu more highly available, reliable, and durable.
+Sensu backend clusters build on the [etcd clustering system][2].
+Clustering lets you synchronize data between backends and get the benefits of a highly available configuration.
+
+To configure a cluster, read [Run a Sensu cluster][13] and review the [datastore configuration options][12].
+
+## Create event pipelines
+
+Sensu backend event pipelines process observation data and execute event filters, mutators, handlers, and pipelines.
+These resources are powerful tools to automate your monitoring workflows.
+
+Read the [event filter][9], [mutator][10], [handler][11], and [pipeline][70] references to learn more about these Sensu resources.
+Read [guides][71] like [Reduce alert fatigue with event filters][8] and [Send Slack alerts with handlers][7] for usage examples.
+
+## Schedule checks
+
+The backend is responsible for storing check definitions and scheduling check requests.
+Check scheduling is subscription-based: the backend sends check requests to [subscriptions][28], where they're picked up by subscribing agents.
+
+For information about creating and managing checks, read the [checks reference][5] and the guides [Monitor server resources with checks][3] and [Collect metrics with checks][4].
+
+## Configuration via flags
+
+You can specify the backend configuration with either a `/etc/sensu/backend.yml` file or `sensu-backend start` [configuration flags][15].
+The backend requires that the `state-dir` flag is set before starting.
+All other required flags have default values.
+Review the [example backend configuration file][17] for flags and defaults.
+The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Configuration summary
 
@@ -1857,6 +1733,104 @@ sensu-backend start --platform-metrics-logging-interval 60s{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 platform-metrics-logging-interval: 60s{{< /code >}}
 
+## Service management
+
+{{% notice note %}}
+**NOTE**: Service management commands may require administrative privileges.
+{{% /notice %}}
+
+### Start the service
+
+Use the `sensu-backend` tool to start the backend and apply configuration flags.
+
+Start the backend with [configuration flags][15]:
+
+{{< code shell >}}
+sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
+{{< /code >}}
+
+View available configuration flags and defaults:
+
+{{< code shell >}}
+sensu-backend start --help
+{{< /code >}}
+
+If you do not include any configuration flags with the `sensu-backend start` command, the backend loads configuration from `/etc/sensu/backend.yml` by default.
+
+Start the backend using a service manager:
+
+{{< code shell >}}
+sudo systemctl start sensu-backend
+{{< /code >}}
+
+### Stop the service
+
+Stop the backend service using a service manager:
+
+{{< code shell >}}
+sudo systemctl stop sensu-backend
+{{< /code >}}
+
+### Restart the service
+
+Restart the backend using a service manager:
+
+{{< code shell >}}
+sudo systemctl restart sensu-backend
+{{< /code >}}
+
+You must restart the backend to implement any configuration updates.
+
+### Enable on boot
+
+Enable the backend to start on system boot:
+
+{{< code shell >}}
+sudo systemctl enable sensu-backend
+{{< /code >}}
+
+Disable the backend from starting on system boot:
+
+{{< code shell >}}
+sudo systemctl disable sensu-backend
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the backend and `sudo chkconfig sensu-server off` to disable the backend.
+{{% /notice %}}
+
+### Get service status
+
+View the status of the backend service using a service manager:
+
+{{< code shell >}}
+sudo systemctl status sensu-backend
+{{< /code >}}
+
+### Get service version
+
+Get the current backend version using the `sensu-backend` tool:
+
+{{< code shell >}}
+sensu-backend version
+{{< /code >}}
+
+### Get help
+
+The `sensu-backend` tool provides general and command-specific help flags.
+
+View sensu-backend commands:
+
+{{< code shell >}}
+sensu-backend help
+{{< /code >}}
+
+List options for a specific command (in this case, sensu-backend start): 
+
+{{< code shell >}}
+sensu-backend start --help
+{{< /code >}}
+
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
 [2]: https://etcd.io/docs
@@ -1901,7 +1875,11 @@ platform-metrics-logging-interval: 60s{{< /code >}}
 [61]: #event-log-file
 [62]: https://docs.influxdata.com/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/
 [63]: #log-rotation
-[64]: ../../../sensuctl/#global-flags
+[64]: ../../../sensuctl/#use-global-flags-for-sensuctl-settings
 [65]: #event-logging
 [66]: #platform-metrics-logging
 [67]: #agent-rate-limit
+[70]: ../../observe-process/pipelines/
+[71]: ../../../guides/
+[72]: #datastore-and-cluster-configuration-flags
+[73]: #advanced-configuration-options
