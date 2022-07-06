@@ -1952,7 +1952,7 @@ To get started with Sensu Go:
 [215]: /sensu-go/6.4/commercial/
 [216]: /sensu-go/6.4/platforms/#macos
 [217]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#etcd-log-level
-[218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout
+[218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout-and-wait-flags
 [219]: https://etcd.io/docs/v3.5/metrics/etcd-metrics-latest.txt
 [220]: /sensu-go/6.4/web-ui/webconfig-reference/#sign-in-message
 [221]: /sensu-go/6.4/web-ui/webconfig-reference/#page-preferences-attributes
