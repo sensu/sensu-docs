@@ -2432,3 +2432,4 @@ To get started with Sensu Go:
 [288]: /sensu-go/6.7/web-ui/view-manage-resources/webconfig-reference/#sign-in-message
 [289]: /sensu-go/6.7/web-ui/sensu-catalog/#duplicate-integrations-and-existing-resources
 [290]: /sensu-go/6.7/web-ui/sensu-catalog/
+[291]: /sensu-go/6.7/observability-pipeline/observe-events/events/#check-scope
