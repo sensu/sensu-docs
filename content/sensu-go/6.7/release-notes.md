@@ -112,7 +112,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 **July 7, 2022** &mdash; The latest release of Sensu Go, version 6.7.3, is now available for download.
 
 Sensu Go 6.7.3 includes fixes for the Sensu Catalog sort order and web UI notifications, as well a database issue that could cause backends to crash.
-We also fixed bugs that affected business service monitoring (BSM) service components and removed limits on LDAP and Active Directory (AD) and Lightweight Directory Access Protocol (LDAP) searches.
+We also fixed bugs that affected business service monitoring (BSM) service components and removed limits on Active Directory (AD) and Lightweight Directory Access Protocol (LDAP) searches.
 This patch release includes a change in how agents execute check requests to prevent `check execution still in progress` failures. 
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.7.3.
