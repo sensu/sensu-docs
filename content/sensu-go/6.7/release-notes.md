@@ -9,6 +9,7 @@ version: "6.7"
 menu: "sensu-go-6.7"
 ---
 
+- [6.7.3 release notes](#673-release-notes)
 - [6.7.2 release notes](#672-release-notes)
 - [6.7.1 release notes](#671-release-notes)
 - [6.7.0 release notes](#670-release-notes)
@@ -105,6 +106,27 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
+
+## 6.7.3 release notes
+
+**July 7, 2022** &mdash; The latest release of Sensu Go, version 6.7.3, is now available for download.
+
+Sensu Go 6.7.3 includes fixes that improve the Sensu catalog and web UI display, as well as the BSM service components.
+We've also fixed a database issue that can cause backends to crash and removed limits on LDAP and Active Directory searches.
+Finally, we've fixed an issue with agent check requests.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.7.3.
+
+**FIXES**
+- ([Commercial feature][268]) Fixed a bug where BSM service component metadata was not added to generated events.
+- ([Commercial feature][268]) Removed database constraint causing backends to crash when agents are ran on hosts with many addresses associated with a single network interface.
+- ([Commercial feature][268]) Fixed a bug where too many events were included in a BSM service component query.
+- ([Commercial feature][268]) LDAP & Active Directory searches are no longer limited to 1,000 results.
+- ([Commercial feature][268]) Catalog initial prompts are now validated against prompts.
+- ([Commercial feature][268]) Fixed Catalog sort order.
+- ([Commercial feature][268]) Sensu Plus source URL is no longer truncated.
+- ([Commercial feature][268]) Web UI toast notifications are now rendered over all other content.
+- Agents will no longer execute check requests with equal or older issued timestamps than the issued timestamp for the last executed check request with the same check name.
 
 ## 6.7.2 release notes
 
