@@ -1675,6 +1675,8 @@ subdue: null
 |subdues     |      |
 -------------|------
 description  | Specific periods of time when Sensu should not send alerts based on the events the check produces. Use to schedule alert-free periods of time, such as during sleeping hours, weekends, or special maintenance periods. Read [subdues attributes][83] for more information.
+required     | false
+type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 subdues:
