@@ -118,15 +118,14 @@ Finally, we've fixed an issue with agent check requests.
 Read the [upgrade guide][1] to upgrade Sensu to version 6.7.3.
 
 **FIXES**
-- ([Commercial feature][268]) Fixed a bug where BSM service component metadata was not added to generated events.
-- ([Commercial feature][268]) Removed database constraint causing backends to crash when agents are ran on hosts with many addresses associated with a single network interface.
-- ([Commercial feature][268]) Fixed a bug where too many events were included in a BSM service component query.
-- ([Commercial feature][268]) LDAP & Active Directory searches are no longer limited to 1,000 results.
-- ([Commercial feature][268]) Catalog initial prompts are now validated against prompts.
-- ([Commercial feature][268]) Fixed Catalog sort order.
-- ([Commercial feature][268]) Sensu Plus source URL is no longer truncated.
-- ([Commercial feature][268]) Web UI toast notifications are now rendered over all other content.
-- Agents will no longer execute check requests with equal or older issued timestamps than the issued timestamp for the last executed check request with the same check name.
+- ([Commercial feature][268]) When using the business service monitoring (BSM) feature, service component metadata is now included in the [`check` scope][291] of events the service component generates.
+Also fixed a bug that could cause BSM service component queries to retrieve events that do not match the specified query expressions.
+- ([Commercial feature][268]) Removed a database constraint that could cause backends to crash when running agents on hosts that have many addresses associated with a single network interface.
+- ([Commercial feature][268]) Active Directory (AD) and Lightweight Directory Access Protocol (LDAP) searches are no longer limited to 1000 results.
+- ([Commercial feature][268]) In the web UI, [Sensu Catalog][269] integrations are now listed alphabetically.
+- ([Commercial feature][268]) In the web UI's automated [Sensu Plus][271] setup dialog, the value in the **Source URL** field is no longer truncated.
+- ([Commercial feature][268]) In the web UI, pop-up notifications at the bottom of the page are no longer obscured by other content.
+- To prevent `check execution still in progress` failures, agents will no longer execute check requests with issued timestamps that are equal to or older than the issued timestamp for the last executed check request with the same check name.
 
 ## 6.7.2 release notes
 
