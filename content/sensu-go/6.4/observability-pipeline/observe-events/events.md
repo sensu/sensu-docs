@@ -1351,7 +1351,7 @@ namespace: production
 
 ### Spec attributes
 
-<a id="check-attribute"></a>
+<a id="check-scope"></a>
 
 |check       |      |
 -------------|------
