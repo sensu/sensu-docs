@@ -858,7 +858,7 @@ These tools may have different names in different browsers (for example, DevTool
 Read the documentation for your browser to learn more about the web developer tools your browser provides.
 
 
-[1]: ../../../observability-pipeline/observe-schedule/agent#operation
+[1]: ../../../observability-pipeline/observe-schedule/agent/
 [2]: ../../../platforms/#windows
 [3]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [4]: https://etcd.io/docs/latest/op-guide/security/

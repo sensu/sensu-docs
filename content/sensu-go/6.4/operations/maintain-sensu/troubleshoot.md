@@ -848,7 +848,7 @@ Safari | `Develop` > `Show JavaScript Console`<br><br>If you do not see the `Dev
 
 Depending on your browser, the developer console may open in a separate browser window or within the current browser window as shown in this example:
 
-{{< figure src="/images/go/troubleshoot/web_ui_developer_console.png" alt="Developer console open in a Chrome browswer window displaying the web UI error message with options for clearing state and reloading." link="/images/webui_devconsole.png" target="_blank" >}}
+{{< figure src="/images/go/troubleshoot/web_ui_developer_console.png" alt="Developer console open in a Chrome browswer window displaying the web UI error message with options for clearing state and reloading." link="/images/go/troubleshoot/web_ui_developer_console.png" target="_blank" >}}
 
 The developer console lists all errors for the current page.
 Click an error for more information about it.
@@ -858,7 +858,7 @@ These tools may have different names in different browsers (for example, DevTool
 Read the documentation for your browser to learn more about the web developer tools your browser provides.
 
 
-[1]: ../../../observability-pipeline/observe-schedule/agent#operation
+[1]: ../../../observability-pipeline/observe-schedule/agent/
 [2]: ../../../platforms/#windows
 [3]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [4]: https://etcd.io/docs/latest/op-guide/security/
