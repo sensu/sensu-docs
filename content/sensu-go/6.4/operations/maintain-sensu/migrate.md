@@ -98,7 +98,7 @@ Clients are represented within Sensu Go as abstract [entities][96] that can desc
 Sensu Go includes [agent entities][92] that run a Sensu agent and the familiar [proxy entities][93].
 Sensu Go also includes [service entities][94], which represent business services in the [business service monitoring (BSM)][95] feature.
 
-Read the [entity reference][6] and the guide to [monitoring external resources][7] for more information about Sensu Go entities.
+Read the [entities reference][6] and the guide to [monitoring external resources][7] for more information about Sensu Go entities.
 
 ## Checks
 
@@ -333,7 +333,7 @@ Read the [guide to metric output][57] to update your metric checks with the `out
 **Translate proxy requests and proxy entities**
 
 Read [Monitor external resources][7] to re-configure `proxy_requests` attributes and update your proxy check configuration.
-read the [entity reference][6] to re-create your proxy client configurations as Sensu Go proxy entities.
+read the [entities reference][6] to re-create your proxy client configurations as Sensu Go proxy entities.
 
 <a id="translate-hooks"></a>
 
@@ -357,7 +357,7 @@ Ruby eval logic used in Sensu Core filters is replaced with JavaScript expressio
 As a result, you'll need to rewrite your Sensu Core filters in Sensu Go format.
 
 First, review your Core handlers to identify which filters are being used.
-Then, follow the [filter reference][9] and [guide to using filters][60] to re-write your filters using Sensu Go expressions and [event data][61].
+Then, follow the [event filters reference][9] and [guide to using filters][60] to re-write your filters using Sensu Go expressions and [event data][61].
 Check out the [blog post on filters][62] for a deep dive into Sensu Go filter capabilities.
 
 Sensu Core hourly filter:

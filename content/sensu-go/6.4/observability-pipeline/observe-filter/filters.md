@@ -1,6 +1,6 @@
 ---
-title: "Event filter reference"
-linkTitle: "Event Filter Reference"
+title: "Event filters reference"
+linkTitle: "Event Filters Reference"
 reference_title: "Event filters"
 type: "reference"
 description: "Read this reference to use Sensu's built-in event filters (or create your own) to control which events Sensu handlers will take action on."

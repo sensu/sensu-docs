@@ -230,7 +230,7 @@ Proxy entities allow Sensu to monitor external resources on systems or devices w
 The [Sensu backend][2] stores proxy entity definitions (unlike agent entities, which the agent stores).
 When the backend requests a check that includes a [`proxy_entity_name`][32], the agent includes the provided entity information in the observation data in events in place of the agent entity data.
 
-Read the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
+Read the [entities reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
 
 ## Create observability events using the agent API
 

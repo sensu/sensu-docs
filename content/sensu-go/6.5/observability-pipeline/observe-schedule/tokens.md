@@ -221,7 +221,7 @@ After you save your changes, for this entity, the hook will substitute the direc
 ## Manage entity labels
 
 You can use token substitution with any defined [entity attributes][4], including custom labels.
-read the [entity reference][6] for information about managing entity labels for proxy entities and agent entities.
+read the [entities reference][6] for information about managing entity labels for proxy entities and agent entities.
 
 ## Manage dynamic runtime assets
 

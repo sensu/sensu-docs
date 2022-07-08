@@ -1,6 +1,6 @@
 ---
-title: "Entity reference"
-linkTitle: "Entity Reference"
+title: "Entities reference"
+linkTitle: "Entities Reference"
 reference_title: "Entities"
 type: "reference"
 description: "Read this reference to learn about Sensu entities, which represent anything that needs to be monitored, including a full range of apps and infrastructure."

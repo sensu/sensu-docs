@@ -1,6 +1,6 @@
 ---
 title: "Configure single sign-on (SSO) authentication"
-linktitle: "Configure SSO Authentication"
+linkTitle: "Configure SSO Authentication"
 description: "Configure single sign-on (SSO) auth for Sensu with Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC)."
 weight: 10
 version: "6.4"
