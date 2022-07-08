@@ -166,7 +166,7 @@ With your handler definition configured, you’re ready to create a [pipeline][8
 
 {{% notice note %}}
 **NOTE**: Sensu pipelines use event filters, mutators, and handlers as the building blocks for event processing workflows.
-Read the [pipeline reference](../observability-pipeline/observe-process/pipelines/) for detailed information about pipelines.
+Read the [pipelines reference](../observability-pipeline/observe-process/pipelines/) for detailed information about pipelines.
 {{% /notice %}}
 
 To configure event processing via your sumo_logic_http_metrics handler, add this example pipeline definition.

@@ -1089,7 +1089,7 @@ Use [Bonsai][8], the Sensu asset hub, to discover, download, and share dynamic r
 
 To handle both metrics and status events without applying conditional filter logic, configure a pipeline with different workflows for metrics and status.
 The events reference includes an [example event with check and metric data][20].
-Read the [pipeline reference][27] for more information about configuring a pipeline with multiple workflows.
+Read the [pipelines reference][27] for more information about configuring a pipeline with multiple workflows.
 
 You do not need to add a mutator to your check definition to process metrics with an event handler.
 The [metrics attribute][5] format automatically reduces metrics data complexity so event handlers can process metrics effectively.

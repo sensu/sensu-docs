@@ -453,7 +453,7 @@ If you add the debug handler and configure the `collect-metrics` check to use it
 Now that you know how to extract metrics from check output, learn to use a metrics handler to [populate service and time-series metrics in InfluxDB][5].
 For a turnkey experience with the Sensu InfluxDB Handler plugin, use our curated, configurable [quick-start template][6] to integrate Sensu with your existing workflows and store Sensu metrics in InfluxDB.
 
-Read the [pipeline reference][15] for information about configuring observability event processing workflows with event filters, mutators, and handlers.
+Read the [pipelines reference][15] for information about configuring observability event processing workflows with event filters, mutators, and handlers.
 
 You can also learn to use Sensu to [collect Prometheus metrics][14].
 

@@ -467,7 +467,7 @@ Adding the is_incident filter to your pipeline should quickly reduce the number 
 
 ## Next steps
 
-Now that you know how to apply a pipeline to a check and take action on events, read the [pipeline reference][8] for in-depth documentation.
+Now that you know how to apply a pipeline to a check and take action on events, read the [pipelines reference][8] for in-depth documentation.
 Read [Route alerts with event filters][9] for a more complex example with multiple filters and handlers organized into several pipeline workflows.
 
 For more information about customizing your Slack alerts, read the [Sensu Slack Handler page in Bonsai][14].

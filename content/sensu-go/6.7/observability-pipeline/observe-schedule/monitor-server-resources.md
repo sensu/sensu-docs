@@ -522,7 +522,7 @@ Or, learn how to [monitor external resources with proxy checks and entities][5].
 
 You can also create [pipelines][10] to send alerts to [email][13], [PagerDuty][9], or [Slack][6] based on the status events your checks are generating.
 
-Read the [pipeline reference][10] for information about configuring observability event processing workflows with event filters, mutators, and handlers.
+Read the [pipelines reference][10] for information about configuring observability event processing workflows with event filters, mutators, and handlers.
 
 
 [1]: https://bonsai.sensu.io/assets/sensu/check-cpu-usage

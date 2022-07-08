@@ -1,6 +1,6 @@
 ---
 title: "OpenID Connect 1.0 protocol (OIDC) reference"
-linktitle: "OIDC Reference"
+linkTitle: "OIDC Reference"
 reference_title: "OpenID Connect 1.0 protocol (OIDC)"
 type: "reference"
 description: "Read this reference to configure single sign-on (SSO) authentication for Sensu using OpenID Connect 1.0 protocol (OIDC)."
