@@ -1780,6 +1780,10 @@ log-level: debug
 
 ## Service management
 
+{{% notice note %}}
+**NOTE**: Service management commands may require administrative privileges.
+{{% /notice %}}
+
 ### Start the service
 
 Use the `sensu-agent` tool to start the agent and apply configuration flags.
