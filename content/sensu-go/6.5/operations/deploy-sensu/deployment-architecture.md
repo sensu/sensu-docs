@@ -158,7 +158,6 @@ Under normal conditions, sensuctl communications and browser access to the web U
 
 [1]: ../hardware-requirements/#backend-recommended-configuration
 [2]: ../../../api/
-[3]: ../../../observability-pipeline/observe-schedule/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
 [5]: https://etcd.io/docs/current/op-guide/security/
 [6]: ../secure-sensu/

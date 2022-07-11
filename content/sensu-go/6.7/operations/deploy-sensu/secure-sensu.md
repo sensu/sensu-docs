@@ -76,7 +76,7 @@ etcd-peer-client-cert-auth: "true"
    Because etcd does not require authentication by default, you must set the `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` parameters to `true` to secure Sensu's embedded etcd datastore against unauthorized access.
 
 {{% notice note %}}
-**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration-flags) includes more information about each etcd store parameter.
+**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration) includes more information about each etcd store parameter.
 {{% /notice %}}
 
 ## Secure the Sensu agent API, HTTP API, and web UI
@@ -118,7 +118,7 @@ After you restart the `sensu-backend` service, the parameters will load and you 
 Configuring these attributes will also ensure that agents can communicate securely.
 
 {{% notice note %}}
-**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#security-configuration-flags) includes more information about each API and web UI security configuration parameter.
+**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#security-configuration) includes more information about each API and web UI security configuration parameter.
 {{% /notice %}}
 
 ### Specify a separate web UI certificate and key
@@ -135,7 +135,7 @@ dashboard-key-file: "/etc/sensu/tls/separate-webui-key.pem"
 
 {{% notice note %}}
 **NOTE**: If you do not specify a separate certificate and key for the web UI with `dashboard-cert-file` and `dashboard-key-file`, Sensu uses the certificate and key specified for the `cert-file` and `key-file` parameters for the web UI.
-The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `dashboard-cert-file` and `dashboard-key-file` web UI configuration parameters.
+The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration) includes more information about the `dashboard-cert-file` and `dashboard-key-file` web UI configuration parameters.
 {{% /notice %}}
 
 ## Secure Sensu agent-to-server communication
@@ -262,7 +262,6 @@ The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 [3]: ../../control-access/rbac/
 [4]: ../generate-certificates/#create-a-certificate-authority-ca
 [6]: https://etcd.io/docs/latest/op-guide/security/
-[7]: ../../../observability-pipeline/observe-schedule/agent/#security-configuration-flags
 [9]: https://github.com/cloudflare/cfssl
 [10]: ../cluster-sensu/
 [12]: ../generate-certificates/

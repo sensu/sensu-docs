@@ -124,7 +124,7 @@ read the [entities reference][3] and [Monitor external resources][33] for more i
 ## Create observability events using the agent API
 
 The Sensu agent API allows external sources to send monitoring data to Sensu without requiring the external sources to know anything about Sensu's internal implementation.
-The agent API listens on the address and port specified by the [API configuration flags][18].
+The agent API listens on the address and port specified with the agent [API configuration options][18].
 Only unsecured HTTP (no HTTPS) is supported at this time.
 Any requests for unknown endpoints result in an HTTP `404 Not Found` response.
 
@@ -136,7 +136,7 @@ In case of a loss of connection with the backend or agent shutdown, the agent pr
 When the connection is reestablished, the agent sends the queued events to the backend.
 
 The agent API `/events` endpoint uses a configurable burst limit and rate limit for relaying events to the backend.
-Read [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
+Read [API configuration](#api-configuration) to configure the `events-burst-limit` and `events-rate-limit` options.
 
 #### Example POST request to events endpoint {#events-post-example}
 
@@ -301,14 +301,14 @@ For more information, read the [StatsD documentation][21].
 
 ### Configure the StatsD listener
 
-To configure the StatsD listener, specify the [`statsd-event-handlers`][22] configuration flag in the [agent configuration][24], and start the agent.
+To configure the StatsD listener, specify the [`statsd-event-handlers`][22] configuration option in the [agent configuration][24], and start the agent.
 For example, to start an agent that sends StatsD metrics to InfluxDB, run:
 
 {{< code shell >}}
 sensu-agent --statsd-event-handlers influx-db
 {{< /code >}}
 
-Use the [StatsD configuration flags][22] to change the default settings for the StatsD listener address, port, and [flush interval][23].
+Use the [StatsD configuration options][22] to change the default settings for the StatsD listener address, port, and [flush interval][23].
 For example, to start an agent with a customized address and flush interval, run:
 
 {{< code shell >}}
@@ -323,7 +323,7 @@ sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd
 
 Sensu agents listen for external monitoring data using TCP and UDP sockets.
 The agent sockets accept JSON event data and pass events to the Sensu backend event pipeline for processing.
-The TCP and UDP sockets listen on the address and port specified by the [socket configuration flags][17].
+The TCP and UDP sockets listen on the address and port specified by the [socket configuration options][17].
 
 ### Use the TCP socket
 
@@ -489,19 +489,19 @@ example      | {{< code json >}}{
 ## Keepalive monitoring
 
 Sensu keepalives are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
-Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval`][4] configuration flag.
+Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval`][4] configuration option.
 
-If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout`][4] configuration flag, the Sensu backend creates a keepalive **critical** alert in the Sensu web UI.
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout`][4] configuration option, the Sensu backend creates a keepalive **critical** alert in the Sensu web UI.
 The `keepalive-critical-timeout` is set to `0` (disabled) by default to help ensure that it will not interfere with your `keepalive-warning-timeout` setting.
 
-If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout`][58] configuration flag, the Sensu backend creates a keepalive **warning** alert in the Sensu web UI.
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout`][58] configuration option, the Sensu backend creates a keepalive **warning** alert in the Sensu web UI.
 The value you specify for `keepalive-warning-timeout` must be lower than the value you specify for `keepalive-critical-timeout`.
 
 {{% notice note %}}
-**NOTE**: If you set the [deregister flag](#ephemeral-agent-configuration-flags) to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.<br><br>
+**NOTE**: If you set the [`deregister` configuration option](#ephemeral-agent-configuration) to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.<br><br>
 Deregistration prevents and clears alerts for failing keepalives for agent entities &mdash; the backend does not distinguish between intentional shutdown and failure.
-As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not receive alerts for keepalive events in the web UI.<br><br>
-If you want to receive alerts for failing keepalives, set the [deregister](#ephemeral-agent-configuration-flags) configuration flag to `false`.
+As a result, if you set `deregister` to `true` and an agent process stops for any reason, you will not receive alerts for keepalive events in the web UI.<br><br>
+If you want to receive alerts for failing keepalives, set the [deregister configuration option](#ephemeral-agent-configuration) to `false`.
 {{% /notice %}}
 
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
@@ -553,8 +553,8 @@ spec:
 
 {{< /language-toggle >}}
 
-You can also use the [`keepalive-handlers`][53] flag to send keepalive events to any handler you have configured.
-If you do not specify a keepalive handler with the `keepalive-handlers` flag, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
+You can also use the [`keepalive-handlers`][53] configuration option to send keepalive events to any handler you have configured.
+If you do not specify a keepalive handler with the `keepalive-handlers` option, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
 
 ## Connection failure
 
@@ -801,8 +801,8 @@ However, all registration events are logged in the [Sensu backend log](../backen
 
 As with registration events, the Sensu backend can create and process a deregistration event when the Sensu agent process stops.
 You can use deregistration events to trigger a handler that updates external CMDBs or performs an action to update ephemeral infrastructures.
-To enable deregistration events, use the [`deregister` flag][13], and specify the event handler using the [`deregistration-handler` flag][13].
-You can specify a deregistration handler per agent using the [`deregistration-handler` agent flag][13] or by setting a default for all agents using the [`deregistration-handler` backend configuration flag][37].
+To enable deregistration events, use the [`deregister` option][13], and specify the event handler using the [`deregistration-handler` option][13].
+You can specify a deregistration handler per agent using the [`deregistration-handler` agent option][13] or by setting a default for all agents using the [`deregistration-handler` backend configuration option][37].
 
 {{% notice note %}}
 **NOTE**: Deregistration is supported for [agent entities](../../observe-entities/#agent-entities) that have sent at least one keepalive.
@@ -812,40 +812,31 @@ Deregistration is **not** supported for [proxy entities](../../observe-entities/
 ### Cluster
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16].
-For more information about clustering, read [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
+For more information about clustering, read [Backend datastore configuration][35] and [Run a Sensu cluster][36].
 
 ### Synchronize time
 
 System clocks between agents and the backend should be synchronized to a central NTP server.
 If system time is out of sync, it may cause issues with keepalive, metric, and check alerts.
 
-## Configuration via flags
+## Agent configuration options
 
-The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
+Agent configuration is customizable.
+This section describes each configuration option in more detail, including examples for each [configuration method][70].
 
-{{< platformBlock "Linux" >}}
-
-### Linux
-
-Specify the agent configuration with either a `.yml` file or `sensu-agent start` command line flags.
-Configuration via command line flags overrides attributes specified in a configuration file.
-Review the [example Sensu agent configuration file][5] for flags and defaults.
-
-### Configuration summary
+You can customize agent configuration with the [agent configuration file][69] (Linux and Windows), [command line flag arguments][24] (Linux), or [environment variables][50] (Linux and Windows).
 
 {{% notice note %}}
-**NOTE**: Process discovery is disabled in this version of Sensu.
-The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+**NOTE**: The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 {{% /notice %}}
 
-To view configuration information for the sensu-agent start command, run:
+To view available configuration options for the `sensu-agent start` command, run:
 
 {{< code shell >}}
 sensu-agent start --help
 {{< /code >}}
 
-The response will list command information and configuration flags for sensu-agent start:
+The response will list configuration options as command line flags for `sensu-agent start`:
 
 {{< code text >}}
 start the sensu agent
@@ -904,22 +895,13 @@ Flags:
       --user string                         agent user (default "agent")
 {{< /code >}}
 
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-### Windows
-
-Specify the agent configuration using a `.yml` file.
-Review the [example agent configuration file][5] (also provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example`; default `C:\ProgramData\sensu\config\agent.yml.example`).
-
-{{< platformBlockClose >}}
-
-### General configuration flags
-
 {{% notice note %}}
-**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
+**NOTE**: Process discovery is disabled in this version of Sensu.
+The `--discover-processes` configuration option is not available, and new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
+
+### General configuration
 
 <a id="agent-managed-entity"></a>
 
@@ -932,20 +914,20 @@ default      | false
 environment variable | `SENSU_AGENT_MANAGED_ENTITY`
 command line example   | {{< code shell >}}
 sensu-agent start --agent-managed-entity{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 agent-managed-entity: true{{< /code >}}
 
 <a id="allow-list"></a>
 
 | allow-list |      |
 ------------------|------
-description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. Read [allow list configuration commands][49] and the [example allow list configuration][48] for information about building a configuration file.
+description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. Read [Allow list configuration][49] and the [example allow list configuration][48] for information about building a configuration file.
 type              | String
 default           | `""`
 environment variable | `SENSU_ALLOW_LIST`
 command line example   | {{< code shell >}}
 sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 allow-list: /etc/sensu/check-allow-list.yaml{{< /code >}}
 
 | annotations|      |
@@ -961,10 +943,12 @@ command line example   | {{< code shell >}}
 sensu-agent start --annotations sensu.io/plugins/slack/config/webhook-url=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 sensu-agent start --annotations example-key="example value" --annotations example-key2="example value"
 {{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 annotations:
   sensu.io/plugins/slack/config/webhook-url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
 {{< /code >}}
+
+<a id="assets-burst-limit"></a>
 
 | assets-burst-limit   |      |
 --------------|------
@@ -974,7 +958,7 @@ default       | `100`
 environment variable | `SENSU_ASSETS_BURST_LIMIT`
 command line example   | {{< code shell >}}
 sensu-agent start --assets-burst-limit 100{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 assets-burst-limit: 100{{< /code >}}
 
 | assets-rate-limit   |      |
@@ -985,7 +969,7 @@ default       | `1.39`
 environment variable | `SENSU_ASSETS_RATE_LIMIT`
 command line example   | {{< code shell >}}
 sensu-agent start --assets-rate-limit 1.39{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 assets-rate-limit: 1.39{{< /code >}}
 
 <a id="backend-handshake-timeout"></a>
@@ -998,7 +982,7 @@ default       | `15`
 environment variable | `SENSU_BACKEND_HANDSHAKE_TIMEOUT`
 command line example   | {{< code shell >}}
 sensu-agent start --backend-handshake-timeout 20{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 backend-handshake-timeout: 20{{< /code >}}
 
 <a id="backend-heartbeat-interval"></a>
@@ -1011,7 +995,7 @@ default       | `30`
 environment variable | `SENSU_BACKEND_HEARTBEAT_INTERVAL`
 command line example   | {{< code shell >}}
 sensu-agent start --backend-heartbeat-interval 45{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 backend-heartbeat-interval: 45{{< /code >}}
 
 <a id="backend-heartbeat-timeout"></a>
@@ -1024,7 +1008,7 @@ default       | `45`
 environment variable | `SENSU_BACKEND_HEARTBEAT_TIMEOUT`
 command line example   | {{< code shell >}}
 sensu-agent start --backend-heartbeat-timeout 60{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 backend-heartbeat-timeout: 60{{< /code >}}
 
 | backend-url |      |
@@ -1033,7 +1017,9 @@ description   | ws or wss URL of the Sensu backend server. To specify multiple b
 **NOTE**: If you do not specify a port for your backend-url values, the agent will automatically append the default backend port (8081).
 {{% /notice %}}
 type          | List
-default       | `ws://127.0.0.1:8081`(CentOS/RHEL, Debian, and Ubuntu)<br><br>`$SENSU_HOSTNAME:8080` (Docker)
+default       | `ws://127.0.0.1:8081`(CentOS/RHEL, Debian, and Ubuntu)<br><br>`$SENSU_HOSTNAME:8080` (Docker){{% notice note %}}
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
+{{% /notice %}}
 environment variable | `SENSU_BACKEND_URL`
 command line example | {{< language-toggle >}}
 {{< code shell "ws" >}}
@@ -1045,7 +1031,7 @@ sensu-agent start --backend-url wss://127.0.0.1:8081
 sensu-agent start --backend-url wss://127.0.0.1:8081 --backend-url wss://127.0.0.1:8082
 {{< /code >}}
 {{< /language-toggle >}}
-/etc/sensu/agent.yml example | {{< language-toggle >}}
+agent.yml config file example | {{< language-toggle >}}
 {{< code shell "ws" >}}
 backend-url:
   - "ws://127.0.0.1:8081"
@@ -1068,7 +1054,7 @@ default       | <ul><li>Linux: `/var/cache/sensu/sensu-agent`</li><li>Windows: `
 environment variable | `SENSU_CACHE_DIR`
 command line example   | {{< code shell >}}
 sensu-agent start --cache-dir /cache/sensu-agent{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 cache-dir: "/cache/sensu-agent"{{< /code >}}
 
 <a id="config-file"></a>
@@ -1094,7 +1080,7 @@ default       | false
 environment variable | `SENSU_DISABLE_ASSETS`
 command line example   | {{< code shell >}}
 sensu-agent start --disable-assets{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 disable-assets: true{{< /code >}}
 
 <a id="discover-processes"></a>
@@ -1111,7 +1097,7 @@ default       | false
 environment variable | `SENSU_DISCOVER_PROCESSES`
 command line example   | {{< code shell >}}
 sensu-agent start --discover-processes{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 discover-processes: true{{< /code >}}
 
 | labels     |      |
@@ -1127,7 +1113,7 @@ command line example   | {{< code shell >}}
 sensu-agent start --labels proxy_type=website
 sensu-agent start --labels example_key1="example value" example_key2="example value"
 {{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 labels:
   proxy_type: website
 {{< /code >}}
@@ -1137,12 +1123,12 @@ labels:
 | log-level   |      |
 --------------|------
 description   | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`.
-type          | String
-default       | `info` in Sensu Go 6.4.0<br>`warn` in Sensu Go 6.4.1
+type          | String  
+default       | `info` in Sensu Go 6.4.0<br>`warn` in Sensu Go 6.4.1  
 environment variable | `SENSU_LOG_LEVEL`
 command line example   | {{< code shell >}}
 sensu-agent start --log-level debug{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 log-level: debug{{< /code >}}
 
 <a id="name-attribute"></a>
@@ -1155,7 +1141,7 @@ default       | Defaults to hostname (for example, `sensu-centos`).
 environment variable | `SENSU_NAME`
 command line example   | {{< code shell >}}
 sensu-agent start --name agent-01{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 name: "agent-01"{{< /code >}}
 
 <a id="subscriptions-flag"></a>
@@ -1169,13 +1155,13 @@ command line example   | {{< code shell >}}
 sensu-agent start --subscriptions disk-checks,process-checks
 sensu-agent start --subscriptions disk-checks --subscriptions process-checks
 {{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 subscriptions:
   - disk-checks
   - process-checks
 {{< /code >}}
 
-### API configuration flags
+### API configuration
 
 | api-host    |      |
 --------------|------
@@ -1185,7 +1171,7 @@ default       | `127.0.0.1`
 environment variable | `SENSU_API_HOST`
 command line example   | {{< code shell >}}
 sensu-agent start --api-host 127.0.0.1{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 api-host: "127.0.0.1"{{< /code >}}
 
 | api-port    |      |
@@ -1196,7 +1182,7 @@ default       | `3031`
 environment variable | `SENSU_API_PORT`
 command line example   | {{< code shell >}}
 sensu-agent start --api-port 3031{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 api-port: 3031{{< /code >}}
 
 | disable-api |      |
@@ -1207,7 +1193,7 @@ default       | `false`
 environment variable | `SENSU_DISABLE_API`
 command line example   | {{< code shell >}}
 sensu-agent start --disable-api{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 disable-api: true{{< /code >}}
 
 | events-burst-limit | |
@@ -1218,7 +1204,7 @@ default       | `10`
 environment variable | `SENSU_EVENTS_BURST_LIMIT`
 command line example   | {{< code shell >}}
 sensu-agent start --events-burst-limit 20{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 events-burst-limit: 20{{< /code >}}
 
 | events-rate-limit | |
@@ -1229,10 +1215,10 @@ default       | `10.0`
 environment variable | `SENSU_EVENTS_RATE_LIMIT`
 command line example   | {{< code shell >}}
 sensu-agent start --events-rate-limit 20.0{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 events-rate-limit: 20.0{{< /code >}}
 
-### Ephemeral agent configuration flags
+### Ephemeral agent configuration
 
 | deregister  |      |
 --------------|------
@@ -1244,7 +1230,7 @@ default       | `false`
 environment variable | `SENSU_DEREGISTER`
 command line example   | {{< code shell >}}
 sensu-agent start --deregister{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 deregister: true{{< /code >}}
 
 <a id="agent-deregistration-handler-attribute"></a>
@@ -1256,7 +1242,7 @@ type                     | String
 environment variable     | `SENSU_DEREGISTRATION_HANDLER`
 command line example   | {{< code shell >}}
 sensu-agent start --deregistration-handler deregister{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 deregistration-handler: deregister{{< /code >}}
 
 <a id="detect-cloud-provider-flag"></a>
@@ -1269,10 +1255,10 @@ default                  | `false`
 environment variable     | `SENSU_DETECT_CLOUD_PROVIDER`
 command line example   | {{< code shell >}}
 sensu-agent start --detect-cloud-provider false{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 detect-cloud-provider: false{{< /code >}}
 
-### Keepalive configuration flags
+### Keepalive configuration
 
 | keepalive-critical-timeout |      |
 --------------------|------
@@ -1283,7 +1269,7 @@ default             | `0`
 environment variable   | `SENSU_KEEPALIVE_CRITICAL_TIMEOUT`
 command line example   | {{< code shell >}}
 sensu-agent start --keepalive-critical-timeout 300{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 keepalive-critical-timeout: 300{{< /code >}}
 
 <a id="keepalive-handlers-flag"></a>
@@ -1296,7 +1282,7 @@ default             | `keepalive`
 environment variable   | `SENSU_KEEPALIVE_HANDLERS`
 command line example   | {{< code shell >}}
 sensu-agent start --keepalive-handlers slack,email{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 keepalive-handlers:
 - slack
 - email
@@ -1310,7 +1296,7 @@ default              | `20`
 environment variable   | `SENSU_KEEPALIVE_INTERNAL`
 command line example   | {{< code shell >}}
 sensu-agent start --keepalive-interval 30{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 keepalive-interval: 30{{< /code >}}
 
 <a id="keepalive-warning-timeout-flag"></a>
@@ -1324,10 +1310,10 @@ default             | `120`
 environment variable   | `SENSU_KEEPALIVE_WARNING_TIMEOUT`
 command line example   | {{< code shell >}}
 sensu-agent start --keepalive-warning-timeout 300{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 keepalive-warning-timeout: 300{{< /code >}}
 
-### Security configuration flags
+### Security configuration
 
 | cert-file  |      |
 -------------|------
@@ -1337,7 +1323,7 @@ default      | `""`
 environment variable | `SENSU_CERT_FILE`
 command line example   | {{< code shell >}}
 sensu-agent start --cert-file /path/to/tls/agent.pem{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 cert-file: "/path/to/tls/agent.pem"{{< /code >}}
 
 | insecure-skip-tls-verify |      |
@@ -1350,7 +1336,7 @@ default                    | `false`
 environment variable       | `SENSU_INSECURE_SKIP_TLS_VERIFY`
 command line example   | {{< code shell >}}
 sensu-agent start --insecure-skip-tls-verify{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 insecure-skip-tls-verify: true{{< /code >}}
 
 | key-file   |      |
@@ -1361,7 +1347,7 @@ default      | `""`
 environment variable | `SENSU_KEY_FILE`
 command line example   | {{< code shell >}}
 sensu-agent start --key-file /path/to/tls/agent-key.pem{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 key-file: "/path/to/tls/agent-key.pem"{{< /code >}}
 
 | namespace |      |
@@ -1375,8 +1361,10 @@ default        | `default`
 environment variable   | `SENSU_NAMESPACE`
 command line example   | {{< code shell >}}
 sensu-agent start --namespace ops{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 namespace: ops{{< /code >}}
+
+<a id="agent-password-option"></a>
 
 | password    |      |
 --------------|------
@@ -1386,7 +1374,7 @@ default       | `P@ssw0rd!`
 environment variable   | `SENSU_PASSWORD`
 command line example   | {{< code shell >}}
 sensu-agent start --password secure-password{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 password: secure-password{{< /code >}}
 
 | redact      |      |
@@ -1400,7 +1388,7 @@ default       | By default, Sensu redacts the following fields: `password`, `pas
 environment variable   | `SENSU_REDACT`
 command line example   | {{< code shell >}}
 sensu-agent start --redact secret,ec2_access_key{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 redact:
   - secret
   - ec2_access_key
@@ -1419,7 +1407,7 @@ default           | false
 environment variable | `SENSU_REQUIRE_FIPS`
 command line example   | {{< code shell >}}
 sensu-agent start --require-fips{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 require-fips: true{{< /code >}}
 
 | require-openssl |      |
@@ -1433,7 +1421,7 @@ default           | false
 environment variable | `SENSU_REQUIRE_OPENSSL`
 command line example   | {{< code shell >}}
 sensu-agent start --require-openssl{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 require-openssl: true{{< /code >}}
 
 | trusted-ca-file |      |
@@ -1444,8 +1432,10 @@ default           | `""`
 environment variable   | `SENSU_TRUSTED_CA_FILE`
 command line example   | {{< code shell >}}
 sensu-agent start --trusted-ca-file /path/to/tls/ca.pem{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 trusted-ca-file: "/path/to/tls/ca.pem"{{< /code >}}
+
+<a id="agent-user-option"></a>
 
 | user |      |
 --------------|------
@@ -1455,10 +1445,10 @@ default       | `agent`
 environment variable   | `SENSU_USER`
 command line example   | {{< code shell >}}
 sensu-agent start --user agent-01{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 user: "agent-01"{{< /code >}}
 
-### Socket configuration flags
+### Socket configuration
 
 | disable-sockets |      |
 ------------------|------
@@ -1468,7 +1458,7 @@ default           | `false`
 environment variable   | `SENSU_DISABLE_SOCKETS`
 command line example   | {{< code shell >}}
 sensu-agent start --disable-sockets{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 disable-sockets: true{{< /code >}}
 
 | socket-host |      |
@@ -1479,7 +1469,7 @@ default       | `127.0.0.1`
 environment variable   | `SENSU_SOCKET_HOST`
 command line example   | {{< code shell >}}
 sensu-agent start --socket-host 127.0.0.1{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 socket-host: "127.0.0.1"{{< /code >}}
 
 | socket-port |      |
@@ -1490,10 +1480,10 @@ default       | `3030`
 environment variable   | `SENSU_SOCKET_PORT`
 command line example   | {{< code shell >}}
 sensu-agent start --socket-port 3030{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 socket-port: 3030{{< /code >}}
 
-### StatsD configuration flags
+### StatsD configuration
 
 | statsd-disable |      |
 -----------------|------
@@ -1503,7 +1493,7 @@ default          | `false`
 environment variable   | `SENSU_STATSD_DISABLE`
 command line example   | {{< code shell >}}
 sensu-agent start --statsd-disable{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 statsd-disable: true{{< /code >}}
 
 | statsd-event-handlers |      |
@@ -1515,7 +1505,7 @@ command line example   | {{< code shell >}}
 sensu-agent start --statsd-event-handlers influxdb,opentsdb
 sensu-agent start --statsd-event-handlers influxdb --statsd-event-handlers opentsdb
 {{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 statsd-event-handlers:
   - influxdb
   - opentsdb
@@ -1529,7 +1519,7 @@ default                  | `10`
 environment variable     | `SENSU_STATSD_FLUSH_INTERVAL`
 command line example   | {{< code shell >}}
 sensu-agent start --statsd-flush-interval 30{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 statsd-flush-interval: 30{{< /code >}}
 
 | statsd-metrics-host |      |
@@ -1540,7 +1530,7 @@ default               | `127.0.0.1`
 environment variable   | `SENSU_STATSD_METRICS_HOST`
 command line example   | {{< code shell >}}
 sensu-agent start --statsd-metrics-host 127.0.0.1{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 statsd-metrics-host: "127.0.0.1"{{< /code >}}
 
 | statsd-metrics-port |      |
@@ -1551,13 +1541,13 @@ default               | `8125`
 environment variable   | `SENSU_STATSD_METRICS_PORT`
 command line example   | {{< code shell >}}
 sensu-agent start --statsd-metrics-port 8125{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+agent.yml config file example | {{< code shell >}}
 statsd-metrics-port: 8125{{< /code >}}
 
-### Allow list configuration commands
+### Allow list configuration
 
 The allow list includes check and hook commands the agent can execute.
-Use the [allow-list flag][56] to specify the path to the yaml or json file that contains your allow list.
+Use the [`allow-list` configuration option][56] to specify the path to the yaml or json file that contains your allow list.
 
 Use these commands to build your allow list configuration file.
 
@@ -1677,9 +1667,38 @@ sha512: 4f926bf4328...
 
 {{< /language-toggle >}}
 
-## Configuration via environment variables
+## Agent configuration methods
 
-Instead of using configuration flags, you can use environment variables to configure your Sensu agent.
+### Agent configuration file
+
+For Linux and Windows agents, you can customize the agent configuration in a `.yml` configuration file.
+
+The default agent configuration file path for Linux is `/etc/sensu/agent.yml`.
+The default agent configuration file path for Windows is `C:\ProgramData\sensu\config\agent.yml.example`.
+
+To use the `agent.yml` file to configure the agent, list the desired configuration attributes and values.
+Review the [example Sensu agent configuration file][5] for a complete example.
+
+Configuration via command line flags or environment variables overrides any configuration specified in the agent configuration file.
+Read [Create overrides][68] to learn more.
+
+### Command line flags
+
+For Linux agents, you can customize the agent configuration with `sensu-agent start` command line flags.
+
+To use command line flags, specify the desired configuration flags and values along with the `sensu-agent start` command.
+For example:
+
+{{< code shell >}}
+sensu-agent start --name webserver_05 --keepalive-warning-timeout 60 --keepalive-critical-timeout 120
+{{< /code >}}
+
+Configuration via command line flags overrides attributes specified in a configuration file or with environment variables.
+Read [Create overrides][68] to learn more.
+
+### Environment variables
+
+Instead of using the agent configuration file or command line flags, you can use environment variables to configure your Sensu agent.
 Each agent configuration flag has an associated environment variable.
 You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
 Here's how.
@@ -1757,8 +1776,8 @@ sc.exe start SensuAgent
      {{< /language-toggle >}}
 
 {{% notice note %}}
-**NOTE**: Sensu includes an environment variable for each agent configuration flag.
-They are listed in the [configuration flag description tables](#general-configuration-flags).
+**NOTE**: Sensu includes an environment variable for each agent configuration option.
+They are listed in the [configuration description tables](#general-configuration).
 {{% /notice %}}
 
 ### Format for label and annotation environment variables
@@ -1864,12 +1883,12 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 **NOTE**: If you define the `HTTP_PROXY` and `HTTPS_PROXY` environment variables, the agent WebSocket connection will also use the proxy URL you specify.
 {{% /notice %}}
 
-## Create overrides
+## Create configuration overrides
 
 Sensu has default settings and limits for certain configuration attributes, like the default log level.
 Depending on your environment and preferences, you may want to create overrides for these Sensu-specific defaults and limits.
 
-You can create overrides in several ways:
+You can create configuration overrides in several ways:
 
 - Command line configuration flag arguments for `sensu-agent start`.
 - Environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
@@ -1923,7 +1942,7 @@ log-level: debug
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [2]: ../backend/
 [3]: ../../observe-entities/entities/
-[4]: #keepalive-configuration-flags
+[4]: #keepalive-configuration
 [5]: ../../../files/windows/agent.yml
 [6]: ../../../sensuctl/
 [7]: ../../observe-events/events/
@@ -1932,18 +1951,18 @@ log-level: debug
 [10]: ../../observe-transform/mutators/
 [11]: https://en.wikipedia.org/wiki/Configuration_management_database
 [12]: https://www.servicenow.com/products/it-operations-management.html
-[13]: #ephemeral-agent-configuration-flags
+[13]: #ephemeral-agent-configuration
 [14]: ../checks/
 [15]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
-[16]: #general-configuration-flags
-[17]: #socket-configuration-flags
-[18]: #api-configuration-flags
+[16]: #general-configuration
+[17]: #socket-configuration
+[18]: #api-configuration
 [19]: https://sourceforge.net/projects/netcat/
 [20]: https://en.wikipedia.org/wiki/Dead_man%27s_switch
 [21]: https://github.com/etsy/statsd
-[22]: #statsd-configuration-flags
+[22]: #statsd-configuration
 [23]: https://github.com/statsd/statsd#key-concepts
-[24]: #configuration-via-flags
+[24]: #command-line-flags
 [25]: ../../../api/#response-filtering
 [26]: ../../../sensuctl/filter-responses/
 [27]: ../tokens/
@@ -1954,9 +1973,9 @@ log-level: debug
 [32]: ../checks/#proxy-entity-name-attribute
 [33]: ../../observe-entities/monitor-external-resources/
 [34]: #backend-heartbeat-interval
-[35]: ../backend#datastore-and-cluster-configuration-flags
+[35]: ../backend/#datastore-and-cluster-configuration
 [36]: ../../../operations/deploy-sensu/cluster-sensu/
-[37]: ../backend#general-configuration-flags
+[37]: ../backend/#general-configuration
 [38]: #name
 [39]: ../../../operations/control-access/rbac/#agent-user
 [40]: ../../observe-process/send-slack-alerts/
@@ -1968,8 +1987,8 @@ log-level: debug
 [46]: ../../../operations/deploy-sensu/secure-sensu/
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration
-[49]: #allow-list-configuration-commands
-[50]: #configuration-via-environment-variables
+[49]: #allow-list-configuration
+[50]: #environment-variables
 [51]: #events-post-specification
 [52]: ../../observe-process/handlers/#keepalive-event-handlers
 [53]: #keepalive-handlers-flag
@@ -1980,3 +1999,4 @@ log-level: debug
 [58]: #keepalive-warning-timeout-flag
 [59]: ../../../operations/control-access/#use-built-in-basic-authentication
 [60]: #log-level
+[69]: #agent-configuration-file

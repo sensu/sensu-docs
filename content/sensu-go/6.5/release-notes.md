@@ -467,7 +467,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.2.1.
 - ([Commercial feature][193]) In the web UI, fixed a bug that allowed users to edit Sensu [agent-managed entities][204].
 - Fixed a bug that generated a small amount of extra etcd or PostgreSQL traffic upon keepalive failure.
 - In silenced entries, the `expire` field now represents the configured number of seconds until the entry should be deleted rather than the entry's remaining duration.
-- Labels and annotations can now be configured with [flags][205] for sensu-agent.
+- Labels and annotations are now [configuration options][205] for sensu-agent.
 
 ## 6.2.0 release notes
 
@@ -820,7 +820,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 **NEW FEATURES:**
 
-- ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` flag to the [agent configuration flags][142] to populate the `processes` field in entity.system if enabled.
+- ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` flag to the [agent configuration options][142] to populate the `processes` field in entity.system if enabled.
 - ([Commercial feature][141]) Added a new resource, `GlobalConfig`, that you can use to [customize your web UI configuration][148].
 - ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153] and the [`metrics-refresh-interval`][224] backend configuration flag for setting the interval at which Sensu should refresh metrics.
 - ([Commercial feature][141]) Added process and additional system information to the entity details view in the [web UI][153].
@@ -885,7 +885,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.19.3.
 
 - In the [web UI][135], color-blindness modes are now available.
 - In the [web UI][135], labels and annotations with links to images will now be displayed inline.
-- Adds a global rate limit for fetching assets to prevent abusive asset retries, which you can configure with the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][136] and [backend][137].
+- Adds a global rate limit for fetching assets to prevent abusive asset retries, which you can configure with the `--assets-burst-limit` and `--assets-rate-limit` flags for the [agent][136] and [backend][137].
 - Adds support for restarting the backend via SIGHUP.
 - Adds a timeout flag to `sensu-backend init`.
 - Deprecated flags for `sensuctl silenced update` subcommand have been removed.
@@ -1119,7 +1119,7 @@ Users will need to [run 'sensu-backend init'][102] on every new installation and
 - Added a new flag,`--etcd-client-urls`, which should be used with sensu-backend when it is not operating as an etcd member.
 The flag is also used by the new `sensu-backend init` subcommand.
 - Added the ['sensu-backend init' subcommand][102].
-- Added the [`--etcd-discovery`][100] and [`--etcd-discovery-srv`][100] flags to sensu-backend, which allow users to take advantage of the embedded etcd's auto-discovery features.
+- Added the [`--etcd-discovery`][100] and [`--etcd-discovery-srv`][292] flags to sensu-backend, which allow users to take advantage of the embedded etcd's auto-discovery features.
 - Added [`--keepalive-critical-timeout`][101] to define the time after which a critical keepalive event should be created for an agent and [`--keepalive-warning-timeout`][101], which is an alias of `--keepalive-timeout` for backward compatibility.
 
 **IMPROVEMENTS:**
@@ -1924,7 +1924,7 @@ To get started with Sensu Go:
 [26]: /sensu-go/5.4/observability-pipeline/observe-schedule/agent/#events-post
 [27]: /sensu-go/5.5/operations/monitor-sensu/tessen/
 [28]: https://sensu.io/blog/announcing-tessen-the-sensu-call-home-service/
-[29]: /sensu-go/5.5/observability-pipeline/observe-schedule/agent/#general-configuration-flags
+[29]: /sensu-go/5.5/observability-pipeline/observe-schedule/agent/#general-configuration
 [30]: /sensu-go/5.5/observability-pipeline/observe-schedule/agent/#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [31]: /sensu-go/5.4/api/other/metrics/
 [32]: /sensu-go/5.6/web-ui/
@@ -1935,7 +1935,7 @@ To get started with Sensu Go:
 [37]: /sensu-go/5.6/operations/control-access/
 [38]: /sensu-go/5.6/operations/control-access/ldap-auth/#ldap-binding-attributes
 [39]: /sensu-go/5.6/operations/control-access/ad-auth/#ad-binding-attributes
-[40]: /sensu-go/5.6/observability-pipeline/observe-schedule/agent/#general-configuration-flags
+[40]: /sensu-go/5.6/observability-pipeline/observe-schedule/agent/#general-configuration
 [41]: /sensu-go/5.7/operations/deploy-sensu/install-sensu/#install-sensu-agents
 [42]: /sensu-go/5.7/observability-pipeline/observe-schedule/agent/
 [43]: /sensu-go/5.7/api/#response-filtering
@@ -1995,8 +1995,8 @@ To get started with Sensu Go:
 [97]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler/
 [98]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler/
 [99]: /sensu-go/5.2/commercial/
-[100]: /sensu-go/5.16/observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration-flags
-[101]: /sensu-go/5.16/observability-pipeline/observe-schedule/agent/#keepalive-configuration-flags
+[100]: /sensu-go/5.16/observability-pipeline/observe-schedule/backend/#etcd-discovery
+[101]: /sensu-go/5.16/observability-pipeline/observe-schedule/agent/#keepalive-configuration
 [102]: /sensu-go/5.16/observability-pipeline/observe-schedule/backend/#initialization
 [103]: /sensu-go/5.16/web-ui/
 [104]: /sensu-go/5.16/
@@ -2029,13 +2029,13 @@ To get started with Sensu Go:
 [133]: /sensu-go/5.19/platforms/
 [134]: /sensu-go/5.19/operations/deploy-sensu/install-sensu/
 [135]: /sensu-go/5.19/web-ui/
-[136]: /sensu-go/5.19/observability-pipeline/observe-schedule/agent/#configuration-via-flags
+[136]: /sensu-go/5.19/observability-pipeline/observe-schedule/agent/#assets-burst-limit
 [137]: /sensu-go/5.19/observability-pipeline/observe-schedule/backend/#configuration-via-flags
 [138]: /sensu-go/5.20/api#field-selector
 [139]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#log-rotation
 [140]: /sensu-go/5.20/operations/maintain-sensu/troubleshoot/#increment-log-level-verbosity
 [141]: /sensu-go/5.20/commercial/
-[142]: /sensu-go/5.20/observability-pipeline/observe-schedule/agent/#configuration-via-flags
+[142]: /sensu-go/5.20/observability-pipeline/observe-schedule/agent/#agent-configuration-options
 [143]: /sensu-go/5.20/observability-pipeline/observe-entities/entities/#processes-attributes
 [144]: /sensu-go/5.20/sensuctl/create-manage-resources/#supported-resource-types
 [145]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#configuration-summary
@@ -2096,7 +2096,7 @@ To get started with Sensu Go:
 [202]: /sensu-go/6.2/sensuctl/#first-time-setup-and-authentication
 [203]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#agent-managed-entity
 [204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
-[205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#configuration-via-flags
+[205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#agent-configuration-options
 [206]: /sensu-go/5.21/observability-pipeline/observe-schedule/backend/#log-rotation
 [207]: /sensu-go/6.3/commercial/
 [208]: /sensu-go/6.3/observability-pipeline/observe-schedule/backend/#agent-burst-limit
@@ -2120,6 +2120,7 @@ To get started with Sensu Go:
 [226]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#event-log-parallel-encoders
 [227]: /sensu-go/6.4/api/other/metrics/
 [228]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#event-logging
+[229]: /sensu-go/5.16/observability-pipeline/observe-schedule/backend/#etcd-discovery-srv
 [229]: /sensu-go/6.5/commercial/
 [230]: /sensu-go/6.5/observability-pipeline/observe-process/sumo-logic-metrics-handlers/
 [231]: /sensu-go/6.5/observability-pipeline/observe-process/tcp-stream-handlers/
@@ -2148,3 +2149,4 @@ To get started with Sensu Go:
 [255]: #652-release-notes
 [256]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#api-write-timeout
 [257]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#dashboard-write-timeout
+[292]: /sensu-go/5.16/observability-pipeline/observe-schedule/backend/#etcd-discovery-srv

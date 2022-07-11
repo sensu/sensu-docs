@@ -1926,7 +1926,7 @@ status: Ss
 [31]: ../#agent-entities
 [32]: ../#proxy-entities
 [33]: ../../../web-ui/view-manage-resources/#manage-entities
-[34]: ../../observe-schedule/agent/#ephemeral-agent-configuration-flags
+[34]: ../../observe-schedule/agent/#ephemeral-agent-configuration
 [35]: ../../observe-schedule/agent/#config-file
 [36]: ../../../api/core/entities/
 [37]: ../../../sensuctl/create-manage-resources/#update-resources
