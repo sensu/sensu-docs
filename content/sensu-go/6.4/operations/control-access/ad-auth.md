@@ -1,6 +1,6 @@
 ---
 title: "Active Directory (AD) reference"
-linktitle: "AD Reference"
+linkTitle: "AD Reference"
 reference_title: "Active Directory (AD)"
 type: "reference"
 description: "Read this reference to configure single sign-on (SSO) authentication for Sensu using Microsoft Active Directory (AD)."

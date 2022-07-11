@@ -9,6 +9,7 @@ version: "6.7"
 menu: "sensu-go-6.7"
 ---
 
+- [6.7.3 release notes](#673-release-notes)
 - [6.7.2 release notes](#672-release-notes)
 - [6.7.1 release notes](#671-release-notes)
 - [6.7.0 release notes](#670-release-notes)
@@ -105,6 +106,26 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
+
+## 6.7.3 release notes
+
+**July 7, 2022** &mdash; The latest release of Sensu Go, version 6.7.3, is now available for download.
+
+Sensu Go 6.7.3 includes fixes for the Sensu Catalog sort order and web UI notifications, as well a database issue that could cause backends to crash.
+We also fixed bugs that affected business service monitoring (BSM) service components and removed limits on Active Directory (AD) and Lightweight Directory Access Protocol (LDAP) searches.
+This patch release includes a change in how agents execute check requests to prevent `check execution still in progress` failures. 
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.7.3.
+
+**FIXES**
+- ([Commercial feature][268]) When using the business service monitoring (BSM) feature, service component metadata is now included in the [`check` scope][291] of events the service component generates.
+Also fixed a bug that could cause BSM service component queries to retrieve events that do not match the specified query expressions.
+- ([Commercial feature][268]) Removed a database constraint that could cause backends to crash when running agents on hosts that have many addresses associated with a single network interface.
+- ([Commercial feature][268]) Active Directory (AD) and Lightweight Directory Access Protocol (LDAP) searches are no longer limited to 1000 results.
+- ([Commercial feature][268]) In the web UI, [Sensu Catalog][269] integrations are now listed alphabetically.
+- ([Commercial feature][268]) In the web UI's automated [Sensu Plus][271] setup dialog, the value in the **Source URL** field is no longer truncated.
+- ([Commercial feature][268]) In the web UI, pop-up notifications at the bottom of the page are no longer obscured by other content.
+- To prevent `check execution still in progress` failures, agents will no longer execute check requests with issued timestamps that are equal to or older than the issued timestamp for the last executed check request with the same check name.
 
 ## 6.7.2 release notes
 
@@ -2339,7 +2360,7 @@ To get started with Sensu Go:
 [215]: /sensu-go/6.4/commercial/
 [216]: /sensu-go/6.4/platforms/#macos
 [217]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#etcd-log-level
-[218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout-and-wait-flags
+[218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout
 [219]: https://etcd.io/docs/v3.5/metrics/etcd-metrics-latest.txt
 [220]: /sensu-go/6.4/web-ui/webconfig-reference/#sign-in-message
 [221]: /sensu-go/6.4/web-ui/webconfig-reference/#page-preferences-attributes
@@ -2373,7 +2394,7 @@ To get started with Sensu Go:
 [249]: /sensu-go/6.5/web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
 [250]: /sensu-go/6.5/web-ui/view-manage-resources/#execute-checks-on-demand
 [251]: /sensu-go/6.5/observability-pipeline/observe-events/events/#processedby-attribute
-[253]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#initialization-ignore-already-initialized-flag
+[253]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#ignore-already-initialized
 [254]: /sensu-go/6.5/observability-pipeline/observe-transform/mutators/#env-vars-attribute
 [255]: #652-release-notes
 [256]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#api-write-timeout
@@ -2411,3 +2432,4 @@ To get started with Sensu Go:
 [288]: /sensu-go/6.7/web-ui/view-manage-resources/webconfig-reference/#sign-in-message
 [289]: /sensu-go/6.7/web-ui/sensu-catalog/#duplicate-integrations-and-existing-resources
 [290]: /sensu-go/6.7/web-ui/sensu-catalog/
+[291]: /sensu-go/6.7/observability-pipeline/observe-events/events/#check-scope

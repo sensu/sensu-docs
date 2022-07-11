@@ -407,7 +407,7 @@ Now that you know how to apply a handler to a check and take action on events:
 
 - Reuse this email handler with the `check_cpu` check from our [Monitor server resources][2] guide.
 - Learn how to use the event filter, handler, and pipeline resources you created to start developing a [monitoring as code][15] repository.
-- Read the [pipeline reference][6] for in-depth pipeline documentation.
+- Read the [pipelines reference][6] for in-depth pipeline documentation.
 - Check out [Route alerts with event filters][7] for a complex pipeline example that includes several workflows with different event filters and handlers.
 
 

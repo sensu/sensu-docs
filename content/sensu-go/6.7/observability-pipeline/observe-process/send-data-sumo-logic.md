@@ -447,7 +447,7 @@ Replace the `pipelines: []` line with the following array:
     name: sensu_to_sumo
 {{< /code >}}
 
-To confirm that the updated `check_cpu` resource definition includes the pipeline reference, run:
+To confirm that the updated `check_cpu` resource definition includes the pipelines reference, run:
 
 {{< language-toggle >}}
 

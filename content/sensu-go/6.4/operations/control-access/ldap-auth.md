@@ -1,6 +1,6 @@
 ---
 title: "Lightweight Directory Access Protocol (LDAP) reference"
-linktitle: "LDAP Reference"
+linkTitle: "LDAP Reference"
 reference_title: "Lightweight Directory Access Protocol (LDAP)"
 type: "reference"
 description: "Read this reference to configure single sign-on (SSO) authentication for Sensu using Lightweight Directory Access Protocol (LDAP)."

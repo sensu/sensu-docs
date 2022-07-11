@@ -441,7 +441,7 @@ Combine `proxy_requests` attributes with with [token substitution][39] as shown 
 The following proxy check runs every 60 seconds, cycling through the agents with the `run_proxies` subscription alphabetically according to the agent name, for all existing proxy entities with the custom label `proxy_type` set to `website`.
 
 This check uses [token substitution][39] to import the value of the custom entity label `url` to complete the check command.
-Read the [entity reference][40] for information about adding custom labels to entities.
+Read the [entities reference][40] for information about adding custom labels to entities.
 
 {{< language-toggle >}}
 
@@ -1675,6 +1675,8 @@ subdue: null
 |subdues     |      |
 -------------|------
 description  | Specific periods of time when Sensu should not send alerts based on the events the check produces. Use to schedule alert-free periods of time, such as during sleeping hours, weekends, or special maintenance periods. Read [subdues attributes][83] for more information.
+required     | false
+type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 subdues:

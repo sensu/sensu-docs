@@ -661,7 +661,7 @@ Now when the `check_cpu` check generates an incident, Sensu will filter the even
 ### Entities
 
 You can also specify contacts using an entity label.
-For more information about managing entity labels, read the [entity reference][10].
+For more information about managing entity labels, read the [entities reference][10].
 
 If contact labels are present in both the check and entity, the check contacts override the entity contacts.
 In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #<ALERT_DEV> but not to #<ALERT_OPS> or #<ALERT_ALL>.
