@@ -31,7 +31,9 @@ Supported packages for common platforms are available from [sensu/stable][8] on 
 | `arm64` | {{< check >}} | {{< check >}} | {{< check >}} |
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} |
 
-As of Sensu Go 6.7.3, supported packages for the Sensu backend also include **Ubuntu 22.04** (`amd64`, `arm64`, `ppe64le`).
+As of Sensu Go 6.7.2, supported packages for the Sensu backend also include **Ubuntu 22.04** (`amd64`, `arm64`, `ppe64le`).
+
+As of Sensu Go 6.7.3, supported packages for the Sensu backend also include **RHEL/CentOS 9** (`amd64`, `arm64`, `ppe64le`).
 
 ### Sensu agent
 
@@ -43,7 +45,9 @@ As of Sensu Go 6.7.3, supported packages for the Sensu backend also include **Ub
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
-As of Sensu Go 6.7.3, supported packages for the Sensu agent also include **Ubuntu 22.04** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
+As of Sensu Go 6.7.2, supported packages for the Sensu agent also include **Ubuntu 22.04** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
+
+As of Sensu Go 6.7.3, supported packages for the Sensu backend also include **RHEL/CentOS 9** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
 
 ### Sensuctl command line tool
 
@@ -55,7 +59,9 @@ As of Sensu Go 6.7.3, supported packages for the Sensu agent also include **Ubun
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
-As of Sensu Go 6.7.3, supported packages for the sensuctl command line tool also include **Ubuntu 22.04** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
+As of Sensu Go 6.7.2, supported packages for the sensuctl command line tool also include **Ubuntu 22.04** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
+
+As of Sensu Go 6.7.3, supported packages for the Sensu backend also include **RHEL/CentOS 9** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
 
 ## Docker images
 
