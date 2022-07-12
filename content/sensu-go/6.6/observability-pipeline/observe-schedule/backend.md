@@ -215,7 +215,7 @@ Store Flags:
       --etcd-trusted-ca-file string          path to the client server TLS trusted CA cert file
 {{< /code >}}
 
-For more information about the initialization store flags, read [Datastore and cluster configuration flags][72] and [Advanced configuration options][73].
+For more information about the initialization store flags, read [Datastore and cluster configuration][72] and [Advanced configuration options][73].
 
 <a id="ignore-already-initialized"></a>
 
@@ -295,23 +295,24 @@ Check scheduling is subscription-based: the backend sends check requests to [sub
 
 For information about creating and managing checks, read the [checks reference][5] and the guides [Monitor server resources with checks][3] and [Collect metrics with checks][4].
 
-## Configuration via flags
+## Backend configuration options
 
-You can specify the backend configuration with either a `/etc/sensu/backend.yml` file or `sensu-backend start` [configuration flags][15].
-The backend requires that the `state-dir` flag is set before starting.
-All other required flags have default values.
-Review the [example backend configuration file][17] for flags and defaults.
-The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
+Backend configuration is customizable.
+This section describes each configuration option in more detail, including examples for each [configuration method][79].
 
-### Configuration summary
+You can customize backend configuration with the [backend configuration file][76], [command line flag arguments][77], or [environment variables][78].
 
-To view configuration information for the sensu-backend start command, run:
+{{% notice note %}}
+**NOTE**: The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
+{{% /notice %}}
+
+To view configuration information for the `sensu-backend start` command, run:
 
 {{< code shell >}}
 sensu-backend start --help
 {{< /code >}}
 
-The response will list command information and configuration flags for sensu-backend start:
+The response will list configuration options as command line flags for `sensu-backend start`:
 
 {{< code text >}}
 start the sensu backend
@@ -400,13 +401,12 @@ Store Flags:
       --no-embed-etcd                             don't embed etcd, use external etcd instead
 {{< /code >}}
 
-For more information about log configuration flags, read [Event logging][65] and [Platform metrics logging][66].
+The backend requires that the [`state-dir`][75] configuration option is set before starting.
+All other required flags have default values.
 
-### General configuration flags
+For more information about log configuration options, read [Event logging][65] and [Platform metrics logging][66].
 
-{{% notice note %}}
-**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
-{{% /notice %}}
+### General configuration
 
 | annotations|      |
 -------------|------
@@ -421,7 +421,7 @@ command line example   | {{< code shell >}}
 sensu-backend start --annotations sensu.io/plugins/slack/config/webhook-url=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 sensu-backend start --annotations example-key="example value" --annotations example-key2="example value"
 {{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 annotations:
   sensu.io/plugins/slack/config/webhook-url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
 {{< /code >}}
@@ -434,7 +434,7 @@ default      | `[::]:8080`
 environment variable | `SENSU_BACKEND_API_LISTEN_ADDRESS`
 command line example   | {{< code shell >}}
 sensu-backend start --api-listen-address [::]:8080{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 api-listen-address: "[::]:8080"{{< /code >}}
 
 <a id="api-request-limit"></a>
@@ -447,18 +447,20 @@ default      | `512000`
 environment variable | `SENSU_BACKEND_API_REQUEST_LIMIT`
 command line example   | {{< code shell >}}
 sensu-backend start --api-request-limit 1024000{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 api-request-limit: 1024000{{< /code >}}
 
 | api-url  |      |
 -------------|------
 description  | URL used to connect to the API.
 type         | String
-default      | `http://localhost:8080` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:8080` (Docker)
+default      | `http://localhost:8080` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:8080` (Docker){{% notice note %}}
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
+{{% /notice %}}
 environment variable | `SENSU_BACKEND_API_URL`
 command line example   | {{< code shell >}}
 sensu-backend start --api-url http://localhost:8080{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 api-url: "http://localhost:8080"{{< /code >}}
 
 <a id="api-write-timeout"></a>
@@ -471,7 +473,7 @@ default      | `15s`
 environment variable | `SENSU_BACKEND_API_WRITE_TIMEOUT`
 command line example   | {{< code shell >}}
 sensu-backend start --api-write-timeout 15s{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 api-write-timeout: 15s{{< /code >}}
 
 | assets-burst-limit   |      |
@@ -482,7 +484,7 @@ default       | `100`
 environment variable | `SENSU_BACKEND_ASSETS_BURST_LIMIT`
 command line example   | {{< code shell >}}
 sensu-backend start --assets-burst-limit 100{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 assets-burst-limit: 100{{< /code >}}
 
 | assets-rate-limit   |      |
@@ -493,7 +495,7 @@ default       | `1.39`
 environment variable | `SENSU_BACKEND_ASSETS_RATE_LIMIT`
 command line example   | {{< code shell >}}
 sensu-backend start --assets-rate-limit 1.39{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 assets-rate-limit: 1.39{{< /code >}}
 
 | cache-dir   |      |
@@ -504,7 +506,7 @@ default       | `/var/cache/sensu/sensu-backend`
 environment variable | `SENSU_BACKEND_CACHE_DIR`
 command line example   | {{< code shell >}}
 sensu-backend start --cache-dir /var/cache/sensu-backend{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 cache-dir: "/var/cache/sensu-backend"{{< /code >}}
 
 | config-file |      |
@@ -528,7 +530,7 @@ default     | `false`
 environment variable | `SENSU_BACKEND_DEBUG`
 command line example   | {{< code shell >}}
 sensu-backend start --debug{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 debug: true{{< /code >}}
 
 <a id="deregistration-handler-attribute"></a>
@@ -541,7 +543,7 @@ default                  | `""`
 environment variable     | `SENSU_BACKEND_DEREGISTRATION_HANDLER`
 command line example   | {{< code shell >}}
 sensu-backend start --deregistration-handler deregister{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 deregistration-handler: "deregister"{{< /code >}}
 
 | labels     |      |
@@ -557,7 +559,7 @@ command line example   | {{< code shell >}}
 sensu-backend start --labels security_zone=us-west-2a
 sensu-backend start --labels example_key1="example value" example_key2="example value"
 {{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 labels:
   security_zone: "us-west-2a"
   example_key1: "example value"
@@ -574,7 +576,7 @@ default      | `warn`
 environment variable | `SENSU_BACKEND_LOG_LEVEL`
 command line example   | {{< code shell >}}
 sensu-backend start --log-level debug{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 log-level: "debug"{{< /code >}}
 
 <a id="metrics-refresh-interval"></a>
@@ -582,15 +584,17 @@ log-level: "debug"{{< /code >}}
 | metrics-refresh-interval |      |
 -------------|------
 description  | Interval at which Sensu should refresh metrics. In hours, minutes, seconds, or a combination &mdash; for example, `5m`, `1m30s`, and `1h10m30s` are all valid values.{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the `metrics-refresh-interval` flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+**COMMERCIAL FEATURE**: Access the `metrics-refresh-interval` configuration option in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 type         | String
 default      | `1m`
 environment variable | `SENSU_BACKEND_METRICS_REFRESH_INTERVAL`
 command line example   | {{< code shell >}}
 sensu-backend start --metrics-refresh-interval 10s{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 metrics-refresh-interval: 10s{{< /code >}}
+
+<a id="state-dir-option"></a>
 
 | state-dir  |      |
 -------------|------
@@ -602,10 +606,10 @@ command line example   | {{< code shell >}}
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend
 sensu-backend start -d /var/lib/sensu/sensu-backend
 {{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 state-dir: "/var/lib/sensu/sensu-backend"{{< /code >}}
 
-### Agent communication configuration flags
+### Agent communication configuration
 
 | agent-auth-cert-file |      |
 -------------|------
@@ -615,7 +619,7 @@ default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_CERT_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --agent-auth-cert-file /path/to/tls/backend-1.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 agent-auth-cert-file: /path/to/tls/backend-1.pem{{< /code >}}
 
 | agent-auth-crl-urls |      |
@@ -626,7 +630,7 @@ default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_CRL_URLS`
 command line example   | {{< code shell >}}
 sensu-backend start --agent-auth-crl-urls http://localhost/CARoot.crl{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 agent-auth-crl-urls: http://localhost/CARoot.crl{{< /code >}}
 
 | agent-auth-key-file |      |
@@ -637,7 +641,7 @@ default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_KEY_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --agent-auth-key-file /path/to/tls/backend-1-key.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 agent-auth-key-file: /path/to/tls/backend-1-key.pem{{< /code >}}
 
 | agent-auth-trusted-ca-file |      |
@@ -648,7 +652,7 @@ default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_TRUSTED_CA_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --agent-auth-trusted-ca-file /path/to/tls/ca.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 agent-auth-trusted-ca-file: /path/to/tls/ca.pem{{< /code >}}
 
 <a id="agent-burst-limit"></a>
@@ -656,16 +660,16 @@ agent-auth-trusted-ca-file: /path/to/tls/ca.pem{{< /code >}}
 | agent-burst-limit   |      |
 --------------|------
 description   | Maximum amount of burst allowed in a rate interval for agent transport WebSocket connections. {{% notice note %}}
-**NOTE**: The agent-burst-limit flag is deprecated.
+**NOTE**: The `agent-burst-limit` configuration flag is deprecated.
 {{% /notice %}} {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the agent-burst-limit flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+**COMMERCIAL FEATURE**: Access the `agent-burst-limit` configuration option in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 type          | Integer
 default       | `null`
 environment variable | `SENSU_BACKEND_AGENT_BURST_LIMIT`
 command line example   | {{< code shell >}}
 sensu-backend start --agent-burst-limit 10{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 agent-burst-limit: 10{{< /code >}}
 
 | agent-host   |      |
@@ -676,7 +680,7 @@ default        | `[::]`
 environment variable | `SENSU_BACKEND_AGENT_HOST`
 command line example   | {{< code shell >}}
 sensu-backend start --agent-host 127.0.0.1{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 agent-host: "127.0.0.1"{{< /code >}}
 
 | agent-port |      |
@@ -687,7 +691,7 @@ default      | `8081`
 environment variable | `SENSU_BACKEND_AGENT_PORT`
 command line example   | {{< code shell >}}
 sensu-backend start --agent-port 8081{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 agent-port: 8081{{< /code >}}
 
 <a id="agent-rate-limit"></a>
@@ -695,40 +699,40 @@ agent-port: 8081{{< /code >}}
 | agent-rate-limit   |      |
 --------------|------
 description   | Maximum number of agent transport WebSocket connections per second, per backend.{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the agent-rate-limit flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+**COMMERCIAL FEATURE**: Access the `agent-rate-limit` configuration option in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 type          | Integer
 default       | `null`
 environment variable | `SENSU_BACKEND_AGENT_RATE_LIMIT`
 command line example   | {{< code shell >}}
 sensu-backend start --agent-rate-limit 10{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 agent-rate-limit: 10{{< /code >}}
 
-### Security configuration flags
+### Security configuration
 
 | cert-file  |      |
 -------------|------
-description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the `dashboard-cert-file` configuration option is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_CERT_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --cert-file /path/to/tls/backend-1.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 cert-file: "/path/to/tls/backend-1.pem"{{< /code >}}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
 description                | If `true`, skip SSL verification. Otherwise, `false`. {{% notice warning %}}
-**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production.
+**WARNING**: This configuration option is intended for use in development systems only. Do not use this configuration option in production.
 {{% /notice %}}
 type                       | Boolean
 default                    | `false`
 environment variable | `SENSU_BACKEND_INSECURE_SKIP_TLS_VERIFY`
 command line example   | {{< code shell >}}
 sensu-backend start --insecure-skip-tls-verify{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 insecure-skip-tls-verify: true{{< /code >}}
 
 <a id="jwt-attributes"></a>
@@ -743,7 +747,7 @@ default      | `""`
 environment variable | `SENSU_BACKEND_JWT_PRIVATE_KEY_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --jwt-private-key-file /path/to/key/private.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 jwt-private-key-file: /path/to/key/private.pem{{< /code >}}
 
 | jwt-public-key-file |      |
@@ -757,18 +761,18 @@ environment variable | `SENSU_BACKEND_JWT_PUBLIC_KEY_FILE`
 required     | false, unless `jwt-private-key-file` is defined
 command line example   | {{< code shell >}}
 sensu-backend start --jwt-public-key-file /path/to/key/public.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 jwt-public-key-file: /path/to/key/public.pem{{< /code >}}
 
 | key-file   |      |
 -------------|------
-description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not used. This key secures communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the `dashboard-key-file` configuration option is not used. This key secures communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_KEY_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --key-file /path/to/tls/backend-1-key.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 key-file: "/path/to/tls/backend-1-key.pem"{{< /code >}}
 
 <a id="fips-openssl"></a>
@@ -776,7 +780,7 @@ key-file: "/path/to/tls/backend-1-key.pem"{{< /code >}}
 | require-fips |      |
 ------------------|------
 description       | Require Federal Information Processing Standard (FIPS) support in OpenSSL. Logs an error at Sensu backend startup if `true` but OpenSSL is not running in FIPS mode. {{% notice note %}}
-**NOTE**: The `--require-fips` flag is only available within the Linux amd64 OpenSSL-linked binary.
+**NOTE**: The `require-fips` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean
@@ -784,13 +788,13 @@ default           | false
 environment variable | `SENSU_BACKEND_REQUIRE_FIPS`
 command line example   | {{< code shell >}}
 sensu-backend start --require-fips{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 require-fips: true{{< /code >}}
 
 | require-openssl |      |
 ------------------|------
 description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu backend startup if `true` but Go's standard cryptography library is loaded. {{% notice note %}}
-**NOTE**: The `--require-openssl` flag is only available within the Linux amd64 OpenSSL-linked binary.
+**NOTE**: The `--require-openssl` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean
@@ -798,7 +802,7 @@ default           | false
 environment variable | `SENSU_BACKEND_REQUIRE_OPENSSL`
 command line example   | {{< code shell >}}
 sensu-backend start --require-openssl{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 require-openssl: true{{< /code >}}
 
 | trusted-ca-file |      |
@@ -809,20 +813,20 @@ default           | `""`
 environment variable | `SENSU_BACKEND_TRUSTED_CA_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --trusted-ca-file /path/to/tls/ca.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 trusted-ca-file: "/path/to/tls/ca.pem"{{< /code >}}
 
-### Web UI configuration flags
+### Web UI configuration
 
 | dashboard-cert-file | |
 -------------|------
-description  | Web UI TLS certificate in PEM format. This certificate secures communication with the Sensu web UI. If the `dashboard-cert-file` is not provided in the backend configuration, Sensu uses the certificate specified in the [`cert-file` flag](#security-configuration-flags) for the web UI. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+description  | Web UI TLS certificate in PEM format. This certificate secures communication with the Sensu web UI. If the `dashboard-cert-file` is not provided in the backend configuration, Sensu uses the certificate specified in the [`cert-file` configuration option](#security-configuration) for the web UI. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_DASHBOARD_CERT_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --dashboard-cert-file /path/to/tls/separate-webui-cert.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 dashboard-cert-file: "/path/to/tls/separate-webui-cert.pem"{{< /code >}}
 
 | dashboard-host |      |
@@ -833,18 +837,18 @@ default          | `[::]`
 environment variable | `SENSU_BACKEND_DASHBOARD_HOST`
 command line example   | {{< code shell >}}
 sensu-backend start --dashboard-host 127.0.0.1{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 dashboard-host: "127.0.0.1"{{< /code >}}
 
 | dashboard-key-file | |
 -------------|------
-description  | Web UI TLS certificate key in PEM format. This key secures communication with the Sensu web UI. If the `dashboard-key-file` is not provided in the backend configuration, Sensu uses the key specified in the [`key-file` flag](#security-configuration-flags) for the web UI.
+description  | Web UI TLS certificate key in PEM format. This key secures communication with the Sensu web UI. If the `dashboard-key-file` is not provided in the backend configuration, Sensu uses the key specified in the [`key-file` configuration option](#security-configuration) for the web UI.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_DASHBOARD_KEY_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --dashboard-key-file /path/to/tls/separate-webui-key.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 dashboard-key-file: "/path/to/tls/separate-webui-key.pem"{{< /code >}}
 
 | dashboard-port |      |
@@ -855,7 +859,7 @@ default          | `3000`
 environment variable | `SENSU_BACKEND_DASHBOARD_PORT`
 command line example   | {{< code shell >}}
 sensu-backend start --dashboard-port 3000{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 dashboard-port: 3000{{< /code >}}
 
 <a id="dashboard-write-timeout"></a>
@@ -868,14 +872,10 @@ default      | `15s`
 environment variable | `SENSU_BACKEND_DASHBOARD_WRITE_TIMEOUT`
 command line example   | {{< code shell >}}
 sensu-backend start --dashboard-write-timeout 15s{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 dashboard-write-timeout: 15s{{< /code >}}
 
-### Datastore and cluster configuration flags
-
-{{% notice note %}}
-**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
-{{% /notice %}}
+### Datastore and cluster configuration
 
 | etcd-advertise-client-urls |      |
 --------------|------
@@ -884,13 +884,15 @@ description   | List of this member's client URLs to advertise to the rest of th
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type          | List
-default       | `http://localhost:2379` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:2379` (Docker)
+default       | `http://localhost:2379` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:2379` (Docker){{% notice note %}}
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
+{{% /notice %}}
 environment variable | `SENSU_BACKEND_ETCD_ADVERTISE_CLIENT_URLS`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-advertise-client-urls http://localhost:2378,http://localhost:2379
 sensu-backend start --etcd-advertise-client-urls http://localhost:2378 --etcd-advertise-client-urls http://localhost:2379
 {{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-advertise-client-urls:
   - http://localhost:2378
   - http://localhost:2379
@@ -907,7 +909,7 @@ default          | `""`
 environment variable | `SENSU_BACKEND_ETCD_CERT_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-cert-file /path/to/tls/backend-1.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-cert-file: "/path/to/tls/backend-1.pem"{{< /code >}}
 
 <a id="etcd-cipher-suites"></a>
@@ -933,7 +935,7 @@ command line example   | {{< code shell >}}
 sensu-backend start --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 sensu-backend start --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 {{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-cipher-suites:
   - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
   - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
@@ -950,7 +952,7 @@ default                 | `false`
 environment variable | `SENSU_BACKEND_ETCD_CLIENT_CERT_AUTH`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-client-cert-auth{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-client-cert-auth: true{{< /code >}}
 
 <a id="etcd-client-log-level"></a>
@@ -965,7 +967,7 @@ default      | `error`
 environment variable | `SENSU_BACKEND_ETCD_CLIENT_LOG_LEVEL`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-client-log-level error{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-client-log-level: "error"{{< /code >}}
 
 | etcd-client-urls      |      |
@@ -981,11 +983,13 @@ command line example   | {{< code shell >}}
 sensu-backend start --etcd-client-urls 'https://10.0.0.1:2379 https://10.1.0.1:2379'
 sensu-backend start --etcd-client-urls https://10.0.0.1:2379 --etcd-client-urls https://10.1.0.1:2379
 {{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-client-urls:
   - https://10.0.0.1:2379
   - https://10.1.0.1:2379
 {{< /code >}}
+
+<a id="etcd-discovery"></a>
 
 | etcd-discovery        |      |
 ------------------------|------
@@ -998,10 +1002,12 @@ default                 | ""
 environment variable | `SENSU_BACKEND_ETCD_DISCOVERY`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-discovery https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-discovery:
   - https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de
 {{< /code >}}
+
+<a id="etcd-discovery-srv"></a>
 
 | etcd-discovery-srv    |      |
 ------------------------|------
@@ -1014,7 +1020,7 @@ default                 | ""
 environment variable | `SENSU_BACKEND_ETCD_DISCOVERY_SRV`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-discovery-srv example.org{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-discovery-srv:
   - example.org
 {{< /code >}}
@@ -1026,13 +1032,15 @@ description                        | List of this member's peer URLs to advertis
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                               | List
-default                            | `http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:2380` (Docker)
+default                            | `http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:2380` (Docker){{% notice note %}}
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
+{{% /notice %}}
 environment variable               | `SENSU_BACKEND_ETCD_INITIAL_ADVERTISE_PEER_URLS`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
 sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380 --etcd-initial-advertise-peer-urls https://10.1.0.1:2380
 {{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-initial-advertise-peer-urls:
   - https://10.0.0.1:2380
   - https://10.1.0.1:2380
@@ -1045,11 +1053,13 @@ description            | Initial cluster configuration for bootstrapping.{{% not
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | String
-default                | `default=http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`default=http://$SENSU_HOSTNAME:2380` (Docker)
+default                | `default=http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`default=http://$SENSU_HOSTNAME:2380` (Docker){{% notice note %}}
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
+{{% /notice %}}
 environment variable   | `SENSU_BACKEND_ETCD_INITIAL_CLUSTER`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-initial-cluster backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380"{{< /code >}}
 
 | etcd-initial-cluster-state |      |
@@ -1063,7 +1073,7 @@ default                      | `new`
 environment variable         | `SENSU_BACKEND_ETCD_INITIAL_CLUSTER_STATE`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-initial-cluster-state existing{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-initial-cluster-state: "existing"{{< /code >}}
 
 | etcd-initial-cluster-token |      |
@@ -1077,7 +1087,7 @@ default                      | `""`
 environment variable         | `SENSU_BACKEND_ETCD_INITIAL_CLUSTER_TOKEN`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-initial-cluster-token unique_token_for_this_cluster{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-initial-cluster-token: "unique_token_for_this_cluster"{{< /code >}}
 
 | etcd-key-file  |      |
@@ -1090,7 +1100,7 @@ type             | String
 environment variable | `SENSU_BACKEND_ETCD_KEY_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-key-file /path/to/tls/backend-1-key.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-key-file: "/path/to/tls/backend-1-key.pem"{{< /code >}}
 
 <a id="etcd-listen-client-urls"></a>
@@ -1108,7 +1118,7 @@ command line example   | {{< code shell >}}
 sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
 sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379 --etcd-listen-client-urls https://10.1.0.1:2379
 {{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-listen-client-urls:
   - https://10.0.0.1:2379
   - https://10.1.0.1:2379
@@ -1127,7 +1137,7 @@ command line example   | {{< code shell >}}
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
 {{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-listen-peer-urls:
   - https://10.0.0.1:2380
   - https://10.1.0.1:2380
@@ -1143,7 +1153,7 @@ default      | [Backend log level][60] value (or `debug`, if the backend log lev
 environment variable | `SENSU_BACKEND_ETCD_LOG_LEVEL`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-log-level debug{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-log-level: "debug"{{< /code >}}
 
 | etcd-name      |      |
@@ -1157,7 +1167,7 @@ default          | `default`
 environment variable | `SENSU_BACKEND_ETCD_NAME`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-name backend-0{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-name: "backend-0"{{< /code >}}
 
 | etcd-peer-cert-file |      |
@@ -1170,7 +1180,7 @@ type                  | String
 environment variable  | `SENSU_BACKEND_ETCD_PEER_CERT_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-peer-cert-file /path/to/tls/backend-1.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-peer-cert-file: "/path/to/tls/backend-1.pem"{{< /code >}}
 
 | etcd-peer-client-cert-auth |      |
@@ -1184,7 +1194,7 @@ default                      | `false`
 environment variable         | `SENSU_BACKEND_ETCD_PEER_CLIENT_CERT_AUTH`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-peer-client-cert-auth{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-peer-client-cert-auth: true{{< /code >}}
 
 | etcd-peer-key-file |      |
@@ -1197,7 +1207,7 @@ type                 | String
 environment variable | `SENSU_BACKEND_ETCD_PEER_KEY_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-peer-key-file /path/to/tls/backend-1-key.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-peer-key-file: "/path/to/tls/backend-1-key.pem"{{< /code >}}
 
 | etcd-peer-trusted-ca-file |      |
@@ -1210,7 +1220,7 @@ type                        | String
 environment variable        | `SENSU_BACKEND_ETCD_PEER_TRUSTED_CA_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-peer-trusted-ca-file ./ca.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-peer-trusted-ca-file: "./ca.pem"{{< /code >}}
 
 | etcd-trusted-ca-file |      |
@@ -1224,7 +1234,7 @@ default                | `""`
 environment variable   | `SENSU_BACKEND_ETCD_TRUSTED_CA_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-trusted-ca-file ./ca.pem{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-trusted-ca-file: "./ca.pem"{{< /code >}}
 
 | no-embed-etcd  |      |
@@ -1238,7 +1248,7 @@ default          | `false`
 environment variable | `SENSU_BACKEND_NO_EMBED_ETCD`
 command line example   | {{< code shell >}}
 sensu-backend start --no-embed-etcd{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 no-embed-etcd: true{{< /code >}}
 
 ### Advanced configuration options
@@ -1258,7 +1268,7 @@ default                | `1000`
 environment variable   | `SENSU_BACKEND_ETCD_ELECTION_TIMEOUT`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-election-timeout 1000{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-election-timeout: 1000{{< /code >}}
 
 <a id="etcd-heartbeat-interval"></a>
@@ -1275,7 +1285,7 @@ default                | `100`
 environment variable   | `SENSU_BACKEND_ETCD_HEARTBEAT_INTERVAL`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-heartbeat-interval 100{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-heartbeat-interval: 100{{< /code >}}
 
 | etcd-max-request-bytes |      |
@@ -1290,7 +1300,7 @@ default                | `1572864`
 environment variable   | `SENSU_BACKEND_ETCD_MAX_REQUEST_BYTES`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-max-request-bytes 1572864{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-max-request-bytes: 1572864{{< /code >}}
 
 | etcd-quota-backend-bytes |      |
@@ -1305,7 +1315,7 @@ default                | `4294967296`
 environment variable   | `SENSU_BACKEND_ETCD_QUOTA_BACKEND_BYTES`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-quota-backend-bytes 4294967296{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 etcd-quota-backend-bytes: 4294967296{{< /code >}}
 
 | eventd-buffer-size   |      |
@@ -1318,7 +1328,7 @@ default                | `100`
 environment variable   | `SENSU_BACKEND_EVENTD_BUFFER_SIZE`
 command line example   | {{< code shell >}}
 sensu-backend start --eventd-buffer-size 100{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 eventd-buffer-size: 100{{< /code >}}
 
 | eventd-workers       |      |
@@ -1331,7 +1341,7 @@ default                | `100`
 environment variable   | `SENSU_BACKEND_EVENTD_WORKERS`
 command line example   | {{< code shell >}}
 sensu-backend start --eventd-workers 100{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 eventd-workers: 100{{< /code >}}
 
 | keepalived-buffer-size |      |
@@ -1344,7 +1354,7 @@ default                | `100`
 environment variable   | `SENSU_BACKEND_KEEPALIVED_BUFFER_SIZE`
 command line example   | {{< code shell >}}
 sensu-backend start --keepalived-buffer-size 100{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 keepalived-buffer-size: 100{{< /code >}}
 
 | keepalived-workers |      |
@@ -1356,7 +1366,7 @@ default                | `100`
 environment variable   | `SENSU_BACKEND_KEEPALIVED_WORKERS`
 command line example   | {{< code shell >}}
 sensu-backend start --keepalived-workers 100{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 keepalived-workers: 100{{< /code >}}
 
 | pipelined-buffer-size |      |
@@ -1369,7 +1379,7 @@ default                | `100`
 environment variable   | `SENSU_BACKEND_PIPELINED_BUFFER_SIZE`
 command line example   | {{< code shell >}}
 sensu-backend start --pipelined-buffer-size 100{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 pipelined-buffer-size: 100{{< /code >}}
 
 | pipelined-workers |      |
@@ -1382,12 +1392,38 @@ default                | `100`
 environment variable   | `SENSU_BACKEND_PIPELINED_WORKERS`
 command line example   | {{< code shell >}}
 sensu-backend start --pipelined-workers 100{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 pipelined-workers: 100{{< /code >}}
 
-## Configuration via environment variables
+## Backend configuration methods
 
-Instead of using configuration flags, you can use environment variables to configure your Sensu backend.
+### Backend configuration file
+
+You can customize the backend configuration in a `.yml` configuration file.
+
+To use the `backend.yml` file to configure the backend, list the desired configuration attributes and values.
+Review the [example Sensu backend configuration file][17] for a complete example.
+
+Configuration via command line flags or environment variables overrides any configuration specified in the backend configuration file.
+Read [Create overrides][74] to learn more.
+
+### Command line flags
+
+You can customize the backend configuration with `sensu-agent start` command line flags.
+
+To use command line flags, specify the desired configuration flags and values along with the `sensu-backend start` command.
+For example:
+
+{{< code shell >}}
+sensu-backend start --deregistration-handler slack_deregister --log-level debug
+{{< /code >}}
+
+Configuration via command line flags overrides attributes specified in a configuration file or with environment variables.
+Read [Create overrides][74] to learn more.
+
+### Environment variables
+
+Instead of using a configuration file or command line flags, you can use environment variables to configure your Sensu backend.
 Each backend configuration flag has an associated environment variable.
 You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
 Here's how.
@@ -1447,7 +1483,7 @@ sudo systemctl restart sensu-backend
 
 {{% notice note %}}
 **NOTE**: Sensu includes an environment variable for each backend configuration flag.
-They are listed in the [configuration flag description tables](#general-configuration-flags).
+They are listed in the [configuration description tables](#general-configuration).
 {{% /notice %}}
 
 ### Format for label and annotation environment variables
@@ -1525,12 +1561,12 @@ spec:
 Read the [secrets reference](https://docs.sensu.io/sensu-go/latest/operations/manage-secrets/secrets/) and [Use Env for secrets management](../../../operations/manage-secrets/secrets-management/#use-env-for-secrets-management) for details.
 {{% /notice %}}
 
-## Create overrides
+## Create configuration overrides
 
 Sensu has default settings and limits for certain configuration attributes, like the default log level.
 Depending on your environment and preferences, you may want to create overrides for these Sensu-specific defaults and limits.
 
-You can create overrides in several ways:
+You can create configuration overrides in several ways:
 
 - Command line configuration flag arguments for `sensu-backend start`.
 - Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
@@ -1590,7 +1626,7 @@ The event logging functionality provides better performance and reliability than
 To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../../operations/monitor-sensu/log-sensu-systemd/).
 {{% /notice %}}
 
-Use these backend configuration flags to customize event logging:
+Use these backend configuration options to customize event logging:
 
 | event-log-buffer-size |      |
 -----------------------|------
@@ -1600,7 +1636,7 @@ default                | 100000
 environment variable   | `SENSU_BACKEND_EVENT_LOG_BUFFER_SIZE`
 command line example   | {{< code shell >}}
 sensu-backend start --event-log-buffer-size 100000{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 event-log-buffer-size: 100000{{< /code >}}
 
 | event-log-buffer-wait |      |
@@ -1611,7 +1647,7 @@ default                | 10ms
 environment variable   | `SENSU_BACKEND_EVENT_LOG_BUFFER_WAIT`
 command line example   | {{< code shell >}}
 sensu-backend start --event-log-buffer-wait 10ms{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 event-log-buffer-wait: 10ms{{< /code >}}
 
 <a id="event-log-file"></a>
@@ -1625,7 +1661,7 @@ type                   | String
 environment variable   | `SENSU_BACKEND_EVENT_LOG_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --event-log-file /var/log/sensu/events.log{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 event-log-file: "/var/log/sensu/events.log"{{< /code >}}
 
 <a id="event-log-parallel-encoders"></a>
@@ -1638,7 +1674,7 @@ default                | false
 environment variable   | `SENSU_BACKEND_EVENT_LOG_PARALLEL_ENCODERS`
 command line example   | {{< code shell >}}
 sensu-backend start --event-log-parallel-encoders true{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 event-log-parallel-encoders: true{{< /code >}}
 
 ### Log rotation
@@ -1696,7 +1732,7 @@ Sensu appends updated metrics at the interval you specify with the platform-metr
 
 To rotate the platform metrics log, use the same methods as for [event log rotation][63].
 
-Use these backend configuration flags to customize platform metrics logging:
+Use these backend configuration options to customize platform metrics logging:
 
 | disable-platform-metrics |      |
 -----------------------|------
@@ -1706,7 +1742,7 @@ default                | false
 environment variable   | `SENSU_BACKEND_DISABLE_PLATFORM_METRICS`
 command line example   | {{< code shell >}}
 sensu-backend start --disable-platform-metrics false{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 disable-platform-metrics: false{{< /code >}}
 
 | platform-metrics-log-file |      |
@@ -1719,7 +1755,7 @@ default                | /var/log/sensu/sensu-backend/stats.log
 environment variable   | `SENSU_BACKEND_PLATFORM_METRICS_LOG_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --platform-metrics-log-file /var/log/sensu/sensu-backend/stats.log{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 platform-metrics-log-file: "/var/log/sensu/sensu-backend/stats.log"{{< /code >}}
 
 | platform-metrics-logging-interval |      |
@@ -1730,7 +1766,7 @@ default                | 60s
 environment variable   | `SENSU_BACKEND_PLATFORM_METRICS_LOGGING_INTERVAL`
 command line example   | {{< code shell >}}
 sensu-backend start --platform-metrics-logging-interval 60s{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
+backend.yml config file example | {{< code shell >}}
 platform-metrics-logging-interval: 60s{{< /code >}}
 
 ## Service management
@@ -1843,10 +1879,10 @@ sensu-backend start --help
 [9]: ../../observe-filter/filters/
 [10]: ../../observe-transform/mutators/
 [11]: ../../observe-process/handlers/
-[12]: #datastore-and-cluster-configuration-flags
+[12]: #datastore-and-cluster-configuration
 [13]: ../../../operations/deploy-sensu/cluster-sensu/
 [14]: ../../../api/
-[15]: #general-configuration-flags
+[15]: #general-configuration
 [16]: https://etcd.io/docs/current/tuning/#time-parameters
 [17]: ../../../files/backend.yml
 [18]: https://golang.org/pkg/crypto/tls/#pkg-constants
@@ -1881,5 +1917,11 @@ sensu-backend start --help
 [67]: #agent-rate-limit
 [70]: ../../observe-process/pipelines/
 [71]: ../../../guides/
-[72]: #datastore-and-cluster-configuration-flags
+[72]: #datastore-and-cluster-configuration
 [73]: #advanced-configuration-options
+[74]: #create-configuration-overrides
+[75]: #state-dir-option
+[76]: #backend-configuration-file
+[77]: #backend-configuration-options
+[78]: #environment-variables
+[79]: #backend-configuration-methods

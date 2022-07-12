@@ -293,14 +293,14 @@ When Sensu finds a matching build, it downloads the build artifact from the spec
 If the asset definition includes headers, they are passed along as part of the HTTP request.
 If the downloaded artifact's SHA512 checksum matches the checksum provided by the build, it is unpacked into the Sensu service's local cache directory.
 
-Set the backend or agent's local cache path with the `--cache-dir` flag.
-Disable dynamic runtime assets for an agent with the agent `--disable-assets` [configuration flag][30].
+Set the backend or agent's local cache path with the `cache-dir` configuration option.
+Disable dynamic runtime assets for an agent with the agent [`disable-assets`][30] configuration option.
 
 {{% notice note %}}
-**NOTE**: Dynamic runtime asset builds are unpacked into the cache directory that is configured with the `--cache-dir` flag.
+**NOTE**: Dynamic runtime asset builds are unpacked into the cache directory that is configured with the `cache-dir` configuration option.
 {{% /notice %}}
 
-Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][40] and [backend][41] to configure a global rate limit for fetching dynamic runtime assets.
+Use the `assets-rate-limit` and `assets-burst-limit` configuration options for the [agent][40] and [backend][41] to configure a global rate limit for fetching dynamic runtime assets.
 
 ### Dynamic runtime asset build execution
 
@@ -1306,7 +1306,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
 [39]: ../../web-ui/search#search-for-labels
-[40]: ../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
+[40]: ../../observability-pipeline/observe-schedule/agent/#assets-burst-limit
 [41]: ../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
 [42]: #filters-attribute
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
