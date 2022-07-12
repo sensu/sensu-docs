@@ -190,7 +190,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
 **NEW FEATURES:**
 
 - ([Commercial feature][207]) Added [business service monitoring (BSM)][210] to provide high-level visibility into the current health of any number of business services, with a [built-in aggregate check rule template][211].
-- ([Commercial feature][207]) Added support for agent transport rate limiting via [`agent-burst-limit`][208] and [`agent-rate-limit`][209] backend configuration flags.
+- ([Commercial feature][207]) Added support for agent transport rate limiting via [`agent-burst-limit`][208] and [`agent-rate-limit`][209] backend configuration options.
 - ([Commercial feature][207]) Added the `event-log-buffer-wait` backend configuration flag, which allows you to specify how long the event logger will wait for the writer to consume events from the buffer when the buffer is full.
 - Added the entity class [service][213], which represents a business service for the business service monitoring (BSM) feature.
 
@@ -433,7 +433,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.1.0.
 - ([Commercial feature][172]) Added the [Sensu SaltStack Enterprise Handler][183] for launching
 SaltStack Enterprise Jobs for automated remediation.
 - ([Commercial feature][172]) The Alpine-based Docker image now has multi-architecture support with support for the linux/386, linux/amd64, linux/arm64, linux/arm/v6, linux/arm/v7, linux/ppc64le, and linux/s390x platforms.
-- The backend flag [`--api-request-limit`][173] is now available to configure the maximum API request body size (in bytes).
+- The backend configuration option [`api-request-limit`][173] is now available to configure the maximum API request body size (in bytes).
 - In the [REST API][174], most configuration resources now support the PATCH method for making updates.
 - Added new handler and check plugins: [Sensu Go Elasticsearch Handler][184], [Sensu Rundeck Handler][185], and [Sensu Kubernetes Events Check][186].
 
@@ -602,7 +602,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.21.0.
 **NEW FEATURES:**
 
 - ([Commercial feature][158]) Added [entity count and limit][156] for each entity class in the tabular title in the response for `sensuctl license info` (in addition to the total entity count and limit).
-- ([Commercial feature][158]) Added Linux amd64 OpenSSL-linked binaries for the Sensu agent and backend, with accompanying `--require-fips` and `--require-openssl` flags for the [agent][161] and [backend][160].
+- ([Commercial feature][158]) Added Linux amd64 OpenSSL-linked binaries for the Sensu agent and backend, with accompanying `require-fips` and `require-openssl` configuration options for the [agent][161] and [backend][160].
 - Added `sensuctl user hash-password` command to generate password hashes.
 - Added the ability to reset passwords via the backend API and `sensuctl user reset-password`.
 
@@ -663,9 +663,9 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 **NEW FEATURES:**
 
-- ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` flag to the [agent configuration options][142] to populate the `processes` field in entity.system if enabled.
+- ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` option to the [agent configuration options][142] to populate the `processes` field in entity.system if enabled.
 - ([Commercial feature][141]) Added a new resource, `GlobalConfig`, that you can use to [customize your web UI configuration][148].
-- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153] and the [`metrics-refresh-interval`][224] backend configuration flag for setting the interval at which Sensu should refresh metrics.
+- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153] and the [`metrics-refresh-interval`][224] backend configuration option for setting the interval at which Sensu should refresh metrics.
 - ([Commercial feature][141]) Added process and additional system information to the entity details view in the [web UI][153].
 - ([Commercial feature][141]) Added a PostgreSQL metrics suite so metricsd can collect metrics about events stored in PostgreSQL.
 - ([Commercial feature][141]) Added [entity class limits][151] to the license.
@@ -728,7 +728,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.19.3.
 
 - In the [web UI][135], color-blindness modes are now available.
 - In the [web UI][135], labels and annotations with links to images will now be displayed inline.
-- Adds a global rate limit for fetching assets to prevent abusive asset retries, which you can configure with the `--assets-burst-limit` and `--assets-rate-limit` flags for the [agent][136] and [backend][137].
+- Adds a global rate limit for fetching assets to prevent abusive asset retries, which you can configure with the `assets-burst-limit` and `assets-rate-limit` configuration options for the [agent][136] and [backend][137].
 - Adds support for restarting the backend via SIGHUP.
 - Adds a timeout flag to `sensu-backend init`.
 - Deprecated flags for `sensuctl silenced update` subcommand have been removed.
@@ -898,7 +898,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
 **NEW FEATURES:**
 
 - ([Commercial feature][106]) Added [HTTP API for secrets management][108], with Sensu's `Env` secrets provider and support for HashiCorp Vault secrets management. The secrets provider resource is implemented for checks, mutators, and handlers.
-- Added the `keepalive-handlers` agent configuration flag to specify the keepalive handlers to use for an entity's events.
+- Added the `keepalive-handlers` agent configuration option to specify the keepalive handlers to use for an entity's events.
 
 **IMPROVEMENTS:**
 
@@ -942,7 +942,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.16.1.
 **December 16, 2019** &mdash; The latest release of Sensu Go, version 5.16.0, is now available for download.
 This is another important release, with many new features, improvements, and fixes.
 We introduced an initialization subcommand for **new** installations that allows you to specify an admin username and password instead of using a pre-defined default.
-We also added new backend flags to help you take advantage of etcd auto-discovery features and agent flags you can use to define a timeout period for critical and warning keepalive events.
+We also added new backend configuration options to help you take advantage of etcd auto-discovery features and agent configuration options you can use to define a timeout period for critical and warning keepalive events.
 
 New web UI features include a switcher that makes it easier to switch between namespaces in the dashboard, breadcrumbs on every page, OIDC authentication in the dashboard, a drawer that replaces the app bar to make more room for content, and more.
 
@@ -959,11 +959,11 @@ Users will need to [run 'sensu-backend init'][102] on every new installation and
 
 - ([Commercial feature][105]) Users can now authenticate with OIDC in the dashboard.
 - ([Commercial feature][105]) Label selectors now match the event's check and entity labels.
-- Added a new flag,`--etcd-client-urls`, which should be used with sensu-backend when it is not operating as an etcd member.
-The flag is also used by the new `sensu-backend init` subcommand.
+- Added a new configuration option, `etcd-client-urls`, to use with sensu-backend when it is not operating as an etcd member.
+The configuration option is also used by the new `sensu-backend init` subcommand.
 - Added the ['sensu-backend init' subcommand][102].
-- Added the [`--etcd-discovery`][100] and [`--etcd-discovery-srv`][292] flags to sensu-backend, which allow users to take advantage of the embedded etcd's auto-discovery features.
-- Added [`--keepalive-critical-timeout`][101] to define the time after which a critical keepalive event should be created for an agent and [`--keepalive-warning-timeout`][101], which is an alias of `--keepalive-timeout` for backward compatibility.
+- Added the [`etcd-discovery`][100] and [`etcd-discovery-srv`][292] configuration options to sensu-backend, which allow users to take advantage of the embedded etcd's auto-discovery features.
+- Added the [`keepalive-critical-timeout`][101] configuration option to define the time after which a critical keepalive event should be created for an agent and the [`keepalive-warning-timeout`][101] configuration option, which is an alias of `keepalive-timeout` for backward compatibility.
 
 **IMPROVEMENTS:**
 
@@ -1247,7 +1247,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.11.0.
 Read the [sensuctl reference][72] for more information.
 - Assets now include a `headers` attribute to include HTTP headers in requests to retrieve assets, allowing you to access secured assets.
 Read the [asset reference][70] for examples.
-- Sensu agents now support the `disable-assets` configuration flag, allowing you to disable asset retrieval for individual agents.
+- Sensu agents now support the `disable-assets` configuration option, allowing you to disable asset retrieval for individual agents.
 Read the [agent reference][71] for examples.
 - Sensu [binary-only distributions][69] are now available as zip files.
 
@@ -1354,7 +1354,7 @@ If you're upgrading a Sensu cluster from 5.7.0 or earlier, read the [instruction
 Read the [web UI docs][54] to get started using the Sensu web UI.
 - ([Commercial feature][53]) Manage your Sensu event handlers from your browser: Sensu's web UI now supports creating, editing, and deleting handlers.
 Read the [web UI docs][54] to get started using the Sensu web UI.
-- ([Commercial feature][53]) Sensu now supports event logging to a file using the `event-log-file` and `event-log-buffer-size` configuration flags.
+- ([Commercial feature][53]) Sensu now supports event logging to a file using the `event-log-file` and `event-log-buffer-size` configuration options.
 You can use this event log file as an input source for your favorite data lake solution.
 Read the [backend reference][55] for more information.
 
@@ -1525,7 +1525,7 @@ Read the [/metrics API documentation][31] for more information.
 **IMPROVEMENTS:**
 
 - Sensu now lets you specify a separate TLS certificate and key to secure the dashboard.
-Read the [backend reference][24] to configure the `dashboard-cert-file` and `dashboard-key-file` flags, and check out the [guide to securing Sensu][25] for the complete guide to making your Sensu instance production-ready.
+Read the [backend reference][24] to configure the `dashboard-cert-file` and `dashboard-key-file` options, and check out the [guide to securing Sensu][25] for the complete guide to making your Sensu instance production-ready.
 - The Sensu agent events API now queues events before sending them to the backend, making the agent events API more robust and preventing data loss in the event of a loss of connection with the backend or agent shutdown.
 Read the [agent reference][26] for more information.
 
@@ -1572,7 +1572,7 @@ You can now use the dashboard to review check details like command, subscription
 
 - Sensu Go 5.3.0 fixes all known TLS vulnerabilities affecting the backend, including increasing the minimum supported TLS version to 1.2 and removing all ciphers except those with perfect forward secrecy.
 - Sensu now enforces uniform TLS configuration for all three backend components: `apid`, `agentd`, and `dashboardd`.
-- The backend no longer requires the `trusted-ca-file` flag when using TLS.
+- The backend no longer requires the `trusted-ca-file` configuration option when using TLS.
 - The backend no longer loads server TLS configuration for the HTTP client.
 
 **FIXES:**
@@ -1696,7 +1696,7 @@ Read the [upgrade guide][3] for more information.
 
 **NEW FEATURES:**
 
-- Sensu [agents][4] now include `trusted-ca-file` and `insecure-skip-tls-verify` configuration flags, giving you more flexibility with certificates when connecting agents to the backend over TLS.
+- Sensu [agents][4] now include `trusted-ca-file` and `insecure-skip-tls-verify` configuration options, giving you more flexibility with certificates when connecting agents to the backend over TLS.
 
 **IMPROVEMENTS:**
 

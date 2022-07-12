@@ -37,7 +37,7 @@ Instead, you must configure event handlers to send the data to a storage solutio
 
 ## Configure the StatsD listener
 
-Use flags to configure the Sensu StatsD Server when you start up a `sensu-agent`.
+Use configuration flags to configure the Sensu StatsD Server when you start up a `sensu-agent`.
 
 The following flags allow you to configure event handlers, flush interval, address, and port:
 

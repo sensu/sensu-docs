@@ -296,14 +296,14 @@ When Sensu finds a matching build, it downloads the build artifact from the spec
 If the asset definition includes headers, they are passed along as part of the HTTP request.
 If the downloaded artifact's SHA512 checksum matches the checksum provided by the build, it is unpacked into the Sensu service's local cache directory.
 
-Set the backend or agent's local cache path with the `--cache-dir` flag.
-Disable dynamic runtime assets for an agent with the agent `--disable-assets` [configuration flag][30].
+Set the backend or agent's local cache path with the `cache-dir` configuration option.
+Disable dynamic runtime assets for an agent with the agent [`disable-assets`][30] configuration option.
 
 {{% notice note %}}
-**NOTE**: Dynamic runtime asset builds are unpacked into the cache directory that is configured with the `--cache-dir` flag.
+**NOTE**: Dynamic runtime asset builds are unpacked into the cache directory that is configured with the `cache-dir` configuration option.
 {{% /notice %}}
 
-Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][40] and [backend][41] to configure a global rate limit for fetching dynamic runtime assets.
+Use the `assets-rate-limit` and `assets-burst-limit` configuration options for the [agent][40] and [backend][41] to configure a global rate limit for fetching dynamic runtime assets.
 
 ### Dynamic runtime asset build execution
 

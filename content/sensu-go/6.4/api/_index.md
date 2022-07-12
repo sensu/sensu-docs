@@ -85,7 +85,7 @@ Beta APIs are more stable than alpha versions, but they offer similarly short-li
 ## Request size limit
 
 The default limit for API request body size is 0.512 MB.
-Use the [`--api-request-limit` backend configuration flag][21] to customize the API request body size limit if needed.
+Use the [`api-request-limit` backend configuration option][21] to customize the API request body size limit if needed.
 
 ## Access control
 

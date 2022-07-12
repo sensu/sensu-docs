@@ -661,9 +661,9 @@ agent-auth-trusted-ca-file: /path/to/tls/ca.pem{{< /code >}}
 | agent-burst-limit   |      |
 --------------|------
 description   | Maximum amount of burst allowed in a rate interval for agent transport WebSocket connections. {{% notice note %}}
-**NOTE**: The agent-burst-limit flag is deprecated.
+**NOTE**: The `agent-burst-limit` configuration flag is deprecated.
 {{% /notice %}} {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the agent-burst-limit flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+**COMMERCIAL FEATURE**: Access the `agent-burst-limit` configuration option in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 type          | Integer
 default       | `null`
@@ -700,7 +700,7 @@ agent-port: 8081{{< /code >}}
 | agent-rate-limit   |      |
 --------------|------
 description   | Maximum number of agent transport WebSocket connections per second, per backend.{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the agent-rate-limit flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+**COMMERCIAL FEATURE**: Access the `agent-rate-limit` configuration option in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 type          | Integer
 default       | `null`
@@ -714,7 +714,7 @@ agent-rate-limit: 10{{< /code >}}
 
 | cert-file  |      |
 -------------|------
-description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the `dashboard-cert-file` configuration option is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_CERT_FILE`
@@ -726,7 +726,7 @@ cert-file: "/path/to/tls/backend-1.pem"{{< /code >}}
 | insecure-skip-tls-verify |      |
 ---------------------------|------
 description                | If `true`, skip SSL verification. Otherwise, `false`. {{% notice warning %}}
-**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production.
+**WARNING**: This configuration option is intended for use in development systems only. Do not use this configuration option in production.
 {{% /notice %}}
 type                       | Boolean
 default                    | `false`
@@ -767,7 +767,7 @@ jwt-public-key-file: /path/to/key/public.pem{{< /code >}}
 
 | key-file   |      |
 -------------|------
-description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not used. This key secures communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the `dashboard-key-file` configuration option is not used. This key secures communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_KEY_FILE`
@@ -781,7 +781,7 @@ key-file: "/path/to/tls/backend-1-key.pem"{{< /code >}}
 | require-fips |      |
 ------------------|------
 description       | Require Federal Information Processing Standard (FIPS) support in OpenSSL. Logs an error at Sensu backend startup if `true` but OpenSSL is not running in FIPS mode. {{% notice note %}}
-**NOTE**: The `--require-fips` flag is only available within the Linux amd64 OpenSSL-linked binary.
+**NOTE**: The `require-fips` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean
@@ -795,7 +795,7 @@ require-fips: true{{< /code >}}
 | require-openssl |      |
 ------------------|------
 description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu backend startup if `true` but Go's standard cryptography library is loaded. {{% notice note %}}
-**NOTE**: The `--require-openssl` flag is only available within the Linux amd64 OpenSSL-linked binary.
+**NOTE**: The `--require-openssl` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean

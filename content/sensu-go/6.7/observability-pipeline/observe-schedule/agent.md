@@ -123,7 +123,7 @@ If system time is out of sync, it may cause issues with keepalive, metric, and c
 
 ## Agent connection to a cluster
 
-Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16].
+Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url`][16] configuration option.
 
 For more information about clustering, read [Backend datastore configuration][35] and [Run a Sensu cluster][36].
 
@@ -945,7 +945,7 @@ disable-assets: true{{< /code >}}
 | discover-processes |      |
 --------------|------
 description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the discover-processes flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+**COMMERCIAL FEATURE**: Access the `discover-processes` configuration option in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}{{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu. The discover-processes flag is not available, and new events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
@@ -1148,7 +1148,7 @@ deregister: true{{< /code >}}
 
 | deregistration-handler |      |
 -------------------------|------
-description              | Name of the event handler to use when processing the agent's deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37].
+description              | Name of the event handler to use when processing the agent's deregistration events. This configuration option overrides any handlers applied by the [`deregistration-handler`][37] backend configuration option.
 type                     | String
 environment variable     | `SENSU_DEREGISTRATION_HANDLER`
 command line example   | {{< code shell >}}
@@ -1160,7 +1160,7 @@ deregistration-handler: deregister{{< /code >}}
 
 | detect-cloud-provider  |      |
 -------------------------|------
-description              | `true` to enable cloud provider detection mechanisms. Otherwise, `false`. When this flag is enabled, the agent will attempt to read files, resolve hostnames, and make HTTP requests to determine what cloud environment it is running in.
+description              | `true` to enable cloud provider detection mechanisms. Otherwise, `false`. When this option is enabled, the agent will attempt to read files, resolve hostnames, and make HTTP requests to determine what cloud environment it is running in.
 type                     | Boolean
 default                  | `false`
 environment variable     | `SENSU_DETECT_CLOUD_PROVIDER`
@@ -1187,7 +1187,7 @@ keepalive-critical-timeout: 300{{< /code >}}
 
 | keepalive-handlers |      |
 --------------------|------
-description         | [Keepalive event handlers][52] to use for the entity, specified in a comma-delimited list. You can specify any configured handler and invoke the `keepalive-handlers` flag multiple times. If keepalive handlers are not specified, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
+description         | [Keepalive event handlers][52] to use for the entity, specified in a comma-delimited list. You can specify any configured handler and invoke the `keepalive-handlers` configuration option multiple times. If keepalive handlers are not specified, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
 type                | List
 default             | `keepalive`
 environment variable   | `SENSU_KEEPALIVE_HANDLERS`
@@ -1214,7 +1214,7 @@ keepalive-interval: 30{{< /code >}}
 
 | keepalive-pipelines |      |
 --------------------|------
-description         | [Pipelines][63] to use for processing keepalive events, specified in a comma-delimited list. If keepalive pipelines are not specified, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.<br><br>To specify pipelines for the `keepalive-pipelines` flag, use the [fully qualified name][65] for pipeline resources (`core/v2.Pipeline`) plus the pipeline name.
+description         | [Pipelines][63] to use for processing keepalive events, specified in a comma-delimited list. If keepalive pipelines are not specified, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.<br><br>To specify pipelines for the `keepalive-pipelines` configuration option, use the [fully qualified name][65] for pipeline resources (`core/v2.Pipeline`) plus the pipeline name.
 type                | List
 default             | `keepalive`
 environment variable   | `SENSU_KEEPALIVE_PIPELINES`
@@ -1256,7 +1256,7 @@ cert-file: "/path/to/tls/agent.pem"{{< /code >}}
 | insecure-skip-tls-verify |      |
 ---------------------------|------
 description                | Skip SSL verification. {{% notice warning %}}
-**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production.
+**WARNING**: This configuration option is intended for use in development systems only. Do not use this configuration option in production.
 {{% /notice %}}
 type                       | Boolean
 default                    | `false`
@@ -1326,7 +1326,7 @@ redact:
 | require-fips |      |
 ------------------|------
 description       | Require Federal Information Processing Standard (FIPS) support in OpenSSL. Logs an error at Sensu agent startup if `true` but OpenSSL is not running in FIPS mode. {{% notice note %}}
-**NOTE**: The `--require-fips` flag is only available within the Linux amd64 OpenSSL-linked binary.
+**NOTE**: The `require-fips` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean
@@ -1340,7 +1340,7 @@ require-fips: true{{< /code >}}
 | require-openssl |      |
 ------------------|------
 description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu agent startup if `true` but Go's standard cryptography library is loaded. {{% notice note %}}
-**NOTE**: The `--require-openssl` flag is only available within the Linux amd64 OpenSSL-linked binary.
+**NOTE**: The `--require-openssl` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean

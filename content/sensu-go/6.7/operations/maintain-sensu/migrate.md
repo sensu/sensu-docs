@@ -243,7 +243,7 @@ api-port: 3031
 socket-port: 3030
 {{< /code >}}
 
-You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` flags.
+You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` configuration options.
 
 Sensu should now be installed and functional.
 The next step is to translate your Sensu Core configuration to Sensu Go.

@@ -21,14 +21,14 @@ These pages describe common problems and solutions, planning and optimization co
 
 If you use embedded etcd for storage, you might notice high network or storage latency.
 
-To make etcd more latency-tolerant, increase the values for the [etcd election timeout][1] and [etcd heartbeat interval][2] backend configuration flags.
+To make etcd more latency-tolerant, increase the values for the [`etcd election timeout`][1] and [`etcd heartbeat interval`][2] backend configuration options.
 For example, you might increase `etcd-election-timeout` from 3000 to 5000 and `etcd-heartbeat-interval` from 300 to 500.
 
 Read the [etcd tuning documentation][3] for etcd-specific tuning best practices.
 
 ## Advanced backend configuration options for etcd
 
-The [backend reference][11] describes other advanced configuration flags in addition to etcd election timeout and heartbeat interval.
+The [backend reference][11] describes other advanced configuration options in addition to etcd election timeout and heartbeat interval.
 
 Adjust these values with caution.
 Improper adjustment can increase memory and CPU usage or result in a non-functioning Sensu instance.
@@ -50,16 +50,16 @@ Read the [PostgreSQL parameters documentation][5] for information about setting 
 ## Agent reconnection rate
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the agent-rate-limit backend configuration flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+**COMMERCIAL FEATURE**: Access the `agent-rate-limit` backend configuration option in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 It may take several minutes for all agents to reconnect after a sensu-backend restart, especially if you have a large number of agents.
 The agent reconnection rate depends on deployment variables like the number of CPUs, disk space, network speeds, whether you're using a load balancer, and even physical distance between agents and backends.
 
 Although many variables affect the agent reconnection rate, a reasonable estimate is approximately 100 agents per backend per second.
-If you observe slower agent reconnection rates in your Sensu deployment, consider using the [agent-rate-limit][14] backend configuration flag.
+If you observe slower agent reconnection rates in your Sensu deployment, consider using the [`agent-rate-limit`][14] backend configuration option.
 
-The [agent-rate-limit][14] backend configuration flag allows you to set the maximum number of agent transport WebSocket connections per second, per backend.
+The [`agent-rate-limit`][14] backend configuration option allows you to set the maximum number of agent transport WebSocket connections per second, per backend.
 Set the agent-rate-limit to 100 to improve agent reconnection rate and reduce the time required for all of your agents to reconnect after a backend restart.
 
 ## Splay and proxy check scheduling
