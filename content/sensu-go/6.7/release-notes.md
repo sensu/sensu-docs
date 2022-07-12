@@ -117,6 +117,9 @@ This patch release includes a change in how agents execute check requests to pre
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.7.3.
 
+**IMPROVEMENTS**
+- ([Commercial feature][268]) Added supported packages for the Sensu backend, Sensu agent, and sensuctl for RHEL/CentOS 9.
+
 **FIXES**
 - ([Commercial feature][268]) When using the business service monitoring (BSM) feature, service component metadata is now included in the [`check` scope][291] of events the service component generates.
 Also fixed a bug that could cause BSM service component queries to retrieve events that do not match the specified query expressions.
