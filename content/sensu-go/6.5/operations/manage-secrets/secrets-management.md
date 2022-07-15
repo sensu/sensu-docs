@@ -46,7 +46,7 @@ Here's how to find your Integration Key in PagerDuty so you can set it up as you
 4. Click the **Integrations** tab.
 The Integration Key is listed in the second column.
 
-{{< figure src="/images/go/secrets-management/old_pagerduty_integration_key.png" alt="PagerDuty Integration Key location" link="/images/go/secrets-management/old_pagerduty_integration_key.png" target="_blank" >}}
+{{< figure src="/images/go/secrets_management/old_pagerduty_integration_key.png" alt="PagerDuty Integration Key location" link="/images/go/secrets_management/old_pagerduty_integration_key.png" target="_blank" >}}
 
 Make a note of your Integration Key &mdash; you'll need it to create your [backend environment variable][28] or [HashiCorp Vault secret][29].
 

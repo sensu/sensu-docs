@@ -2432,8 +2432,8 @@ To get started with Sensu Go:
 [284]: /sensu-go/6.7/observability-pipeline/observe-filter/sensu-query-expressions/#sensucheckdependencies-custom-function
 [285]: /sensu-go/6.7/observability-pipeline/observe-schedule/metrics/#metric-threshold-evaluation
 [286]: /sensu-go/6.7/web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
-[287]: /sensu-go/6.7/web-ui/view-manage-resources/webconfig-reference/#serialization_format
-[288]: /sensu-go/6.7/web-ui/view-manage-resources/webconfig-reference/#sign-in-message
+[287]: /sensu-go/6.7/web-ui/webconfig-reference/#serialization_format
+[288]: /sensu-go/6.7/web-ui/webconfig-reference/#sign-in-message
 [289]: /sensu-go/6.7/web-ui/sensu-catalog/#duplicate-integrations-and-existing-resources
 [290]: /sensu-go/6.7/web-ui/sensu-catalog/
 [291]: /sensu-go/6.7/observability-pipeline/observe-events/events/#check-scope
