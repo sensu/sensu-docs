@@ -9,6 +9,7 @@ version: "6.7"
 menu: "sensu-go-6.7"
 ---
 
+- [6.7.4 release notes](#674-release-notes)
 - [6.7.3 release notes](#673-release-notes)
 - [6.7.2 release notes](#672-release-notes)
 - [6.7.1 release notes](#671-release-notes)
@@ -106,6 +107,16 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
+## 6.7.4 release notes
+
+**July 15, 2022** &mdash; The latest release of Sensu Go, version 6.7.4, is now available for download.
+
+Sensu Go 6.7.4 upgrades the Go version to 1.17.12.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.7.4.
+
+**IMPROVEMENTS**
+- Upgraded Go version from 1.17.6 to 1.17.12.
 
 ## 6.7.3 release notes
 
