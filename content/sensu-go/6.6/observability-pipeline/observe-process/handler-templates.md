@@ -13,7 +13,7 @@ menu:
 ---
 
 Sensu Go uses the [Go template package][1], which allows you to generate text output that includes observation data from events.
-Sensu handler templates include HTML-formatted text and data derived from event attributes like `event.entity.name` and `.event.check.output`.
+Sensu handler templates include HTML-formatted text and data derived from event attributes like `event.entity.name` and `event.check.output`.
 This allows you to add meaningful, actionable context to alerts.
 
 For example, a template for a brief Slack alert might include information about the affected entity and its status, as well as a link to the organization's playbook for resolving observability alerts:
@@ -32,7 +32,7 @@ The playbook for managing this alert is available at https://example.com/observa
 Handler templates use dot notation syntax to access event attributes, with the event attribute wrapped in double curly braces.
 The initial dot indicates `event`.
 
-For example, in a handler template, a reference to the event attribute `.Check.occurrences` becomes `{{.Check.Occurrences}}`.
+For example, in a handler template, a reference to the event attribute `event.check.occurrences` becomes `{{.Check.Occurrences}}`.
 
 Use HTML to format the text and spacing in your templates.
 All text outside double curly braces is copied directly into the template output, with HTML formatting applied.
