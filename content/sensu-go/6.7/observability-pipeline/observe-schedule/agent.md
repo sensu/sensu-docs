@@ -650,7 +650,7 @@ If a [Sensu event handler][8] named `registration` is configured, the [Sensu bac
 {{% /notice %}}
 
 You can use registration events to execute one-time handlers for new Sensu agents.
-For example, you can use registration event handlers to update external [configuration management databases (CMDBs)][11] such as [ServiceNow][12].
+For example, you can use registration event handlers to update external [configuration management databases (CMDBs)][71] such as [ServiceNow][12].
 
 The handlers reference includes an [example registration event handler][41].
 
@@ -2068,7 +2068,6 @@ sensu-agent start --help
 [8]: ../../observe-process/handlers/
 [9]: ../../observe-filter/filters/
 [10]: ../../observe-transform/mutators/
-[11]: https://en.wikipedia.org/wiki/Configuration_management_database
 [12]: https://www.servicenow.com/products/it-operations-management.html
 [13]: #ephemeral-agent-configuration
 [14]: ../checks/
@@ -2094,7 +2093,7 @@ sensu-agent start --help
 [34]: #backend-heartbeat-interval
 [35]: ../backend/#datastore-and-cluster-configuration
 [36]: ../../../operations/deploy-sensu/cluster-sensu/
-[37]: ../backend/#general-configuration
+[37]: ../backend/#deregistration-handler-attribute
 [38]: #name
 [39]: ../../../operations/control-access/rbac/#agent-user
 [40]: ../../observe-process/send-slack-alerts/
@@ -2127,4 +2126,4 @@ sensu-agent start --help
 [68]: #create-configuration-overrides
 [69]: #agent-configuration-file
 [70]: #agent-configuration-methods
-[70]: #agent-configuration-methods
+[71]: https://en.wikipedia.org/wiki/Configuration_management_database
