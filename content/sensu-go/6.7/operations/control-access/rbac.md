@@ -169,7 +169,7 @@ By default, the `agent` user belongs to the `system:agent` group.
 The `system:agent` cluster role binding grants the `system:agent` cluster role to the members of this group.
 To grant agent users the permissions they need to report events into any namespace, add agent users to the `system:agent` group.
 
-Configure the `agent` user's credentials with the [`user` and `password` agent configuration flags][41].
+Configure the `agent` user's credentials with the [`user`][41] and [`password`][68] agent configuration options.
 
 ### View users
 
@@ -3280,7 +3280,7 @@ type: Group
 [38]: ../../../observability-pipeline/observe-schedule/rule-templates/
 [39]: ../ad-auth/#ad-groups-prefix
 [40]: ../../deploy-sensu/etcdreplicators/
-[41]: ../../../observability-pipeline/observe-schedule/agent/#security-configuration-flags
+[41]: ../../../observability-pipeline/observe-schedule/agent/#agent-password-option
 [42]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
 [43]: ../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
 [44]: ../../../observability-pipeline/observe-process/tcp-stream-handlers/
@@ -3307,3 +3307,5 @@ type: Group
 [65]: #spec-attributes-for-role-binding-and-cluster-role-binding-resources
 [66]: #role_ref-attributes
 [67]: #subjects-attributes
+[68]: ../../../observability-pipeline/observe-schedule/agent/#agent-user-option
+[68]: ../../../observability-pipeline/observe-schedule/agent/#agent-user-option

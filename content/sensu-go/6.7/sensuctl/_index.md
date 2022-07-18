@@ -495,7 +495,7 @@ source ~/.zshrc
 
 [1]: ../operations/control-access/rbac/
 [2]: ../operations/deploy-sensu/install-sensu/#install-sensuctl
-[3]: ../observability-pipeline/observe-schedule/agent/#general-configuration-flags
+[3]: ../observability-pipeline/observe-schedule/backend/
 [4]: ../operations/deploy-sensu/cluster-sensu/
 [5]: create-manage-resources/#create-resources
 [6]: #sensu-backend-url

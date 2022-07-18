@@ -284,8 +284,8 @@ spec:
 
 {{< /language-toggle >}}
 
-You can also use the [`keepalive-handlers`][19] flag to send keepalive events to any handler you have configured.
-If you do not specify a keepalive handler with the `keepalive-handlers` flag, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
+You can also use the [`keepalive-handlers`][19] configuration option to send keepalive events to any handler you have configured.
+If you do not specify a keepalive handler with the `keepalive-handlers` configuration option, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
 
 ## Handler specification
 

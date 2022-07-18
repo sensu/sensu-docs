@@ -222,9 +222,9 @@ If you change an agent entity's class to `proxy`, the backend will revert the ch
 ### Manage agent entities via the agent
 
 If you prefer, you can manage agent entities via the agent rather than the backend.
-To do this, add the [`agent-managed-entity` flag][16] when you start the Sensu agent or set `agent-managed-entity: true` in your `agent.yml` file.
+To do this, add the [`agent-managed-entity`][16] configuration option when you start the Sensu agent or set `agent-managed-entity: true` in your `agent.yml` file.
 
-When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in `agent.yml`, the agent becomes responsible for managing its entity configuration.
+When you start an agent with the `agent-managed-entity` configuration option set to `true`, the agent becomes responsible for managing its entity configuration.
 An entity managed by this agent will include the label `sensu.io/managed_by: sensu-agent`.
 You cannot update these agent-managed entities via the Sensu backend REST API.
 To change an agent's configuration, restart the agent.
@@ -1233,7 +1233,7 @@ arm_version: 7
 
 cloud_provider | 
 ---------------|------ 
-description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. Returned empty unless the agent runs on Amazon Elastic Compute Cloud (EC2), Google Cloud Platform (GCP), or Microsoft Azure. {{% notice note %}}
+description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`detect-cloud-provider`][25] configuration option is set. Returned empty unless the agent runs on Amazon Elastic Compute Cloud (EC2), Google Cloud Platform (GCP), or Microsoft Azure. {{% notice note %}}
 **NOTE**: This feature can result in several HTTP requests or DNS lookups being performed, so it may not be appropriate for all environments.
 {{% /notice %}}
 required       | false 
@@ -1594,7 +1594,7 @@ name: eth0
 ### Processes attributes
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag](../../observe-schedule/agent/#discover-processes) in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes`](../../observe-schedule/agent/#discover-processes) configuration option in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
@@ -1787,7 +1787,7 @@ status: Ss
 [31]: ../#agent-entities
 [32]: ../#proxy-entities
 [33]: ../../../web-ui/view-manage-resources/#manage-entities
-[34]: ../../observe-schedule/agent/#ephemeral-agent-configuration-flags
+[34]: ../../observe-schedule/agent/#ephemeral-agent-configuration
 [35]: ../../observe-schedule/agent/#config-file
 [36]: ../../../api/core/entities/
 [37]: ../../../sensuctl/create-manage-resources/#update-resources

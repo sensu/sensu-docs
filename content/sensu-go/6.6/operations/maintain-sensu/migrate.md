@@ -233,7 +233,7 @@ In addition to built-in RBAC, Sensu Go's [commercial features][27] include suppo
 The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
 Read the [installation guide][55] to install, configure, and start Sensu agents.
 
-If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56] (`/etc/sensu/agent.yml`).
+If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56] (`/etc/sensu/agent.yml` or `C:\ProgramData\sensu\config\agent.yml.example`).
 This prevents the Sensu Go agent API and socket from conflicting with the Sensu Core client API and socket.
 
 {{< code yml >}}
@@ -241,7 +241,7 @@ api-port: 3031
 socket-port: 3030
 {{< /code >}}
 
-You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` flags.
+You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` configuration options.
 
 Sensu should now be installed and functional.
 The next step is to translate your Sensu Core configuration to Sensu Go.
@@ -582,7 +582,7 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [53]: ../../deploy-sensu/install-sensu#install-sensuctl
 [54]: ../../control-access/rbac/#resources
 [55]: ../../deploy-sensu/install-sensu#install-sensu-agents
-[56]: ../../../observability-pipeline/observe-schedule/agent#configuration-via-flags
+[56]: ../../../observability-pipeline/observe-schedule/agent/#agent-configuration-options
 [57]: ../../../observability-pipeline/observe-schedule/collect-metrics-with-checks/
 [58]: ../../../observability-pipeline/observe-schedule/checks#metadata-attributes
 [59]: https://bonsai.sensu.io/assets?q=eventfilter
