@@ -4,7 +4,7 @@ linkTitle: "Monitor External Resources"
 guide_title: "Monitor external resources with proxy entities"
 type: "guide"
 description: "Use Sensu's proxy entities to monitor external resources on systems and devices where you cannot install a Sensu agent, like a network switch or a website."
-weight: 20
+weight: 30
 version: "6.7"
 product: "Sensu Go"
 platformContent: false
