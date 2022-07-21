@@ -813,6 +813,30 @@ This may result in a crash loop that is difficult to recover from.
 You may observe that the Sensu backend process continues running but is not listening for connections on the agent WebSocket, API, or web UI ports.
 The backend will stop listening on those ports when the etcd database is unavailable.
 
+## Check execution and multiple subscriptions
+
+The following error message indicates that a check and an entity share more than one matching subscription:
+
+{{< code text >}}
+{"component":"agent","error":"check execution still in progress: <CHECK_NAME>","level":"error","msg":"error handling message","time":"2022-07-21T20:08:31Z"}
+{{< /code >}}
+
+The Sensu backend sends check requests to all matching subscriptions.
+If an entity and a check have multiple matching subscriptions, the entity will receive a separate check request for each matching subscription.
+The entity could receive both check requests almost simultaneously.
+
+If the entity is still executing one check request when it receives another for the same check, the Sensu backend will log the `check execution still in progress` error.
+In some cases, entities execute the check requests quickly enough to prevent the `check execution still in progress` error.
+In these cases, check `history` and features that rely on it, like flap detection, may behave in unexpected ways.
+
+To resolve this problem, make sure that your checks and entities share only a single [subscription][31].
+
+{{< code text >}}
+check request has already been received - agent and check may have multiple matching subscriptions
+
+check request is older than a previously received check request
+{{< /code >}}
+
 ## Web UI errors
 
 If the web UI experiences an error, you may see the following message in the web UI:
@@ -888,3 +912,4 @@ Read the documentation for your browser to learn more about the web developer to
 [28]: ../../deploy-sensu/generate-certificates/
 [29]: https://etcd.io/docs/latest/dev-guide/interacting_v3/
 [30]: ../../../observability-pipeline/observe-schedule/backend/
+[31]: ../../../observability-pipeline/observe-schedule/subscriptions/
