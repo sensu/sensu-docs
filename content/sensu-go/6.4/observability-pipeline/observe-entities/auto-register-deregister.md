@@ -5,11 +5,11 @@ guide_title: "Automatically register and deregister entities"
 type: "guide"
 description: "Keep your Sensu instance up-to-date with automatic agent discovery, registration, and deregistration for infrastructure components and services."
 weight: 20
-version: "6.7"
+version: "6.4"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-6.7:
+  sensu-go-6.4:
     parent: observe-entities
 ---
 
@@ -177,7 +177,7 @@ The agent `deregistration-handler` attribute overrides the backend `deregistrati
 In other words, if you specify both an agent and backend deregistration handler, Sensu will use only the handler specified in the agent configuration.
 
 {{% notice note %}}
-**NOTE**: If you set the agent [`deregister`](../../observe-schedule/agent/#ephemeral-agent-configuration-flags) attribute to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.<br><br>
+**NOTE**: If you set the agent [`deregister`](../../observe-schedule/agent/#ephemeral-agent-configuration) attribute to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.<br><br>
 Deregistration prevents and clears alerts for failing keepalives for agent entities &mdash; the backend does not distinguish between intentional shutdown and failure.
 As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not receive alerts for keepalive events in the web UI.<br><br>
 If you want to receive alerts for failing keepalives, set the agent `deregister` attribute to `false`.
@@ -205,8 +205,8 @@ deregistration-handler: servicenow_cmdb
 
 ## Next steps
 
-The [Sensu Catalog][12] includes the [Platform Discovery][13] integration, which detects the agent operating system and platform information and updates the agent's subscriptions accordingly.
-This integration allows you to deploy agents with a single subscription and use the auto-discovery check to add system-based subscriptions automatically.
+Use the [Sensu Platform Discovery][12] dynamic runtime asset to detect the agent operating system and platform information and update the agent's subscriptions accordingly.
+This allows you to deploy agents with a single subscription and use the auto-discovery check to add system-based subscriptions automatically.
 
 Follow [Create limited service accounts][14] to automatically remove AWS EC2 instances that are not in a pending or running state.
 
@@ -219,9 +219,8 @@ Follow [Create limited service accounts][14] to automatically remove AWS EC2 ins
 [6]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
 [7]: ../../observe-process/send-data-sumo-logic/
 [8]: ../../observe-process/send-pagerduty-alerts/
-[9]: ../../observe-schedule/agent/#ephemeral-agent-configuration-flags
+[9]: ../../observe-schedule/agent/#ephemeral-agent-configuration
 [10]: ../../observe-schedule/agent/#agent-deregistration-handler-attribute
 [11]: ../../observe-schedule/backend/#deregistration-handler-attribute
-[12]: ../../../web-ui/sensu-catalog/
-[13]: https://github.com/sensu/catalog/tree/main/integrations/sensu/platform-discovery
+[12]: https://bonsai.sensu.io/assets/sensu/sensu-platform-discovery
 [14]: ../../../operations/control-access/create-limited-service-accounts/

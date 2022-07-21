@@ -2036,8 +2036,7 @@ sensu-agent start --help
 [8]: ../../observe-process/handlers/
 [9]: ../../observe-filter/filters/
 [10]: ../../observe-transform/mutators/
-[11]: ../../observe-entities/discover-entities/
-[12]: https://www.servicenow.com/products/it-operations-management.html
+[11]: ../../observe-entities/auto-register-deregister/
 [13]: #ephemeral-agent-configuration
 [14]: ../checks/
 [15]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern

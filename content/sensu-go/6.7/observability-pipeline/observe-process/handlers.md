@@ -948,4 +948,4 @@ spec:
 [34]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [35]: ../../observe-process/send-slack-alerts/
 [36]: ../../../plugins/featured-integrations/servicenow/
-[37]: ../../observe-entities/discover-entities/
+[37]: ../../observe-entities/auto-register-deregister/

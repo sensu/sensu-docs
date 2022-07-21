@@ -145,8 +145,8 @@ As a result, if you set `deregister` to `true` and an agent process stops for an
 If you want to receive alerts for failing keepalives, set the [deregister configuration option](#ephemeral-agent-configuration) to `false`.
 {{% /notice %}}
 
-You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
-In addition, the agent maps [`keepalive-critical-timeout`][4] and [`keepalive-warning-timeout`][58] values to certain event check attributes, so you can [create time-based event filters][57] to reduce alert fatigue for agent keepalive events.
+You can use keepalives to identify unhealthy systems and network partitions, send notifications, trigger auto-remediation, and [automatically register and deregister agent entities][11], among other useful actions.
+The agent maps [`keepalive-critical-timeout`][4] and [`keepalive-warning-timeout`][58] values to certain event check attributes, so you can also [create time-based event filters][57] to reduce alert fatigue for agent keepalive events.
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
@@ -609,40 +609,7 @@ example      | {{< code json >}}{
 Sensu agents automatically discover and register infrastructure components and the services running on them.
 When an agent process stops, the Sensu backend can automatically create and process a deregistration event for the agent entities.
 
-In practice, agent registration happens when a Sensu backend processes an agent keepalive event for an agent that is not already registered in the Sensu agent registry (based on the configured agent `name`).
-The [Sensu backend][2] stores this agent registry, and it is accessible via [`sensuctl entity list`][6].
-
-All Sensu agent data provided in keepalive events gets stored in the agent registry and used to add context to Sensu [events][7] and detect Sensu agents in an unhealthy state.
-
-### Registration events
-
-If a [Sensu event handler][8] named `registration` is configured, the [Sensu backend][2] creates and processes an [event][7] for agent registration, applying any configured [filters][9] and [mutators][10] before executing the configured [handler][8].
-
-{{% notice protip %}}
-**PRO TIP**: Use a [handler set](../../observe-process/handlers#handler-sets) to execute multiple handlers in response to registration events.
-{{% /notice %}}
-
-You can use registration events to execute one-time handlers for new Sensu agents.
-For example, you can use registration event handlers to update external [configuration management databases (CMDBs)][11] such as [ServiceNow][12].
-
-The handlers reference includes an [example registration event handler][41].
-
-{{% notice warning %}}
-**WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API.
-However, all registration events are logged in the [Sensu backend log](../backend/#event-logging).
-{{% /notice %}}
-
-### Deregistration events
-
-As with registration events, the Sensu backend can create and process a deregistration event when the Sensu agent process stops.
-You can use deregistration events to trigger a handler that updates external CMDBs or performs an action to update ephemeral infrastructures.
-To enable deregistration events, use the [`deregister` option][13], and specify the event handler using the [`deregistration-handler` option][13].
-You can specify a deregistration handler per agent using the [`deregistration-handler` agent option][13] or by setting a default for all agents using the [`deregistration-handler` backend configuration option][37].
-
-{{% notice note %}}
-**NOTE**: Deregistration is supported for [agent entities](../../observe-entities/#agent-entities) that have sent at least one keepalive.
-Deregistration is **not** supported for [proxy entities](../../observe-entities/#proxy-entities), which do not send keepalives, and the backend does not automatically create and process deregistration events for proxy entities.
-{{% /notice %}}
+Read [Automatically register and deregister entities][11] for more information.
 
 ## Agent configuration options
 
@@ -2010,8 +1977,7 @@ sensu-agent start --help
 [8]: ../../observe-process/handlers/
 [9]: ../../observe-filter/filters/
 [10]: ../../observe-transform/mutators/
-[11]: https://en.wikipedia.org/wiki/Configuration_management_database
-[12]: https://www.servicenow.com/products/it-operations-management.html
+[11]: ../../observe-entities/auto-register-deregister/
 [13]: #ephemeral-agent-configuration
 [14]: ../checks/
 [15]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
