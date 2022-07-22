@@ -165,4 +165,4 @@ Deleted
 
 
 [1]: ../../../api/other/auth/
-[2]: ../../../sensuctl/#global-flags
+[2]: ../../../sensuctl/#use-global-flags-for-sensuctl-settings

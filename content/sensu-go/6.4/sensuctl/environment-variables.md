@@ -79,5 +79,5 @@ SENSU_INSECURE_SKIP_TLS_VERIFY    Boolean value that can be set to skip TLS veri
 {{< /code >}}
 
 
-[4]: ../#global-flags
+[4]: ../#use-global-flags-for-sensuctl-settings
 [5]: ../#sensuctl-configure-flags
