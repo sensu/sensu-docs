@@ -1581,7 +1581,7 @@ Read [Create overrides][68] to learn more.
 
 For Linux agents, you can customize the agent configuration with `sensu-agent start` command line flags.
 
-To use command line flags, specify the desired configuration flags and values along with the `sensu-agent start` command.
+To use command line flags, specify the desired configuration options and values along with the `sensu-agent start` command.
 For example:
 
 {{< code shell >}}
@@ -1594,7 +1594,7 @@ Read [Create overrides][68] to learn more.
 ### Environment variables
 
 Instead of using the agent configuration file or command line flags, you can use environment variables to configure your Sensu agent.
-Each agent configuration flag has an associated environment variable.
+Each agent configuration option has an associated environment variable.
 You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
 Here's how.
 
@@ -1623,7 +1623,7 @@ C:\ProgramData\sensu\config\agent.yml
 2. Make sure the environment variable is named correctly.
 All environment variables that control Sensu agent configuration begin with `SENSU_`.
 
-     To rename a configuration flag you wish to specify as an environment variable, prepend `SENSU_`, convert dashes to underscores, and capitalize all letters.
+     To rename a configuration option you wish to specify as an environment variable, prepend `SENSU_`, convert dashes to underscores, and capitalize all letters.
      For example, the environment variable for the flag `api-host` is `SENSU_API_HOST`.
 
      For a custom environment variable, you do not have to prepend `SENSU`.

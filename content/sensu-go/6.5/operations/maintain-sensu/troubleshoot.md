@@ -147,7 +147,7 @@ journalctl _COMM=sensu-backend.service --since yesterday
 
 #### Windows
 
-The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
+The Sensu agent stores service logs to the location specified by the `log-file` configuration option (default `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
 For more information about managing the Sensu agent for Windows, read the [agent reference][1].
 You can also view agent events using the Windows Event Viewer, under Windows Logs, as events with source SensuAgent.
 

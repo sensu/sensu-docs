@@ -141,5 +141,5 @@ SENSU_INSECURE_SKIP_TLS_VERIFY    Boolean value that can be set to skip TLS veri
 [1]: #set-environment-variables-for-a-single-command
 [2]: #set-environment-variables-with-sensuctl-configure
 [3]: #set-environment-variables-with-sensuctl-env
-[4]: ../#global-flags
+[4]: ../#use-global-flags-for-sensuctl-settings
 [5]: ../#sensuctl-configure-flags
