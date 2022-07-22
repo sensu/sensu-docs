@@ -130,7 +130,7 @@ For more information about clustering, read [Backend datastore configuration][35
 ## Keepalive monitoring
 
 Sensu keepalives are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
-Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval`][4] configuration flag.
+Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval`][4] configuration option.
 All Sensu agent data provided in keepalive events is stored in the agent registry and used to add context to Sensu events and detect Sensu agents in an unhealthy state.
 
 If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout`][4] configuration option, the Sensu backend creates a keepalive **critical** alert in the Sensu web UI.
