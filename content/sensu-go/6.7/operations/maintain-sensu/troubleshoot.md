@@ -813,28 +813,31 @@ This may result in a crash loop that is difficult to recover from.
 You may observe that the Sensu backend process continues running but is not listening for connections on the agent WebSocket, API, or web UI ports.
 The backend will stop listening on those ports when the etcd database is unavailable.
 
-## Check execution and multiple subscriptions
-
-The following error message indicates that a check and an entity share more than one matching subscription:
-
-{{< code text >}}
-{"component":"agent","error":"check execution still in progress: <CHECK_NAME>","level":"error","msg":"error handling message","time":"2022-07-21T20:08:31Z"}
-{{< /code >}}
+## Check execution errors
 
 The Sensu backend sends check requests to all matching subscriptions.
 If an entity and a check have multiple matching subscriptions, the entity will receive a separate check request for each matching subscription.
 The entity could receive both check requests almost simultaneously.
 
-If the entity is still executing one check request when it receives another for the same check, the Sensu backend will log the `check execution still in progress` error.
-In some cases, entities execute the check requests quickly enough to prevent the `check execution still in progress` error.
-In these cases, check `history` and features that rely on it, like flap detection, may behave in unexpected ways.
-
-To resolve this problem, make sure that your checks and entities share only a single [subscription][31].
+As a result, you may see the following error message:
 
 {{< code text >}}
-check request has already been received - agent and check may have multiple matching subscriptions
+{"component":"agent","error":"check execution still in progress: <CHECK_NAME>","level":"error","msg":"error handling message","time":"..."}
+{{< /code >}}
 
-check request is older than a previously received check request
+Entities may execute the duplicate check requests quickly enough to prevent the `check execution still in progress` error.
+In these cases, check `history` and features that rely on it, like flap detection, may behave in unexpected ways.
+
+If you see the `check execution still in progress` error, review the check subscriptions against your entities for multiple matching subscriptions.
+To prevent the problem, make sure that your checks and entities share only a single [subscription][31].
+
+{{% notice note %}}
+**NOTE**: As of Sensu Go 6.7.3, multiple matching check and entity subscriptions may produce the messages listed below in addition to the `check execution still in progress` error.
+{{% /notice %}}
+
+{{< code text >}}
+{"component":"agent","error":"check request is older than a previously received check request","level":"error","msg":"error handling message","time":"..."}
+{"component":"agent","warning":"check request has already been received - agent and check may have multiple matching subscriptions","level":"warn","msg":"error handling message","time":"..."}
 {{< /code >}}
 
 ## Web UI errors
