@@ -16,45 +16,6 @@ menu:
 
 Logs produced by Sensu services (sensu-backend and sensu-agent) are often the best place to start when troubleshooting a variety of issues.
 
-### Log levels
-
-Each log message is associated with a log level that indicates the relative severity of the event being logged:
-
-| Log level          | Description |
-|--------------------|--------------------------------------------------------------------------|
-| panic              | Severe errors that cause the service to shut down in an unexpected state |
-| fatal              | Fatal errors that cause the service to shut down (status 0)              |
-| error              | Non-fatal service error messages                                         |
-| warn               | Warning messages that indicate potential issues                          |
-| info               | Information messages that represent service actions                      |
-| debug              | Detailed service operation messages to help troubleshoot issues          |
-| trace              | Confirmation messages about whether a rule authorized a request          |
-
-You can configure these log levels by specifying the desired log level as the value of `log-level` in the service configuration file (`agent.yml` or `backend.yml`) or as an argument to the `--log-level` command line flag:
-
-{{< code shell >}}
-sensu-agent start --log-level debug
-{{< /code >}}
-
-You must restart the service after you change log levels via configuration files or command line arguments.
-For help with restarting a service, read the [agent reference][5] or [backend reference][9].
-
-#### Increment log level verbosity
-
-To increment the log level verbosity at runtime for the backend, run:
-
-{{< code shell >}}
-kill -s SIGUSR1 $(pidof sensu-backend)
-{{< /code >}}
-
-To increment the log level verbosity at runtime for the agent, run:
-
-{{< code shell >}}
-kill -s SIGUSR1 $(pidof sensu-agent)
-{{< /code >}}
-
-When you increment the log at the trace level (the most verbose log level), the log will wrap around to the error level.
-
 ### Log file locations
 
 {{< platformBlock "Linux" >}}
@@ -132,8 +93,6 @@ journalctl -u sensu-backend --since "2015-01-10" --until "2015-01-11 03:00" | te
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Windows" >}}
-
 ##### Logging edge cases
 
 If a Sensu service experiences a panic crash, the service may seem to start and stop without producing any output in journalctl.
@@ -145,9 +104,11 @@ In these cases, try using the `_COMM` variable instead of the `-u` flag to acces
 journalctl _COMM=sensu-backend.service --since yesterday
 {{< /code >}}
 
+{{< platformBlock "Windows" >}}
+
 #### Windows
 
-The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
+The Sensu agent stores service logs to the location specified by the `log-file` configuration option (default `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
 For more information about managing the Sensu agent for Windows, read the [agent reference][1].
 You can also view agent events using the Windows Event Viewer, under Windows Logs, as events with source SensuAgent.
 
@@ -158,6 +119,45 @@ Get-Content -  Path "C:\scripts\test.txt" -Wait
 {{< /code >}}
 
 {{< platformBlockClose >}}
+
+### Log levels
+
+Each log message is associated with a log level that indicates the relative severity of the event being logged:
+
+| Log level          | Description |
+|--------------------|--------------------------------------------------------------------------|
+| panic              | Severe errors that cause the service to shut down in an unexpected state |
+| fatal              | Fatal errors that cause the service to shut down (status 0)              |
+| error              | Non-fatal service error messages                                         |
+| warn               | Warning messages that indicate potential issues                          |
+| info               | Information messages that represent service actions                      |
+| debug              | Detailed service operation messages to help troubleshoot issues          |
+| trace              | Confirmation messages about whether a rule authorized a request          |
+
+You can configure these log levels by specifying the desired log level as the value of `log-level` in the service configuration file (`agent.yml` or `backend.yml`) or as an argument to the `--log-level` command line flag:
+
+{{< code shell >}}
+sensu-agent start --log-level debug
+{{< /code >}}
+
+You must restart the service after you change log levels via configuration files or command line arguments.
+For help with restarting a service, read the [agent reference][5] or [backend reference][9].
+
+#### Increment log level verbosity
+
+To increment the log level verbosity at runtime for the backend, run:
+
+{{< code shell >}}
+kill -s SIGUSR1 $(pidof sensu-backend)
+{{< /code >}}
+
+To increment the log level verbosity at runtime for the agent, run:
+
+{{< code shell >}}
+kill -s SIGUSR1 $(pidof sensu-agent)
+{{< /code >}}
+
+When you increment the log at the trace level (the most verbose log level), the log will wrap around to the error level.
 
 ## Sensu backend startup errors
 

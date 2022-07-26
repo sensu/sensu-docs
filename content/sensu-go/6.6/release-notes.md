@@ -461,7 +461,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
 
 **IMPROVEMENTS:**
 
-- Added [etcd-log-level configuration flag][217] for setting the log level for the embedded etcd server.
+- Added [etcd-log-level][217] backend configuration option for setting the log level for the embedded etcd server.
 - Added [`wait` flag][218] for the `sensu-backend init` command, which indicates the backend should repeatedly try to establish a connection to etcd until it is successful.
 - The `timeout` flag for `sensu-backend init` is now treated as a duration instead of seconds (example duration format is `10s` for 10 seconds or `5m` for 5 minutes).
 Values less than 1 second and integer values will be interpreted as seconds.
@@ -496,7 +496,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
 
 - ([Commercial feature][207]) Added [business service monitoring (BSM)][210] to provide high-level visibility into the current health of any number of business services, with a [built-in aggregate check rule template][211].
 - ([Commercial feature][207]) Added support for agent transport rate limiting via [`agent-burst-limit`][208] and [`agent-rate-limit`][209] backend configuration options.
-- ([Commercial feature][207]) Added the `event-log-buffer-wait` backend configuration flag, which allows you to specify how long the event logger will wait for the writer to consume events from the buffer when the buffer is full.
+- ([Commercial feature][207]) Added the `event-log-buffer-wait` backend configuration option, which allows you to specify how long the event logger will wait for the writer to consume events from the buffer when the buffer is full.
 - Added the entity class [service][213], which represents a business service for the business service monitoring (BSM) feature.
 
 **IMPROVEMENTS:**
@@ -2257,7 +2257,7 @@ To get started with Sensu Go:
 [215]: /sensu-go/6.4/commercial/
 [216]: /sensu-go/6.4/platforms/#macos
 [217]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#etcd-log-level
-[218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout
+[218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout-and-wait-flags
 [219]: https://etcd.io/docs/v3.5/metrics/etcd-metrics-latest.txt
 [220]: /sensu-go/6.4/web-ui/webconfig-reference/#sign-in-message
 [221]: /sensu-go/6.4/web-ui/webconfig-reference/#page-preferences-attributes

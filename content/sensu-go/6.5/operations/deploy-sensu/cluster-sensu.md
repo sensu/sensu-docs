@@ -38,7 +38,7 @@ After you've secured Sensu, continue reading this document to [set up][2] and [u
 
 ## Configure a cluster
 
-The sensu-backend arguments for its store mirror the [etcd configuration flags][3], but the Sensu flags are prefixed with `etcd`.
+The sensu-backend arguments for its store mirror the [etcd configuration flags][3], but the Sensu configuration options are prefixed with `etcd`.
 For more detailed descriptions of the different arguments, read the [etcd documentation][4] or [Sensu backend reference][15].
 
 You can configure a Sensu cluster in a couple different ways &mdash; we'll show you a few below &mdash; but you should adhere to some etcd cluster guidelines as well:
@@ -478,7 +478,7 @@ To redeploy a cluster due to an issue like loss of quorum among cluster members,
 [12]: https://etcd.io/docs/latest/op-guide/
 [13]: ../generate-certificates/
 [14]: https://etcd.io/docs/latest/op-guide/runtime-configuration/
-[15]: ../../../observability-pipeline/observe-schedule/backend/
+[15]: ../../../observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration
 [16]: ../secure-sensu/
 [17]: ../../../sensuctl/
 [18]: https://etcd.io/docs/current/dev-internal/discovery_protocol/#specifying-the-expected-cluster-size
