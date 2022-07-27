@@ -832,7 +832,7 @@ If you see the `check execution still in progress` error, review the check subsc
 To prevent the problem, make sure that your checks and entities share only a single [subscription][31].
 
 {{% notice note %}}
-**NOTE**: As of Sensu Go 6.7.3, multiple matching check and entity subscriptions may produce the messages listed below in addition to the `check execution still in progress` error.
+**NOTE**: As of Sensu Go 6.7.3, multiple matching check and entity subscriptions may result in the messages listed below in addition to the `check execution still in progress` error.
 {{% /notice %}}
 
 {{< code text >}}
