@@ -725,6 +725,8 @@ sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml{{< /code >}}
 agent.yml config file example | {{< code shell >}}
 allow-list: /etc/sensu/check-allow-list.yaml{{< /code >}}
 
+<a id="agent-annotations"></a>
+
 | annotations|      |
 -------------|------
 description  | Non-identifying metadata to include with event data that you can access with [event filters][9] and [tokens][27]. You can use annotations to add data that is meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][25], [sensuctl response filtering][26], or [web UI view filtering][54].{{% notice note %}}
