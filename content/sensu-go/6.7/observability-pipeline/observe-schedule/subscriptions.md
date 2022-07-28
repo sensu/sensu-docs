@@ -113,10 +113,16 @@ Sensu automatically executes a check when the check definition includes a subscr
 In other words, subscriptions are configured for both checks and agent entities:
 
 - To configure subscriptions for a check, add one or more subscription names in the [check `subscriptions` attribute][15].
-- To configure subscriptions for an agent entity, configure the [`subscriptions`][2] by specifying the subscriptions that include the checks the agent's entities should execute.
+- To configure subscriptions for an agent entity, specify a subscription that matches one subscription in each check that the agent's entities should execute.
 
 The Sensu backend [schedules][13] checks once per interval for each agent entity with a matching subscription.
 For example, if you have three entities configured with the `system` subscription, a check configured with the `system` subscription results in three monitoring events per interval: one check execution per entity per interval.
+
+{{% notice warning %}}
+**WARNING**: Make sure that your checks and entities share only one subscription.
+Entities receive a separate check request for each matching subscription, even if the requests are for the same check.
+This can result in check execution errors as well as unexpected results for check `history` and the features that rely on it.
+{{% /notice %}}
 
 In addition to the subscriptions defined in the agent configuration, Sensu agent entities subscribe automatically to subscriptions that match their [entity `name`][10].
 For example, an agent entity with `name: "i-424242"` subscribes to check requests with the subscription `entity:i-424242`.
