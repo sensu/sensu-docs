@@ -96,11 +96,19 @@ Event filter expressions are compared directly with their event data counterpart
 
 When more complex conditional logic is needed than direct filter expression comparison, Sensu event filters provide support for expression evaluation using [Otto][31].
 Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions provided in an event filter.
+
+In event filter expressions, place string values inside single or double quotes.
+These filter expressions are equivalent in EMCAScript:
+
+{{< code text >}}
+event.check.annotations['service_priority'] == 1
+event.check.annotations["service_priority"] == 1
+{{< /code >}}
+
 There are some caveats to using Otto: not all of the regular expressions (regex) specified in ECMAScript 5 will work.
 Review the [Otto README][32] for more details.
 
 Use [Go regex syntax][3] to create event filter expressions that combine any available [event][46], [check][47], or [entity][48] attributes with `match(<regex>)`.
-
 For example, this event filter allows handling for events whose `event.check.name` ends with `metrics`:
 
 {{< language-toggle >}}
@@ -792,18 +800,20 @@ action: allow
 
 expressions   | 
 -------------|------
-description  | Event filter expressions to be compared with event data. You can reference event metadata without including the `metadata` scope (for example, `event.entity.namespace`).
+description  | Event filter expressions to be compared with event data. You can reference event metadata without including the `metadata` scope (for example, `event.entity.namespace`).<br><br>In filter expressions, place string values inside single or double quotes.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 expressions:
 - event.check.team == 'ops'
+- event.check.annotations["service_priority"] == 1
 {{< /code >}}
 {{< code json >}}
 {
   "expressions": [
-    "event.check.team == 'ops'"
+    "event.check.team == 'ops'",
+    "event.check.annotations[\"service_priority\"] == 1"
   ]
 }
 {{< /code >}}
