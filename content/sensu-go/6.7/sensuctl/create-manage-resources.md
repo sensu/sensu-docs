@@ -593,7 +593,7 @@ Use the `sensuctl edit` command with any of the following resource types:
 [`asset`][12] | [`auth`][39] | [`check`][13] | [`cluster`][7]
 [`cluster-role`][43] | [`cluster-role-binding`][45] | [`entity`][14] | [`event`][15]
 [`filter`][16] | [`handler`][17] | [`hook`][18] | [`mutator`][19]
-[`namespace`][21] | [`pipelines`][9] | [`role`][35] | [`role-binding`][44]
+[`namespace`][21] | [`pipeline`][9] | [`role`][35] | [`role-binding`][44]
 [`silenced`][20] | [`user`][22]
  
 ## Manage resources
@@ -615,7 +615,7 @@ Combine the resource command with a [subcommand][23] to complete operations like
 - [`sensuctl license`][34] (commercial feature)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][21]
-- [`sensuctl pipelines`][9]
+- [`sensuctl pipeline`][9]
 - [`sensuctl role`][35]
 - [`sensuctl role-binding`][44]
 - [`sensuctl secrets`][28]
