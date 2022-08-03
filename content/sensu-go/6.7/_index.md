@@ -31,11 +31,14 @@ Deploy Sensu Go for on-premises and public cloud infrastructures, containers, ba
 Get meaningful alerts when and where you need them so you can [reduce alert fatigue][28] and [speed up incident response][29].
 Sensu gives you full control over your alerts with flexible [event filters][8], [check hooks][9] for context-rich notifications, reporting, [observation data handling][24], and auto-remediation.
 
-## Plugins that extend functionality and integrate with existing workflows
+## Extend functionality and integrate with existing workflows with the Sensu Catalog
 
-Sensu's open architecture integrates with the tools and services you already use, like [Ansible][33], [EC2][35], [InfluxDB][32], [PagerDuty][19], [Puppet][23], [Rundeck][36], [Saltstack][37], [Slack][17], and [Sumo Logic][34].
+Use the [Sensu Catalog][41], the online marketplace for monitoring and observability integrations, to find and install integrations directly in your browser.
 
-Check out our [featured integrations][38], search for more plugins in [Bonsai, the Sensu asset hub][18], or write your own [Sensu plugins][3] in any language.
+Sensu's open architecture integrates with the tools and services you already use, like Ansible, Amazon EC2, InfluxDB, Kubernetes, PagerDuty, Saltstack, and Sumo Logic.
+The Sensu Catalog also includes standard system checks and metrics collectors.
+
+To start integrating Sensu with your existing workflows, read the [Sensu Catalog][41] documentation, check out our [featured integrations][38], search for plugins in [Bonsai, the Sensu asset hub][18], or write your own [Sensu plugins][3] in any language.
 
 ## Automate with agent registration-deregistration and check subscriptions
 
@@ -105,3 +108,4 @@ Sensu is a comprehensive monitoring and observability solution for enterprises, 
 [38]: plugins/featured-integrations/
 [39]: observability-pipeline/observe-schedule/subscriptions/
 [40]: observability-pipeline/observe-schedule/collect-metrics-with-checks/
+[41]: web-ui/sensu-catalog/
