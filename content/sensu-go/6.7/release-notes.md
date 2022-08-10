@@ -9,6 +9,7 @@ version: "6.7"
 menu: "sensu-go-6.7"
 ---
 
+- [6.7.5 release notes](#675-release-notes)
 - [6.7.4 release notes](#674-release-notes)
 - [6.7.3 release notes](#673-release-notes)
 - [6.7.2 release notes](#672-release-notes)
@@ -107,6 +108,17 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
+## 6.7.5 release notes
+
+**August 10, 2022** &mdash; The latest release of Sensu Go, version 6.7.4, is now available for download.
+
+Sensu Go 6.7.5 updates the package graphql-go/graphql to address [CVE-2022-37315][293] in which a malicious actor may craft a query that can crash the backend instance.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.7.5.
+
+**IMPROVEMENTS**
+- Upgraded the graphql-go/graphql library to remediate a CVE
+
 ## 6.7.4 release notes
 
 **July 15, 2022** &mdash; The latest release of Sensu Go, version 6.7.4, is now available for download.
@@ -124,7 +136,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.7.4.
 
 Sensu Go 6.7.3 includes fixes for the Sensu Catalog sort order and web UI notifications, as well a database issue that could cause backends to crash.
 We also fixed bugs that affected business service monitoring (BSM) service components and removed limits on Active Directory (AD) and Lightweight Directory Access Protocol (LDAP) searches.
-This patch release includes a change in how agents execute check requests to prevent `check execution still in progress` failures. 
+This patch release includes a change in how agents execute check requests to prevent `check execution still in progress` failures.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.7.3.
 
@@ -185,7 +197,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.7.1.
 
 **April 21, 2022** &mdash; The latest release of Sensu Go, version 6.7.0, is now available for download.
 
-Sensu Go 6.7.0 includes a number of new features, improvements and fixes, including Sensu Go's newest feature, the Sensu Catalog. The Catalog is a marketplace within the Sensu web UI that facilitates new user onboarding and deploying production-ready monitoring in minutes. Sensu Go 6.7.0 also includes metric threshold evaluation, keepalive pipelines, and check subdues. We've improved the onboarding workflow for Sensu Plus so you can seamlessly transmit Sensu observability data to Sumo Logic, added support for arrays of strings and objects in the `sensu.CheckDependencies` Sensu query expression, added an attribute to the GlobalConfig specification, and more. Bug fixes in Sensu Go 6.7.0 include adding pipelines within the event.check object, correcting TCP stream handler `max_connections` behavior, and detecting ARM platform accurately.  
+Sensu Go 6.7.0 includes a number of new features, improvements and fixes, including Sensu Go's newest feature, the Sensu Catalog. The Catalog is a marketplace within the Sensu web UI that facilitates new user onboarding and deploying production-ready monitoring in minutes. Sensu Go 6.7.0 also includes metric threshold evaluation, keepalive pipelines, and check subdues. We've improved the onboarding workflow for Sensu Plus so you can seamlessly transmit Sensu observability data to Sumo Logic, added support for arrays of strings and objects in the `sensu.CheckDependencies` Sensu query expression, added an attribute to the GlobalConfig specification, and more. Bug fixes in Sensu Go 6.7.0 include adding pipelines within the event.check object, correcting TCP stream handler `max_connections` behavior, and detecting ARM platform accurately.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.7.0.
 
@@ -193,7 +205,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.7.0.
 
 - ([Commercial feature][268]) Added the [Sensu Catalog][269], an online marketplace for monitoring and observability integrations that allows you to find, configure, and install integrations directly from the Sensu [web UI][270].
 - Added [metric threshold evaluation][285] to provide real-time alerts based on the metrics your Sensu checks collect.
-- Added the [`keepalive-pipelines`][276] agent configuration option, which allows you to specify [pipelines][275] for processing keepalive events. 
+- Added the [`keepalive-pipelines`][276] agent configuration option, which allows you to specify [pipelines][275] for processing keepalive events.
 - Added the check [`subdues` attribute][277], which you can use to schedule alert-free periods of time directly in check definitions.
 
 **IMPROVEMENTS:**
@@ -268,9 +280,9 @@ The 6.6.4 patch release also includes several improvements to further secure the
 Read the [upgrade guide][1] to upgrade Sensu to version 6.6.4.
 
 **IMPROVEMENTS**
-- ([Commercial feature][259]) In the web UI, added the [X-Frame-Options][263] header to tell browsers the web application cannot be loaded within an iframe to prevent tailored click-jacking attacks. 
+- ([Commercial feature][259]) In the web UI, added the [X-Frame-Options][263] header to tell browsers the web application cannot be loaded within an iframe to prevent tailored click-jacking attacks.
 - ([Commercial feature][259]) In the web UI, added the [HSTS header][264] if TLS has been configured to ensure that the browser loads the application and its requisite assets with a secure connection.
-- ([Commercial feature][259]) In the web UI, added the [X-Content-Type-Options][265] nosniff header so that browsers respect the given Content-Type header when loading content referenced by a script tag. 
+- ([Commercial feature][259]) In the web UI, added the [X-Content-Type-Options][265] nosniff header so that browsers respect the given Content-Type header when loading content referenced by a script tag.
 - Added the `sensu_go_event_metric_points_processed` counter metric and included it in Tessen reporting.
 
 **FIXES**
@@ -557,14 +569,14 @@ This change improves backend reliability with older versions of federation and s
 
 **IMPROVEMENTS:**
 - ([Commercial feature][215]) The default webd log level is now `warn`.
-- The default log level for the Sensu API and [`sensu-agent`][225] is now `warn` (instead of `info`). 
+- The default log level for the Sensu API and [`sensu-agent`][225] is now `warn` (instead of `info`).
 - The sensu-backend now reports when it is ready to process events at the `warn` level.
 - You can now create resources with fields that are unknown to Sensu.
 This change improves forward-compatibility with newer Sensu backends.
 
 ## 6.4.0 release notes
 
-**June 28, 2021** &mdash; The latest release of Sensu Go, version 6.4.0, is now available for download. 
+**June 28, 2021** &mdash; The latest release of Sensu Go, version 6.4.0, is now available for download.
 
 The latest release of Sensu Go, version 6.4.0, is now available for download. This release includes a number of feature improvements and important bug fixes. We upgraded the embedded etcd from version 3.3 to 3.5 for improved stability and security. The `sensu-backend init` command now supports a `wait` flag, which indicates that the backend should repeatedly try to establish a connection to etcd until it is successful -- fantastic news for Kubernetes users who want to bootstrap new Sensu Go clusters with external etcd! Check timeout also now works properly on Windows hosts: the Sensu Go agent can terminate check sub-processes on check execution timeout. This release fixes a bug that prevented deregistration events from working. There’s something for everyone in this release!
 
@@ -1079,7 +1091,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.20.1.
 
 **May 12, 2020** &mdash; The latest release of Sensu Go, version 5.20.0, is now available for download.
 
-This release delivers several new features, substantial improvements, and important fixes. One exciting new feature is agent local process discovery to further enrich entities and their events with valuable context. Other additions include a web UI federation view that provides a single pane of glass for all of your Sensu Go clusters and token substitution for assets. And Windows users rejoice! This release includes many Windows agent fixes, as well as agent log rotation capabilities! 
+This release delivers several new features, substantial improvements, and important fixes. One exciting new feature is agent local process discovery to further enrich entities and their events with valuable context. Other additions include a web UI federation view that provides a single pane of glass for all of your Sensu Go clusters and token substitution for assets. And Windows users rejoice! This release includes many Windows agent fixes, as well as agent log rotation capabilities!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
@@ -1102,7 +1114,7 @@ The `sensuctl describe-type` command deprecates `sensuctl dump --types`.
 
 **IMPROVEMENTS:**
 
-- ([Commercial feature][141]) The web UI homepage is now a federated view. 
+- ([Commercial feature][141]) The web UI homepage is now a federated view.
 - You can now [increment the log level][140] by sending SIGUSR1 to the sensu-backend or sensu-agent process.
 - [License metadata][149] now includes the [current entity count and license entity limit][150].
 - In the [web UI][153], users will receive a notification when they try to delete an event without appropriate authorization.
@@ -1820,7 +1832,7 @@ Read the [Tessen reference][48] for more information.
 Read the [license management docs][49] to learn more about entity limits.
 - Sensu backends now perform better at scale using increased worker pool sizes for events and keepalives.
 - The maximum size of the etcd database and etcd requests is now configurable using the `etcd-quota-backend-bytes` and `etcd-max-request-bytes` backend configuration options.
-These are advanced configuration options requiring familiarly with etcd. 
+These are advanced configuration options requiring familiarly with etcd.
 Use with caution.
 Read the [backend reference][50] for more information.
 - Most Sensu resources now use ProtoBuf serialization in etcd.
@@ -2449,3 +2461,4 @@ To get started with Sensu Go:
 [290]: /sensu-go/6.7/web-ui/sensu-catalog/
 [291]: /sensu-go/6.7/observability-pipeline/observe-events/events/#check-scope
 [292]: /sensu-go/5.16/observability-pipeline/observe-schedule/backend/#etcd-discovery-srv
+[293]: https://nvd.nist.gov/vuln/detail/CVE-2022-37315
