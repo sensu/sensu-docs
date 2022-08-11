@@ -110,7 +110,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.7.5 release notes
 
-**August 10, 2022** &mdash; The latest release of Sensu Go, version 6.7.4, is now available for download.
+**August 10, 2022** &mdash; The latest release of Sensu Go, version 6.7.5, is now available for download.
 
 Sensu Go 6.7.5 updates the package graphql-go/graphql to address [CVE-2022-37315][293] in which a malicious actor may craft a query that can crash the backend instance.
 
