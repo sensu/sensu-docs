@@ -1253,10 +1253,7 @@ etcd-trusted-ca-file: "./ca.pem"{{< /code >}}
 
 | etcd-unsafe-no-fsync |      |
 -----------------------|------
-description            | The `etcd-unsafe-no-fsync` configuration option allows you to run sensu-backend with an embedded etcd node for testing and development with less load on the file system. If `true`, disable fsync. Otherwise, `false`.{{% notice note %}}
-**NOTE**: The `etcd-unsafe-no-fsync` configuration option is available in Sensu Go 6.7.2, but it is not available in 6.7.0 or 6.7.1.
-Upgrade to Sensu Go 6.7.2 to use `etcd-unsafe-no-fsync`. 
-{{% /notice %}}
+description            | The `etcd-unsafe-no-fsync` configuration option allows you to run sensu-backend with an embedded etcd node for testing and development with less load on the file system. If `true`, disable fsync. Otherwise, `false`.
 type                   | Boolean
 default                | `false`
 environment variable   | `SENSU_BACKEND_ETCD_UNSAFE_NO_FSYNC`

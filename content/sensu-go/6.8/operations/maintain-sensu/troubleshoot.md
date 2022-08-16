@@ -819,26 +819,21 @@ The Sensu backend sends check requests to all matching subscriptions.
 If an entity and a check have multiple matching subscriptions, the entity will receive a separate check request for each matching subscription.
 The entity could receive both check requests almost simultaneously.
 
-As a result, you may see the following error message:
+As a result, you may see one or more of the following error messages:
 
 {{< code text >}}
 {"component":"agent","error":"check execution still in progress: <CHECK_NAME>","level":"error","msg":"error handling message","time":"..."}
-{{< /code >}}
 
-Entities may execute the duplicate check requests quickly enough to prevent the `check execution still in progress` error.
-In these cases, check `history` and features that rely on it, like flap detection, may behave in unexpected ways.
-
-If you see the `check execution still in progress` error, review the check subscriptions against your entities for multiple matching subscriptions.
-To prevent the problem, make sure that your checks and entities share only a single [subscription][31].
-
-{{% notice note %}}
-**NOTE**: As of Sensu Go 6.7.3, multiple matching check and entity subscriptions may result in the messages listed below in addition to the `check execution still in progress` error.
-{{% /notice %}}
-
-{{< code text >}}
 {"component":"agent","error":"check request is older than a previously received check request","level":"error","msg":"error handling message","time":"..."}
+
 {"component":"agent","warning":"check request has already been received - agent and check may have multiple matching subscriptions","level":"warn","msg":"error handling message","time":"..."}
 {{< /code >}}
+
+Entities may execute the duplicate check requests quickly enough to prevent these errors.
+In these cases, check `history` and features that rely on it, like flap detection, may behave in unexpected ways.
+
+If you see any of the check execution errors listed above, review the check subscriptions against your entities for multiple matching subscriptions.
+To prevent the problem, make sure that your checks and entities share only a single [subscription][31].
 
 ## Web UI errors
 
