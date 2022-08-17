@@ -11,6 +11,7 @@
 #  example/key: "example value"
 #assets-burst-limit: 100
 #assets-rate-limit: 1.39
+#agent-listen-wait-time: 0s
 #agent-rate-limit: 100
 #cache-dir: "/var/cache/sensu/sensu-backend"
 #config-file: "/etc/sensu/backend.yml"
@@ -33,6 +34,7 @@ log-level: "debug" #available log levels: panic, fatal, error, warn, info, debug
 ##
 #api-listen-address: "[::]:8080" #listen on all IPv4 and IPv6 addresses
 #api-request-limit: 512000
+#api-serve-wait-time: 0s
 #api-url: "http://localhost:8080"
 
 
