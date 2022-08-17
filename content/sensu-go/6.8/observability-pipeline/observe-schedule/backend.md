@@ -717,13 +717,13 @@ agent-host: "127.0.0.1"{{< /code >}}
 | agent-listen-wait-time |      |
 -------------|------
 description  | Time to wait after starting the backend before accepting agent connections. In seconds.
-type         | Integer
-default      | `0`
+type         | String
+default      | `0s`
 environment variable | `SENSU_BACKEND_AGENT_LISTEN_WAIT_TIME`
 command line example   | {{< code shell >}}
-sensu-backend start --agent-listen-wait-time 1{{< /code >}}
+sensu-backend start --agent-listen-wait-time 10s{{< /code >}}
 backend.yml config file example | {{< code shell >}}
-agent-listen-wait-time: 1{{< /code >}}
+agent-listen-wait-time: 10s{{< /code >}}
 
 | agent-port |      |
 -------------|------
