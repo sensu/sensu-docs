@@ -170,7 +170,7 @@ Two of the six Windows servers *should* execute the SQL Server metrics check, so
 
 
 [1]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
-[2]: ../agent/#subscriptions-flag
+[2]: ../agent/#subscriptions-option
 [10]: ../agent/#name-attribute
 [11]: ../checks/#ad-hoc-scheduling
 [12]: ../checks/#publish-attribute

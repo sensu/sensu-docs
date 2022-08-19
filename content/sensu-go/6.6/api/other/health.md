@@ -101,7 +101,7 @@ output           | {{< code text >}}
 The `/health` API endpoint provides HTTP GET access to health data for your Sensu agent transport via the backend WebSocket.
 Sensu backend `/health` API information is duplicated by this agent transport API endpoint as an affordance to satisfy the load balancing and security requirements of some deployments.
 
-#### Example
+### Example
 
 The following example demonstrates a GET request to the backend WebSocket `/health` API endpoint using the default WebSocket port 8081:
 
@@ -143,7 +143,7 @@ The request results in a successful `HTTP/1.1 200 OK` response and a JSON map th
 **NOTE**: If your Sensu instance is not configured to use a [PostgreSQL datastore](../../../operations/deploy-sensu/datastore/#scale-event-storage), the health payload will not include `PostgresHealth`.
 {{% /notice %}}
 
-#### API Specification
+### API Specification
 
 /health (GET)    | 
 -----------------|------
