@@ -190,7 +190,7 @@ sudo systemctl status sensu-backend
 
 {{< /language-toggle >}}
 
-The backend reference includes a complete list of [configuration options][6] and [backend initialization details][6].
+The backend reference includes a complete list of [configuration options][6] and [backend initialization details][30].
 
 {{% notice warning %}}
 **WARNING**: If you plan to [run a Sensu cluster](../cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you continue the installation process.
@@ -559,7 +559,7 @@ sensuctl license info
 [3]: ../../../web-ui/
 [4]: ../../../sensuctl/
 [5]: ../../../platforms/
-[6]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
+[6]: ../../../observability-pipeline/observe-schedule/backend/#backend-configuration-options
 [7]: ../../../observability-pipeline/observe-schedule/agent/#agent-configuration-options
 [8]: ../secure-sensu/
 [9]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/

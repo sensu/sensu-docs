@@ -1779,7 +1779,7 @@ status: Ss
 [22]: ../../../operations/control-access/rbac/#agent-user
 [23]: ../../../web-ui/search#search-for-labels
 [24]: ../../observe-schedule/checks#proxy-requests-attributes
-[25]: ../../observe-schedule/agent/#detect-cloud-provider-flag
+[25]: ../../observe-schedule/agent/#detect-cloud-provider-option
 [26]: #processes-attributes
 [28]: https://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../../operations/maintain-sensu/license/#entity-limit

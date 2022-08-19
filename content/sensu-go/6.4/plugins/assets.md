@@ -1307,7 +1307,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [38]: https://bonsai.sensu.io/new
 [39]: ../../web-ui/search#search-for-labels
 [40]: ../../observability-pipeline/observe-schedule/agent/#assets-burst-limit
-[41]: ../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
+[41]: ../../observability-pipeline/observe-schedule/backend/#backend-configuration-options
 [42]: #filters-attribute
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [44]: https://devblogs.microsoft.com/oldnewthing/20060823-00/?p=29993
