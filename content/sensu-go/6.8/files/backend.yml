@@ -11,7 +11,7 @@
 #  example/key: "example value"
 #assets-burst-limit: 100
 #assets-rate-limit: 1.39
-#agent-listen-wait-time: 0s
+#agent-serve-wait-time: 0s
 #agent-rate-limit: 100
 #cache-dir: "/var/cache/sensu/sensu-backend"
 #config-file: "/etc/sensu/backend.yml"

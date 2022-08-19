@@ -75,15 +75,15 @@ The request results in a successful `HTTP/1.1 200 OK` response and a text respon
 ready
 {{< /code >}}
 
-If the backend configuration includes an [`agent-listen-wait-time`][2] duration, the request will result in an `HTTP/1.1 503 Service Unavailable` response.
-Until the `agent-listen-wait-time` duration expires, the text response body will state that agentd is unavailable:
+If the backend configuration includes an [`agent-serve-wait-time`][2] duration, the request will result in an `HTTP/1.1 503 Service Unavailable` response.
+Until the `agent-serve-wait-time` duration expires, the text response body will state that agentd is unavailable:
 
 {{< code text >}}
 agentd temporarily unavailable during startup
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: `503 Service Unavailable` responses include a `Retry-After` header that lists the specified `agent-listen-wait-time` duration.
+**NOTE**: `503 Service Unavailable` responses include a `Retry-After` header that lists the specified `agent-serve-wait-time` duration.
 {{% /notice %}}
 
 ### API Specification
@@ -102,4 +102,4 @@ agentd temporarily unavailable during startup
 
 
 [1]: ../../../observability-pipeline/observe-schedule/backend/#api-serve-wait-time
-[2]: ../../../observability-pipeline/observe-schedule/backend/#agent-listen-wait-time
+[2]: ../../../observability-pipeline/observe-schedule/backend/#agent-serve-wait-time

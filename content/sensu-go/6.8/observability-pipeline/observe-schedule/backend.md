@@ -338,7 +338,7 @@ General Flags:
       --agent-auth-trusted-ca-file string         TLS CA certificate bundle in PEM format for agent certificate authentication
       --agent-burst-limit int                     agent connections maximum burst size
       --agent-host string                         agent listener host (default "[::]")
-      --agent-listen-wait-time duration           wait time before accepting agent connections on startup
+      --agent-serve-wait-time duration           wait time before accepting agent connections on startup
       --agent-port int                            agent listener port (default 8081)
       --agent-rate-limit int                      agent connections maximum rate limit
       --agent-write-timeout int                   timeout in seconds for agent writes (default 15)
@@ -712,18 +712,18 @@ sensu-backend start --agent-host 127.0.0.1{{< /code >}}
 backend.yml config file example | {{< code shell >}}
 agent-host: "127.0.0.1"{{< /code >}}
 
-<a id="agent-listen-wait-time"></a>
+<a id="agent-serve-wait-time"></a>
 
-| agent-listen-wait-time |      |
+| agent-serve-wait-time |      |
 -------------|------
 description  | Time to wait after starting the backend before accepting agent connections. In seconds.
 type         | String
 default      | `0s`
 environment variable | `SENSU_BACKEND_AGENT_LISTEN_WAIT_TIME`
 command line example   | {{< code shell >}}
-sensu-backend start --agent-listen-wait-time 10s{{< /code >}}
+sensu-backend start --agent-serve-wait-time 10s{{< /code >}}
 backend.yml config file example | {{< code shell >}}
-agent-listen-wait-time: 10s{{< /code >}}
+agent-serve-wait-time: 10s{{< /code >}}
 
 | agent-port |      |
 -------------|------
