@@ -1025,7 +1025,7 @@ sensu-agent start --retry-multiplier 2.0{{< /code >}}
 agent.yml config file example | {{< code shell >}}
 retry-multiplier: 2.0{{< /code >}}
 
-<a id="subscriptions-flag"></a>
+<a id="subscriptions-option"></a>
 
 | subscriptions |      |
 ----------------|------
@@ -1126,7 +1126,7 @@ sensu-agent start --deregistration-handler deregister{{< /code >}}
 agent.yml config file example | {{< code shell >}}
 deregistration-handler: deregister{{< /code >}}
 
-<a id="detect-cloud-provider-flag"></a>
+<a id="detect-cloud-provider-option"></a>
 
 | detect-cloud-provider  |      |
 -------------------------|------
@@ -1153,7 +1153,7 @@ sensu-agent start --keepalive-critical-timeout 300{{< /code >}}
 agent.yml config file example | {{< code shell >}}
 keepalive-critical-timeout: 300{{< /code >}}
 
-<a id="keepalive-handlers-flag"></a>
+<a id="keepalive-handlers-option"></a>
 
 | keepalive-handlers |      |
 --------------------|------
@@ -1196,7 +1196,7 @@ keepalive-pipelines:
 - core/v2.Pipeline.store-keepalives
 {{< /code >}}
 
-<a id="keepalive-warning-timeout-flag"></a>
+<a id="keepalive-warning-timeout-option"></a>
 
 | keepalive-warning-timeout |      |
 --------------------|------
@@ -2079,11 +2079,11 @@ sensu-agent start --help
 [50]: #environment-variables
 [51]: #events-post-specification
 [52]: ../../observe-process/handlers/#keepalive-event-handlers
-[53]: #keepalive-handlers-flag
+[53]: #keepalive-handlers-option
 [54]: ../../../web-ui/search#search-for-labels
 [56]: #allow-list
 [57]: ../../observe-filter/filters#filter-to-reduce-alert-fatigue-for-keepalive-events
-[58]: #keepalive-warning-timeout-flag
+[58]: #keepalive-warning-timeout-option
 [59]: ../../../operations/control-access/#use-built-in-basic-authentication
 [60]: #log-level
 [61]: #retry-min

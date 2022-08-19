@@ -2067,7 +2067,7 @@ To get started with Sensu Go:
 [21]: /sensu-go/5.3/observability-pipeline/observe-schedule/agent/#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [22]: /sensu-go/5.4/api/#pagination
 [23]: /sensu-go/5.4/web-ui/
-[24]: /sensu-go/5.4/observability-pipeline/observe-schedule/backend/#dashboard-configuration-flags
+[24]: /sensu-go/5.4/observability-pipeline/observe-schedule/backend/#web-ui-configuration
 [25]: /sensu-go/5.4/operations/deploy-sensu/secure-sensu/
 [26]: /sensu-go/5.4/observability-pipeline/observe-schedule/agent/#events-post
 [27]: /sensu-go/5.5/operations/monitor-sensu/tessen/
@@ -2178,7 +2178,7 @@ To get started with Sensu Go:
 [134]: /sensu-go/5.19/operations/deploy-sensu/install-sensu/
 [135]: /sensu-go/5.19/web-ui/
 [136]: /sensu-go/5.19/observability-pipeline/observe-schedule/agent/#assets-burst-limit
-[137]: /sensu-go/5.19/observability-pipeline/observe-schedule/backend/#configuration-via-flags
+[137]: /sensu-go/5.19/observability-pipeline/observe-schedule/backend/#backend-configuration-options
 [138]: /sensu-go/5.20/api#field-selector
 [139]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#log-rotation
 [140]: /sensu-go/5.20/operations/maintain-sensu/troubleshoot/#increment-log-level-verbosity
