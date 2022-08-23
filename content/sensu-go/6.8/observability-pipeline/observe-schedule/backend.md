@@ -338,7 +338,7 @@ General Flags:
       --agent-auth-trusted-ca-file string         TLS CA certificate bundle in PEM format for agent certificate authentication
       --agent-burst-limit int                     agent connections maximum burst size
       --agent-host string                         agent listener host (default "[::]")
-      --agent-serve-wait-time duration           wait time before accepting agent connections on startup
+      --agent-serve-wait-time duration            wait time before accepting agent connections on startup
       --agent-port int                            agent listener port (default 8081)
       --agent-rate-limit int                      agent connections maximum rate limit
       --agent-write-timeout int                   timeout in seconds for agent writes (default 15)
