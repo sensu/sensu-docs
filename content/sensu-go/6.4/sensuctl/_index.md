@@ -216,7 +216,7 @@ These formats include the resource `type`, which sensuctl needs to determine wha
 The [Sensu API][9] uses `json` output format for responses for APIs in the `core` [group][22].
 For APIs that are not in the `core` group, responses are in the `wrapped-json` output format.
 
-Sensu sends events to the backend in [`json` format][23], without the `spec` attribute wrapper or `type` and `api_version` attributes.
+Sensu sends events to the backend in [`json` format][21], without the `spec` attribute wrapper or `type` and `api_version` attributes.
 
 ## Sensuctl configuration files
 
@@ -497,7 +497,7 @@ create  delete  import  list
 [19]: ../commercial/
 [20]: https://yaml.org/
 [21]: https://www.json.org/
-[22]: ../api/#url-format
+[22]: ../api/core/
 [23]: ../observability-pipeline/observe-events/events/#example-status-only-event-from-the-sensu-api
 [26]: #usernamepassword-authentication
 [27]: ../operations/control-access/namespaces/
