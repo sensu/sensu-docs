@@ -57,7 +57,7 @@ A banner appears at the top of the web UI screen when your organization's licens
 The banner is only visible to [users][6] who have read access to your organization's license.
 
 By default, the banner starts appearing when the license expiration is 30 days away.
-To adjust the number of days before license expiration to begin displaying the banner, use the [license_expiry_reminder][9] web configuration attribute.
+To adjust the number of days before license expiration to begin displaying the banner, use the [license_expiry_reminder][9] web UI configuration attribute.
 
 ## Use the implicit OR operator
 
