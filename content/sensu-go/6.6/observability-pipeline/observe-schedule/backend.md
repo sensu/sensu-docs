@@ -1402,9 +1402,15 @@ pipelined-workers: 100{{< /code >}}
 ### Backend configuration file
 
 You can customize the backend configuration in a `.yml` configuration file.
+The default backend configuration file path for Linux is `/etc/sensu/backend.yml`.
 
 To use the `backend.yml` file to configure the backend, list the desired configuration attributes and values.
 Review the [example Sensu backend configuration file][17] for a complete example.
+
+{{% notice note %}}
+**NOTE**: The backend loads configuration upon startup.
+If you make changes in the `backend.yml` configuration file after startup, you must restart the backend for the changes to take effect.
+{{% /notice %}}
 
 Configuration via command line flags or environment variables overrides any configuration specified in the backend configuration file.
 Read [Create overrides][74] to learn more.
