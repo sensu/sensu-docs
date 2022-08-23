@@ -58,11 +58,11 @@ See api-serve-wait-time settings.
 
 ## Get agent connection readiness data for your Sensu instance
 
-The `/ready` agent transport API endpoint provides HTTP GET access via the backend WebSocket to information about whether your Sensu agent transport is ready to accept agent connections.
+The `/ready` agent transport API endpoint provides HTTP GET access to information about whether your Sensu agent transport is ready to accept agent WebSocket connections.
 
 ### Example
 
-The following example demonstrates a GET request via the backend WebSocket to the `/ready` agent transport API endpoint using the default WebSocket port 8081:
+The following example demonstrates a GET request to the backend agent transport `/ready` endpoint using the default agent listener port 8081:
 
 {{< code shell >}}
 curl -X GET \
