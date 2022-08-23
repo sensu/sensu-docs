@@ -133,16 +133,18 @@ If you want to share and reuse this event filter like code, you can [save it to 
 
 ### Add the event filter to a pipeline
 
-Now that you've created the `hourly` event filter, you can add it to a pipeline along with the `slack` handler created in [Send Slack alerts with handlers][3].
-You'll also add the built-in `is_incident` filter so that only failing events are handled, which will further reduce the number of Slack messages Sensu sends.
+Now that you've created the `hourly` event filter, you can include it in a new pipeline, along with the `slack` handler created in [Send Slack alerts with handlers][3].
+You'll also include the built-in `is_incident` filter so that only failing events are handled, which will further reduce the number of Slack messages Sensu sends.
 
 {{% notice note %}}
 **NOTE**: If you haven't already created the `slack` handler, follow [Send Slack alerts with handlers](../../observe-process/send-slack-alerts/) before continuing with this step.
 {{% /notice %}}
 
+To create a new pipeline that includes the `hourly` and `is_incident` event filters as well as the `slack` handler, run:
+
 {{< language-toggle >}}
 
-{{< code text "YML" >}}
+{{< code shell "YML" >}}
 echo '---
 type: Pipeline
 api_version: core/v2
@@ -164,7 +166,7 @@ spec:
       api_version: core/v2' | sensuctl create
 {{< /code >}}
 
-{{< code text "JSON" >}}
+{{< code shell "JSON" >}}
 echo '{
   "type": "Pipeline",
   "api_version": "core/v2",

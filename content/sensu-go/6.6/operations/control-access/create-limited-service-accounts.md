@@ -48,8 +48,9 @@ sensuctl user create ec2-service --password=$(head -c1M /dev/urandom | sha512sum
 {{< /code >}}
 
    This command creates the following user definition:
+   
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YML" >}}
 ---
 type: User
 api_version: core/v2
@@ -59,7 +60,7 @@ spec:
   disabled: false
   username: ec2-service
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "User",
   "api_version": "core/v2",
@@ -81,8 +82,9 @@ sensuctl role create ec2-delete --verb get,list,delete --resource entities --nam
 {{< /code >}}
 
    This command creates the role that has the permissions your service account will need:
+   
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YML" >}}
 ---
 type: Role
 api_version: core/v2
@@ -98,7 +100,7 @@ spec:
     - list
     - delete
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "Role",
   "api_version": "core/v2",
@@ -132,7 +134,7 @@ sensuctl role-binding create ec2-service-delete --role ec2-delete --user ec2-ser
 
    This command creates the role binding that ties the correct permissions (via the `ec2-delete` role) with your service account (via the user `ec2-service`):
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YML" >}}
 ---
 type: RoleBinding
 api_version: core/v2
@@ -146,7 +148,7 @@ spec:
   - name: ec2-service
     type: User
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "RoleBinding",
   "api_version": "core/v2",
