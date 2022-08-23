@@ -1518,6 +1518,11 @@ The default agent configuration file path for Windows is `C:\ProgramData\sensu\c
 To use the `agent.yml` file to configure the agent, list the desired configuration attributes and values.
 Review the [example Sensu agent configuration file][5] for a complete example.
 
+{{% notice note %}}
+**NOTE**: The agent loads configuration upon startup.
+If you make changes in the `agent.yml` configuration file after startup, you must restart the agent for the changes to take effect.
+{{% /notice %}}
+
 Configuration via command line flags or environment variables overrides any configuration specified in the agent configuration file.
 Read [Create overrides][68] to learn more.
 
