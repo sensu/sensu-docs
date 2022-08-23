@@ -48,6 +48,17 @@ Read the [RBAC reference][3] for [default user credentials][4] and instructions 
 Press `CTRL .` in the web UI to open the system information modal and view information about your Sensu backend and etcd or PostgreSQL datastore.
 For users with permission to create or update licenses, the system information modal includes license expiration information.
 
+### License expiration banner
+
+A banner appears at the top of the web UI screen when your organization's license is expiring:
+
+{{< figure src="/images/go/web_ui_index/license_expiration_banner.png" alt="Sensu web UI homepage" link="/images/go/web_ui_index/license_expiration_banner.png" target="_blank" >}}
+
+The banner is only visible to [users][6] who have read access to your organization's license.
+
+By default, the banner starts appearing when the license expiration is 30 days away.
+To adjust the number of days before license expiration to begin displaying the banner, use the [license_expiry_reminder][9] web configuration attribute.
+
 ## Use the implicit OR operator
 
 On the Sensu web UI homepage, you can use the search function to limit the display by cluster and namespace.
@@ -70,5 +81,7 @@ Read [Troubleshoot Sensu][8] to resolve and investigate web UI errors.
 [3]: ../operations/control-access/rbac/
 [4]: ../operations/control-access/rbac#default-users
 [5]: ../operations/control-access/rbac#create-users
+[6]: ../operations/control-access/rbac/#users
 [7]: ../api/other/auth/
 [8]: ../operations/maintain-sensu/troubleshoot/#web-ui-errors
+[9]: ../web-ui/webconfig-reference/#license_expiry_reminder
