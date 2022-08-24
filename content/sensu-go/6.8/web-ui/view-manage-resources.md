@@ -59,15 +59,15 @@ Click an event name to view details like status, output, number of occurrences, 
 The Entities page provides real-time inventory information for the namespace's endpoints under Sensu management.
 The top row of the entities list includes options for filtering and sorting entities on the page:
 
-{{< figure src="/images/go/view_manage_resources/entities_page_filter_sort_670.png" alt="Filter and sort entities" link="/images/go/view_manage_resources/entities_page_filter_sort_670.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/entities_page_filter_sort_680.png" alt="Filter and sort entities" link="/images/go/view_manage_resources/entities_page_filter_sort_680.png" target="_blank" >}}
 
-Click the check boxes to select one or more entities and silence or delete them directly from the Entities page:
+Click the check boxes to select one or more entities and delete them directly from the Entities page:
 
-{{< figure src="/images/go/view_manage_resources/group_entities_670.png" alt="Select one or more entities on the Entities page" link="/images/go/view_manage_resources/group_entities_670.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/group_entities_680.png" alt="Select one or more entities on the Entities page" link="/images/go/view_manage_resources/group_entities_680.png" target="_blank" >}}
 
 Click an entity name to view details about the entity's creator, agent version (for agent entities), subscriptions, labels and annotations, associated events, and properties:
 
-{{< figure src="/images/go/view_manage_resources/single_entity_view_670.gif" alt="View details for a single entity" link="/images/go/view_manage_resources/single_entity_view_670.gif" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/single_entity_view_680.gif" alt="View details for a single entity" link="/images/go/view_manage_resources/single_entity_view_680.gif" target="_blank" >}}
 
 ## Manage services
 
@@ -92,7 +92,7 @@ After you create a silence, it will be listed in the web UI Silences page until 
 
 ## Manage configuration resources
 
-Under the Configuration menu option, you can access check, handler, event filter, and mutator resources.
+Under the Configuration menu option, you can access assets, checks, event filters, handlers, mutators, pipelines, role-based access control (RBAC) resources, and secrets.
 Each resource page lists the namespace's resources.
 The top row of each page includes options for filtering and sorting the listed resources.
 
