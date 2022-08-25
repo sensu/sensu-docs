@@ -603,7 +603,7 @@ You'll also add the built-in `is_incident` filter so that only failing events ar
 
 {{< language-toggle >}}
 
-{{< code text "YML" >}}
+{{< code shell "YML" >}}
 echo '---
 type: Pipeline
 api_version: core/v2
@@ -625,7 +625,7 @@ spec:
       api_version: core/v2' | sensuctl create
 {{< /code >}}
 
-{{< code text "JSON" >}}
+{{< code shell "JSON" >}}
 echo '{
   "type": "Pipeline",
   "api_version": "core/v2",
@@ -667,9 +667,13 @@ Instead of waiting to receive a Slack alert, you can verify the proper behavior 
 The default location of these logs varies based on your platform.
 Read [Troubleshoot Sensu][2] for details about the log location.
 
-Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by
-a second log entry with the message `"msg":"pipelined executed event pipe
-handler","output":"","status":0`.
+Whenever an event is being handled, two log entries are added:
+
+{{< code text >}}
+"handler":"slack","level":"debug","msg":"sending event to handler"
+"msg":"pipelined executed event pipe handler","output":"","status":0
+{{< /code >}}
+
 However, if the event is being discarded by the event filter, a log entry with the message `event filtered` will appear instead.
 
 ## Next steps
