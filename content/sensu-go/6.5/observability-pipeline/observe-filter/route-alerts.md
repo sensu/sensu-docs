@@ -147,7 +147,7 @@ Use sensuctl to create the three event filters:
 
 {{< language-toggle >}}
 
-{{< code text "YML" >}}
+{{< code shell "YML" >}}
 echo '---
 type: EventFilter
 api_version: core/v2
@@ -183,7 +183,7 @@ spec:
     - no_contacts(event)' | sensuctl create
 {{< /code >}}
 
-{{< code text "JSON" >}}
+{{< code shell "JSON" >}}
 echo '{
   "type": "EventFilter",
   "api_version": "core/v2",
@@ -274,7 +274,7 @@ After you update the code to use your preferred Slack channels and webhook URL, 
 
 {{< language-toggle >}}
 
-{{< code text "YML" >}}
+{{< code shell "YML" >}}
 echo '---
 type: Handler
 api_version: core/v2
@@ -322,7 +322,7 @@ spec:
   type: pipe' | sensuctl create
 {{< /code >}}
 
-{{< code text "JSON" >}}
+{{< code shell "JSON" >}}
 echo '{
   "type": "Handler",
   "api_version": "core/v2",
@@ -414,7 +414,7 @@ All of the workflows also include the built-in [is_incident event filter][20] to
 
 {{< language-toggle >}}
 
-{{< code text "YML" >}}
+{{< code shell "YML" >}}
 echo '---
 type: Pipeline
 api_version: core/v2
@@ -460,7 +460,7 @@ spec:
       api_version: core/v2' | sensuctl create
 {{< /code >}}
 
-{{< code text "JSON" >}}
+{{< code shell "JSON" >}}
 echo '{
   "type": "Pipeline",
   "api_version": "core/v2",
