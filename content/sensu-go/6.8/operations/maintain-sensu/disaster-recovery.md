@@ -13,82 +13,201 @@ menu:
 
 This page describes best practices for making Sensu backups and processes for restoring Sensu instances for disaster recovery.
 
-## Backup recommendations
+The disaster recovery processes include steps for creating a backup, but you must make backups *before* you need to use them.
+Read [best practices for backups][2] for more information.
 
-The disaster recovery processes include steps for creating a backup, but backups must be made at regular intervals, before you need them.
-The best backup plan depends on how much and how often your Sensu configuration changes, as well as your organization's disaster recovery and business continuity goals.
+{{% notice warning %}}
+**IMPORTANT**: You may need to adjust the example commands provided in these disaster recovery processes according to your Sensu configuration.<br><br>
+The recommended backup steps do not include events because events may be outdated due to the time elapsed between making backups and restoring resources.
+{{% /notice %}}
 
-A twice-weekly backup is a good starting point but may not be sufficient.
-For example, a large Sensu environment that deploys new checks constantly might require more frequent backups, such as every 24 or 48 hours.
-At the same time, a smaller environment that monitors only system resources might need only one weekly backup.
+## Disaster recovery for PostgreSQL
 
-Business needs will dictate the best backup plan for your Sensu installation, but following a few best practices helps ensure that your backups are available and useful when you need them.
+{{% notice note %}}
+**NOTE**: This process uses [sensuctl dump](../../../sensuctl/back-up-recover/) to create backups.
+When you export users with sensuctl dump, passwords are not included &mdash; you must add the [`password_hash`](../../../sensuctl/#generate-a-password-hash) or `password` attribute back to exported user definitions before you can restore users with sensuctl create.
+Also, sensuctl create does not restore API keys from a sensuctl dump backup.<br><br>
+We suggest backing up API keys and users in a separate file that you can use as a reference for granting new API keys and adding the `password_hash` or `password` attribute to user definitions.
+{{% /notice %}}
 
-### Back up during off-hours
+If you use PostgreSQL for your Sensu instance, follow these steps to create a backup and restore your Sensu configuration:
 
-Creating a backup requires some system resources, so we recommend backing up during evening or weekend hours.
+1. Create a backup folder:
 
-### Omit events from backups
+   {{< code shell >}}
+mkdir backup
+{{< /code >}}
 
-Even if you make regular backups, events are likely to be outdated by the time you restore them.
-The most important part of a backup is capturing the Sensu configuration, and week-old events probably won't be helpful.
-If you need access to all events, send your events to a time-series database (TDSB) for storage instead of including events in routine Sensu backups.
+2. Create a backup of the entire configuration, except events, PostgreSQL configuration, API keys, and users, for all namespaces:
 
+   {{< code shell >}}
+sensuctl dump all \
+--all-namespaces \
+--omit core/v2.Event,store/v1.PostgresConfig,core/v2.APIKey,core/v2.User \
+--format wrapped-json \
+--file backup/config_backup.json
+{{< /code >}}
 
+3. Export the PostgreSQL configuration:
 
+   {{< code shell >}}
+sensuctl dump store/v1.PostgresConfig \
+--format wrapped-json \
+--file backup/psql_config_backup.json
+{{< /code >}}
 
-## Disaster recovery for embedded etcd and PostgreSQL
+4. Export the API keys and users, for all namespaces:
+
+   {{< code shell >}}
+sensuctl dump core/v2.APIKey,core/v2.User \
+--all-namespaces \
+--format wrapped-json \
+--file backup/apikeys_users_backup.json
+{{< /code >}}
+
+5. Reconfigure the PostgreSQL database.
+
+6. Start a new Sensu backend or cluster and confirm that it is running:
+
+   {{< language-toggle >}}
+
+{{< code shell "Single backend startup" >}}
+sensu-backend start \
+--etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380 \
+--etcd-initial-cluster-token backend-1.example.com \
+--etcd-initial-advertise-peer-urls http://localhost:2380 \
+--etcd-advertise-client-urls http://localhost:2379
+{{< /code >}}
+
+{{< code shell "Clustered backend startup" >}}
+sensu-backend start \
+--etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
+--etcd-initial-cluster-token backend-1.example.com \
+--etcd-initial-advertise-peer-urls http://backend-1.example.com:2380 \
+--etcd-advertise-client-urls http://backend-1.example.com:2379
+
+sensu-backend start \
+--etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
+--etcd-initial-cluster-token backend-2.example.com \
+--etcd-initial-advertise-peer-urls http://backend-2.example.com:2380 \
+--etcd-advertise-client-urls http://backend-2.example.com:2379
+
+sensu-backend start \
+--etcd-initial-cluster sbackend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
+--etcd-initial-cluster-token backend-3.example.com \
+--etcd-initial-advertise-peer-urls http://backend-3.example.com:2380 \
+--etcd-advertise-client-urls http://backend-3.example.com:2379
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+6. Restore the PostgreSQL configuration to activate the PostgreSQL event store:
+
+   {{< code shell >}}
+sensuctl create --file backup/psql_config_backup.json
+{{< /code >}}
+
+7. Restore the exported resources with [`sensuctl create`][1]:
+
+   {{< code shell >}}
+sensuctl create -r -f backup/config_backup.json
+{{< /code >}}
+
+You should see the restored Sensu configuration in the web UI or sensuctl output.
 
 {{% notice note %}}
 **NOTE**: For details about the sensuctl dump command, read [Back up and recover resources with sensuctl](../../../sensuctl/back-up-recover/).
 {{% /notice %}}
 
-If you use embedded etcd or PostgreSQL for your Sensu instance, follow these steps to create a backup and restore your Sensu configuration:
+## Disaster recovery for embedded etcd
 
-1. Create a backup of the entire configuration (except events, API keys, and users) for all namespaces:
+{{% notice note %}}
+**NOTE**: This process uses [sensuctl dump](../../../sensuctl/back-up-recover/) to create backups.
+When you export users with sensuctl dump, passwords are not included &mdash; you must add the [`password_hash`](../../../sensuctl/#generate-a-password-hash) or `password` attribute back to exported user definitions before you can restore users with sensuctl create.
+Also, sensuctl create does not restore API keys from a sensuctl dump backup.<br><br>
+We suggest backing up API keys and users in a separate file that you can use as a reference for granting new API keys and adding the `password_hash` or `password` attribute to user definitions.
+{{% /notice %}}
+
+If you use embedded etcd for your Sensu instance, follow these steps to create a backup and restore your Sensu configuration:
+
+1. Create a backup folder:
+
+   {{< code shell >}}
+mkdir backup
+{{< /code >}}
+
+2. Create a backup of the entire configuration (except events, API keys, and users) for all namespaces:
 
    {{< code shell >}}
 sensuctl dump all \
 --all-namespaces \
 --omit core/v2.Event,core/v2.APIKey,core/v2.User \
 --format wrapped-json \
---file config_backup.json
+--file backup/config_backup.json
 {{< /code >}}
 
-2. Export your API keys and users, for all namespaces:
+3. Export the API keys and users, for all namespaces:
 
    {{< code shell >}}
 sensuctl dump core/v2.APIKey,core/v2.User \
 --all-namespaces \
 --format wrapped-json \
---file apikeys_users_backup.json
+--file backup/apikeys_users_backup.json
 {{< /code >}}
 
-   {{% notice note %}}
-**NOTE**: The sensuctl create command does not restore API keys from a sensuctl dump backup.
-Also, passwords are not included when you export users with the sensuctl dump command &mdash; you must add the [`password_hash`](../#generate-a-password-hash) or `password` attribute to exported user resources before you can restore them with `sensuctl create`.<br><br>
-For this reason, we suggest backing up API keys and users in a separate file that you can use as a reference for granting new API keys and adding the `password_hash` or `password` attribute to user resources.
-{{% /notice %}}
+4. Start a new Sensu backend or cluster and confirm that it is running:
 
-3. When you are ready to restore your exported resources, use [`sensuctl create`][1]:
+   {{< language-toggle >}}
+
+{{< code shell "Single backend startup" >}}
+sensu-backend start \
+--etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380 \
+--etcd-initial-cluster-token backend-1.example.com \
+--etcd-initial-advertise-peer-urls http://localhost:2380 \
+--etcd-advertise-client-urls http://localhost:2379
+{{< /code >}}
+
+{{< code shell "Clustered backend startup" >}}
+sensu-backend start \
+--etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
+--etcd-initial-cluster-token backend-1.example.com \
+--etcd-initial-advertise-peer-urls http://backend-1.example.com:2380 \
+--etcd-advertise-client-urls http://backend-1.example.com:2379
+
+sensu-backend start \
+--etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
+--etcd-initial-cluster-token backend-2.example.com \
+--etcd-initial-advertise-peer-urls http://backend-2.example.com:2380 \
+--etcd-advertise-client-urls http://backend-2.example.com:2379
+
+sensu-backend start \
+--etcd-initial-cluster sbackend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
+--etcd-initial-cluster-token backend-3.example.com \
+--etcd-initial-advertise-peer-urls http://backend-3.example.com:2380 \
+--etcd-advertise-client-urls http://backend-3.example.com:2379
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+5. Restore the resources from backup with [`sensuctl create`][1]:
 
    {{< code shell >}}
-sensuctl create -r -f config_backup.json
+sensuctl create -r -f backup/config_backup.json
 {{< /code >}}
 
+6. Recreate users and API keys, using the `backup/apikeys_users_backup.json` file as a reference.
+
+You should see the restored Sensu configuration in the web UI or sensuctl output.
 
 {{% notice note %}}
-**NOTE**: When you export users, required password attributes are not included.
-You must add a [`password_hash`](../#generate-a-password-hash) or `password` to `users` resources before restoring them with the `sensuctl create` command.<br><br>
-You can't restore API keys or users from a sensuctl dump backup.
-API keys must be reissued, but you can use your backup as a reference for granting new API keys to replace the exported keys.
+**NOTE**: For details about the sensuctl dump command, read [Back up and recover resources with sensuctl](../../../sensuctl/back-up-recover/).
 {{% /notice %}}
 
-
-## Backup and restore for external etcd
+## Disaster recovery for external etcd
 
 {{% notice note %}}
-**NOTE**: For details about etcd snapshot and restore capabilities, read [etcd's disaster recovery documentation](https://etcd.io/docs/latest/op-guide/recovery/).
+**NOTE**: This process uses the `etcdctl snapshot save` command to create a backup.
+For details about etcd snapshot and restore capabilities, read [etcd's disaster recovery documentation](https://etcd.io/docs/latest/op-guide/recovery/).
 {{% /notice %}}
 
 If you use external etcd for your Sensu instance, follow these steps to create a backup and restore your Sensu configuration:
@@ -98,7 +217,7 @@ If you use external etcd for your Sensu instance, follow these steps to create a
    {{< language-toggle >}}
 
 {{< code shell "Command format" >}}
-ETCD_API=<ETCD_API_VERSION> etcd snapshot --endpoints <SINGLE_ENDPOINT_FOR_CLUSTER_MEMBER> save <SNAPSHOT_FILE_NAME.db>
+ETCD_API=<ETCD_API_VERSION> etcdctl snapshot --endpoints <SINGLE_ENDPOINT_FOR_CLUSTER_MEMBER> save <SNAPSHOT_FILE_NAME.db>
 {{< /code >}}
 
 {{< code shell "Example command" >}}
@@ -154,11 +273,9 @@ sensu-backend start \
 
 {{< /language-toggle >}}
 
-3. Restore the Sensu configuration from the etcd snapshot:
+3. Copy the etcd snapshot file to each cluster member so that all members will be restored using the same snapshot.
 
-   Once you've validated that the snapshot has been created successfully, you'll need to restore it to a working cluster (or standalone Sensu backend, if not deploying a cluster).
-
-   To restore the snapshot, you'll only need the singular snapshot archive. You must copy the archive to each member of the cluster. Once the snapshot has been copied, you'll use a command similar to the following:
+4. Restore the Sensu configuration from the etcd snapshot to the running backend or cluster:
 
    {{< language-toggle >}}
 
@@ -200,12 +317,32 @@ ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 
 {{< /language-toggle >}}
 
-After running the restore command, you should see the restored Sensu configuration in the web UI or sensuctl output.
+You should see the restored Sensu configuration in the web UI or sensuctl output.
+
+## Best practices for backups
+
+The best backup plan depends on how much and how often your Sensu configuration changes, as well as your organization's disaster recovery and business continuity goals.
+Business needs will dictate the right plan for your Sensu installation, but following a few best practices helps ensure that backups are available and useful when you need them.
+
+### Back up on a regular schedule
+
+Set a regular schedule for creating backups so that you always have a recent backup available.
+
+A twice-weekly backup is a good starting point but may not be right for your organization.
+For example, a large Sensu environment that deploys new checks constantly might require more frequent backups, such as every 24 or 48 hours.
+At the same time, a smaller environment that monitors only system resources might need only one weekly backup.
+
+### Back up during off-hours
+
+Creating a backup requires system resources, so we recommend backing up during evening or weekend hours.
+
+### Omit events from backups
+
+Even if you make regular backups, events are likely to be outdated by the time you restore them.
+The most important part of a backup is capturing the Sensu configuration, and days-old events probably won't be helpful.
+If you need access to all events, send events to a time-series database (TDSB) for storage instead of including events in routine Sensu backups.
 
 
-[1]: ../create-manage-resources/#create-resources
-[2]: ../../operations/control-access/rbac/
-[3]: #restore-resources-from-backup
-[4]: ../../operations/maintain-sensu/upgrade/
-[5]: ../create-manage-resources/#create-resources-across-namespaces
-[6]: #supported-resource-types
+[1]: ../../../sensuctl/create-manage-resources/#create-resources
+[2]: #best-practices-for-backups
+[3]: ../../../sensuctl/back-up-recover/
