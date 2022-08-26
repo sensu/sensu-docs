@@ -2497,5 +2497,5 @@ To get started with Sensu Go:
 [297]: /sensu-go/6.8/web-ui/view-manage-resources/#manage-configuration-resources
 [298]: /sensu-go/6.8/observability-pipeline/observe-events/events/#issued_attribute
 [299]: /sensu-go/6.8/api/other/ready/
-[300]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#agent-serve-wait-time
+[300]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#api-serve-wait-time
 [301]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#agent-serve-wait-time
