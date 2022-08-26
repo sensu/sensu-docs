@@ -33,13 +33,13 @@ sensuctl user create alice --password='password' --groups=ops
 
    This command creates the following user:
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 username: alice
 groups:
 - ops
 disabled: false
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "username": "alice",
   "groups": [
@@ -56,8 +56,9 @@ sensuctl role create read-only --verb=get,list --resource=* --namespace=default
 {{< /code >}}
 
    This command creates the following role resource definition:
+
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 ---
 type: Role
 api_version: core/v2
@@ -72,7 +73,7 @@ spec:
     - get
     - list
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "Role",
   "api_version": "core/v2",
@@ -104,7 +105,7 @@ sensuctl role-binding create ops-read-only --role=read-only --group=ops
 
    This command creates the following role binding resource definition:
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 ---
 type: RoleBinding
 api_version: core/v2
@@ -118,7 +119,7 @@ spec:
   - name: ops
     type: Group
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "RoleBinding",
   "api_version": "core/v2",
@@ -158,13 +159,13 @@ sensuctl user create bob --password='password' --groups=ops
 
    This command creates the following user:
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 username: bob
 groups:
 - ops
 disabled: false
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "username": "bob",
   "groups": [
@@ -181,8 +182,9 @@ sensuctl cluster-role create global-event-reader --verb=get,list --resource=even
 {{< /code >}}
 
    This command creates the following cluster role resource definition:
+
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 ---
 type: ClusterRole
 api_version: core/v2
@@ -197,7 +199,7 @@ spec:
     - get
     - list
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "ClusterRole",
   "api_version": "core/v2",
@@ -228,8 +230,9 @@ sensuctl cluster-role-binding create ops-event-reader --cluster-role=global-even
 {{< /code >}}
 
    This command creates the following cluster role binding resource definition:
+   
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 ---
 type: ClusterRoleBinding
 api_version: core/v2
@@ -243,7 +246,7 @@ spec:
   - name: ops
     type: Group
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "ClusterRoleBinding",
   "api_version": "core/v2",

@@ -213,6 +213,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.7.0.
 - ([Commercial feature][268]) For [Sensu Plus][271] setup, Sensu now automatically creates a Sumo Logic account and configures an HTTP Logs & Metrics Source for customers who start the process from the Sensu [web UI][270].
 - ([Commercial feature][268]) Markdown formatting is now supported for the [signin_message][288] attribute value in the GlobalConfig specification.
 - ([Commercial feature][268]) Added the [serialization_format][287] attribute to the GlobalConfig specification, which you can use to specify the default format for [resource definitions in the web UI][286] (YAML or JSON).
+- ([Commercial feature][268]) Added the [license_expiry_reminder][294] attribute to the GlobalConfig specification, which you can use to specify the number of days before license expiration to begin displaying the license expiration banner in the web UI.
 - ([Commercial feature][268]) [Business service monitoring (BSM)][281] now uses the PostgreSQL round robin Ring V2 implementation, even if the [`enable_round_robin`][280] attribute is set to `false` in the PostgresConfig definition.
 - ([Commercial feature][268]) Added the `sensu_go_etcd_cluster_leases` metric to the backend [metrics log][282] to track the count of current etcd leases for debugging.
 - ([Commercial feature][268]) Added logging for [TCP stream handler][283] events.
@@ -2462,3 +2463,4 @@ To get started with Sensu Go:
 [291]: /sensu-go/6.7/observability-pipeline/observe-events/events/#check-scope
 [292]: /sensu-go/5.16/observability-pipeline/observe-schedule/backend/#etcd-discovery-srv
 [293]: https://nvd.nist.gov/vuln/detail/CVE-2022-37315
+[294]: /sensu-go/6.7/web-ui/webconfig-reference/#license_expiry_reminder

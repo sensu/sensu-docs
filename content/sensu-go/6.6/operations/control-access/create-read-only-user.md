@@ -33,13 +33,13 @@ sensuctl user create alice --password='password' --groups=ops
 
    This command creates the following user:
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 username: alice
 groups:
 - ops
 disabled: false
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "username": "alice",
   "groups": [
@@ -158,13 +158,13 @@ sensuctl user create bob --password='password' --groups=ops
 
    This command creates the following user:
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 username: bob
 groups:
 - ops
 disabled: false
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "username": "bob",
   "groups": [

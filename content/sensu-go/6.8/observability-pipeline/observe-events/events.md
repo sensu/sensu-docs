@@ -2974,6 +2974,8 @@ is_silenced: true
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="issued_attribute"></a>
+
 issued       |      |
 -------------|------
 description  | Time that the check request was issued. In seconds since the Unix epoch.<br><br>The difference between a request's `issued` and `executed` values is the request latency.<br><br>For agent-executed checks, Sensu automatically populates the `issued` value. For events created with the [core/v2/events API][35], the default `issued` value is `0` unless you specify a value in the request body.

@@ -131,7 +131,7 @@ sensuctl handler update slack
 
 Follow the prompts to add the `hourly` and `is_incident` event filters to the `slack handler`:
 
-{{< code shell >}}
+{{< code text >}}
 ? Environment variables: SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
 ? Filters: hourly,is_incident
 ? Mutator: 
@@ -143,7 +143,7 @@ Follow the prompts to add the `hourly` and `is_incident` event filters to the `s
 
 You will receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Updated
 {{< /code >}}
 
@@ -165,7 +165,7 @@ The updated handler definition will be similar to this example:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
 ---
 type: Handler
 api_version: core/v2
@@ -186,7 +186,7 @@ spec:
   type: pipe
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -411,7 +411,7 @@ sensuctl handler update slack
 
 Follow the prompts to add the `fatigue_check` and `is_incident` event filters to the `slack handler`:
 
-{{< code shell >}}
+{{< code text >}}
 ? Environment variables: SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
 ? Filters: fatigue_check,is_incident
 ? Mutator: 
@@ -423,7 +423,7 @@ Follow the prompts to add the `fatigue_check` and `is_incident` event filters to
 
 You will receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Updated
 {{< /code >}}
 
@@ -445,7 +445,7 @@ The updated handler definition will be similar to this example:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
 ---
 type: Handler
 api_version: core/v2
@@ -466,7 +466,7 @@ spec:
   type: pipe
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -500,9 +500,13 @@ spec:
 Verify the proper behavior of these event filters with `sensu-backend` logs.
 The default location of these logs varies based on the platform used (read [Troubleshoot Sensu][2] for details).
 
-Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by
-a second log entry with the message `"msg":"pipelined executed event pipe
-handler","output":"","status":0`.
+Whenever an event is being handled, two log entries are added:
+
+{{< code text >}}
+"handler":"slack","level":"debug","msg":"sending event to handler"
+"msg":"pipelined executed event pipe handler","output":"","status":0
+{{< /code >}}
+
 However, if the event is being discarded by the event filter, a log entry with the message `event filtered` will appear instead.
 
 ## Next steps

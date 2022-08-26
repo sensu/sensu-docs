@@ -612,7 +612,7 @@ Combine the resource command with a [subcommand][23] to complete operations like
 - [`sensuctl namespace`][21]
 - [`sensuctl role`][35]
 - [`sensuctl role-binding`][44]
-- [`sensuctl secrets`][28]
+- [`sensuctl secret`][28]
 - [`sensuctl silenced`][20]
 - [`sensuctl tessen`][27]
 - [`sensuctl user`][22]

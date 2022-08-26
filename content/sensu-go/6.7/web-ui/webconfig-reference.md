@@ -34,6 +34,7 @@ In this web UI configuration example:
 - The web UI will use the classic theme
 - The entities page will list only entities with the `proxy` subscription, in ascending order based on `last_seen` value
 - The checks page will list checks alphabetically by name
+- The web UI will begin to display the license expiration banner 45 days before the organization license expires 
 - Expanded links and images will be allowed for the listed URLs
 - YAML will be the default format for [resource definitions in the web UI][9]
 
@@ -54,21 +55,22 @@ spec:
     serialization_format: YAML
     theme: classic
   page_preferences:
-    - page: entities
-      page_size: 50
-      order: LASTSEEN
-      selector: proxy in entity.subscriptions
-    - page: checks
-      page_size: 100
-      order: NAME
+  - page: entities
+    page_size: 50
+    order: LASTSEEN
+    selector: proxy in entity.subscriptions
+  - page: checks
+    page_size: 100
+    order: NAME
+  license_expiry_reminder: 1080h0m0s
   link_policy:
     allow_list: true
     urls:
     - https://example.com
     - steamapp://34234234
-    - //google.com
-    - //*.google.com
-    - //bob.local
+    - "//google.com"
+    - "//*.google.com"
+    - "//bob.local"
     - https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic
 {{< /code >}}
 
@@ -101,6 +103,7 @@ spec:
         "order": "NAME"
       }
     ],
+    "license_expiry_reminder": "1080h0m0s",
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -196,6 +199,7 @@ spec:
     - page: checks
       page_size: 100
       order: NAME
+  license_expiry_reminder: 1080h0m0s
   link_policy:
     allow_list: true
     urls:
@@ -230,6 +234,7 @@ spec:
         "order": "NAME"
       }
     ],
+    "license_expiry_reminder": "1080h0m0s",
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -336,6 +341,26 @@ default_preferences:
     "page_size": 50,
     "theme": "classic"
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="license_expiry_reminder"></a>
+
+license_expiry_reminder | 
+-------------|------ 
+description  | Number of days before license expiration to begin displaying the [license expiration banner][12] in the web UI. The value must be a valid duration, such as `1080h`, `14400m`, or `24h59m59s`.{{% notice note %}}
+**NOTE**: By default, the web UI displays the banner starting 30 days before license expiration.
+{{% /notice %}}
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+license_expiry_reminder: 1080h0m0s
+{{< /code >}}
+{{< code json >}}
+{
+  "license_expiry_reminder": "1080h0m0s"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -638,3 +663,4 @@ urls:
 [9]: ../view-manage-resources/#view-resource-data-in-the-web-ui
 [10]: https://www.markdownguide.org/
 [11]: #page-preferences-attribute
+[12]: ../#license-expiration-banner

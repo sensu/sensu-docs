@@ -338,11 +338,13 @@ General Flags:
       --agent-auth-trusted-ca-file string         TLS CA certificate bundle in PEM format for agent certificate authentication
       --agent-burst-limit int                     agent connections maximum burst size
       --agent-host string                         agent listener host (default "[::]")
+      --agent-serve-wait-time duration            wait time before accepting agent connections on startup
       --agent-port int                            agent listener port (default 8081)
       --agent-rate-limit int                      agent connections maximum rate limit
       --agent-write-timeout int                   timeout in seconds for agent writes (default 15)
       --annotations stringToString                entity annotations map (default [])
       --api-listen-address string                 address to listen on for api traffic (default "[::]:8080")
+      --api-serve-wait-time duration              wait time before serving API requests on startup
       --api-request-limit int                     maximum API request body size, in bytes (default 512000)
       --api-url string                            url of the api to connect to (default "http://localhost:8080")
       --api-write-timeout                         maximum duration before timing out writes of responses
@@ -461,6 +463,19 @@ command line example   | {{< code shell >}}
 sensu-backend start --api-request-limit 1024000{{< /code >}}
 backend.yml config file example | {{< code shell >}}
 api-request-limit: 1024000{{< /code >}}
+
+<a id="api-serve-wait-time"></a>
+
+| api-serve-wait-time |      |
+-------------|------
+description  | Time to wait after starting the backend before serving API requests. In seconds.
+type         | String
+default      | `0s`
+environment variable | `SENSU_BACKEND_API_SERVE_WAIT_TIME`
+command line example   | {{< code shell >}}
+sensu-backend start --api-serve-wait-time 10s{{< /code >}}
+backend.yml config file example | {{< code shell >}}
+api-serve-wait-time: 10s{{< /code >}}
 
 <a id="backend-api-url-attribute"></a>
 
@@ -696,6 +711,19 @@ command line example   | {{< code shell >}}
 sensu-backend start --agent-host 127.0.0.1{{< /code >}}
 backend.yml config file example | {{< code shell >}}
 agent-host: "127.0.0.1"{{< /code >}}
+
+<a id="agent-serve-wait-time"></a>
+
+| agent-serve-wait-time |      |
+-------------|------
+description  | Time to wait after starting the backend before accepting agent connections. In seconds.
+type         | String
+default      | `0s`
+environment variable | `SENSU_BACKEND_AGENT_LISTEN_WAIT_TIME`
+command line example   | {{< code shell >}}
+sensu-backend start --agent-serve-wait-time 10s{{< /code >}}
+backend.yml config file example | {{< code shell >}}
+agent-serve-wait-time: 10s{{< /code >}}
 
 | agent-port |      |
 -------------|------

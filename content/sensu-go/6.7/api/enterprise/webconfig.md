@@ -54,6 +54,7 @@ The request results in a successful `HTTP/1.1 200 OK` response and a JSON array 
         "serialization_format": "YAML",
         "theme": "sensu"
       },
+      "license_expiry_reminder": "1080h0m0s",
       "link_policy": {
         "allow_list": true,
         "urls": [
@@ -109,6 +110,7 @@ output         | {{< code text >}}
         "serialization_format": "YAML",
         "theme": "sensu"
       },
+      "license_expiry_reminder": "1080h0m0s",
       "link_policy": {
         "allow_list": true,
         "urls": [
@@ -171,6 +173,7 @@ The request will return a successful `HTTP/1.1 200 OK` response and a JSON map t
       "serialization_format": "YAML",
       "theme": "sensu"
     },
+    "license_expiry_reminder": "1080h0m0s",
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -224,6 +227,7 @@ output               | {{< code text >}}
       "serialization_format": "YAML",
       "theme": "sensu"
     },
+    "license_expiry_reminder": "1080h0m0s",
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -279,6 +283,7 @@ curl -X PUT \
       "serialization_format": "YAML",
       "theme": "sensu"
     },
+    "license_expiry_reminder": "1080h0m0s",
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -332,6 +337,7 @@ payload         | {{< code json >}}
       "serialization_format": "YAML",
       "theme": "sensu"
     },
+    "license_expiry_reminder": "1080h0m0s",
     "link_policy": {
       "allow_list": true,
       "urls": [
