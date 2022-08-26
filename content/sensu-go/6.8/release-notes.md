@@ -111,7 +111,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.8.0 release notes
 
-**August 26, 2022** &mdash; The latest release of Sensu Go, version 6.8.0, is now available for download.
+**August 29, 2022** &mdash; The latest release of Sensu Go, version 6.8.0, is now available for download.
 
 Sensu Go 6.8.0 delivers a mix of new features, valuable improvements, and helpful fixes. The new /ready API endpoint provides information about backend readiness, and the api-serve-wait-time and agent-serve-wait-time backend configuration options can help prevent instability during sensu-backend startup. The web UI now includes dedicated resource pages for assets, pipelines, role-based access control (RBAC) resources, and secrets. Plus, the resource pages now include details that give you more information about your resources at a glance. We've also fixed bugs that could cause backend crashes or result in incorrect event.check.issued values and improved prioritization to prevent keepalive event creation storms.
 
