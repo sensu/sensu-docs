@@ -127,7 +127,7 @@ Use api-serve-wait-time to delay serving API requests and agent-serve-wait-time 
 
 - ([Commercial feature][295]) The web UI now includes [resource pages][297] for assets, pipelines, role-based access control (RBAC) resources, and secrets.
 - ([Commercial feature][295]) In the web UI, resource pages now render resources in an infinite list, with a total row count provided at the bottom-right of the list.
-- ([Commercial feature][295]) The resource pages in the web UI now display additional information about each resource.
+- ([Commercial feature][295]) The resource pages in the web UI now display additional information about each resource, such as subscriptions, labels, API versions, and command attribute values.
 - ([Commercial feature][295]) In the web UI, the [system information modal][296] now displays the name of the connected Sensu backend.
 - Eventd now prioritizes keepalive events over other events to help prevent keepalive event creation storms and mass agent disconnects.
 
