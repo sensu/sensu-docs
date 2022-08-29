@@ -96,7 +96,7 @@ Under the Configuration menu option, you can access assets, checks, event filter
 Each resource page lists the namespace's resources.
 The top row of each page includes options for filtering and sorting the listed resources.
 
-{{< figure src="/images/go/view_manage_resources/configuration_pages_670.gif" alt="Configuration resource pages in the web UI" link="/images/go/view_manage_resources/configuration_pages_670.gif" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/configuration_pages_680.gif" alt="Configuration resource pages in the web UI" link="/images/go/view_manage_resources/configuration_pages_680.gif" target="_blank" >}}
 
 Click a resource name to view the resource's detail page, where you can review more information about the resource and edit or delete it.
 

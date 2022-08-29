@@ -9,6 +9,7 @@ version: "6.8"
 menu: "sensu-go-6.8"
 ---
 
+- [6.8.0 release notes](#680-release-notes)
 - [6.7.5 release notes](#675-release-notes)
 - [6.7.4 release notes](#674-release-notes)
 - [6.7.3 release notes](#673-release-notes)
@@ -107,6 +108,33 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.8.0 release notes
+
+**August 29, 2022** &mdash; The latest release of Sensu Go, version 6.8.0, is now available for download.
+
+Sensu Go 6.8.0 delivers a mix of new features, valuable improvements, and helpful fixes. The new /ready API endpoint provides information about backend readiness, and the api-serve-wait-time and agent-serve-wait-time backend configuration options can help prevent instability during sensu-backend startup. The web UI now includes dedicated resource pages for assets, pipelines, role-based access control (RBAC) resources, and secrets. Plus, the resource pages now include details that give you more information about your resources at a glance. We've also fixed bugs that could cause backend crashes or result in incorrect event.check.issued values and improved prioritization to prevent keepalive event creation storms.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.8.0.
+
+**NEW FEATURES:**
+
+- Added the [api-serve-wait-time][300] and [agent-serve-wait-time][301] backend configuration options.
+Use api-serve-wait-time to delay serving API requests and agent-serve-wait-time to delay accepting agent connections after starting the backend.
+- Added the [/ready API endpoint][299] to provide HTTP GET access to information about whether a Sensu instance is ready to serve API requests and accept agent connections.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][295]) The web UI now includes [resource pages][297] for assets, pipelines, role-based access control (RBAC) resources, and secrets.
+- ([Commercial feature][295]) In the web UI, resource pages now render resources in an infinite list, with a total row count provided at the bottom-right of the list.
+- ([Commercial feature][295]) The resource pages in the web UI now display additional information about each resource, such as subscriptions, labels, API versions, and command attribute values.
+- ([Commercial feature][295]) In the web UI, the [system information modal][296] now displays the name of the connected Sensu backend.
+- Eventd now prioritizes keepalive events over other events to help prevent keepalive event creation storms and mass agent disconnects.
+
+**FIXES:**
+
+- ([Commercial feature][295]) When the [event.check.issued][298] attribute has a null value, the event detail page in the web UI now displays `N/A` instead of `December 31, 1969`.
+- Fixed a bug that could cause a sensu-backend crash if the BackendIDGetter encountered etcd client unavailability.
 
 ## 6.7.5 release notes
 
@@ -2464,3 +2492,10 @@ To get started with Sensu Go:
 [292]: /sensu-go/5.16/observability-pipeline/observe-schedule/backend/#etcd-discovery-srv
 [293]: https://nvd.nist.gov/vuln/detail/CVE-2022-37315
 [294]: /sensu-go/6.7/web-ui/webconfig-reference/#license_expiry_reminder
+[295]: /sensu-go/6.8/commercial/
+[296]: /sensu-go/6.8/web-ui/#view-system-information
+[297]: /sensu-go/6.8/web-ui/view-manage-resources/#manage-configuration-resources
+[298]: /sensu-go/6.8/observability-pipeline/observe-events/events/#issued_attribute
+[299]: /sensu-go/6.8/api/other/ready/
+[300]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#api-serve-wait-time
+[301]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#agent-serve-wait-time
