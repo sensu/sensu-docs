@@ -500,9 +500,13 @@ spec:
 Verify the proper behavior of these event filters with `sensu-backend` logs.
 The default location of these logs varies based on the platform used (read [Troubleshoot Sensu][2] for details).
 
-Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by
-a second log entry with the message `"msg":"pipelined executed event pipe
-handler","output":"","status":0`.
+Whenever an event is being handled, two log entries are added:
+
+{{< code text >}}
+"handler":"slack","level":"debug","msg":"sending event to handler"
+"msg":"pipelined executed event pipe handler","output":"","status":0
+{{< /code >}}
+
 However, if the event is being discarded by the event filter, a log entry with the message `event filtered` will appear instead.
 
 ## Next steps

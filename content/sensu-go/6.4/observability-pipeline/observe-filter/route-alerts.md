@@ -114,7 +114,7 @@ Use sensuctl to create the three event filters:
 
 {{< language-toggle >}}
 
-{{< code text "YML" >}}
+{{< code shell "YML" >}}
 echo '---
 type: EventFilter
 api_version: core/v2
@@ -150,7 +150,7 @@ spec:
     - no_contacts(event)' | sensuctl create
 {{< /code >}}
 
-{{< code text "JSON" >}}
+{{< code shell "JSON" >}}
 echo '{
   "type": "EventFilter",
   "api_version": "core/v2",
@@ -262,7 +262,7 @@ After you update the code to use your preferred Slack channels and webhook URL, 
 
 {{< language-toggle >}}
 
-{{< code text "YML" >}}
+{{< code shell "YML" >}}
 echo '---
 type: Handler
 api_version: core/v2
