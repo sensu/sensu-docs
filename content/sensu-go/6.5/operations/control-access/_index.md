@@ -92,5 +92,5 @@ Users do *not* need to provide the username prefix for the authentication provid
 [38]: ../../sensuctl/create-manage-resources/#create-resources
 [40]: ldap-auth/#ldap-server-attributes
 [44]: ldap-auth/
-[53]: ../../api/core/users
+[53]: ../../api/core/users/
 [54]: https://etcd.io/
