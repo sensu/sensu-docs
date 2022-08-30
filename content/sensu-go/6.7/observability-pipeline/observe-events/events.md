@@ -3338,7 +3338,7 @@ value: 0.005
 [11]: ../../observe-schedule/agent#create-observability-events-using-the-agent-api
 [12]: ../../observe-schedule/agent#create-observability-events-using-the-agent-tcp-and-udp-sockets
 [13]: ../../observe-schedule/agent#create-observability-events-using-the-statsd-listener
-[14]: ../../../api/events#eventsentitycheck-put
+[14]: ../../../api/core/events/#eventsentitycheck-put
 [15]: ../../../web-ui/
 [16]: ../../../api/core/events/
 [17]: ../../../sensuctl/
@@ -3359,7 +3359,7 @@ value: 0.005
 [32]: #history-attributes
 [33]: ../../observe-schedule/checks#spec-attributes
 [34]: #points-attributes
-[35]: ../../../api/events#create-a-new-event
+[35]: ../../../api/core/events/#create-a-new-event
 [36]: #state-attribute
 [37]: ../../observe-schedule/checks/#high-flap-threshold
 [38]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html

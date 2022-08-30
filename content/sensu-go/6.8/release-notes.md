@@ -2315,7 +2315,7 @@ To get started with Sensu Go:
 [111]: /sensu-go/5.17/operations/control-access/rbac/#cluster-wide-resource-types
 [112]: /sensu-go/5.17/api/core/events/#events-post
 [113]: /sensu-go/5.17/sensuctl/sensuctl-bonsai/#list-commands
-[114]: /sensu-go/5.18/api/events#create-a-new-event
+[114]: /sensu-go/5.18/api/core/events/#create-a-new-event
 [115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api#label-selector
 [117]: /sensu-go/5.18/api#field-selector
