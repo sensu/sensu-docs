@@ -583,5 +583,5 @@ If more than one OIDC authentication provider is listed, use `sensuctl auth dele
 [50]: #create-an-okta-application
 [51]: https://www.okta.com/
 [52]: https://www.pingidentity.com/en/software/pingfederate.html
-[53]: ../../../api/users/
+[53]: ../../../api/core/users/
 [54]: https://etcd.io/
