@@ -1,14 +1,14 @@
 {
-    "name": "sensu-docs",
-    "description": "Documentation for Sensu Inc. software products",
-    "website": "https://docs.sensu.io",
-    "stack": "heroku-20",
-    "buildpacks": [
-        {
-            "url": "urn:buildpack:heroku/nodejs"
-        },
-        {
-            "url": "https://github.com/sensu/heroku-buildpack-static.git"
-        }
-      ]
+  "name": "sensu-docs",
+  "description": "Documentation for Sensu Inc. software products",
+  "website": "https://docs.sensu.io",
+  "stack": "heroku-20",
+  "buildpacks": [
+    {
+      "url": "urn:buildpack:heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/sensu/heroku-buildpack-nginx.git"
+    }
+  ]
 }
