@@ -11,15 +11,10 @@ menu:
     parent: maintain-sensu
 ---
 
-This page describes best practices for making Sensu backups and processes for restoring Sensu instances for disaster recovery.
+This page describes best practices for making Sensu configuration backups and processes for restoring your Sensu configuration for disaster recovery.
 
 The disaster recovery processes include steps for creating a backup, but you must make backups *before* you need to use them.
 Read [best practices for backups][2] for more information.
-
-{{% notice warning %}}
-**IMPORTANT**: You may need to adjust the example commands provided in these disaster recovery processes according to your Sensu configuration.<br><br>
-The recommended backup steps do not include events because events may be outdated due to the time elapsed between making backups and restoring resources.
-{{% /notice %}}
 
 ## Disaster recovery for PostgreSQL
 
@@ -30,7 +25,9 @@ Also, sensuctl create does not restore API keys from a sensuctl dump backup.<br>
 We suggest backing up API keys and users in a separate file that you can use as a reference for granting new API keys and adding the `password_hash` or `password` attribute to user definitions.
 {{% /notice %}}
 
-If you use PostgreSQL for your Sensu instance, follow these steps to create a backup and restore your Sensu configuration:
+### Back up the Sensu configuration for PostgreSQL
+
+If you use PostgreSQL for your Sensu instance, follow these steps to create a backup of your Sensu configuration:
 
 1. Create a backup folder:
 
@@ -65,9 +62,29 @@ sensuctl dump core/v2.APIKey,core/v2.User \
 --file backup/apikeys_users_backup.json
 {{< /code >}}
 
-5. Reconfigure the PostgreSQL database.
+### Restore the Sensu configuration for PostgreSQL
 
-6. Start a new Sensu backend or cluster and confirm that it is running:
+If you use PostgreSQL for your Sensu instance, follow these steps to restore your Sensu configuration:
+
+1. Stop each backend using the system manager:
+
+   {{< code shell >}}
+systemctl stop sensu-backend
+{{< /code >}}
+
+2. Delete the existing `pg_hba.conf` file:
+
+   {{< code shell >}}
+rm -rf /var/lib/pgsql/data/pg_hba.conf
+{{< /code >}}
+
+3. Reconfigure the PostgreSQL database.
+
+4. Start a new Sensu backend or cluster:
+
+   {{% notice warning %}}
+**IMPORTANT**: Update the example values in these startup commands according to your Sensu configuration before running the commands.
+{{% /notice %}}
 
    {{< language-toggle >}}
 
@@ -101,13 +118,21 @@ sensu-backend start \
 
 {{< /language-toggle >}}
 
-6. Restore the PostgreSQL configuration to activate the PostgreSQL event store:
+4. Confirm that the new Sensu backend or cluster is running:
+
+   {{< code shell >}}
+systemctl status sensu-backend
+{{< /code >}}
+
+   The response should indicate `active (running)`.
+
+5. Restore the PostgreSQL configuration to activate the PostgreSQL event store:
 
    {{< code shell >}}
 sensuctl create --file backup/psql_config_backup.json
 {{< /code >}}
 
-7. Restore the exported resources with [`sensuctl create`][1]:
+6. Restore the exported resources with [`sensuctl create`][1]:
 
    {{< code shell >}}
 sensuctl create -r -f backup/config_backup.json
@@ -128,7 +153,9 @@ Also, sensuctl create does not restore API keys from a sensuctl dump backup.<br>
 We suggest backing up API keys and users in a separate file that you can use as a reference for granting new API keys and adding the `password_hash` or `password` attribute to user definitions.
 {{% /notice %}}
 
-If you use embedded etcd for your Sensu instance, follow these steps to create a backup and restore your Sensu configuration:
+### Back up the Sensu configuration for embedded etcd
+
+If you use embedded etcd for your Sensu instance, follow these steps to create a backup of your Sensu configuration:
 
 1. Create a backup folder:
 
@@ -155,7 +182,27 @@ sensuctl dump core/v2.APIKey,core/v2.User \
 --file backup/apikeys_users_backup.json
 {{< /code >}}
 
-4. Start a new Sensu backend or cluster and confirm that it is running:
+### Restore the Sensu configuration for embedded etcd
+
+If you use embedded etcd for your Sensu instance, follow these steps to restore your Sensu configuration:
+
+1. Stop each backend using the system manager:
+
+   {{< code shell >}}
+systemctl stop sensu-backend
+{{< /code >}}
+
+2. Delete the existing etcd directories for each backend:
+
+   {{< code shell >}}
+rm -rf /var/lib/sensu/sensu-backend/etcd/
+{{< /code >}}
+
+3. Start a new Sensu backend or cluster:
+
+   {{% notice warning %}}
+**IMPORTANT**: Update the example values in these startup commands according to your Sensu configuration before running the commands.
+{{% /notice %}}
 
    {{< language-toggle >}}
 
@@ -189,6 +236,14 @@ sensu-backend start \
 
 {{< /language-toggle >}}
 
+4. Confirm that the new Sensu backend or cluster is running:
+
+   {{< code shell >}}
+systemctl status sensu-backend
+{{< /code >}}
+
+   The response should indicate `active (running)`.
+
 5. Restore the resources from backup with [`sensuctl create`][1]:
 
    {{< code shell >}}
@@ -210,11 +265,11 @@ You should see the restored Sensu configuration in the web UI or sensuctl output
 For details about etcd snapshot and restore capabilities, read [etcd's disaster recovery documentation](https://etcd.io/docs/latest/op-guide/recovery/).
 {{% /notice %}}
 
-If you use external etcd for your Sensu instance, follow these steps to create a backup and restore your Sensu configuration:
+### Back up the Sensu configuration for external etcd
 
-1. Take an etcdctl snapshot:
+If you use external etcd for your Sensu instance, use etcdctl to create a backup of your Sensu configuration:
 
-   {{< language-toggle >}}
+{{< language-toggle >}}
 
 {{< code shell "Command format" >}}
 ETCD_API=<ETCD_API_VERSION> etcdctl snapshot --endpoints <SINGLE_ENDPOINT_FOR_CLUSTER_MEMBER> save <SNAPSHOT_FILE_NAME.db>
@@ -226,9 +281,9 @@ ETCDCTL_API=3 etcdctl snapshot --endpoints http://localhost:2379 save sensu_etcd
 
 {{< /language-toggle >}}
 
-   The command output should be similar to this example:
+The command output should be similar to this example:
 
-   {{< code text >}}
+{{< code text >}}
 root@sensu00:~# etcdctl snapshot --endpoints https://sensu-backend-01:2379 save sensu_etcd_snapshot.db
 {"level":"info","ts":"2022-08-18T20:47:28.419Z","caller":"snapshot/v3_snapshot.go:65","msg":"created temporary db file","path":"sensu_etcd_snapshot.db.part"}
 {"level":"info","ts":"2022-08-18T20:47:28.452Z","logger":"client","caller":"v3/maintenance.go:211","msg":"opened snapshot stream; downloading"}
@@ -239,7 +294,27 @@ root@sensu00:~# etcdctl snapshot --endpoints https://sensu-backend-01:2379 save 
 Snapshot saved at sensu_etcd_snapshot.db
 {{< /code >}}
 
-2. Start a new Sensu backend or cluster and confirm that it is running:
+### Restore the Sensu configuration for external etcd
+
+If you use external etcd for your Sensu instance, follow these steps to restore your Sensu configuration:
+
+1. Stop each backend using the system manager:
+
+   {{< code shell >}}
+systemctl stop sensu-backend
+{{< /code >}}
+
+2. Delete the existing etcd directories for each backend:
+
+   {{< code shell >}}
+rm -rf /var/lib/sensu/sensu-backend/etcd/
+{{< /code >}}
+
+3. Start a new Sensu backend or cluster:
+
+   {{% notice warning %}}
+**IMPORTANT**: Update the example values in these commands according to your Sensu configuration before running the commands.
+{{% /notice %}}
 
    {{< language-toggle >}}
 
@@ -273,9 +348,21 @@ sensu-backend start \
 
 {{< /language-toggle >}}
 
-3. Copy the etcd snapshot file to each cluster member so that all members will be restored using the same snapshot.
+4. Confirm that the new Sensu backend or cluster is running:
 
-4. Restore the Sensu configuration from the etcd snapshot to the running backend or cluster:
+   {{< code shell >}}
+systemctl status sensu-backend
+{{< /code >}}
+
+   The response should indicate `active (running)`.
+
+5. Copy the etcd snapshot file to each cluster member so that all members will be restored using the same snapshot.
+
+6. Restore the Sensu configuration from the etcd snapshot to the running backend or cluster:
+
+   {{% notice warning %}}
+**IMPORTANT**: Update the example values in these commands according to your Sensu configuration before running the commands.
+{{% /notice %}}
 
    {{< language-toggle >}}
 
@@ -339,7 +426,8 @@ Creating a backup requires system resources, so we recommend backing up during e
 ### Omit events from backups
 
 Even if you make regular backups, events are likely to be outdated by the time you restore them.
-The most important part of a backup is capturing the Sensu configuration, and days-old events probably won't be helpful.
+The most important part of a backup is capturing the Sensu configuration.
+
 If you need access to all events, send events to a time-series database (TDSB) for storage instead of including events in routine Sensu backups.
 
 
