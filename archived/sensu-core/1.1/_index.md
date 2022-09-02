@@ -1,6 +1,6 @@
 ---
 title: "Sensu Core"
-description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures."
+description: "Sensu is the open-source monitoring event pipeline built to reduce operator burden and meet the challenges of hybrid-cloud and ephemeral infrastructures."
 date: 2017-07-21T13:06:31-07:00
 weight: -100
 menu: "sensu-core-1.1"
