@@ -1,6 +1,6 @@
 ---
 title: "/ready"
-description: "Read this API documentation for information about Sensu /ready API endpoints, including examples for learning whether the Sensu instance is ready to serve API requests."
+description: "Read this API documentation for information about using Sensu's /ready API endpoints to learn whether the Sensu instance is ready to serve API requests."
 other_api_title: "/ready"
 type: "other_api"
 version: "6.8"

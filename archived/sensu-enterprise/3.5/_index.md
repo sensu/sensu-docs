@@ -1,6 +1,6 @@
 ---
 title: "Sensu Enterprise"
-description: "Sensu Enterprise is the reliable, scalable monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures."
+description: "Sensu Enterprise is the scalable monitoring event pipeline that reduces operator burden and meets monitoring challenges of hybrid-cloud and ephemeral infrastructures."
 product: "Sensu Enterprise"
 version: "3.5"
 weight: 1

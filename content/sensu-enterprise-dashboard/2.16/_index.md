@@ -2,7 +2,7 @@
 title: "Sensu Enterprise Dashboard"
 product: "Sensu Enterprise Dashboard"
 version: "2.16"
-description: "Sensu Enterprise Dashboard is a simple web-based application that provides realtime visibility into Sensu monitoring data, with dedicated views for monitoring events, clients, checks, aggregates, data centers, and more."
+description: "Sensu Enterprise Dashboard is a web app that provides real-time visibility for Sensu monitoring events, clients, checks, aggregates, data centers, and more."
 weight: 0
 menu: "sensu-enterprise-dashboard-2.16"
 layout: "single"
