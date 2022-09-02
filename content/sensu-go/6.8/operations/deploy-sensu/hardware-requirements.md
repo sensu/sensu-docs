@@ -87,28 +87,39 @@ If the backend logs include WebSocket timeouts, you may need to use a more relia
 
 ## Cloud recommendations
 
+For all cloud providers, we recommend using local NVMe SSDs for storage and deploying all Sensu backends and etcd instances in the same region.
+
+Sensu is compatible with all cloud provider database instances.
+We recommend using PostgreSQL with high availability for the event store.
+
+{{% notice note %}}
+**NOTE**: Sensu does not require a particular CPU manufacturer for cloud storage.
+{{% /notice %}}
+
 ### Amazon EC2
 
-The recommended Amazon EC2 instance type and size for Sensu backends running embedded etcd is **M5d.xlarge**.
+For Sensu backends or etcd nodes, the recommended Amazon EC2 instance type and size is **M5d.xlarge**.
 The [M5d.xlarge instance][1] provides four vCPU, 16 GB of RAM, up to 10 gbps network connectivity, and a 150-GB NVMe SSD directly attached to the instance host, which is optimal for sustained disk IOPS.
 
 ### Microsoft Azure
 
-Use the **D4ds v4** Microsoft Azure virtual machine for Sensu backends running embedded etcd.
+Use the **D4ds v4** Microsoft Azure virtual machine for Sensu backends or etcd nodes.
 The [D4ds v4 virtual machine][6] provides four vCPU, 16 GB of RAM, and a 150-GB SSD directly attached to the instance host (optimal for sustained disk IOPS).
 
 ### Digital Ocean
 
-Use Digital Ocean [Storage-Optimized Droplets][5] for Sensu backends running embedded etcd.
+Use Digital Ocean [Storage-Optimized Droplets][5] for Sensu backends or etcd.
 The minimum [Storage-Optimized Droplet plan][4] provides two vCPU, 16 GB of RAM, and a 300-GB NVMe SSD.
 Storage is directly attached to the hypervisor rather than connected via network.
 
 ### Google Cloud
 
-The recommended Google Cloud Compute Engine type and size for Sensu backends running embedded etcd is **n2-standard-4**, with SSD provisioned space.
+For Sensu backends or etcd nodes, the recommended Google Cloud Compute Engine type and size is **n2-standard-4**, with SSD provisioned space.
 The [n2-standard-4][7] compute engine provides four vCPU, 16 GB of RAM, and up to 10 gbps network connectivity.
 
 Google Cloud offers disk space separately, and we recommend at least 150 GB of [SSD provisioned space][8] for Sensu backends running embedded etcd.
+
+You can use Google Cloud's regional managed instance groups (MIGs) to deploy Sensu backends and etcd instances.
 
 
 [1]: https://aws.amazon.com/ec2/instance-types/m5/
