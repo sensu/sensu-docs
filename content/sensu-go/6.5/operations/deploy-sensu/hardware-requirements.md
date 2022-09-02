@@ -1,7 +1,7 @@
 ---
 title: "Hardware requirements"
 linkTitle: "Hardware Requirements"
-description: "If you're planning a Sensu deployment, read this guide to learn about the hardware and networking requirements for running Sensu backends and agents on your organization's infrastructure."
+description: "Before you deploy Sensu, read about the hardware and networking requirements for running Sensu backends and agents on your organization's infrastructure."
 weight: 10
 version: "6.5"
 product: "Sensu Go"
@@ -26,12 +26,11 @@ Review the [backend recommended configuration][2] for production recommendations
 
 ### Backend recommended configuration
 
-This backend configuration is recommended as a baseline for production use to ensure a good user and operator
-experience:
+This backend configuration is recommended as a baseline for production use to ensure a good user and operator experience:
 
-- 64 bit four-core Intel or AMD CPU
+- 64-bit four-core Intel or AMD CPU
 - 8 GB RAM
-- SSD (NVMe or SATA3)
+- SSD [non-volatile memory express (NVMe) or serial advanced technology attachment 3 (SATA3)]
 - Gigabit ethernet
 
 Using additional resources (and even over-provisioning) further improves stability and scalability.
@@ -70,7 +69,7 @@ Review the [agent recommended configuration][3] for production recommendations.
 
 This agent configuration is recommended as a baseline for production use to ensure a good user and operator experience:
 
-- 64 bit four-core Intel or AMD CPU
+- 64-bit four-core Intel or AMD CPU
 - 512 MB RAM
 - Gigabit ethernet
 
