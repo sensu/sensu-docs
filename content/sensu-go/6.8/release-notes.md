@@ -120,9 +120,9 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.8.1.
 
 **FIXES:**
 
-- ([Commercial feature][295]) In the web UI when OIDC refresh tokens were expiring the signin dialog loads instead of a 404.
-- ([Commercial feature][295]) A fix to web UI to avoid listing redacted information in the entity list.
-- Check subdues are now evaulated on a half open interval such that there should be no unintended gaps between subdues.
+- ([Commercial feature][295]) In the web UI, OIDC refresh token requests now properly invoke the sign-in dialog instead of causing an `HTTP 404 Not Found` error.
+- ([Commercial feature][295]) In the web UI, the entity list no longer displays the values of redacted labels.
+- Check subdues are now evaluated as half-open intervals so that they are inclusive of the begin time and +1-second exclusive of the end time. Previously, subdue periods were evaluated as closed intervals and were exclusive of the begin and end times. This change prevents unintended gaps between subdues.
 
 ## 6.8.0 release notes
 
