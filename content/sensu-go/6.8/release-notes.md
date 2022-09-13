@@ -9,6 +9,7 @@ version: "6.8"
 menu: "sensu-go-6.8"
 ---
 
+- [6.8.1 release notes](#681-release-notes)
 - [6.8.0 release notes](#680-release-notes)
 - [6.7.5 release notes](#675-release-notes)
 - [6.7.4 release notes](#674-release-notes)
@@ -108,6 +109,20 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.8.1 release notes
+
+**September 13, 2022** &mdash; The latest release of Sensu Go, version 6.8.1, is now available for download.
+
+Sensu Go 6.8.1 includes web UI fixes for OIDC refresh token expiry and information displayed on the Entities page, as well as a change in how check subdue begin and end times are evaluated.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.8.1.
+
+**FIXES:**
+
+- ([Commercial feature][295]) In the web UI, OIDC refresh token requests now properly invoke the sign-in dialog instead of causing an `HTTP 404 Not Found` error.
+- ([Commercial feature][295]) In the web UI, the entity list no longer displays the values of redacted labels.
+- Check subdues are now evaluated as half-open intervals so that they are inclusive of the begin time and +1-second exclusive of the end time. Previously, subdue periods were evaluated as closed intervals and were exclusive of the begin and end times. This change prevents unintended gaps between subdues.
 
 ## 6.8.0 release notes
 
