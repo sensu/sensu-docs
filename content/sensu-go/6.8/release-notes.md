@@ -114,7 +114,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **September 13, 2022** &mdash; The latest release of Sensu Go, version 6.8.1, is now available for download.
 
-Sensu Go 6.8.1 includes fixes for OIDC refresh tokens, check subdues, and a change how entity information is listed in the Web UI.
+Sensu Go 6.8.1 includes web UI fixes for OIDC refresh token expiry and information displayed on the Entities page, as well as a change in how check subdue begin and end times are evaluated.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.8.1.
 
