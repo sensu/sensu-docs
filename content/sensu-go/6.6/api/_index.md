@@ -89,7 +89,7 @@ Use the [`api-request-limit` backend configuration option][21] to customize the 
 
 ## Access control
 
-With the exception of the [authentication][12], [health][5], and [metrics][6] APIs, the Sensu API requires authentication using a [JSON Web Token][27] (JWT) [access token][20] or [API key][17].
+With the exception of the [authentication][12], [health][5], [metrics][6], and [version][31] API endpoints, the Sensu API requires authentication using a [JSON Web Token][27] (JWT) [access token][20] or [API key][17].
 
 Code examples in the Sensu API docs use the environment variable `$SENSU_API_KEY` to represent a valid API key in API requests.
 
@@ -802,3 +802,4 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/si
 [27]: https://tools.ietf.org/html/rfc7519
 [28]: ../observability-pipeline/observe-events/events/#example-status-only-event-from-the-sensu-api
 [29]: core/
+[31]: other/version/
