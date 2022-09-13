@@ -9,6 +9,7 @@ version: "6.8"
 menu: "sensu-go-6.8"
 ---
 
+- [6.8.1 release notes](#681-release-notes)
 - [6.8.0 release notes](#680-release-notes)
 - [6.7.5 release notes](#675-release-notes)
 - [6.7.4 release notes](#674-release-notes)
@@ -108,6 +109,20 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.8.1 release notes
+
+**September 13, 2022** &mdash; The latest release of Sensu Go, version 6.8.1, is now available for download.
+
+Sensu Go 6.8.1 includes fixes for OIDC refresh tokens, check subdues, and a change how entity information is listed in the Web UI.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.8.1.
+
+**FIXES:**
+
+- ([Commercial feature][295]) In the web UI when OIDC refresh tokens were expiring the signin dialog loads instead of a 404.
+- ([Commercial feature][295]) A fix to web UI to avoid listing redacted information in the entity list.
+- Check subdues are now evaulated on a half open interval such that there should be no unintended gaps between subdues.
 
 ## 6.8.0 release notes
 
