@@ -59,9 +59,8 @@ You can secure communications with etcd using the same certificate and key.
 The certificate's Common Name (CN) or Subject Alternative Name (SAN) must include the network interfaces and DNS names that will point to those systems.
 
 {{% notice note %}}
-**NOTE**: Sensu Go 6.4.0 upgraded the Go version from 1.13.15 to 1.16.5.
-As of [Go 1.15](https://golang.google.cn/doc/go1.15#commonname), certificates must include their CN as an SAN field.
-To prevent connection errors after upgrading to Sensu Go 6.4.0 or later versions, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
+**NOTE**: As of [Go 1.15](https://golang.google.cn/doc/go1.15#commonname), certificates must include their CN as an SAN field.
+To prevent connection errors, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
 {{% /notice %}}
 
 Read [Run a Sensu cluster][7] and the [etcd documentation][4] for more information about TLS setup and configuration, including a walkthrough for generating TLS certificates for your cluster.
