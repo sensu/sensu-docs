@@ -136,7 +136,19 @@ Review the [sensu-perf project repository][10] for a detailed explanation of our
 
 ### Google Cloud Platform (GCP) deployment for multiple availability zones
 
-Sensu supports multi-region, multi-zone Google Cloud Platform (GCP) deployments. **PLACEHOLDER FOR MORE INFORMATION**
+Sensu supports multi-region, multi-zone Google Cloud Platform (GCP) deployments.
+
+**PLACEHOLDER FOR MORE INFORMATION**
+
+From notes:
+
+- Hosting etcd cluster as GCE instances, CloudSQL for Postgres, and backends in k8s?
+- Large scale cluster for multiple zones
+- Load balancing across regions
+- Split the infrastructure across regions so you can scale down the size of the sensu cluster
+- We recommend layer 4 so you don't get unexpected disconnects (http too long)
+- Smaller cluster that is responsible for monitoring the primary one. That could be as simple as a containerized cluster that does health checks on the primary cluster. That gives you notice of things going down, some record.
+
 
 {{< figure src="/images/go/deployment_architecture/gcp-multi-zone-multi-region.png" alt="Large-scale clustered Sensu Go architecture for multiple availability zones" link="/images/go/deployment_architecture/gcp-multi-zone-multi-region.png" target="_blank" >}}
 <!-- NEED LINK -->
