@@ -369,7 +369,7 @@ systemctl status sensu-backend
 {{< code shell "Restore a single backend" >}}
 ETCDCTL_API=3 etcdctl snapshot restore sensu_etcd_snapshot.db \
 --name sensu-backend-01 \
---initial-cluster sensu-backend-01=http://sensu-backend-01:2380,sensu-backend-02=http://sensu-backend-02:2380,sensu-backend-03=http://sensu-backend-03:2380 \
+--initial-cluster sensu-backend-01=http://sensu-backend-01:2380 \
 --initial-cluster-token sensu-backend-01 \
 --initial-advertise-peer-urls http://sensu-backend-01:2380 \
 --data-dir /var/lib/sensu/sensu-backend/etcd/data \
