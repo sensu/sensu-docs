@@ -134,6 +134,15 @@ Read the [datastore reference][8] to configure the Sensu backend to use PostgreS
 In load testing, Sensu Go has proven capable of processing 36,000 events per second when using PostgreSQL as the event store.
 Review the [sensu-perf project repository][10] for a detailed explanation of our testing methodology and results.
 
+### Google Cloud Platform (GCP) deployment for multiple availability zones
+
+Sensu supports multi-region, multi-zone Google Cloud Platform (GCP) deployments. **PLACEHOLDER FOR MORE INFORMATION**
+
+{{< figure src="/images/go/deployment_architecture/gcp-multi-zone-multi-region.png" alt="Large-scale clustered Sensu Go architecture for multiple availability zones" link="/images/go/deployment_architecture/gcp-multi-zone-multi-region.png" target="_blank" >}}
+<!-- NEED LINK -->
+
+*<p style="text-align:center">Google Cloud Platform (GCP) Sensu Go architecture for multiple availability zones</p>*
+
 ## Architecture considerations
 
 ### Networking
