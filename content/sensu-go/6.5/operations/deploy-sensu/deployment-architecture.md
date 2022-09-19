@@ -127,7 +127,7 @@ To achieve the high rate of event processing that many enterprises require, Sens
 Read the [datastore reference][8] to configure the Sensu backend to use PostgreSQL for event storage.
 
 {{< figure src="/images/go/deployment_architecture/clustered_postgresql.png" alt="Clustered Sensu Go architecture with PostgreSQL" link="/images/go/deployment_architecture/clustered_postgresql.png" target="_blank" >}}
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd/1 -->
+<!-- Image source is cluster_postgresql at https://lucid.app/lucidchart/136c4b55-5bf3-4bca-af1f-1391f5f33a4a/edit?viewport_loc=-13%2C57%2C2029%2C952%2C0_0&invitationId=inv_ac109ba0-6bf8-4b5c-be81-d85813a0ddb0# -->
 
 *<p style="text-align:center">Clustered Sensu Go architecture with PostgreSQL event storage</p>*
 
