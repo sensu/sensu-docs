@@ -60,7 +60,7 @@ Read [Sensu concepts and terminology][1] to learn more about new terms in Sensu 
 In Sensu Go, an embedded transport and [etcd datastore][2] replace the external RabbitMQ transport and Redis datastore in Sensu Core.
 
 {{< figure src="/images/go/deployment_architecture/single_backend_standalone_architecture.png" alt="Single Sensu Go backend or standalone architecture" link="/images/go/deployment_architecture/single_backend_standalone_architecture.png" target="_blank" >}}
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/d239f2db-15db-41c4-a191-b9b46990d156/0 -->
+<!-- Source image is deployment_arch_standalone_architecture at https://lucid.app/lucidchart/28444244-2d0e-4689-b26e-ffd171a9b548/edit?viewport_loc=-417%2C-513%2C2219%2C1117%2C0_0&invitationId=inv_6eb75ede-85c0-4f28-bb3d-01bcf6a960bb# -->
 
 *<p style="text-align:center">Single Sensu Go backend or standalone architecture</p>*
 
