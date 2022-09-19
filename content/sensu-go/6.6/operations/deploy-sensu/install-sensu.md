@@ -45,7 +45,7 @@ Sensu automatically downloads the files needed to run the checks from an asset r
 The agents execute the checks the backend sends to their subscriptions and send the resulting status and metric events to the backend event pipeline, which gives you flexible, automated workflows to route these events.
 
 {{< figure src="/images/go/install_sensu/basic_architecture.png" alt="Basic Sensu architecture diagram showing agents and the backend" link="/images/go/install_sensu/basic_architecture.png" target="_blank" >}}
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
+<!-- Image source is Installation_diagram_with_ports at https://lucid.app/lucidchart/4a3ee7cd-6054-43d0-bcc9-e3376c7b1b90/edit?viewport_loc=-444%2C-400%2C2219%2C1117%2C0_0&invitationId=inv_cc6857aa-5cd3-4621-937c-2bfd97813eda# -->
 
 The Sensu backend keeps track of all self-registered agents.
 If the backend loses a keepalive signal from any of the agents, it flags the agent and generates an event.
