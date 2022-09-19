@@ -383,6 +383,11 @@ username_prefix: 'okta:'
 {{< /code >}}
 {{< /language-toggle >}}
 
+## Refresh tokens
+
+No matter which OIDC provider you use, make sure to enable refresh tokens during provider configuration.
+If you do not enable refresh tokens in your provider configuration, Sensu will log out of the web UI, the API, and sensuctl after 5 minutes.
+
 ## Register an Okta application
 
 To use Okta for authentication, register Sensu Go as an OIDC web application.
