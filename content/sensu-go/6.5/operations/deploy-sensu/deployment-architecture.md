@@ -74,7 +74,7 @@ Depending on your infrastructure and the type of environments you'll be monitori
 The single backend (standalone) with embedded etcd architecture requires minimal resources but provides no redundancy in the event of failure.
 
 {{< figure src="/images/go/deployment_architecture/single_backend_standalone_architecture.png" alt="Single Sensu Go backend or standalone architecture" link="/images/go/deployment_architecture/single_backend_standalone_architecture.png" target="_blank" >}}
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/d239f2db-15db-41c4-a191-b9b46990d156/0 -->
+<!-- Source image is deployment_arch_standalone_architecture at https://lucid.app/lucidchart/28444244-2d0e-4689-b26e-ffd171a9b548/edit?viewport_loc=-417%2C-513%2C2219%2C1117%2C0_0&invitationId=inv_6eb75ede-85c0-4f28-bb3d-01bcf6a960bb# -->
 
 *<p style="text-align:center">Single Sensu Go backend or standalone architecture</p>*
 
@@ -90,7 +90,7 @@ To increase availability and replicate both configuration and data, join the emb
 Read [Run a Sensu cluster][7] for more information.
 
 {{< figure src="/images/go/deployment_architecture/clustered_single_availability_zone.png" alt="Clustered Sensu Go architecture for a single availability zone" link="/images/go/deployment_architecture/clustered_single_availability_zone.png" target="_blank" >}}
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/Ix6mP9JlVdGc -->
+<!-- Image source is cloud_reference_architectures diagram, Single AZ deployment tab at https://lucid.app/lucidchart/e410e449-71ed-496a-9612-def4d1ba6017/edit?viewport_loc=49%2C268%2C2740%2C1380%2CIx6mP9JlVdGc&invitationId=inv_c67bfd53-d578-403f-9199-419c4b5f841c# -->
 
 *<p style="text-align:center">Clustered Sensu Go architecture for a single availability zone</p>*
 
@@ -105,7 +105,7 @@ Distributing infrastructure across multiple availability zones in a given region
 With this in mind, you can deploy a Sensu cluster across multiple availability zones in a given region, configured to tolerate reasonable latency between those availability zones.
 
 {{< figure src="/images/go/deployment_architecture/clustered_multiple_availability_zones.png" alt="Clustered Sensu Go architecture for multiple availability zones" link="/images/go/deployment_architecture/clustered_multiple_availability_zones.png" target="_blank" >}}
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/n~8S.VTyl5JQ -->
+<!-- Image source is cloud_reference_architectures diagram, Cross AZ deployment tab at https://lucid.app/lucidchart/e410e449-71ed-496a-9612-def4d1ba6017/edit?viewport_loc=101%2C232%2C3360%2C1692%2Cn~8S.VTyl5JQ&invitationId=inv_c67bfd53-d578-403f-9199-419c4b5f841c# -->
 
 *<p style="text-align:center">Clustered Sensu Go architecture for multiple availability zones</p>*
 
@@ -117,7 +117,7 @@ Three etcd nodes allow you to tolerate the loss of a single node with minimal ef
 Five etcd nodes allow you to tolerate the loss of two nodes, but with a greater effect on performance.
 
 {{< figure src="/images/go/deployment_architecture/large_scale_clustered_multiple_availability_zones.png" alt="Large-scale clustered Sensu Go architecture for multiple availability zones" link="/images/go/deployment_architecture/large_scale_clustered_multiple_availability_zones.png" target="_blank" >}}
-<!-- https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/Wr7mzxLPcUmO -->
+<!-- Image source is cloud_reference_architectures diagram, Large scale Cross AZ deployment tab at https://lucid.app/lucidchart/e410e449-71ed-496a-9612-def4d1ba6017/edit?viewport_loc=99%2C2%2C3760%2C1894%2CWr7mzxLPcUmO&invitationId=inv_c67bfd53-d578-403f-9199-419c4b5f841c# -->
 
 *<p style="text-align:center">Large-scale clustered Sensu Go architecture for multiple availability zones</p>*
 
@@ -127,7 +127,7 @@ To achieve the high rate of event processing that many enterprises require, Sens
 Read the [datastore reference][8] to configure the Sensu backend to use PostgreSQL for event storage.
 
 {{< figure src="/images/go/deployment_architecture/clustered_postgresql.png" alt="Clustered Sensu Go architecture with PostgreSQL" link="/images/go/deployment_architecture/clustered_postgresql.png" target="_blank" >}}
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd/1 -->
+<!-- Image source is cluster_postgresql at https://lucid.app/lucidchart/136c4b55-5bf3-4bca-af1f-1391f5f33a4a/edit?viewport_loc=-13%2C57%2C2029%2C952%2C0_0&invitationId=inv_ac109ba0-6bf8-4b5c-be81-d85813a0ddb0# -->
 
 *<p style="text-align:center">Clustered Sensu Go architecture with PostgreSQL event storage</p>*
 
