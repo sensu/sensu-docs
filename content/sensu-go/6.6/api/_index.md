@@ -49,19 +49,27 @@ Sensu offers additional endpoints for basic authentication, health, license, met
 
 ## URL format
 
-Sensu API endpoints use the standard URL format `/api/<group>/<version>/namespaces/<namespace>` where:
+Most core/v2 API endpoints use the standard URL format `/api/core/<version>/namespaces/<namespace>` where:
 
-- `<group>` is the API group: `core`.
 - `<version>` is the API version: `v2`.
 - `<namespace>` is the namespace name.
-The examples in these API docs use the `default` namespace.
+
+For enterprise APIs for [namespaced resources][32], the URL format also includes a group that indicates the relevant enterprise feature:
+`/api/enterprise/<group>/<version>/namespaces/<namespace>`.
+
+For enterprise APIs for [cluster-wide resources][33], the URL format does not include namespace elements:
+`/api/enterprise/<group>/<version>`.
+
+The [endpoint-only APIs][34] do not follow a standard URL format.
+
+### Namespaces in API URLs
+
+The examples in the API documentation use the `default` namespace.
+
 The Sensu API requires the authenticated user to have the correct access permissions for the namespace specified in the URL.
 If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/<namespace>` portion of the URL to access Sensu resources across namespaces.
-Read the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
-{{% notice note %}}
-**NOTE**: The [endpoint-only APIs](other/) do not follow this standard URL format.
-{{% /notice %}}
+Read the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 ## Data format
 
@@ -803,3 +811,6 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/si
 [28]: ../observability-pipeline/observe-events/events/#example-status-only-event-from-the-sensu-api
 [29]: core/
 [31]: other/version/
+[32]: ../operations/control-access/rbac/#namespaced-resource-types
+[33]: ../operations/control-access/rbac/#cluster-wide-resource-types
+[34]: other/
