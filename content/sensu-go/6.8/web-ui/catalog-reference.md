@@ -470,7 +470,7 @@ display_name: NGINX Monitoring
 
 post_install |      |
 -------------|------
-description  | Content to display for the final step in integration configuration. The post_install dialog is helpful for confirming successful installation and providing instructions for any further configuration an integration may require. Read [Post install attributes][] for more information.
+description  | Content to display for the final step in integration configuration. The post_install dialog is helpful for confirming successful installation and providing instructions for any further configuration an integration may require. If you do not include a post_install array in your integration definition, Sensu will display a default "Success" window. Read [Post install attributes][11] for more information.
 required     | false
 type         | Array
 example      | {{< code yml >}}
@@ -485,7 +485,7 @@ post_install:
 
 prompts      |      |
 -------------|------
-description  | Attributes for soliciting user-provided variables to use in `resource_patches`. Prompts can be any of three types: `type: section`, `type: markdown`, or `type: question`. Read [Prompts attributes][] for more information.
+description  | Attributes for soliciting user-provided variables to use in `resource_patches`. Read [Prompts attributes][10] for more information.
 required     | true
 type         | Map of key-value pairs
 example      | {{< code yml >}}
@@ -666,17 +666,212 @@ tags:
 
 #### Post install attributes
 
-     | 
+<a id="post-install-body"></a>
+
+body         | 
 -------------|------ 
-description  | .
+description  | Markdown content to display in the integration post install dialog. If you specify [`type: markdown`][9], you must provide a `body` attribute.
 required     | false
-type         | 
+type         | String
 example      | {{< code yml >}}
-attribute: 
+body: |
+  You enabled the NGINX Monitoring integration.
+  The `nginx-metrics` check will run for all Sensu agents with these subscriptions: [[subscriptions]].
+{{< /code >}}
+
+<a id="post-install-title"></a>
+
+title        | 
+-------------|------ 
+description  | Section title to display in the integration post install dialog. If you specify [`type: section`][9], you must provide a `title` attribute.
+required     | false
+type         | String
+example      | {{< code yml >}}
+title: Success 
+{{< /code >}}
+
+<a id="post-install-type"></a>
+
+type         | 
+-------------|------ 
+description  | Type of post install content to display. To configure a window of post install content, include a `type: section` attribute and a `type: markdown` attribute. For `type: section`, provide a [title][8]. For `type: markdown`, provide a [body][7]. Each `type: section` attribute you add corresponds to one window of post install content; if you need more than one window of post install content, add another `type: section` attribute.
+required     | false
+type         | String
+example      | {{< code yml >}}
+type: section 
 {{< /code >}}
 
 #### Prompts attributes
 
+<a id="prompts-body"></a>
+
+body         | 
+-------------|------ 
+description  | Markdown content to display in a prompt. If you specify [`type: markdown`][9], you must provide a `body` attribute. **TODO** should describe it's typical use to provide instructions at the top of each prompt window.
+required     | false
+type         | String
+example      | {{< code yml >}}
+body: |
+  Specify the NGINX stub status URL and alerting thresholds for numbers of active and waiting connections.
+{{< /code >}}
+
+input        | 
+-------------|------ 
+description  | Used with [`type: question`][12] prompts. Read [Input attributes][] for more information.
+required     | false
+type         | String
+example      | {{< code yml >}}
+input:
+  type: string
+  title: NGINX stub status URL
+  description: Enter the NGINX stub_status URL
+  default: http://127.0.0.1:80/nginx_status
+{{< /code >}}
+
+name         | 
+-------------|------ 
+description  | Used with [`type: question`][12] prompts. **REWRITE THIS** Resource patch variable to use to substitute user input for the associated prompt.
+required     | false
+type         | String
+example      | {{< code yml >}}
+name: default_url
+{{< /code >}}
+
+required     | 
+-------------|------ 
+description  | Used with [`type: question`][12] prompts. If the associated prompt requires user input, `true`. Otherwise, `false`.
+required     | false
+type         | Boolean
+example      | {{< code yml >}}
+attribute: 
+{{< /code >}}
+
+<a id="prompts-title"></a>
+
+title        | 
+-------------|------ 
+description  | Section title to display in the integration prompts dialog. If you specify [`type: section`][9], you must provide a `title` attribute.
+required     | false
+type         | String
+example      | {{< code yml >}}
+title: Configure NGINX URL and Monitoring Thresholds
+{{< /code >}}
+
+<a id="prompts-type"></a>
+
+type         | 
+-------------|------ 
+description  | Type of prompt to display. To configure a window of prompts, include a `type: section` attribute followed by a [title][12]. Within each window of prompts, use `type: question` attributes to collect user responses and `type: markdown` attributes to provide user instructions. Each `type: section` attribute you add corresponds to one window of prompts; if you need more than one window of prompts, add another `type: section` attribute.
+required     | false
+type         | 
+example      | {{< code yml >}}
+type: section 
+{{< /code >}}
+
+
+
+The following input fields may be configured:
+
+type (required): data type; allowed values: string, int, bool.
+name (required): variable name to be used in resource_patches templates.
+required (required): indicates whether a user-input is required.
+input.title (required): input field title/label, displayed above the input field.
+input.description (optional): input field description, displayed below the input field.
+input.format (optional): input value display format; allowed values: sh, ecmascript-5.1, cron, duration, tel, email, url, hostname, ipv4, ipv6, envvar, sha-256, sha-512, io.sensu.selector. Some display formats provide helpers to simplify user input.
+input.ref (optional): Sensu API resource reference in <api_group>/<api_resource>/<api_field_path> format. For example, core/v2/Pipeline/metadata/name refers to core/v2 API group Pipeline resources, which will be presented to the user in a drop-down selector; once selected, the value of the metadata/name field will be captured as the input value.
+input.refFilter (coming soon): Sensu API resource reference filters in Sensu Query Expression (SQE) format; e.g. .labels.provider == "alerts". Used to filter the results of a ref.
+
+
+
+prompts:
+    - type: section
+      title: Configure NGINX URL and Monitoring Thresholds
+    - type: markdown
+      body: |
+        Specify the NGINX stub status URL and alerting thresholds for numbers of active and waiting connections.
+    - type: question
+      name: default_url
+      required: false
+      input:
+        type: string
+        title: NGINX stub status URL
+        description: Enter the NGINX stub_status URL
+        default: http://127.0.0.1:80/nginx_status
+    - type: question
+      name: nginx_active_warn
+      required: false
+      input:
+        type: integer
+        title: Maximum active connections
+        description: >-
+          Enter the maximum number of active connections to allow before sending a WARNING event (default is `300`)
+        default: 300
+    - type: question
+      name: nginx_waiting_warn
+      required: false
+      input:
+        type: integer
+        title: Maximum waiting connections
+        description: >-
+          Enter the maximum number of waiting connections to allow before sending a WARNING event (default is `30`)
+        default: 30
+    - type: section
+      title: Configure Sensu Subscriptions
+    - type: markdown
+      body: |
+        Specify the subscriptions for Sensu agents that should execute the `nginx-metrics` check.
+    - type: question
+      name: subscriptions
+      input:
+        type: array
+        items:
+          type: string
+          title: Sensu Subscriptions
+          ref: core/v2/entity/subscriptions
+        default:
+          - nginx
+    - type: section
+      title: Pipeline Configuration
+    - type: markdown
+      body: |
+        Name the [pipelines] you want to use to process NGINX Monitoring integration data.
+        [pipelines]: https://docs.sensu.io/sensu-go/latest/observability-pipeline/observe-process/pipelines/
+    - type: question
+      name: alerts_pipeline
+      required: false
+      input:
+        type: string
+        title: Alert pipeline name
+        description: >-
+          Which pipeline do you want to use for alerts due to failures this integration detects?
+        ref: core/v2/pipeline/metadata/name
+        refFilter: .labels.provider == "alerts"
+    - type: question
+      name: incidents_pipeline
+      required: false
+      input:
+        type: string
+        title: Incident pipeline name
+        description: >-
+          Which pipeline do you want to use to process incidents due to failures this integration detects?
+        ref: core/v2/pipeline/metadata/name
+        refFilter: .labels.provider == "incidents"
+    - type: question
+      name: metrics_pipeline
+      required: false
+      input:
+        type: string
+        title: Metrics pipeline name
+        description: >-
+          Which pipeline do you want to use to process the metrics this integration collects?
+        ref: core/v2/pipeline/metadata/name
+        refFilter: .labels.provider == "metrics"
+
+
+
+
+#### Resource patches attributes
+
      | 
 -------------|------ 
 description  | .
@@ -686,7 +881,7 @@ example      | {{< code yml >}}
 attribute: 
 {{< /code >}}
 
-#### Resource patches attributes
+##### Input attributes
 
      | 
 -------------|------ 
@@ -704,4 +899,9 @@ attribute:
 [4]: ../../operations/control-access/namespaces/
 [5]: #spec-attributes
 [6]: ../../commercial/
-
+[7]: #post-install-body
+[8]: #post-install-title
+[9]: #post-install-attributes
+[10]: #prompts-attributes
+[11]: #post-install-attributes
+[12]: #prompts-type
