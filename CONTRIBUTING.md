@@ -11,7 +11,7 @@ Contact [sensu/sensu-docs][9] administrators at [docs@sensu.io][5] if needed.
 Sensu documentation is written in [Goldmark Markdown][16], built with [Hugo][15], and maintained on GitHub in the [sensu/sensu-docs][9] repo.
 
 Goldmark Markdown is largely [GitHub-flavored Markdown][17].
-The Sensu docs project requires Hugo version 0.72.0 or later.
+The Sensu docs project requires Hugo version 0.101.0 or later.
 You'll also need to [install Git][18] to contribute from your command line.
 
 ## Contributing instructions
