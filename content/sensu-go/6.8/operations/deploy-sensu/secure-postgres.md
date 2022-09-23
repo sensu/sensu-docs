@@ -3,7 +3,7 @@ title: "Secure PostgreSQL"
 linkTitle: "Secure PostgreSQL"
 guide_title: "Secure PostgreSQL"
 type: "guide"
-description: "Secure communication between Sensu and PostgreSQL"
+description: "Learn how to secure communication between Sensu and PostgreSQL with certificate authentication."
 weight: 65
 version: "6.8"
 product: "Sensu Go"
@@ -13,45 +13,38 @@ menu:
     parent: deploy-sensu
 ---
 
-We've already covered [securing communications between Sensu and its agents][1]. In this guide, we'll cover the necessary steps to secure communication between Sensu and the PostgreSQL event store using certificate authentication.
+This guide describes how to secure communication between Sensu and the PostgreSQL event store using certificate authentication.
+When deploying Sensu for use outside of a local development environment, you should secure it using transport layer security (TLS).
+
+To learn how to secure communications between Sensu and its agents, read [Generate certificates for your Sensu installation][] and [Secure Sensu][1].
 
 {{% notice note %}}
-While we'll cover using certificate authentication to secure communication between Sensu and PostgreSQL, this guide is not exhaustive and is only intended to provide a starting point. There are many different options when it comes securing PostgreSQL and we encourage you to perform some due diligence when deciding whether or not this method will meet your organizational needs.
+**NOTE**: This guide describes one option for securing communication between Sensu and PostgreSQL and is intended as a starting point.
+Your organization's needs may require a different approach.
 {{% /notice  %}}
 
-We'll start off by generating the certificates we need for Sensu and PostgreSQL.
+## Prerequisites
 
-# Prerequisites
+To use this guide, you must have:
 
-* A running Sensu deployment
-* A running PostgreSQL instance
+- A running Sensu deployment.
+- A running PostgreSQL instance.
 
-# Installing cfssl
+## Install cfssl
 
-If you've gone through the exercise of securing backend to agent communication, you'll already have [Cloudflare's cfssl][2] tool downloaded and ready to use. If not, please go ahead and install it now:
+The [CloudFlare cfssl][] toolkit is released as a collection of command-line tools.
 
-### Download cfssl
+If you followed [Generate certificates for your Sensu installation][], you already downloaded and installed the Cloudflare cfssl toolkit.
+If not, run the following commands:
 
 {{< language-toggle >}}
 
-{{< code shell MacOS >}}
-
-# Install cfssl via homebrew
-
-brew install cfssl
-
-{{< /code >}}
-
-{{< code "RedHat/Rocky/Alma" >}}
-
-# Download and install cfssl binaries from Github
-
+{{< code "RHEL/CentOS" >}}
 sudo curl -s -L -o /bin/cfssl https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssl-bundle_1.6.2_linux_amd64
 
 sudo curl -s -L -o /bin/cfssl-certinfo https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssl-certinfo_1.6.2_linux_amd64
 
 sudo chmod +x /bin/cfssl*
-
 {{< /code >}}
 
 {{< code "Ubuntu/Debian" >}}
@@ -66,17 +59,13 @@ sudo apt-get install golang-cfssl
 
 {{< /language-toggle >}}
 
-Once you've installed cfssl, you can verify that it's beens successfully installed by running
+To verify that cfssl is installed, run:
 
 {{< code shell >}}
-
 cfssl version
-
 {{< /code >}}
 
-### Create a Certificate Authority (CA)
-
-To generate certificates for Sensu and PostgreSQL, we're going to follow a very similar process to the one in ["Generate certificates for your Sensu installation"][3]. So if you've already gone through that exercise, this should be familiar.
+## Create a Certificate Authority (CA)
 
 Follow these steps to create a CA with cfssl and cfssljson:
 
@@ -103,7 +92,7 @@ echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipher
 **NOTE**: We suggest a 6-month expiry duration for security, but you can use any duration you prefer when you define the `expiry` attribute value in the signing parameters.
 {{% /notice %}}
 
-<a id="copy-ca-pem"></a>
+<a id="copy-ca-pem-postgres"></a>
 
 You should now have a directory at `/etc/sensu/tls` that contains the following files:
 
@@ -114,9 +103,9 @@ You should now have a directory at `/etc/sensu/tls` that contains the following 
 `ca-config.json` | CA signing parameters and profiles. Not used by Sensu. |
 `ca.csr`         | Certificate signing request for the CA root certificate. Not used by Sensu. |
 
-### Generate certificate and key for PostgreSQL
+## Generate certificate and key for PostgreSQL
 
-Now, let's generate the certs we need for PostgreSQL.
+Next, generate the certificates you need for PostgreSQL.
 
 <a id="example-postgresql"></a>
 
@@ -133,89 +122,78 @@ For systems with multiple hostnames and IP addresses, add each to the comma-deli
 - The value provided for the NAME variable will be used to populate the certificate's CN record.
 It will also be used in the names for the `*.pem` and `*.csr` files.
 
-{{< code shell >}}
+For example:
 
+{{< code shell >}}
 export ADDRESS=localhost,127.0.0.1,10.0.0.43,postgres,postgres.example.com
-
 export NAME=postgres.example.com
-
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -profile="postgresql" -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
-
 {{< /code >}}
 
-Let's move on to generating the certificate for the Sensu backend.
-
-You should now have the following files in your `/etc/sensu/tls` directory that we'll use for our PostgreSQL instance:
+The `/etc/sensu/tls` directory should now include the following files for your PostgreSQL instance:
 
  filename        | description |
 -----------------|-------------|
-`postgres.example.com.pem`         | The certificate that your PostgreSQL instance will use.|
-`postgres.example.com-key.pem`     | The private key that your PostgreSQL instance will use. |
-`postgres.example.com.csr`         | Certificate signing request for the PostgreSQL certificate. Not used. |
+`postgres.example.com.pem`     | The certificate that your PostgreSQL instance will use.|
+`postgres.example.com-key.pem` | The private key that your PostgreSQL instance will use. |
+`postgres.example.com.csr`     | Certificate signing request for the PostgreSQL certificate. Not used. |
 
-### Generate certificate and key for your Sensu backend
+## Generate certificate and key for your Sensu backend
 
-Just like we generated the certificate and key for PostgreSQL, we'll need another cert and key for the Sensu backend. To start, we'll do the following:
+Just like the certificate and key for PostgreSQL, you'll need a certificate and key for the Sensu backend.
+
+To generate the backend certificate and key, run:
 
 {{< code shell >}}
-
 export POSTGRES_USERNAME=sensu
-
 echo '{"CN":"'$POSTGRES_USERNAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=backend - | cfssljson -bare $POSTGRES_USERNAME
-
 {{< /code >}}
 
-You should now have the following files in your `/etc/sensu/tls` directory that the Sensu backend will use to communicate with PostgreSQL:
+You should now have the following files in your `/etc/sensu/tls` directory.
+The Sensu backend will use these certificate files to communicate with PostgreSQL:
 
  filename        | description |
 -----------------|-------------|
-`sensu.pem`         | The certificate that your Sensu backend will use.|
-`sensu-key.pem`     | The private key that your Sensu backend will use. |
-`sensu.csr`         | Certificate signing request for the Sensu backend certificate. Not used. |
+`sensu.pem`      | The certificate that your Sensu backend will use.|
+`sensu-key.pem`  | The private key that your Sensu backend will use. |
+`sensu.csr`      | Certificate signing request for the Sensu backend certificate. Not used. |
 
-Now that we have our certs and keys, let's get them onto our PostgreSQL instance and Sensu backend. We'll start with the Sensu backend first.
+Now that you have the required certificates and keys, you can configure Sensu to use certificate authentication with PostgreSQL.
 
-### Configuring Sensu to use certificate authentication with PostgreSQL
-
-This guide assumes that you've been working from your Sensu backend. With that in mind, we're going to start by providing some environment variables to tell the Sensu backend that it will use a certificate to authenticate to PostgreSQL.
+## Configure Sensu to use certificate authentication with PostgreSQL
 
 {{% notice note %}}
-**NOTE**: Under the hood, the Sensu backend uses the libpq library to make connections to PostgreSQL. This library [supports a number of environment variables](https://www.postgresql.org/docs/current/libpq-envars.html) that can be injected into the PostgreSQL data source name (DSN) and are loaded at runtime using the systems environment variable file.
+**NOTE**: The Sensu backend uses the libpq library to make connections to PostgreSQL.
+This library [supports a number of environment variables](https://www.postgresql.org/docs/current/libpq-envars.html) that can be injected into the PostgreSQL data source name (DSN) and are loaded at runtime using the system's environment variable file.
 {{% /notice %}}
 
-Let's start by providing the environment variables to ensure that Sensu will use a certificate to authenticate to Postgres:
+Working from your Sensu backend, follow these steps to configure Sensu to use certificate authentication with PostgreSQL:
 
-{{< language-toggle >}}
+1. Define the environment variables that tell the Sensu backend to use a certificate to authenticate to PostgreSQL:
 
-{{< code "Redhat/Rocky/Alma" >}}
+   {{< language-toggle >}}
 
+{{< code "RHEL/CentOS" >}}
 echo 'PGUSER=sensu
 PGSSLMODE="verify-full"
 PGSSLCERT="/etc/sensu/tls/sensu.pem"
 PGSSLKEY="/etc/sensu/tls/sensu-key.pem"
 PGSSLROOTCERT="/etc/sensu/tls/ca.pem"' | sudo tee /etc/sysconfig/sensu-backend
-
 {{< /code >}}
 
 {{< code "Ubuntu/Debian" >}}
-
 echo 'PGUSER=sensu
 PGSSLMODE="verify-full"
 PGSSLCERT="/etc/sensu/tls/sensu.pem"
 PGSSLKEY="/etc/sensu/tls/sensu-key.pem"
 PGSSLROOTCERT="/etc/sensu/tls/ca.pem"' | sudo tee /etc/default/sensu-backend
-
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-We won't restart our backend to load those environment variables just yet. There are still a few steps left to ensure that we don't inadvertently take down our backend
+2. Adjust the Sensu datastore connection with sensuctl:
 
-Our next step is to ensure that we adjust our Sensu datastore connection.
-
-On a system running `sensuctl`, run the following:
-
-{{< code shell >}}
+   {{< code shell >}}
 
 echo 'type: PostgresConfig
 api_version: store/v1
@@ -230,22 +208,19 @@ sensuctl create -f postgresconfig.yml
 
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: By setting `strict: false` in our configuration, we ensure that if we make any mistakes during this process, the Sensu backend will remain active and able to process events.
+   {{% notice note %}}
+**NOTE**: Setting `strict: false` in the configuration helps ensure that the Sensu backend will remain active and able to process events even in case of a configuration mistake.
 {{% /notice %}}
 
-To validate the your connection to your PostgreSQL instance is healthy, run the following command:
+3. Confirm that the connection to your PostgreSQL instance is healthy:
 
-{{< code shell >}}
-
- curl http://localhost:8080/health
-
+   {{< code shell >}}
+curl http://localhost:8080/health
 {{< /code >}}
 
-You should see output that looks like:
+   The response should be similar to this example, with `true` values for both `Active` and `Healthy`:
 
-{{< code json >}}
-
+   {{< code text >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -270,93 +245,73 @@ You should see output that looks like:
     }
   ]
 }
-
 {{< /code >}}
 
-Both the "Active" and "Healthy" keys should return `true`.
+Now that you've confirmed that the Sensu backend can connect to your PostgreSQL instance, you can configure PostgreSQL to use TLS.
 
-Now that we've confirmed that the Sensu backend can connect to our PostgreSQL instance, let's move on to configuring PostgreSQL to use TLS.
+### Configure PostgreSQL to use TLS
 
-### Configuring PostgreSQL to use TLS
+To configure your PostgreSQL instance to use TLS:
 
-The first thing we need to do to prepare our PostgreSQL instance is to move our certs off of our Sensu backend.
+1. Copy your PostgreSQL certificate files from your Sensu backend.
+From the `/etc/sensu/tls` directory, run:
 
-{{< code shell >}}
-
-# This assumes you're still in the /etc/sensu/tls directory
-
+   {{< code shell >}}
 scp postgres.example.com* postgres.example.com:/home/user
-
 scp ca.pem postgres.example.com:/home/user
-
 {{< /code >}}
 
-From our PostgreSQL instance, we'll start by creating a new directory in `/etc/postgresql/14/main`:
+2. From your PostgreSQL instance, create a new directory (`/etc/postgresql/14/main`) and paste your PostgreSQL certificate files to move them from your Sensu backend:
 
-{{< code shell >}}
-
+   {{< code shell >}}
 sudo mkdir /etc/postgresql/14/main/tls
-
 cd /etc/postgresql/14/main/tls
-
 cp /home/user/postgres.example.com* .
-
 cp /home/user/ca.pem .
-
 {{< /code >}}
 
-Once your certs and key files are present, we'll move on to making changes in PostgreSQL. This will entail editing `postgresql.conf` to turn on TLS, as well as configuring host based authentication to only accept certificates when accessing the `sensu_events` database.
+3. Open the PostgreSQL configuration file `/etc/postgresql/14/main/postgresql.conf` in your code editor and add the following lines to enable TLS:
 
-We'll start by modifying the file `/etc/postgresql/14/main/postgresql.conf`. Using your system's code editor, ensure that your PostgreSQL config file contains the following lines:
-
-{{< code shell >}}
-
-# - SSL -
-
+   {{< code shell >}}
 ssl = on
 ssl_ca_file = '/etc/postgresql/14/main/tls/ca.pem'
 ssl_cert_file = '/etc/postgresql/14/main/tls/postgres.example.com.pem'
 ssl_key_file = '/etc/postgresql/14/main/tls/postgres.example.com-key.pem'
-
 {{< /code >}}
 
-After you've saved the `postgresql.conf` file, we'll edit the `/etc/postgresql/14/main/pg_hba.conf`. Your file should contain the following lines:
+   Save your changes and close the file.
 
-{{< code shell >}}
+4. Open the `/etc/postgresql/14/main/pg_hba.conf` file and add the following lines to configure host-based authentication to accept certificates only when accessing the `sensu_events` database:
 
-# do not let the "postgres" superuser login via a certificate
+   {{< code shell >}}
+# Prevent "postgres" superuser login via a certificate
 hostssl all             postgres        ::/0                    reject
 hostssl all             postgres        0.0.0.0/0               reject
 
 # Rules for Sensu DB connection
 hostssl sensu_events    sensu           0.0.0.0/0               cert
-
 {{< /code >}}
 
-Once you've made those changes, restart PostgreSQL:
+5. Restart PostgreSQL:
 
-{{< code shell >}}
-
+   {{< code shell >}}
 sudo systemctl restart postgresql.service
-
 {{< /code >}}
 
-Let's finalize our Sensu backend configuration.
+Now that you've configured PostgreSQL to use TLS and your Sensu user is required to authenticate with a certificate, you can validate your Sensu backend configuration.
 
-### Completing the Sensu backend configuration for PostgreSQL
+### Validate Sensu backend configuration for PostgreSQL
 
-Now that we've configured PostgreSQL to use TLS and that our Sensu user has to authenticate with a certificate, let's validate that our Sensu backend is still able to reach PostgreSQL and authenticate. We'll run the same command we ran earlier:
+To validate that your Sensu backend can reach PostgreSQL and authenticate, run the following command:
 
 {{< code shell >}}
-
- curl http://localhost:8080/health
-
+curl http://localhost:8080/health
 {{< /code >}}
 
-Our output should still look something like:
+The response should be similar to the following example.
+If the `Active` and `Healthy` attributes are not **both** `true`, stop and troubleshoot your connection to PostgreSQL *before* you continue:
 
-{{< code json >}}
-
+{{< code text >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -381,21 +336,18 @@ Our output should still look something like:
     }
   ]
 }
-
 {{< /code >}}
 
-If you don't see `"Active": true` and `"Healthy": true` in the output, you'll need to troubleshoot the connection to PostgreSQL ***before*** you complete this final step.
+### Optional step: Require PostgreSQL as event store
 
-{{% notice note %}}
-**NOTE**: This last step is completely optional. We will set `strict: true` in our config. This will force Sensu to always use PostgreSQL as the event store and will not fall back to Etcd in the event that PostgreSQL should become unavailable. If you would rather have your backend use Etcd as a fallback, you can stop here. Note that using Etcd as a fallback (especially in environments with a large amount of events) may cause Etcd to trigger disk quota alarms and become unavailble.
-{{% /notice %}}
+To force Sensu to always use PostgreSQL as the event store instead of falling back to etcd if PostgreSQL becomes unavailable, set `strict: true` in your PostgreSQL configuration file.
 
-If the values both show `true` in the JSON output, you may proceed to the next step.
+**If you prefer to use etcd as a fallback, skip this step.**
+Using etcd as a fallback may result in disk quota alarms and etcd unavailability, especially in environments with a large number of events.
 
-It's now time to update our backed PostgreSQL configuration so that we force the backend to always use PostgreSQL as the event store. Let's run the command below:
+To set `strict: true` in your PostgreSQL configuration file, run:
 
 {{< code shell >}}
-
 echo 'type: PostgresConfig
 api_version: store/v1
 metadata:
@@ -406,20 +358,18 @@ spec:
   strict: true' | sudo tee postgresconfig.yml
 
 sensuctl create -f postgresconfig.yml
-
 {{< /code >}}
 
-Your backend will now use PostgreSQL exclusively for storing events. If you'd like to validate that your configuration is updated, you can run the following:
+Your backend will now use PostgreSQL exclusively for storing events.
+
+To confirm that your configuration is updated, run:
 
 {{< code shell >}}
-
 sensuctl dump store/v1.PostgresConfig --format yaml
-
 {{< /code >}}
 
-### Wrapping up
+The response
 
-In this guide, we covered how to configure Sensu to use certificate authentication when communicating with PostgreSQL. We hope you've found it useful. If you have any feedback you'd like to provide, or changes you think should be made, feel free to click on the "Edit this page" link on the right side of the screen.
 
 [1]: ../secure-sensu
 [2]: https://github.com/cloudflare/cfssl
