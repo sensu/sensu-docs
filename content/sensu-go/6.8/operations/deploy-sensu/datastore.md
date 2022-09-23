@@ -13,11 +13,16 @@ menu:
 ---
 
 Sensu stores the most recent event for each entity and check pair using either an etcd (default) or PostgreSQL database.
-Using Sensu with an external etcd cluster requires etcd 3.3.2.
-Follow etcd's [clustering guide][21] using the same store configuration to stand up an external etcd cluster.
 
 You can access observability event data with the [Sensu web UI][9] Events page, [`sensuctl event` commands][10], and [core/v2/events API endpoints][11].
 For longer retention of observability event data, integrate Sensu with a time-series database like [InfluxDB][12] or a searchable index like ElasticSearch or Splunk.
+
+## etcd and PostgreSQL version compatibility
+
+Sensu requires at least etcd 3.3.2 and is tested against etcd 3.5.
+etcd version 3.4.0 is compatible with Sensu but may result in slower performance.
+
+Sensu supports PostgreSQL 9.5 and later, including [Amazon Relational Database Service][3] (Amazon RDS) when configured with the PostgreSQL engine.
 
 ## Use default event storage
 
@@ -30,9 +35,6 @@ To stand up an external etcd cluster, follow etcd's [clustering guide][7] using 
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 
 As your deployment grows beyond the proof-of-concept stage, review [Deployment architecture for Sensu][6] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
-
-Sensu requires at least etcd 3.3.2 and is tested against etcd 3.5.
-etcd version 3.4.0 is compatible with Sensu but may result in slower performance.
 
 ## Scale event storage
 
@@ -48,10 +50,9 @@ When configured with a PostgreSQL event store, Sensu connects to PostgreSQL to s
 Etcd continues to store Sensu entity and configuration data.
 You can access event data stored in PostgreSQL using the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
 
-## PostgreSQL requirements
-
-Sensu supports PostgreSQL 9.5 and later, including [Amazon Relational Database Service][3] (Amazon RDS) when configured with the PostgreSQL engine.
 Read the [PostgreSQL documentation][14] to install and configure PostgreSQL.
+
+### PostgreSQL requirements
 
 For optimal performance, we recommend the following PostgreSQL configuration parameters and settings as a starting point for your `postgresql.conf` file:
 
@@ -90,7 +91,7 @@ autovacuum_analyze_scale_factor = 0.025
 Adjust the parameters and settings as needed based on your hardware and the performance you observe.
 Read the [PostgreSQL parameters documentation][20] for information about setting parameters.
 
-## Configure the PostgreSQL event store
+### Configure the PostgreSQL event store
 
 At the time when you enable the PostgreSQL event store, event data cuts over from etcd to PostgreSQL.
 This results in a loss of recent event history.
@@ -166,7 +167,7 @@ sensuctl create --file postgres.json
 To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process.
 You can expect PostgreSQL status updates in the [Sensu backend logs][2] at the `warn` log level and PostgreSQL error messages in the [Sensu backend logs][2] at the `error` log level.
 
-## Disable the PostgreSQL event store
+### Disable the PostgreSQL event store
 
 To disable the PostgreSQL event store, use `sensuctl delete` with your `PostgresConfig` resource definition file:
 
@@ -500,4 +501,3 @@ strict: true
 [18]: #datastore-specification
 [19]: ../install-sensu/#ports
 [20]: https://www.postgresql.org/docs/current/config-setting.html
-[21]: https://etcd.io/docs/latest/op-guide/clustering/

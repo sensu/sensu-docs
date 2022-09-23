@@ -22,13 +22,13 @@ Sensu requires username and password authentication to access the [web UI][1], [
 In addition to the [built-in basic authentication][7], Sensu offers [commercial support][6] for single sign-on (SSO) authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
 The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
-For general information about configuring authentication providers, read [Configure single sign-on (SSO) authentication][12].
-
 {{% notice warning %}}
 **WARNING**: Defining multiple OIDC providers can lead to inconsistent authentication behavior.
-Use `sensuctl auth list` to verify that only one authentication provider of type `OIDC` is defined.
+Use `sensuctl auth list` to verify that you have defined only one authentication provider of type `OIDC`.
 If more than one OIDC auth provider configuration is listed, use `sensuctl auth delete $NAME` to remove the extra OIDC configurations by name.
 {{% /notice %}}
+
+For general information about configuring authentication providers, read [Configure single sign-on (SSO) authentication][12].
 
 ## OIDC configuration example
 
@@ -281,7 +281,7 @@ disable_offline_access: false
 
 | redirect_uri |   |
 -------------|------
-description  | Redirect URL to provide to the OIDC provider. Requires `/api/enterprise/authentication/v2/oidc/callback` {{% notice note %}}
+description  | Redirect URL to provide to the OIDC provider. Requires `/api/enterprise/authentication/v2/oidc/callback`. {{% notice note %}}
 **NOTE**: Only required for certain OIDC providers, such as Okta.
 {{% /notice %}}
 required     | false
@@ -382,6 +382,11 @@ username_prefix: 'okta:'
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+## Refresh tokens
+
+No matter which OIDC provider you use, make sure to enable refresh tokens during provider configuration.
+If you do not enable refresh tokens in your provider configuration, Sensu will log out of the web UI, the API, and sensuctl after 5 minutes.
 
 ## Register an Okta application
 
