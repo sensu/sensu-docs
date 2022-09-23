@@ -717,9 +717,9 @@ body: |
 
 input        | 
 -------------|------ 
-description  | Used with [`type: question`][12] prompts. Read [Input attributes][] for more information.
+description  | Configuration attributes for [`type: question`][12] prompts. Read [Input attributes][] for more information.
 required     | false
-type         | String
+type         | Map of key-value pairs
 example      | {{< code yml >}}
 input:
   type: string
@@ -739,7 +739,7 @@ name: default_url
 
 required     | 
 -------------|------ 
-description  | Used with [`type: question`][12] prompts. If the associated prompt requires user input, `true`. Otherwise, `false`.
+description  | If the associated prompt requires user input, `true`. Otherwise, `false`. Used with [`type: question`][12] prompts.
 required     | false
 type         | Boolean
 example      | {{< code yml >}}
@@ -768,128 +768,172 @@ example      | {{< code yml >}}
 type: section 
 {{< /code >}}
 
-
-
-The following input fields may be configured:
-
-type (required): data type; allowed values: string, int, bool.
-name (required): variable name to be used in resource_patches templates.
-required (required): indicates whether a user-input is required.
-input.title (required): input field title/label, displayed above the input field.
-input.description (optional): input field description, displayed below the input field.
-input.format (optional): input value display format; allowed values: sh, ecmascript-5.1, cron, duration, tel, email, url, hostname, ipv4, ipv6, envvar, sha-256, sha-512, io.sensu.selector. Some display formats provide helpers to simplify user input.
-input.ref (optional): Sensu API resource reference in <api_group>/<api_resource>/<api_field_path> format. For example, core/v2/Pipeline/metadata/name refers to core/v2 API group Pipeline resources, which will be presented to the user in a drop-down selector; once selected, the value of the metadata/name field will be captured as the input value.
-input.refFilter (coming soon): Sensu API resource reference filters in Sensu Query Expression (SQE) format; e.g. .labels.provider == "alerts". Used to filter the results of a ref.
-
-
-
-prompts:
-    - type: section
-      title: Configure NGINX URL and Monitoring Thresholds
-    - type: markdown
-      body: |
-        Specify the NGINX stub status URL and alerting thresholds for numbers of active and waiting connections.
-    - type: question
-      name: default_url
-      required: false
-      input:
-        type: string
-        title: NGINX stub status URL
-        description: Enter the NGINX stub_status URL
-        default: http://127.0.0.1:80/nginx_status
-    - type: question
-      name: nginx_active_warn
-      required: false
-      input:
-        type: integer
-        title: Maximum active connections
-        description: >-
-          Enter the maximum number of active connections to allow before sending a WARNING event (default is `300`)
-        default: 300
-    - type: question
-      name: nginx_waiting_warn
-      required: false
-      input:
-        type: integer
-        title: Maximum waiting connections
-        description: >-
-          Enter the maximum number of waiting connections to allow before sending a WARNING event (default is `30`)
-        default: 30
-    - type: section
-      title: Configure Sensu Subscriptions
-    - type: markdown
-      body: |
-        Specify the subscriptions for Sensu agents that should execute the `nginx-metrics` check.
-    - type: question
-      name: subscriptions
-      input:
-        type: array
-        items:
-          type: string
-          title: Sensu Subscriptions
-          ref: core/v2/entity/subscriptions
-        default:
-          - nginx
-    - type: section
-      title: Pipeline Configuration
-    - type: markdown
-      body: |
-        Name the [pipelines] you want to use to process NGINX Monitoring integration data.
-        [pipelines]: https://docs.sensu.io/sensu-go/latest/observability-pipeline/observe-process/pipelines/
-    - type: question
-      name: alerts_pipeline
-      required: false
-      input:
-        type: string
-        title: Alert pipeline name
-        description: >-
-          Which pipeline do you want to use for alerts due to failures this integration detects?
-        ref: core/v2/pipeline/metadata/name
-        refFilter: .labels.provider == "alerts"
-    - type: question
-      name: incidents_pipeline
-      required: false
-      input:
-        type: string
-        title: Incident pipeline name
-        description: >-
-          Which pipeline do you want to use to process incidents due to failures this integration detects?
-        ref: core/v2/pipeline/metadata/name
-        refFilter: .labels.provider == "incidents"
-    - type: question
-      name: metrics_pipeline
-      required: false
-      input:
-        type: string
-        title: Metrics pipeline name
-        description: >-
-          Which pipeline do you want to use to process the metrics this integration collects?
-        ref: core/v2/pipeline/metadata/name
-        refFilter: .labels.provider == "metrics"
-
-
-
-
 #### Resource patches attributes
 
-     | 
+patches      | 
 -------------|------ 
-description  | .
+description  | Updates to apply to the selected resource, in [JSON Patch][13] format. Variable substitution and templating are supported with `varname` references in double square brackets (for example, `Hello, [[varname]]`). If an individual operation fails, Sensu considers it optional and skips it. All patches must specify a `path`, `op` (operation), and `value`. Read [Patches attributes][] for more information.
 required     | false
-type         | 
+type         | Map of key-value pairs
 example      | {{< code yml >}}
-attribute: 
+patches:
+  - path: /spec/command
+    op: replace
+    value: >-
+      nginx-check
+      --url {{ .annotations.metrics_nginx_url | default "[[ default_url ]]" }}
+  - path: /spec/subscriptions
+    op: replace
+    value: subscriptions
+{{< /code >}}
+
+resource     | 
+-------------|------ 
+description  | Identification information for the Sensu API resource to patch. The resource must be included in the integration's `sensu-resources.yaml` file. Read [Resource attributes][] for more information.
+required     | false
+type         | Map of key-value pairs
+example      | {{< code yml >}}
+- resource:
+    api_version: core/v2
+    type: CheckConfig
+    name: nginx-metrics
 {{< /code >}}
 
 ##### Input attributes
 
-     | 
+default      | 
 -------------|------ 
-description  | .
+description  | Default value to use for the associated attribute if the user does not specify a value.
+required     | false
+type         | String
+example      | {{< code yml >}}
+default: http://127.0.0.1:80/nginx_status
+{{< /code >}}
+
+description  | 
+-------------|------ 
+description  | Description to display below the user input field.
+required     | false
+type         | String
+example      | {{< code yml >}}
+description: Enter the NGINX stub_status URL
+{{< /code >}}
+
+format         | 
+---------------|------ 
+description    | Format for the input value. Some display formats provide helpers that simplify user input.
+required       | false
+type           | String
+allowed values | `cron`, `duration` `ecmascript-5.1`, `email`, `envvar`, `hostname`, `io.sensu.selector`, `ipv4`, `ipv6`, `tel`, `url`, `sh`, `sha-256`, `sha-512`
+example        | {{< code yml >}}
+format: email
+{{< /code >}}
+
+ref          | 
+-------------|------ 
+description  | Reference to a Sensu API resource in <api_group>/<version>/<api_resource>/<api_field_path> format (for example, `core/v2/pipelines/metadata/name` refers to the names of `core/v2/pipelines` resources). The referenced resources are presented to the user in a drop-down selector. Sensu captures the resource the user selects as the input value.
+required     | false
+type         | String
+example      | {{< code yml >}}
+ref: core/v2/entity/subscriptions
+{{< /code >}}
+
+refFilter    | 
+-------------|------ 
+description  | Filters to apply to Sensu API resource references in Sensu Query Expression (SQE) format. Sensu uses `refFilter` values to filter `ref` results.
+required     | false
+type         | String
+example      | {{< code yml >}}
+refFilter: .labels.provider == "alerts"
+{{< /code >}}
+
+title        | 
+-------------|------ 
+description  | Label to display above the user input field.
+required     | true
+type         | String
+example      | {{< code yml >}}
+title: NGINX stub status URL
+{{< /code >}}
+
+type           | 
+---------------|------ 
+description    | Type of input requested.
+required       | true
+type           | String
+allowed values | `boolean`, `integer`, `string`
+example        | {{< code yml >}}
+type: string
+{{< /code >}}
+
+#### Patches attributes
+
+op           | 
+-------------|------ 
+description  | Patch operation to perform.
+required     | false
+type         | String
+allowed values | `add`, `replace`
+example      | {{< code yml >}}
+op: replace
+{{< /code >}}
+
+path         | 
+-------------|------ 
+description  | Path for the attribute to patch within the specified Sensu resource. In [JSON Pointer][14] format, which supports array indexes such as `/spec/subscriptions/0`. Use `-` to insert values at the end of an array (for example, `/spec/subscriptions/-`).
+required     | false
+type         | String
+example      | {{< code yml >}}
+path: /spec/subscriptions
+{{< /code >}}
+
+**START HERE**
+
+value        | 
+-------------|------ 
+description  | Value to apply in the patch.
 required     | false
 type         | 
 example      | {{< code yml >}}
-attribute: 
+value: [[ subscriptions ]]
+{{< /code >}}
+
+The value to be applied in the patch. Variable substitution is supported via varname references (i.e. double square brackets). Please note the following details about Integration variables:
+
+Sensu Integration variables have a name (e.g. team, or interval) and data type (e.g. string, int).
+Sensu Integration variables can be used as Sensu Integration resource_patch values (e.g. value: interval).
+Sensu Integration variable can be interpolated into a string template via double square brackets (e.g. Hello, [[ team ]]).
+Available variables:
+A built-in variable named unique_id: randomly generated 8-digit hexadecimal string value (e.g. 168c41a1).
+User-provided variables: supplied via a user prompt (see the name field of any type:question prompt).
+
+##### Resource attributes
+
+api_version  | 
+-------------|------ 
+description  | Sensu API group and version for the resource to patch.
+required     | true
+type         | String
+example      | {{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+
+name         | 
+-------------|------ 
+description  | Name of the resource to patch.
+required     | true
+type         | String
+example      | {{< code yml >}}
+name: nginx-metrics
+{{< /code >}}
+
+type         | 
+-------------|------ 
+description  | Type of the resource to patch.
+required     | true
+type         | String
+example      | {{< code yml >}}
+type: CheckConfig
 {{< /code >}}
 
 
@@ -905,3 +949,5 @@ attribute:
 [10]: #prompts-attributes
 [11]: #post-install-attributes
 [12]: #prompts-type
+[13]: https://jsonpatch.com/
+[14]: https://jsonpatch.com/#json-pointer
