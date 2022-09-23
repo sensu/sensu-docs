@@ -128,8 +128,7 @@ During initial configuration of a cluster of Sensu backends, you must describe e
 In issuing certificates for cluster members, the IP address or hostname used in these URLs must be represented in either the Common Name (CN) or Subject Alternative Name (SAN) records in the certificate.
 
 {{% notice note %}}
-**NOTE**: Sensu Go 6.4.0 upgraded the Go version from 1.13.15 to 1.16.5.
-As of [Go 1.15](https://golang.google.cn/doc/go1.15#commonname), certificates must include their CN as an SAN field.
+**NOTE**: As of [Go 1.15](https://golang.google.cn/doc/go1.15#commonname), certificates must include their CN as an SAN field.
 Follow the instructions in this guide to make sure your certificates' SAN fields include their CNs.
 {{% /notice %}}
 

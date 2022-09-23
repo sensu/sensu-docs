@@ -25,7 +25,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
 
 [params]
   # General information
-  description = "Sensu is the industry-leading solution for multi-cloud monitoring at scale. Use Sensu's observability pipeline to automate monitoring workflows and gain deep visibility into multi-cloud environments. Built by operators, for operators, open source is at the heart of the product and company."
+  description = "Sensu is the industry-leading solution for multi-cloud monitoring at scale. Sensu's observability pipeline automates monitoring and offers deep visibility for multi-cloud environments. Built by operators, for operators, open source is at the heart of the product."
   copyright = ""
 
   # Repository

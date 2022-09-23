@@ -45,7 +45,7 @@ Sensu automatically downloads the files needed to run the checks from an asset r
 The agents execute the checks the backend sends to their subscriptions and send the resulting status and metric events to the backend event pipeline, which gives you flexible, automated workflows to route these events.
 
 {{< figure src="/images/go/install_sensu/basic_architecture.png" alt="Basic Sensu architecture diagram showing agents and the backend" link="/images/go/install_sensu/basic_architecture.png" target="_blank" >}}
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
+<!-- Image source is Installation_diagram_with_ports at https://lucid.app/lucidchart/4a3ee7cd-6054-43d0-bcc9-e3376c7b1b90/edit?viewport_loc=-444%2C-400%2C2219%2C1117%2C0_0&invitationId=inv_cc6857aa-5cd3-4621-937c-2bfd97813eda# -->
 
 The Sensu backend keeps track of all self-registered agents.
 If the backend loses a keepalive signal from any of the agents, it flags the agent and generates an event.
@@ -289,24 +289,24 @@ sudo yum install sensu-go-cli
 
 {{< code powershell "Windows" >}}
 # Download sensuctl for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.0/sensu-go_6.8.0_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.8.0_windows_amd64.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.8.1_windows_amd64.zip
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.0/sensu-go_6.8.0_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.8.0_windows_386.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.8.1_windows_386.zip
 
 # Unzip the file with PowerShell for Windows amd64
-Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.8.0_windows_amd64.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
+Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.8.1_windows_amd64.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
 
 # or for Windows 386
-Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.8.0_windows_386.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
+Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.8.1_windows_386.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
 {{< /code >}}
 
 {{< code shell "macOS" >}}
 # Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.0/sensu-go_6.8.0_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_darwin_amd64.tar.gz
 
 # Extract the archive
-tar -xvf sensu-go_6.8.0_darwin_amd64.tar.gz
+tar -xvf sensu-go_6.8.1_darwin_amd64.tar.gz
 
 # Copy the executable into your PATH
 sudo cp sensuctl /usr/local/bin/
@@ -376,16 +376,16 @@ sudo yum install sensu-go-agent
 
 {{< code powershell "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.0/sensu-go-agent_6.8.0.6692_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.8.0.6692_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go-agent_6.8.1.6707_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.8.1.6707_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.0/sensu-go-agent_6.8.0.6692_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.8.0.6692_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go-agent_6.8.1.6707_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.8.1.6707_en-US.x86.msi"
 
 # Install the Sensu agent for Windows amd64
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.8.0.6692_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.8.1.6707_en-US.x64.msi /qn
 
 # Or for Windows 386
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.8.0.6692_en-US.x86.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.8.1.6707_en-US.x86.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent

@@ -2262,7 +2262,7 @@ To get started with Sensu Go:
 [220]: /sensu-go/6.4/web-ui/webconfig-reference/#sign-in-message
 [221]: /sensu-go/6.4/web-ui/webconfig-reference/#page-preferences-attributes
 [222]: /sensu-go/6.4/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-640-from-any-previous-version
-[223]: /sensu-go/6.3/web-ui/webconfig-reference/#default_preferences-attributes
+[223]: /sensu-go/6.3/web-ui/webconfig-reference/#default-preferences-attributes
 [224]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#metrics-refresh-interval
 [225]: /sensu-go/6.4/observability-pipeline/observe-schedule/agent/#log-level
 [226]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#event-log-parallel-encoders
