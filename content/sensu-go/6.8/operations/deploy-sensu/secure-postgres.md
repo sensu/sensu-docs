@@ -16,7 +16,7 @@ menu:
 This guide describes how to secure communication between Sensu and the PostgreSQL event store using certificate authentication.
 When deploying Sensu for use outside of a local development environment, you should secure it using transport layer security (TLS).
 
-To learn how to secure communications between Sensu and its agents, read [Generate certificates for your Sensu installation][] and [Secure Sensu][1].
+To learn how to secure communications between Sensu and its agents, read [Generate certificates for your Sensu installation][3] and [Secure Sensu][1].
 
 {{% notice note %}}
 **NOTE**: This guide describes one option for securing communication between Sensu and PostgreSQL and is intended as a starting point.
@@ -32,9 +32,9 @@ To use this guide, you must have:
 
 ## Install cfssl
 
-The [CloudFlare cfssl][] toolkit is released as a collection of command-line tools.
+The [CloudFlare cfssl][2] toolkit is released as a collection of command-line tools.
 
-If you followed [Generate certificates for your Sensu installation][], you already downloaded and installed the Cloudflare cfssl toolkit.
+If you followed [Generate certificates for your Sensu installation][3], you already downloaded and installed the Cloudflare cfssl toolkit.
 If not, run the following commands:
 
 {{< language-toggle >}}
@@ -362,16 +362,13 @@ sensuctl create -f postgresconfig.yml
 
 Your backend will now use PostgreSQL exclusively for storing events.
 
-To confirm that your configuration is updated, run:
+To view your PostgresConfig definition and confirm that it is updated, run:
 
 {{< code shell >}}
 sensuctl dump store/v1.PostgresConfig --format yaml
 {{< /code >}}
 
-The response
-
 
 [1]: ../secure-sensu
 [2]: https://github.com/cloudflare/cfssl
 [3]: ../generate-certificates
-[4]: https://www.postgresql.org/docs/current/libpq-envars.html
