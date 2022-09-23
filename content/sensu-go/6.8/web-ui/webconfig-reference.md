@@ -164,6 +164,7 @@ example      | {{< language-toggle >}}
 {{< code yml >}}
 metadata:
   name: custom-web-ui
+  created_by: admin
 {{< /code >}}
 {{< code json >}}
 {
@@ -455,7 +456,7 @@ signin_message: with your *LDAP or system credentials*
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### default_preferences attributes
+#### Default preferences attributes
 
 page_size | 
 -------------|------ 
@@ -652,7 +653,7 @@ urls:
 {{< /language-toggle >}}
 
 
-[1]: #default_preferences-attributes
+[1]: #default-preferences-attributes
 [2]: ../../api/enterprise/webconfig/
 [3]: ../
 [4]: #spec-attributes
