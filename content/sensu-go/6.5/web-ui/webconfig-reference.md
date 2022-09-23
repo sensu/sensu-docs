@@ -158,6 +158,7 @@ example      | {{< language-toggle >}}
 {{< code yml >}}
 metadata:
   name: custom-web-ui
+  created_by: admin
 {{< /code >}}
 {{< code json >}}
 {
