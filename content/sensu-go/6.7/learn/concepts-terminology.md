@@ -1,7 +1,7 @@
 ---
-title: "Sensu concepts and terminology"
+title: "Glossary of Sensu concepts and terminology"
 linkTitle: "Concepts and Terminology"
-description: "Get familiar with Sensu concepts and terminology, including agents, assets, backends, events, and more. Each term includes a link to more in-depth information."
+description: "Use this glossary to get familiar with Sensu concepts and terminology. Each summary includes a link to more in-depth information."
 weight: 10
 version: "6.7"
 product: "Sensu Go"
