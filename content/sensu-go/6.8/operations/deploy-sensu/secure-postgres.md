@@ -166,7 +166,7 @@ Now that you have the required certificates and keys, you can configure Sensu to
 
 {{% notice note %}}
 **NOTE**: The Sensu backend uses the libpq library to make connections to PostgreSQL.
-This library [supports a number of environment variables](https://www.postgresql.org/docs/current/libpq-envars.html) that can be injected into the PostgreSQL data source name (DSN) and are loaded at runtime using the system's environment variable file.
+This library [supports a number of environment variables](https://www.postgresql.org/docs/current/libpq-envars.html) that can be injected into the PostgreSQL data source name (DSN) and are loaded at runtime using the system's environment variable file. Using the environment variables found here, you can customize the Sensu backend's PostgreSQL DSN construction to better suite your needs.
 {{% /notice %}}
 
 Working from your Sensu backend, follow these steps to configure Sensu to use certificate authentication with PostgreSQL:
