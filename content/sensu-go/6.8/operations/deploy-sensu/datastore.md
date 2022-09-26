@@ -431,7 +431,7 @@ batch_workers: 0
 
 dsn          |      |
 -------------|------
-description  | Data source names. Specified as a URL or [PostgreSQL connection string][15]. The Sensu backend uses the Go pq library, which supports a [subset of the PostgreSQL libpq connection string parameters][4].<br><br>To avoid exposing sensitive information in the `dsn` attribute, [configure PostgreSQL with environment variables][24]. 
+description  | Data source name. Specified as a URL or [PostgreSQL connection string][15]. The Sensu backend uses the Go pq library, which supports a [subset of the PostgreSQL libpq connection string parameters][4].<br><br>To avoid exposing sensitive information in the `dsn` attribute, [configure PostgreSQL with environment variables][24]. 
 required     | true
 type         | String
 example      | {{< language-toggle >}}
