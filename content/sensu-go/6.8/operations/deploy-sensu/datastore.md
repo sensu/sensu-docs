@@ -175,7 +175,7 @@ Sensu loads these environment variables at runtime using the system's environmen
 
 You can use the libpq environment variables to connect to PostgreSQL without exposing sensitive information, like usernames and passwords, in your PostgreSQL configuration.
 To do this, [define the libpq environment variables][22] as described in the backend reference.
-The client automatically looks up these environment variables, so you do not need to reference them in your PostgresConfig definition.
+Sensu automatically looks up these environment variables, so you do not need to reference them in your PostgresConfig definition.
 
 For example, to use libpq environment variables to define the PostgreSQL username, password, port, and database name in the [Sensu backend environment file][22]:
 
@@ -197,7 +197,7 @@ api_version: store/v1
 metadata:
   name: postgres_datastore
 spec:
-  dsn: "postgresql://postgres.example.com?sslmode=disable"
+  dsn: "postgresql://postgres.example.com"
   pool_size: 20
   strict: true
 {{< /code >}}
@@ -210,7 +210,7 @@ spec:
     "name": "postgres_datastore"
   },
   "spec": {
-    "dsn": "postgresql://postgres.example.com?sslmode=disable",
+    "dsn": "postgresql://postgres.example.com",
     "pool_size": 20,
     "strict": true
   }
