@@ -40,7 +40,9 @@ If not, run the following commands:
 {{< language-toggle >}}
 
 {{< code "RHEL/CentOS" >}}
-sudo curl -s -L -o /bin/cfssl https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssl-bundle_1.6.2_linux_amd64
+sudo curl -s -L -o /bin/cfssl https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssl_1.6.2_linux_amd64
+
+sudo curl -s -L -o /bin/cfssljson https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssljson_1.6.2_linux_amd64
 
 sudo curl -s -L -o /bin/cfssl-certinfo https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssl-certinfo_1.6.2_linux_amd64
 
