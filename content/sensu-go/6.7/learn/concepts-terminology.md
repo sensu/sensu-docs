@@ -42,6 +42,12 @@ Rule templates define the monitoring rules that produce events for service compo
 
 [Read more about BSM][19], [rule templates][20], and [service components][21].
 
+## Catalog
+The Sensu Catalog is an element of the Sensu web UI where you can find and install monitoring and observability integrations.
+An integration combines a Sensu plugin with a dynamic runtime asset and the Sensu resource definitions that use the plugin.
+The Sensu Catalog includes integrations for standard system checks and metrics collection as well as pipelines for sending Sensu data to third-party logging, remediation, and incident management services.
+[Read more about the Sensu Catalog][24].
+
 ## Check
 A recurring check the agent runs to determine the state of a system component or collect metrics.
 The backend is responsible for storing check definitions, scheduling checks, and processing observation data (events).
@@ -149,3 +155,4 @@ Tokens let you fine-tune check attributes (like thresholds) on a per-entity leve
 [21]: ../../observability-pipeline/observe-schedule/service-components/
 [22]: ../../observability-pipeline/observe-schedule/subscriptions/
 [23]: ../../observability-pipeline/observe-process/pipelines/
+[24]: ../../web-ui/sensu-catalog/
