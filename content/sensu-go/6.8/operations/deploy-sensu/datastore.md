@@ -169,7 +169,7 @@ You can expect PostgreSQL status updates in the [Sensu backend logs][2] at the `
 
 #### Use environment variables to configure PostgreSQL
 
-The Sensu backend uses the [libpq][23] to make connections to PostgreSQL.
+The Sensu backend uses the [libpq][23] library to make connections to PostgreSQL.
 libpq supports a number of [environment variables][21] that can be injected into the PostgreSQL data source name (DSN).
 Sensu loads these environment variables at runtime using the system's environment variable file.
 
