@@ -1502,12 +1502,11 @@ sudo touch /etc/sysconfig/sensu-backend
      {{< /language-toggle >}}
 
 2. Make sure the environment variable is named correctly.
-All environment variables that control Sensu backend configuration begin with `SENSU_BACKEND_`.
 
-     To rename a configuration option you wish to specify as an environment variable, prepend `SENSU_BACKEND_`, convert dashes to underscores, and capitalize all letters.
+   * To rename a [configuration option][77] you wish to specify as an environment variable, prepend `SENSU_BACKEND_`, convert dashes to underscores, and capitalize all letters.
      For example, the environment variable for the configuration option `api-listen-address` is `SENSU_BACKEND_API_LISTEN_ADDRESS`.
 
-     For a custom environment variable, you do not have to prepend `SENSU_BACKEND`.
+   * For a custom environment variable, you do not have to prepend `SENSU_BACKEND`.
      For example, `TEST_VAR_1` is a valid custom environment variable name.
 
 3. Add the environment variable to the environment file.
