@@ -167,6 +167,58 @@ sensuctl create --file postgres.json
 To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process.
 You can expect PostgreSQL status updates in the [Sensu backend logs][2] at the `warn` log level and PostgreSQL error messages in the [Sensu backend logs][2] at the `error` log level.
 
+#### Use environment variables to configure PostgreSQL
+
+The Sensu backend uses the [libpq][23] library to make connections to PostgreSQL.
+libpq supports a number of [environment variables][21] that can be injected into the PostgreSQL data source name (DSN).
+Sensu loads these environment variables at runtime using the system's environment variable file.
+
+You can use the libpq environment variables to connect to PostgreSQL without exposing sensitive information, like usernames and passwords, in your PostgreSQL configuration.
+To do this, [define the libpq environment variables][22] as described in the backend reference.
+Sensu automatically looks up these environment variables, so you do not need to reference them in your PostgresConfig definition.
+
+For example, to use libpq environment variables to define the PostgreSQL username, password, port, and database name in the [Sensu backend environment file][22]:
+
+{{< code shell >}}
+PGUSER=<PostgreSQL_username>
+PGPASSWORD=<PostgreSQL_password>
+PGPORT=5432
+PGDATABASE=sensu_events
+{{< /code >}}
+
+With these environment variables defined, the PostgreSQL configuration does not need to include the username, password, port, or database name:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: PostgresConfig
+api_version: store/v1
+metadata:
+  name: postgres_datastore
+spec:
+  dsn: "postgresql://postgres.example.com"
+  pool_size: 20
+  strict: true
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "PostgresConfig",
+  "api_version": "store/v1",
+  "metadata": {
+    "name": "postgres_datastore"
+  },
+  "spec": {
+    "dsn": "postgresql://postgres.example.com",
+    "pool_size": 20,
+    "strict": true
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ### Disable the PostgreSQL event store
 
 To disable the PostgreSQL event store, use `sensuctl delete` with your `PostgresConfig` resource definition file:
@@ -379,7 +431,7 @@ batch_workers: 0
 
 dsn          |      |
 -------------|------
-description  | data source name. Specified as a URL or [PostgreSQL connection string][15]. The Sensu backend uses the Go pq library, which supports a [subset of the PostgreSQL libpq connection string parameters][4].
+description  | Data source name. Specified as a URL or [PostgreSQL connection string][15]. The Sensu backend uses the Go pq library, which supports a [subset of the PostgreSQL libpq connection string parameters][4].<br><br>To avoid exposing sensitive information in the `dsn` attribute, [configure PostgreSQL with environment variables][24]. 
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -501,3 +553,7 @@ strict: true
 [18]: #datastore-specification
 [19]: ../install-sensu/#ports
 [20]: https://www.postgresql.org/docs/current/config-setting.html
+[21]: https://www.postgresql.org/docs/current/libpq-envars.html
+[22]: ../../../observability-pipeline/observe-schedule/backend/#environment-variables
+[23]: https://www.postgresql.org/docs/current/libpq.html
+[24]: #use-environment-variables-to-configure-postgresql
