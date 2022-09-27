@@ -152,6 +152,7 @@ echo '{"CN":"'$POSTGRES_USERNAME'","hosts":[""],"key":{"algo":"rsa","size":2048}
 {{< /code >}}
 
 You should now have the following files in your `/etc/sensu/tls` directory.
+
 The Sensu backend will use these certificate files to communicate with PostgreSQL:
 
  filename        | description |
@@ -161,6 +162,10 @@ The Sensu backend will use these certificate files to communicate with PostgreSQ
 `sensu.csr`      | Certificate signing request for the Sensu backend certificate. Not used. |
 
 Now that you have the required certificates and keys, you can configure Sensu to use certificate authentication with PostgreSQL.
+
+{{% notice warning %}}
+**WARNING**: Once you've generated all of your certs, delete the `ca-key.pem` file from the `/etc/sensu/tls` directory. The `ca-key.pem` file contains sensitive information and is only needed on your PostgreSQL instance.
+{{% /notice %}}
 
 ## Configure Sensu to use certificate authentication with PostgreSQL
 
