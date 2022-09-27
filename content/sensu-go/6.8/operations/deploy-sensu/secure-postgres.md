@@ -307,11 +307,50 @@ hostssl sensu_events    sensu           0.0.0.0/0               cert
 sudo systemctl restart postgresql.service
 {{< /code >}}
 
-Now that you've configured PostgreSQL to use TLS and your Sensu user is required to authenticate with a certificate, you can validate your Sensu backend configuration.
+Now that you've configured PostgreSQL to use TLS and your Sensu user is required to authenticate with a certificate, you'll need to complete one final step to ensure that the environment variables set earlier in this guide are used when constructing the PostgreSQL DSN.
 
 ### Validate Sensu backend configuration for PostgreSQL
 
-To validate that your Sensu backend can reach PostgreSQL and authenticate, run the following command:
+After restarting PostgreSQL, the Sensu user should ***not*** be able to communicate with PostgreSQL, as it's requiring certificate authentication for the `sensu_events` database:
+
+{{< code shell >}}
+curl http://localhost:8080/health
+{{< /code >}}
+
+{{< code json >}}
+{
+  "Alarms": null,
+  "ClusterHealth": [
+    {
+      "MemberID": 13217573501179607000,
+      "MemberIDHex": "b76e4111d26d35e2",
+      "Name": "sensu.example.com",
+      "Err": "",
+      "Healthy": true
+    }
+  ],
+  "Header": {
+    "cluster_id": 11959078708079102000,
+    "member_id": 6370351775894128000,
+    "raft_term": 4242
+  },
+  "PostgresHealth": [
+    {
+      "Name": "sensu_postgres",
+      "Active": false,
+      "Healthy": false
+    }
+  ]
+}
+{{< /code >}}
+
+For Sensu to use certificate authentication, we need to restart the backend service to load the environment variables we set:
+
+{{< code shell >}}
+sudo systemctl restart sensu-backend.service
+{{< /code >}}
+
+To validate that your Sensu backend can reach PostgreSQL and authenticate after restarting, run the following command:
 
 {{< code shell >}}
 curl http://localhost:8080/health
@@ -320,7 +359,7 @@ curl http://localhost:8080/health
 The response should be similar to the following example.
 If the `Active` and `Healthy` attributes are not **both** `true`, stop and troubleshoot your connection to PostgreSQL *before* you continue:
 
-{{< code text >}}
+{{< code json >}}
 {
   "Alarms": null,
   "ClusterHealth": [
