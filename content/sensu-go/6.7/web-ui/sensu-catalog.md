@@ -2,7 +2,7 @@
 title: "Configure integrations in the Sensu Catalog"
 linkTitle: "Configure Integrations in the Sensu Catalog"
 description: "Find, configure, and install powerful monitoring and observability integrations in the Sensu Catalog, Sensu's online marketplace."
-weight: 10
+weight: 30
 version: "6.7"
 product: "Sensu Go"
 platformContent: false

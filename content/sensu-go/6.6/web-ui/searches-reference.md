@@ -4,7 +4,7 @@ linkTitle: "Searches Reference"
 reference_title: "Searches"
 type: "reference"
 description: "Read this reference to use the saved searches feature in the Sensu web UI to create, update, and delete saved searches."
-weight: 50
+weight: 130
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
