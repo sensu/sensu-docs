@@ -17,6 +17,10 @@ menu:
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
+{{% notice note %}}
+**NOTE**: The Sensu Catalog API is an alpha feature and may include breaking changes.
+{{% /notice %}}
+
 The Sensu Catalog API generates a static API from a Sensu Catalog repository, such as https://github.com/sensu/catalog.
 
 ## Get the latest catalog SHA-256 checksum
@@ -89,7 +93,7 @@ The request returns the list of integration namespaces and names:
 /<release_sha256>/v1/catalog.json (GET)  |     |
 ---------------------|------
 description          | Retrieves the list of integration namespaces and names for the catalog.
-endpoint             | /af3c54b86b90fac8977f1bdc80d955002dd3f441bdbb4cc603c94abbb929dcf6/v1/catalog.json
+endpoint             | /<release_sha256>/v1/catalog.json
 output               | {{< code text >}}
 {
   "namespaced_integrations": {
@@ -155,7 +159,7 @@ The request returns the latest content version's SHA-256 checksum and the time o
 /<release_sha256>/v1/\<namespace>/\<name>.json (GET)  |     |
 ---------------------|------
 description          | Retrieves the specified integration's latest configuration and a list of versions.
-endpoint             | /af3c54b86b90fac8977f1bdc80d955002dd3f441bdbb4cc603c94abbb929dcf6/v1/nginx/nginx-monitoring.json
+endpoint             | /<release_sha256>/v1/\<namespace>/\<name>.json
 output               | {{< code text >}}
 {
   "metadata": {
@@ -214,7 +218,7 @@ The request returns the integration's available versions:
 /<release_sha256>/v1/\<namespace>/\<name>/versions.json (GET)  |     |
 ---------------------|------
 description          | Retrieves a list of the available versions for the specified integration.
-endpoint             | /af3c54b86b90fac8977f1bdc80d955002dd3f441bdbb4cc603c94abbb929dcf6/v1/nginx/nginx-monitoring/versions.json
+endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/versions.json
 output               | {{< code text >}}
 [
   "20220125.0.0",
@@ -270,7 +274,7 @@ The request returns the configuration for the specified version of the integrati
 /<release_sha256>/v1/\<namespace>/\<name>/\<version>.json (GET)  |     |
 ---------------------|------
 description          | Retrieves the latest content version's SHA-256 checksum, which the Sensu web UI uses to determine the latest API subpath.
-endpoint             | /af3c54b86b90fac8977f1bdc80d955002dd3f441bdbb4cc603c94abbb929dcf6/v1/nginx/nginx-monitoring/20220125.0.0.json
+endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>.json
 output               | {{< code text >}}
 {
   "metadata": {
@@ -358,7 +362,7 @@ The request returns the Sensu resources for the requested integration version:
 /<release_sha256>/v1/\<namespace>/\<name>/\<version>/sensu-resources.json (GET)  |     |
 ---------------------|------
 description          | Retrieves the the Sensu resources (except assets) for the requested integration version, in JSON format.
-endpoint             | /af3c54b86b90fac8977f1bdc80d955002dd3f441bdbb4cc603c94abbb929dcf6/v1/nginx/nginx-monitoring/20220125.0.0/sensu-resources.json
+endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>/sensu-resources.json
 output               | {{< code text >}}
 {
   "api_version": "core/v2",
@@ -415,7 +419,7 @@ The request returns the README for the specified integration version in Markdown
 /<release_sha256>/v1/\<namespace>/\<name>/\<version>/readme.md (GET)  |     |
 ---------------------|------
 description          | Retrieves the README for the specified integration version in Markdown format.
-endpoint             | /af3c54b86b90fac8977f1bdc80d955002dd3f441bdbb4cc603c94abbb929dcf6/v1/nginx/nginx-monitoring/20220125.0.0/readme.md
+endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>/readme.md
 output               | README in Markdown format
 response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -439,7 +443,7 @@ The request returns the changelog for the specified integration version in Markd
 /<release_sha256>/v1/\<namespace>/\<name>/\<version>/changelog.png (GET)  |     |
 ---------------------|------
 description          | Retrieves the changelog for the specified integration version in Markdown format.
-endpoint             | /af3c54b86b90fac8977f1bdc80d955002dd3f441bdbb4cc603c94abbb929dcf6/v1/nginx/nginx-monitoring/20220125.0.0/changelog.md
+endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>/changelog.md
 output               | Changelog in Markdown format
 response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -463,7 +467,7 @@ The request returns the logo for the specified integration version in PNG format
 /<release_sha256>/v1/\<namespace>/\<name>/\<version>/logo.png (GET)  |     |
 ---------------------|------
 description          | Retrieves the logo for the specified integration version in PNG format.
-endpoint             | /af3c54b86b90fac8977f1bdc80d955002dd3f441bdbb4cc603c94abbb929dcf6/v1/nginx/nginx-monitoring/20220125.0.0/logo.md
+endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>/logo.md
 output               | Logo in PNG format
 response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
 

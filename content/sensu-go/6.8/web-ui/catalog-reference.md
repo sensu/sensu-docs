@@ -4,7 +4,7 @@ linkTitle: "Catalog Integrations Reference"
 reference_title: "Catalog integrations"
 type: "reference"
 description: "Use Sensu's Catalog API to build a private catalog of Sensu integrations. Read the reference to create integrations for your catalog."
-weight: 45
+weight: 110
 version: "6.8"
 product: "Sensu Go"
 menu: 
@@ -13,7 +13,7 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the Sensu Catalog API in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the Sensu Catalog and integrations in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
@@ -22,9 +22,6 @@ The contents of the official Sensu Catalog are periodically published to the off
 
 Sensu Catalog integrations resemble other Sensu resources, but Sensu Go does not process them directly.
 Instead, the [Sensu Catalog API][2] generates a static API from a repository that includes integration definitions, along with other content like the README and integration logo.
-
-The Sensu Catalog API renders static HTTP API content that the Sensu web UI can consume.
-This means you can create a private catalog of custom integrations and make it available to users in the Sensu web UI.
 
 ## Catalog repository example
 
@@ -74,7 +71,8 @@ File | Description
 
 ## Integration example
 
-This example shows an example integration definition:
+This example shows an integration definition for NGINX monitoring.
+Integration definitions are saved as the `sensu-integration.yaml` file for a Sensu Catalog integration:
 
 {{< code yml >}}
 ---
@@ -230,7 +228,69 @@ spec:
         The `nginx-metrics` check will run for all Sensu agents with these subscriptions: [[subscriptions]].
 {{< /code >}}
 
-## Catalog integration specification **TODO**
+## catalog-api command line interface tool
+
+{{% notice note %}}
+**NOTE**: The catalog-api tool is an alpha feature and may include breaking changes.
+{{% /notice %}}
+
+Sensu's [catalog-api][16] command line interface (CLI) tool that converts integration files into static API content that you can host on any HTTP web service.
+
+Use the catalog-api tool to generate a local catalog API for testing as you develop new integrations and to build and run a private catalog.
+Integration files must be stored in a repository that follows the required [organizational framework][16].
+
+The catalog-api tool is written in Go.
+
+### catalog-api subcommands
+
+The catalog-api tool provides the following subcommands:
+
+{{< code text >}}
+catalog-api catalog --help
+USAGE
+  catalog-api catalog [flags] <subcommand> [flags]
+
+SUBCOMMANDS
+  generate  Generate a static catalog API
+  validate  Validate a catalog directory and its integrations
+  server    Serves static catalog API for development purposes
+  preview   Serves static catalog API & preview catalog web application for development purposes
+
+FLAGS
+  -integrations-dir-name integrations  path to the directory containing namespaced integrations
+  -log-level info                      log level of this command ([panic fatal error warn info debug trace])
+  -repo-dir .                          path to the catalog repository
+{{< /code >}}
+
+### Catalog versions
+
+The catalog-api tool generates builds into a checksum-based output directory structure.
+The `version.json` file manages the path to the latest or production catalog API content and instructs the web UI to load catalog contents from the specified checksum directory.
+When you run the command to generate the catalog, catalog-api creates the `version.json` file.
+
+The contents of a `version.json` file are similar to this example:
+
+{{< code json >}}
+{
+  "release_sha256": "5029648381dff2426ea247147456b4f1227fd6d9050fa42f0660e67a218f8c87",
+  "last_updated": 1655840571
+}
+{{< /code >}}
+
+If you make any changes to your integration files, the catalog-api tool will generate a new checksum directory.
+To revert to an older build, change the `release_sha256` in `version.json` to point to a different release directory.
+
+## Private catalogs
+
+The Sensu Catalog API renders static HTTP API content that the Sensu web UI can consume.
+This means you can create a private catalog of custom integrations and make it available to users in the Sensu web UI.
+Read [Build a private catalog of Sensu integrations][17] for more information.
+
+## Run the Sensu Catalog API server for integration development
+
+**NEEDED**
+
+## Catalog integration specification
 
 ### Top-level attributes
 
@@ -887,25 +947,22 @@ example      | {{< code yml >}}
 path: /spec/subscriptions
 {{< /code >}}
 
-**START HERE**
-
 value        | 
 -------------|------ 
-description  | Value to apply in the patch.
+description  | User-entered value to apply in the patch. Values are represented by variable name references in double square brackets.<br><br>Please note the following details about Integration variables:
+
+Sensu Integration variables have a name (e.g. team, or interval) and data type (e.g. string, int).
+Sensu Integration variables can be used as Sensu Integration resource_patch values (e.g. value: interval).
+Sensu Integration variable can be interpolated into a string template via double square brackets (e.g. Hello, [[ team ]]).
+
+Available variables:
+A built-in variable named unique_id: randomly generated 8-digit hexadecimal string value (e.g. 168c41a1).
+User-provided variables: supplied via a user prompt (see the name field of any type:question prompt).
 required     | false
 type         | 
 example      | {{< code yml >}}
 value: [[ subscriptions ]]
 {{< /code >}}
-
-The value to be applied in the patch. Variable substitution is supported via varname references (i.e. double square brackets). Please note the following details about Integration variables:
-
-Sensu Integration variables have a name (e.g. team, or interval) and data type (e.g. string, int).
-Sensu Integration variables can be used as Sensu Integration resource_patch values (e.g. value: interval).
-Sensu Integration variable can be interpolated into a string template via double square brackets (e.g. Hello, [[ team ]]).
-Available variables:
-A built-in variable named unique_id: randomly generated 8-digit hexadecimal string value (e.g. 168c41a1).
-User-provided variables: supplied via a user prompt (see the name field of any type:question prompt).
 
 ##### Resource attributes
 
@@ -936,6 +993,22 @@ example      | {{< code yml >}}
 type: CheckConfig
 {{< /code >}}
 
+## Integration guidelines
+
+**START HERE**
+
+Please note the following details about Integration variables:
+
+Sensu Integration variables have a name (e.g. team, or interval) and data type (e.g. string, int).
+Sensu Integration variables can be used as Sensu Integration resource_patch values (e.g. value: interval).
+Sensu Integration variable can be interpolated into a string template via double square brackets (e.g. Hello, [[ team ]]).
+
+Available variables:
+A built-in variable named unique_id: randomly generated 8-digit hexadecimal string value (e.g. 168c41a1).
+User-provided variables: supplied via a user prompt (see the name field of any type:question prompt).
+
+**NEEDED**: incorporate https://github.com/sensu/catalog#sensu-integration-guidelines-1
+
 
 [1]: ../sensu-catalog/
 [2]: ../../api/catalog/
@@ -951,3 +1024,6 @@ type: CheckConfig
 [12]: #prompts-type
 [13]: https://jsonpatch.com/
 [14]: https://jsonpatch.com/#json-pointer
+[15]: #catalog-repository-example
+[16]: https://github.com/sensu/catalog-api
+[17]: ../build-private-catalog/
