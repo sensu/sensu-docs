@@ -2,7 +2,7 @@
 title: "View and manage resources in the web UI"
 linkTitle: "View and Manage Resources"
 description: "View and manage Sensu resources in the user-friendly web UI, including events, entities, silences, checks, handlers, event filters, and mutators."
-weight: 20
+weight: 10
 version: "6.8"
 product: "Sensu Go"
 platformContent: false
