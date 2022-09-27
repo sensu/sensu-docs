@@ -2,7 +2,7 @@
 title: "Configure the web UI"
 linkTitle: "Configure the Web UI"
 description: "Web UI configuration allows you to define certain display options for the Sensu web UI. Read this guide to configure customized displays for your Sensu web UI."
-weight: 40
+weight: 90
 version: "6.8"
 product: "Sensu Go"
 platformContent: false
