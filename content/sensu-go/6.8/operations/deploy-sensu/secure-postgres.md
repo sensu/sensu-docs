@@ -28,7 +28,7 @@ Your organization's needs may require a different approach.
 To use this guide, you must have:
 
 - A running Sensu deployment.
-- A running PostgreSQL instance.
+- A running PostgreSQL instance that you've configured using the ["Scale with Enterprise Datastore"][4] guide.
 
 ## Install cfssl
 
@@ -39,7 +39,7 @@ If not, run the following commands:
 
 {{< language-toggle >}}
 
-{{< code "RHEL/Rocky/Alma" >}}
+{{< code "RHEL/CentOS" >}}
 sudo curl -s -L -o /bin/cfssl https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssl_1.6.2_linux_amd64
 
 sudo curl -s -L -o /bin/cfssljson https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssljson_1.6.2_linux_amd64
@@ -180,7 +180,7 @@ Working from your Sensu backend, follow these steps to configure Sensu to use ce
 
    {{< language-toggle >}}
 
-{{< code "RHEL/Rocky/Alma" >}}
+  {{< code "RHEL/CentOS" >}}
 echo 'PGUSER=sensu
 PGSSLMODE="verify-full"
 PGSSLCERT="/etc/sensu/tls/sensu.pem"
@@ -188,7 +188,7 @@ PGSSLKEY="/etc/sensu/tls/sensu-key.pem"
 PGSSLROOTCERT="/etc/sensu/tls/ca.pem"' | sudo tee /etc/sysconfig/sensu-backend
 {{< /code >}}
 
-{{< code "Ubuntu/Debian" >}}
+  {{< code "Ubuntu/Debian" >}}
 echo 'PGUSER=sensu
 PGSSLMODE="verify-full"
 PGSSLCERT="/etc/sensu/tls/sensu.pem"
@@ -198,18 +198,18 @@ PGSSLROOTCERT="/etc/sensu/tls/ca.pem"' | sudo tee /etc/default/sensu-backend
 
 {{< /language-toggle >}}
 
-We won't restart our backend to load those environment variables just yet. There are still a few steps left to ensure that we don't inadvertently take down our backend.
+  We won't restart our backend to load those environment variables just yet. There are still a few steps left to ensure that we don't inadvertently take down our backend.
 
 2. Adjust the Sensu datastore connection with sensuctl:
 
-{{< code shell >}}
+   {{< code shell >}}
 
 echo 'type: PostgresConfig
 api_version: store/v1
 metadata:
   name: sensu_postgres
 spec:
-  dsn: "postgresql://postgres.example.com:5432/sensu_events"
+  dsn: "postgresql://sensu:mypass@postgres.example.com:5432/sensu_events"
   pool_size: 20
   strict: false' | sudo tee postgresconfig.yml
 
@@ -217,19 +217,19 @@ sensuctl create -f postgresconfig.yml
 
 {{< /code >}}
 
-{{% notice note %}}
+   {{% notice note %}}
 **NOTE**: Setting `strict: false` in the configuration helps ensure that the Sensu backend will remain active and able to process events even in case of a configuration mistake.
 {{% /notice %}}
 
 3. Confirm that the connection to your PostgreSQL instance is healthy:
 
-{{< code shell >}}
+   {{< code shell >}}
 curl http://localhost:8080/health
 {{< /code >}}
 
    The response should be similar to this example, with `true` values for both `Active` and `Healthy`:
 
-{{< code text >}}
+   {{< code text >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -265,23 +265,44 @@ To configure your PostgreSQL instance to use TLS:
 1. Copy your PostgreSQL certificate files from your Sensu backend.
 From the `/etc/sensu/tls` directory, run:
 
-{{< code shell >}}
+   {{< code shell >}}
 scp postgres.example.com* postgres.example.com:/home/user
 scp ca.pem postgres.example.com:/home/user
 {{< /code >}}
 
-2. From your PostgreSQL instance, create a new directory (`/etc/postgresql/14/main`) and paste your PostgreSQL certificate files to move them from your Sensu backend:
+2. From your PostgreSQL instance, create a new directory (`/var/lib/pgsql/14/data` (RHEL/CentOS) or `/etc/postgresql/14/main` (Ubuntu/Debian)) and paste your PostgreSQL certificate files to move them from your Sensu backend:
 
-{{< code shell >}}
+   {{< language-toggle >}}
+
+
+
+   {{< code shell "RHEL/CentOS">}}
+sudo mkdir /var/lib/pgsql/14/data/tls
+cd /var/lib/pgsql/14/data/tls
+cp /home/user/postgres.example.com* .
+cp /home/user/ca.pem .
+{{< /code >}}
+
+   {{< code shell "Ubuntu/Debian">}}
 sudo mkdir /etc/postgresql/14/main/tls
 cd /etc/postgresql/14/main/tls
 cp /home/user/postgres.example.com* .
 cp /home/user/ca.pem .
 {{< /code >}}
 
-3. Open the PostgreSQL configuration file `/etc/postgresql/14/main/postgresql.conf` in your code editor and add the following lines to enable TLS:
+{{< /language-toggle >}}
 
-   {{< code shell >}}
+
+3. Open the PostgreSQL configuration file `postgresql.conf` in your system's code editor and edit the following lines to enable TLS:
+
+   {{< code shell "RHEL/CentOS">}}
+ssl = on
+ssl_ca_file = '/var/lib/pgsql/14/data/tls/ca.pem'
+ssl_cert_file = '/var/lib/pgsql/14/data/tls/postgres.example.com.pem'
+ssl_key_file = '/var/lib/pgsql/14/data/tls/postgres.example.com-key.pem'
+{{< /code >}}
+
+   {{< code shell "Ubuntu/Debian">}}
 ssl = on
 ssl_ca_file = '/etc/postgresql/14/main/tls/ca.pem'
 ssl_cert_file = '/etc/postgresql/14/main/tls/postgres.example.com.pem'
@@ -290,9 +311,9 @@ ssl_key_file = '/etc/postgresql/14/main/tls/postgres.example.com-key.pem'
 
    Save your changes and close the file.
 
-4. Open the `/etc/postgresql/14/main/pg_hba.conf` file and add the following lines to configure host-based authentication to accept certificates only when accessing the `sensu_events` database:
+4. Open the `pg_hba.conf` file in your respective Linux distribution and add the following lines to configure host-based authentication to accept certificates only when accessing the `sensu_events` database:
 
-{{< code shell >}}
+   {{< code shell >}}
 # Prevent "postgres" superuser login via a certificate
 hostssl all             postgres        ::/0                    reject
 hostssl all             postgres        0.0.0.0/0               reject
@@ -420,3 +441,4 @@ sensuctl dump store/v1.PostgresConfig --format yaml
 [1]: ../secure-sensu
 [2]: https://github.com/cloudflare/cfssl
 [3]: ../generate-certificates
+[4]: ../scale-event-storage
