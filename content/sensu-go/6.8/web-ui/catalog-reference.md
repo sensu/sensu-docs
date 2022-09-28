@@ -20,8 +20,10 @@ For more information, read [Get started with commercial features](../../commerci
 The [Sensu Catalog][1] is a collection of Sensu integrations that provide reference implementations for effective observability.
 The contents of the official Sensu Catalog are periodically published to the official Sensu Catalog API, which is hosted at https://catalog.sensu.io and displayed within the Sensu web UI.
 
-Sensu Catalog integrations resemble other Sensu resources, but Sensu Go does not process them directly.
-Instead, the [Sensu Catalog API][2] generates a static API from a repository that includes integration definitions, along with other content like the README and integration logo.
+When users install integrations in the Sensu web UI, they receive prompts to specify any customizations.
+For example, the DNS Monitoring integration includes prompts for the domain name, record type, record class, servers, and port to query.
+Sensu then applies the user's customizations to the integration's resource definitions and automatically deploys the integration configuration to your agents in real time.
+No external configuration management is required.
 
 ## Catalog repository example
 
@@ -228,6 +230,18 @@ spec:
         The `nginx-metrics` check will run for all Sensu agents with these subscriptions: [[subscriptions]].
 {{< /code >}}
 
+Sensu Catalog integration definitions resemble other Sensu resources, but Sensu Go does not process them directly.
+Instead, the [Sensu Catalog API][2] uses integration definitions along with the other files in the catalog repository, like READMEs and dashboard images, to generate a static API.
+
+## Private catalogs
+
+The Sensu Catalog API renders static HTTP API content that the Sensu web UI can consume.
+This means you can create a private enterprise catalog of custom integrations and make it available to users in the Sensu web UI.
+
+Consider forking the official Sensu Catalog repository, https://github.com/sensu/catalog, as a starting point for building your own private catalog.
+
+Read [Build a private catalog of Sensu integrations][17] for more information.
+
 ## catalog-api command line interface tool
 
 {{% notice note %}}
@@ -279,12 +293,6 @@ The contents of a `version.json` file are similar to this example:
 
 If you make any changes to your integration files, the catalog-api tool will generate a new checksum directory.
 To revert to an older build, change the `release_sha256` in `version.json` to point to a different release directory.
-
-## Private catalogs
-
-The Sensu Catalog API renders static HTTP API content that the Sensu web UI can consume.
-This means you can create a private catalog of custom integrations and make it available to users in the Sensu web UI.
-Read [Build a private catalog of Sensu integrations][17] for more information.
 
 ## Run the Sensu Catalog API server for integration development
 
