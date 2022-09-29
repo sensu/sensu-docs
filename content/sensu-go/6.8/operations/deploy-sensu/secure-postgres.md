@@ -332,7 +332,7 @@ hostssl sensu_events    sensu           0.0.0.0/0               cert
 sudo systemctl restart postgresql.service
 {{< /code >}}
 
-   {{< code shell "Ubuntu/Debian>}}
+   {{< code shell "Ubuntu/Debian >}}
 sudo systemctl restart postgresql.service
 {{< /code >}}
 
