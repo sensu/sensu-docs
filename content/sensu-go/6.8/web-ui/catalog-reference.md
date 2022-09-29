@@ -244,6 +244,9 @@ This means you can create a private enterprise catalog of custom integrations an
 
 Consider forking the official Sensu Catalog repository, https://github.com/sensu/catalog, as a starting point for building your own private catalog.
 
+The Catalog API defines integrations globally rather than by namespace.
+When you create a private catalog, all integrations in your repository are available for all users across namespaces in the web UI.
+
 Read [Build a private catalog of Sensu integrations][17] for more information.
 
 ## catalog-api command line interface tool
@@ -304,7 +307,7 @@ To revert to an older build, change the `release_sha256` in `version.json` to po
 
 ### Catalog tags
 
-**TODO**
+**PLACEHOLDER**
 
 ## Use the Sensu Catalog API server during integration development
 
@@ -350,10 +353,47 @@ catalog-api catalog server --repo-dir . -watch
    The `.` in the command tells Sensu to read the catalog contents from your local environment.
    Use the `-watch` flag to reload the API as you save updates in integration files so that you can see them live in the Sensu web UI.
 
-7. Navigate to the Catalog page in the Sensu web UI for your local instance.
-The Catalog page should include all of the integrations in your local repository.
+7. Create a GlobalConfig resource that specifies a local URL for displaying the the private catalog in the Sensu web UI.
+{{< language-toggle >}}
 
-**TODO** Do you also need to alter the GlobalConfig to specify a local URL like `http://127.0.0.1:8080` for the catalog.url?
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: GlobalConfig
+api_version: web/v1
+metadata:
+  name: private-catalog
+spec:
+  always_show_local_cluster: true
+  catalog:
+    url: "https://127.0.0.1:8080"
+    release_version: version
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "GlobalConfig",
+  "api_version": "web/v1",
+  "metadata": {
+    "name": "private-catalog"
+  },
+  "spec": {
+    "always_show_local_cluster": true,
+    "catalog": {
+      "url": "https://127.0.0.1:8080",
+      "release_version": "version"
+    }
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+8. Navigate to the Catalog page in the Sensu web UI for your local instance.
+The Catalog page should include all of the integrations in your local repository and update automatically as you save local changes to your integration files.
 
 ## Catalog integration specification
 
@@ -1056,60 +1096,74 @@ type: CheckConfig
 
 ## Integration guidelines
 
+## Resource limits
+
 There is no limit on the number of resources you can bundle into a single integration.
 Each integration can include as many checks, event filters, handlers, and pipelines as you need to achieve your observability goals.
 For example, you can develop a single host monitoring integration that includes all of the checks you want to run on every server.
 
-The Catalog API defines integrations globally rather than by namespace.
-When you [create a private catalog][17], all integrations in your repository are available for all users in the web UI.
+## Check guidelines
 
-CheckConfig guidelines
-Check templates resources should be defined in the following order (by resource type):
+For integrations that create checks, list the resource definitions in your `sensu-resources.yaml` file in in the following order:
 
-CheckConfig
-HookConfig(s)
-Secret(s)
-Asset(s)
-Check resources must recommend one or more named subscriptions. At a minimum this should include the corresponding integrations "namespace" (sub-directory) as the default naming convention. For example, all PostgreSQL monitoring templates should include the "postgres" subscription. Check resources may optionally include additional/alternate subscription names (e.g. "pg" or "postgresql").
+1. CheckConfig
+2. HookConfig
+3. Secret
+4. Asset
 
-The command field should preferably be wrapped using the YAML >- multiline "block scalar" syntax for readability.
+The prompts for check resources should include at least one subscription.
+Subscriptions should be named according to the check's function.
+For example, a PostgreSQL monitoring check could include a subscription named `postgresql`.
 
+Use the YAML `>-` multiline block scalar syntax to wrap the check `command` value and make it easier to read.
+For example:
+
+{{< code yml >}}
 spec:
   command: >-
     check-disk-usage.rb
     -w {{ .annotations.disk_usage_warning | default 85 }}
     -c {{ .annotations.disk_usage_critical | default 95 }}
-As shown in the example above, check commands should include tunables using Sensu tokens, preferably sourced from Entity annotations (not labels) with explicitly configured defaults.
+{{< /code >}}
 
-Check resources should use the "interval" scheduler, with a minimum interval of 30 seconds.
+Use tunables like [tokens][25] in your check commands as needed, sourced from entity annotations (not labels) and with explicitly configured default values.
 
-Check timeout should be set to a non-zero value and should not be greater than 50% of the interval.
+Check resources should use [interval scheduling][26] with a minimum interval of 30 seconds.
+Set check `timeout` to a non-zero value that is no greater than 50% of the interval.
 
-Check pipelines should be configured to one of the following generic pipelines.
+Prompts for check pipelines should use one of the following generic categories:
 
-alert (e.g. Slack, Mattermost, Microsoft Teams)
-incident-management (e.g. Pagerduty, ServiceNow)
-metrics (e.g. Sumo Logic, InfluxDB, TimescaleDB, Prometheus)
-events (e.g. Sumo Logic, Elasticsearch, Splunk)
-deregistration (e.g. Chef, Puppet, Ansible, EC2)
-remediation (e.g. Ansible Tower, Rundeck, SaltStack)
-Pipeline guidelines
-Pipeline template resources should be defined in the following order (by resource type):
+- Alerts
+- Incident management
+- Metrics
+- Events
+- Deregistration
+- Remediation
 
-Pipeline
-Handler(s), SumoLogicMetricsHandler(s), and/or TCPStreamHandler(s)
-Filter(s)
-Mutator(s)
-Secret(s)
-Asset(s)
-For alert and incident-management handlers avoid the use of filters that have highly subjective configuration options. By default, use the built-in is_incident and not_silenced filters. However, we do encourage you to share your filters, as appropriate in the shared directory.
+## Pipeline guidelines
 
-Asset guidelines
-Asset resources and their corresponding runtime_assets references must include a version reference in their resource name. For example: sensu/system-check:0.5.0.
+For integrations that create pipelines, list the resource definitions in your `sensu-resources.yaml` file in in the following order:
 
-Asset resources should include an organization or author the resource name. For example, the official Sensu Pagerduty plugin hosted in the "sensu" organization on GitHub (sensu/sensu-pagerduty-handler), and published to under the "sensu" organization on Bonsai (sensu/sensu-pagerduty-handler) should be named: sensu/sensu-pagerduty-handler:2.1.0.
+1. Pipeline
+2. Handler, SumoLogicMetricsHandler, and TCPStreamHandler
+3. Filter
+4. Mutator
+5. Secret
+6. Asset
 
-All Sensu Assets resources must refer to assets hosted on Bonsai.
+For alert and incident management pipelines, do not use event filters that have subjective configuration options.
+Use the built-in [is_incident][27] and [not_silenced][28] filters.
+
+## Asset guidelines
+
+Asset resources and their corresponding `runtime_assets` references in other Sensu resources must include an asset version reference in their resource name.
+For example, `sensu/system-check:0.5.0`.
+
+Asset resources should include an organization or author in the resource name.
+For example, the official Sensu PagerDuty plugin hosted in the `sensu` organization on GitHub (sensu/sensu-pagerduty-handler) and published to under the `sensu` organization on Bonsai (sensu/sensu-pagerduty-handler) should be named `sensu/sensu-pagerduty-handler`.
+
+For integrations contributed to the official Sensu Catalog, asset resources in the `sensu-resources.yaml` file must refer to assets hosted on [Bonsai][29].
+Read [Build a private catalog of Sensu integrations][17] for information about using assets that are stored behind a firewall or are otherwise not publicly available.
 
 
 [1]: ../sensu-catalog/
@@ -1136,3 +1190,8 @@ All Sensu Assets resources must refer to assets hosted on Bonsai.
 [22]: #integration-prompts
 [23]: #resource-attributes
 [24]: #patches-attributes
+[25]: ../../observability-pipeline/observe-schedule/tokens/
+[26]: ../../observability-pipeline/observe-schedule/checks/#interval-scheduling
+[27]: ../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
+[28]: ../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced
+[29]: https://bonsai.sensu.io/

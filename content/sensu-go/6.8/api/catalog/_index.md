@@ -58,7 +58,7 @@ output               | {{< code text >}}
   "last_updated": 1643664852
 }
 {{< /code >}}
-response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | **PLACEHOLDER**
 
 ## Get all integration namespaces and names
 
@@ -106,7 +106,7 @@ output               | {{< code text >}}
   }
 }
 {{< /code >}}
-response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | **PLACEHOLDER**
 
 ## Get the configuration and versions for an integration
 
@@ -189,7 +189,7 @@ output               | {{< code text >}}
     "20220126.0.0"
   ]
 }{{< /code >}}
-response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | **PLACEHOLDER**
 
 ## Get all versions for an integration
 
@@ -225,7 +225,7 @@ output               | {{< code text >}}
   "20220126.0.0"
 ]
 {{< /code >}}
-response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | **PLACEHOLDER**
 
 ## Get the configuration for an integration version
 
@@ -301,7 +301,7 @@ output               | {{< code text >}}
   "version": "20220125.0.0"
 }
 {{< /code >}}
-response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | **PLACEHOLDER**
 
 ## Get the Sensu resources for an integration
 
@@ -397,7 +397,7 @@ output               | {{< code text >}}
   "type": "CheckConfig"
 }
 {{< /code >}}
-response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | **PLACEHOLDER**
 
 ## Get the integration README
 
@@ -421,7 +421,7 @@ The request returns the README for the specified integration version in Markdown
 description          | Retrieves the README for the specified integration version in Markdown format.
 endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>/readme.md
 output               | README in Markdown format
-response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | **PLACEHOLDER**
 
 ## Get the integration changelog 
 
@@ -445,7 +445,7 @@ The request returns the changelog for the specified integration version in Markd
 description          | Retrieves the changelog for the specified integration version in Markdown format.
 endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>/changelog.md
 output               | Changelog in Markdown format
-response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | **PLACEHOLDER**
 
 ## Get the integration logo 
 
@@ -469,7 +469,7 @@ The request returns the logo for the specified integration version in PNG format
 description          | Retrieves the logo for the specified integration version in PNG format.
 endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>/logo.md
 output               | Logo in PNG format
-response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | **PLACEHOLDER**
 
 
 [1]: ../../web-ui/catalog-reference/#catalog-api-command-line-interface-tool
