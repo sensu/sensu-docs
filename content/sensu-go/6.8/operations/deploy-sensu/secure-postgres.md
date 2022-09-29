@@ -279,15 +279,17 @@ scp ca.pem postgres.example.com:/home/user
    {{< code shell "RHEL/CentOS">}}
 sudo mkdir /var/lib/pgsql/14/data/tls
 cd /var/lib/pgsql/14/data/tls
-cp /home/user/postgres.example.com* .
-cp /home/user/ca.pem .
+cp /home/user/postgres.example.com* /var/lib/pgsql/14/data/tls/
+cp /home/user/ca.pem /var/lib/pgsql/14/data/tls/
+chomd -R postgres:postgres /var/lib/pgsql/14/data
 {{< /code >}}
 
    {{< code shell "Ubuntu/Debian">}}
 sudo mkdir /etc/postgresql/14/main/tls
 cd /etc/postgresql/14/main/tls
-cp /home/user/postgres.example.com* .
-cp /home/user/ca.pem .
+cp /home/user/postgres.example.com* /etc/postgresql/14/main/tls/
+cp /home/user/ca.pem /etc/postgresql/14/main/tls/
+chomd -R postgres:postgres /etc/postgresql/14/main/
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -324,9 +326,17 @@ hostssl sensu_events    sensu           0.0.0.0/0               cert
 
 5. Restart PostgreSQL:
 
-   {{< code shell >}}
+{{< language-toggle >}}
+
+   {{< code shell "RHEL/Centos" >}}
 sudo systemctl restart postgresql.service
 {{< /code >}}
+
+   {{< code shell "Ubuntu/Debian>}}
+sudo systemctl restart postgresql.service
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 Now that you've configured PostgreSQL to use TLS and your Sensu user is required to authenticate with a certificate, you'll need to complete one final step to ensure that the environment variables set earlier in this guide are used when constructing the PostgreSQL DSN.
 
