@@ -2,7 +2,7 @@
 title: "Build business service monitoring"
 linkTitle: "Build Business Service Monitoring"
 description: "Use the Sensu web UI module to create, configure, edit, and delete business service monitoring (BSM) service entities, service components, and rule templates."
-weight: 30
+weight: 110
 version: "6.8"
 product: "Sensu Go"
 platformContent: false
