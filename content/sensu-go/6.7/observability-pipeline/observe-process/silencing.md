@@ -52,6 +52,7 @@ spec:
   check: null
   creator: admin
   expire: -1
+  expire_at: 0
   expire_on_resolve: false
   reason: null
   subscription: entity:i-424242
@@ -66,6 +67,7 @@ spec:
   },
   "spec": {
     "expire": -1,
+    "expire_at": 0,
     "expire_on_resolve": false,
     "creator": "admin",
     "reason": null,
@@ -195,6 +197,7 @@ example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
   expire: -1
+  expire_at: 0
   expire_on_resolve: false
   creator: admin
   reason:
@@ -206,6 +209,7 @@ spec:
 {
   "spec": {
     "expire": -1,
+    "expire_at": 0,
     "expire_on_resolve": false,
     "creator": "admin",
     "reason": null,
@@ -362,9 +366,11 @@ begin: 1512512023
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="silence-expire"></a>
+
 expire       | 
 -------------|------ 
-description  | Number of seconds until the entry should be deleted. 
+description  | Number of seconds until the entry should be deleted.<br><br>If the silence is set to expire when a [check resolves][22], the `expire` value will be `-1`.<br><br>If the silence is set to [expire at a specific time][21], the `expire` value will be `0`.
 required     | false 
 type         | Integer 
 default      | -1
@@ -379,9 +385,30 @@ expire: 3600
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="silence-expireat"></a>
+
+expire_at    | 
+-------------|------ 
+description  | Time at which the entry should be deleted. In seconds since the Unix epoch.<br><br>Use `expire_at` in conjunction with [`expire_on_resolve`][22] to create silences that expire either when a check resolves or at a specific time, whichever comes first.
+required     | false 
+type         | Integer 
+default      | 0
+example      | {{< language-toggle >}}
+{{< code yml >}}
+expire_at: 1664550303
+{{< /code >}}
+{{< code json >}}
+{
+  "expire_at": 1664550303
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="silence-expireonresolve"></a>
+
 expire_on_resolve       | 
 -------------|------ 
-description  | `true` if the entry should be deleted when a check begins to return OK status (resolves). Otherwise, `false`.
+description  | `true` if the entry should be deleted when the specified [check][20] begins to return OK status (resolves). Otherwise, `false`.<br><br>Use `expire_on_resolve` in conjunction with [`expire_at`][21] to create silences that expire either when a check resolves or at a specific time, whichever comes first.
 required     | false 
 type         | Boolean 
 default      | false 
@@ -603,3 +630,6 @@ name: '*:mysql_status'
 [17]: ../../../sensuctl/create-manage-resources/
 [18]: ../../../web-ui/view-manage-resources/#manage-silences
 [19]: ../../../api/core/silenced/
+[20]: #silence-check
+[21]: #silence-expireat
+[22]: #silence-expireonresolve

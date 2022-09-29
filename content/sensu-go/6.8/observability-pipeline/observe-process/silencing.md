@@ -391,7 +391,7 @@ expire: 3600
 
 expire_at    | 
 -------------|------ 
-description  | Time at which the entry should be deleted. In seconds since the Unix epoch.<br><br>If the silence is set to expire when a [check resolves][22], the `expire_at` value will be `0`.
+description  | Time at which the entry should be deleted. In seconds since the Unix epoch.<br><br>Use `expire_at` in conjunction with [`expire_on_resolve`][22] to create silences that expire either when a check resolves or at a specific time, whichever comes first.
 required     | false 
 type         | Integer 
 default      | 0
@@ -410,7 +410,7 @@ expire_at: 1664550303
 
 expire_on_resolve       | 
 -------------|------ 
-description  | `true` if the entry should be deleted when the specified [check][20] begins to return OK status (resolves). Otherwise, `false`.
+description  | `true` if the entry should be deleted when the specified [check][20] begins to return OK status (resolves). Otherwise, `false`.<br><br>Use `expire_on_resolve` in conjunction with [`expire_at`][21] to create silences that expire either when a check resolves or at a specific time, whichever comes first.
 required     | false 
 type         | Boolean 
 default      | false 
