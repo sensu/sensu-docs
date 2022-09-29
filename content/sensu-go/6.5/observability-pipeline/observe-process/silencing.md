@@ -318,6 +318,8 @@ annotations:
 
 ### Spec attributes
 
+<a id="silence-check"></a>
+
 check        | 
 -------------|------ 
 description  | Name of the check the entry should match.
