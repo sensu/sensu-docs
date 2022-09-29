@@ -1,5 +1,5 @@
 ---
-title: "Sensu Catalog API"
+title: "Catalog API"
 description: "Use the Sensu Catalog API to generate static API content that the web UI can consume. Build your own private catalog of Sensu integrations."
 product: "Sensu Go"
 version: "6.8"
@@ -13,15 +13,15 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the Sensu Catalog API in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the Catalog API in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: The Sensu Catalog API is an alpha feature and may include breaking changes.
+**NOTE**: The Sensu Catalog is in public preview and is subject to change.
 {{% /notice %}}
 
-The Sensu Catalog API generates a static API from a Sensu Catalog repository, such as https://github.com/sensu/catalog.
+The Catalog API generates a static API from a repository of integrations, such as https://github.com/sensu/catalog, via the [catalog-api command line tool][1].
 
 ## Get the latest catalog SHA-256 checksum
 
@@ -472,5 +472,4 @@ output               | Logo in PNG format
 response codes       | **NEEDED** <ul><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../../operations/control-access#use-built-in-basic-authentication
-[2]: https://tools.ietf.org/html/rfc7519
+[1]: ../../web-ui/catalog-reference/#catalog-api-command-line-interface-tool

@@ -503,7 +503,7 @@ signin_message: with your *LDAP or system credentials*
 
 disabled     | 
 -------------|------ 
-description  | Set to `true` to disable the Sensu Catalog API. Otherwise, `false`.
+description  | Set to `true` to disable the Sensu Catalog in the web UI. Otherwise, `false`.
 required     | false
 type         | Boolean
 example      | {{< language-toggle >}}
@@ -519,23 +519,23 @@ disabled: false
 
 release_version | 
 -------------|------ 
-description  | Release version to use for the Sensu Catalog API.
+description  | Release version to use for generating a private catalog with the Sensu Catalog API.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-release_version: "1.0"
+release_version: version
 {{< /code >}}
 {{< code json >}}
 {
-  "release_version": "1.0"
+  "release_version": "version"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
 url          | 
 -------------|------ 
-description  | Base URL to use for the Sensu Catalog API.
+description  | Base URL where Sensu Catalog API output is served for a private catalog. Sensu presents the content published to this URL endpoint in place of the official Sensu Catalog in the web UI.
 required     | false
 type         | String
 example      | {{< language-toggle >}}

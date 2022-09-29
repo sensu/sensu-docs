@@ -17,12 +17,16 @@ menu:
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
+{{% notice note %}}
+**NOTE**: The Sensu Catalog is in public preview and is subject to change.
+{{% /notice %}}
+
 The [Sensu Catalog][1] is a collection of Sensu integrations that provide reference implementations for effective observability.
 The official Sensu Catalog is available in the [web UI][2], but you can also create a private catalog of custom integrations and make it available to users in the Sensu web UI.
 
 Before you begin, make sure that your integration files are saved in a repository that follows the required [organizational framework][3].
 
-Catalogs are namespaced, so you can have separate private catalogs with specific integrations for differnt groups of users.
+Catalogs are namespaced, so you can have separate private catalogs with specific integrations for different groups of users.
 
 ## Update URLs in integration asset builds
 
@@ -56,48 +60,62 @@ spec:
   - filters: ...
 {{< /code >}}
 
-If needed, update the URL for assets in all `sensu-resources.yaml` files before you continue.
+If needed, replace `assets.bonsai.sensu.io` with your preferred URL in asset `builds.url` values in all `sensu-resources.yaml` files before you continue.
 
-## Generate a catalog API
+## Install the catalog-api command line tool
 
 The Sensu Catalog API includes the catalog-api command line tool.
 The catalog-api tool is an open-source static API generator: it renders static HTTP API content that the Sensu web UI can consume.
 
-Use catalog-api to generate a catalog API:
+To install the catalog-api tool:
 
 1. Clone the Sensu Catalog API repository:
 {{< code shell >}}
 git clone https://github.com/sensu/catalog-api
 {{< /code >}}
 
-2. Clone the repository that stores your Sensu integrations.
+2. Navigate to the local catalog-api repository:
+{{< code shell >}}
+cd catalog-api
+{{< /code >}}
+
+3. Build the `catalog-api` tool:
+{{< code shell >}}
+go build
+{{< /code >}}
+
+## Clone and validate the integration repository
+
+The catalog-api tool consumes content from a repository that includes all the files required to build a catalog of integrations.
+Follow these steps to clone your repository and validate that all files are organized properly:
+
+1. Clone the repository that stores your Sensu integrations.
 This example uses Sensu's public integration repository:
 {{< code shell >}}
 git clone https://github.com/sensu/catalog
 {{< /code >}}
 
-3. Navigate to the local catalog-api repository:
-{{< code shell >}}
-cd catalog-api
-{{< /code >}}
-
-4. Build the `catalog-api` tool:
-{{< code shell >}}
-go build
-{{< /code >}}
-
-5. Navigate to your local copy of the repository that stores the Sensu integrations.
+2. Navigate to your local copy of the repository that stores the Sensu integrations.
 This example uses https://github.com/sensu/catalog, so the repository is `catalog`: 
 {{< code shell >}}
 cd ../catalog
 {{< /code >}}
 
-6. Generate the local catalog:
+3. Validate the integration repository contents:
+{{< code shell >}}
+catalog-api catalog validate --repo-dir .
+{{< /code >}}
+
+
+## Generate the private catalog
+
+With a validated repository, you can generate your private catalog locally:
+
 {{< code shell >}}
 ../catalog-api/catalog-api catalog generate
 {{< /code >}}
 
-The `generate` command generates the static API in a temporary directory, `/tmp/generated-api/`.
+The `generate` subcommand generates the static API in a temporary directory, `/tmp/generated-api/`.
 
 These catalog builds are versioned so that every previous iteration is available.
 
@@ -112,7 +130,7 @@ For example:
 }
 {{< /code >}}
 
-**TODO** I think I'm missing something here. Maybe something to do with the tags.
+**TODO** I think I'm missing something here about what users need to know and do with versions. Maybe also something to do with the tags.
 
 ## Publish the static API to an endpoint
 
@@ -120,6 +138,12 @@ Once you have generated the static API, you can serve the output on any HTTP ser
 
 The only requirement is that the endpoint URL must be fetchable for your web UI users.
 The web UI fetches catalog content from your endpoint; the Sensu backend does not serve any of the catalog content.
+
+To start serving private catalog content to the desired endpoint, run:
+
+{{< code shell >}}
+../catalog-api/catalog-api catalog server 
+{{< /code >}}
 
 ## Create a UI GlobalConfig definition
 

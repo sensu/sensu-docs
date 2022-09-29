@@ -17,6 +17,10 @@ menu:
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
+{{% notice note %}}
+**NOTE**: The Sensu Catalog is in public preview and is subject to change.
+{{% /notice %}}
+
 The [Sensu Catalog][1] is a collection of Sensu integrations that provide reference implementations for effective observability.
 The contents of the official Sensu Catalog are periodically published to the official Sensu Catalog API, which is hosted at https://catalog.sensu.io and displayed within the Sensu web UI.
 
@@ -235,7 +239,7 @@ Instead, the [Sensu Catalog API][2] uses integration definitions along with the 
 
 ## Private catalogs
 
-The Sensu Catalog API renders static HTTP API content that the Sensu web UI can consume.
+The [Sensu Catalog API][2] renders static HTTP API content that the Sensu web UI can consume.
 This means you can create a private enterprise catalog of custom integrations and make it available to users in the Sensu web UI.
 
 Consider forking the official Sensu Catalog repository, https://github.com/sensu/catalog, as a starting point for building your own private catalog.
@@ -248,9 +252,9 @@ Read [Build a private catalog of Sensu integrations][17] for more information.
 **NOTE**: The catalog-api tool is an alpha feature and may include breaking changes.
 {{% /notice %}}
 
-Sensu's [catalog-api][16] command line interface (CLI) tool that converts integration files into static API content that you can host on any HTTP web service.
+Sensu's [catalog-api][16] command line interface (CLI) tool uses the [Sensu Catalog API][2] to convert integration files into static API content that you can host on any HTTP web service.
 
-Use the catalog-api tool to generate a local catalog API for testing as you develop new integrations and to build and run a private catalog.
+Use the catalog-api tool to [generate a local catalog API][18] for testing as you develop new integrations and to build and run a private catalog.
 Integration files must be stored in a repository that follows the required [organizational framework][16].
 
 The catalog-api tool is written in Go.
@@ -284,7 +288,7 @@ When you run the command to generate the catalog, catalog-api creates the `versi
 
 The contents of a `version.json` file are similar to this example:
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "release_sha256": "5029648381dff2426ea247147456b4f1227fd6d9050fa42f0660e67a218f8c87",
   "last_updated": 1655840571
@@ -294,9 +298,62 @@ The contents of a `version.json` file are similar to this example:
 If you make any changes to your integration files, the catalog-api tool will generate a new checksum directory.
 To revert to an older build, change the `release_sha256` in `version.json` to point to a different release directory.
 
-## Run the Sensu Catalog API server for integration development
+**TODO**: It's not clear how users should do this.
 
-**NEEDED**
+**TODO**: How do users publish multiple versions of an integration?
+
+### Catalog tags
+
+**TODO**
+
+## Use the Sensu Catalog API server during integration development
+
+When you're developing integrations, it can be helpful to run the Sensu Catalog API server from your local environment so that you can preview integrations as you work.
+To do this, use the `server` subcommand in the catalog-api command line tool.
+
+{{% notice note %}}
+**NOTE**: Make sure you have a local Sensu instance running with access to the Sensu web UI.
+{{% /notice %}}
+
+1. Clone the Sensu Catalog API repository:
+{{< code shell >}}
+git clone https://github.com/sensu/catalog-api
+{{< /code >}}
+
+2. Navigate to the local catalog-api repository:
+{{< code shell >}}
+cd catalog-api
+{{< /code >}}
+
+3. Build the `catalog-api` tool:
+{{< code shell >}}
+go build
+{{< /code >}}
+
+4. Clone the repository that stores your Sensu integrations.
+This example uses Sensu's public integration repository:
+{{< code shell >}}
+git clone https://github.com/sensu/catalog
+{{< /code >}}
+
+5. Navigate to your local copy of the repository that stores the Sensu integrations.
+This example uses https://github.com/sensu/catalog, so the repository is `catalog`: 
+{{< code shell >}}
+cd ../catalog
+{{< /code >}}
+
+6. Run the catalog-api `server` subcommand:
+{{< code shell >}}
+catalog-api catalog server --repo-dir . -watch
+{{< /code >}}
+
+   The `.` in the command tells Sensu to read the catalog contents from your local environment.
+   Use the `-watch` flag to reload the API as you save updates in integration files so that you can see them live in the Sensu web UI.
+
+7. Navigate to the Catalog page in the Sensu web UI for your local instance.
+The Catalog page should include all of the integrations in your local repository.
+
+**TODO** Do you also need to alter the GlobalConfig to specify a local URL like `http://127.0.0.1:8080` for the catalog.url?
 
 ## Catalog integration specification
 
@@ -551,6 +608,8 @@ post_install:
       The `nginx-metrics` check will run for all Sensu agents with these subscriptions: [[subscriptions]].
 {{< /code >}}
 
+<a id="integration-prompts"></a>
+
 prompts      |      |
 -------------|------
 description  | Attributes for soliciting user-provided variables to use in `resource_patches`. Read [Prompts attributes][10] for more information.
@@ -654,7 +713,7 @@ provider: monitoring
 
 resource_patches |      |
 -------------|------
-description  | Attributes that define how to apply changes to the integration resources in the `sensu-resources.yaml` file based on user responses to [prompts][]. Read [Resource patches attributes][] for more information.
+description  | Attributes that define how to apply changes to the integration resources in the `sensu-resources.yaml` file based on user responses to [prompts][22]. Read [Resource patches attributes][20] for more information.
 required     | true
 type         | Map of key-value pairs
 example      | {{< code yml >}}
@@ -785,7 +844,7 @@ body: |
 
 input        | 
 -------------|------ 
-description  | Configuration attributes for [`type: question`][12] prompts. Read [Input attributes][] for more information.
+description  | Configuration attributes for [`type: question`][12] prompts. Read [Input attributes][21] for more information.
 required     | false
 type         | Map of key-value pairs
 example      | {{< code yml >}}
@@ -798,7 +857,7 @@ input:
 
 name         | 
 -------------|------ 
-description  | Used with [`type: question`][12] prompts. **REWRITE THIS** Resource patch variable to use to substitute user input for the associated prompt.
+description  | Variable name for use as a reference in resource patches to substitute user input for a specific attribute's value in an integration resource. You can also interpolate integration variable names into string templates with double square brackets (e.g. `Hello, [[ team ]]!`). Used with [`type: question`][12] prompts.
 required     | false
 type         | String
 example      | {{< code yml >}}
@@ -840,7 +899,7 @@ type: section
 
 patches      | 
 -------------|------ 
-description  | Updates to apply to the selected resource, in [JSON Patch][13] format. Variable substitution and templating are supported with `varname` references in double square brackets (for example, `Hello, [[varname]]`). If an individual operation fails, Sensu considers it optional and skips it. All patches must specify a `path`, `op` (operation), and `value`. Read [Patches attributes][] for more information.
+description  | Updates to apply to the selected resource, in [JSON Patch][13] format. Variable substitution and templating are supported with `varname` references in double square brackets (for example, `Hello, [[varname]]`). If an individual operation fails, Sensu considers it optional and skips it. All patches must specify a `path`, `op` (operation), and `value`. Read [Patches attributes][24] for more information.
 required     | false
 type         | Map of key-value pairs
 example      | {{< code yml >}}
@@ -857,7 +916,7 @@ patches:
 
 resource     | 
 -------------|------ 
-description  | Identification information for the Sensu API resource to patch. The resource must be included in the integration's `sensu-resources.yaml` file. Read [Resource attributes][] for more information.
+description  | Identification information for the Sensu API resource to patch. The resource must be included in the integration's `sensu-resources.yaml` file. Read [Resource attributes][23] for more information.
 required     | false
 type         | Map of key-value pairs
 example      | {{< code yml >}}
@@ -897,6 +956,8 @@ example        | {{< code yml >}}
 format: email
 {{< /code >}}
 
+<a id="input-ref"></a>
+
 ref          | 
 -------------|------ 
 description  | Reference to a Sensu API resource in <api_group>/<version>/<api_resource>/<api_field_path> format (for example, `core/v2/pipelines/metadata/name` refers to the names of `core/v2/pipelines` resources). The referenced resources are presented to the user in a drop-down selector. Sensu captures the resource the user selects as the input value.
@@ -908,7 +969,7 @@ ref: core/v2/entity/subscriptions
 
 refFilter    | 
 -------------|------ 
-description  | Filters to apply to Sensu API resource references in Sensu Query Expression (SQE) format. Sensu uses `refFilter` values to filter `ref` results.
+description  | Filters to apply to Sensu API resource [references][19] in Sensu Query Expression (SQE) format. Sensu uses `refFilter` values to filter `ref` results.
 required     | false
 type         | String
 example      | {{< code yml >}}
@@ -957,15 +1018,7 @@ path: /spec/subscriptions
 
 value        | 
 -------------|------ 
-description  | User-entered value to apply in the patch. Values are represented by variable name references in double square brackets.<br><br>Please note the following details about Integration variables:
-
-Sensu Integration variables have a name (e.g. team, or interval) and data type (e.g. string, int).
-Sensu Integration variables can be used as Sensu Integration resource_patch values (e.g. value: interval).
-Sensu Integration variable can be interpolated into a string template via double square brackets (e.g. Hello, [[ team ]]).
-
-Available variables:
-A built-in variable named unique_id: randomly generated 8-digit hexadecimal string value (e.g. 168c41a1).
-User-provided variables: supplied via a user prompt (see the name field of any type:question prompt).
+description  | Built-in or user-entered value to apply in the patch. The built-in value is `unique_id`, which randomly generates an 8-digit hexadecimal string value (e.g. 168c41a1). User-entered variables are represented by variable name references in double square brackets.
 required     | false
 type         | 
 example      | {{< code yml >}}
@@ -1003,19 +1056,60 @@ type: CheckConfig
 
 ## Integration guidelines
 
-**START HERE**
+There is no limit on the number of resources you can bundle into a single integration.
+Each integration can include as many checks, event filters, handlers, and pipelines as you need to achieve your observability goals.
+For example, you can develop a single host monitoring integration that includes all of the checks you want to run on every server.
 
-Please note the following details about Integration variables:
+The Catalog API defines integrations globally rather than by namespace.
+When you [create a private catalog][17], all integrations in your repository are available for all users in the web UI.
 
-Sensu Integration variables have a name (e.g. team, or interval) and data type (e.g. string, int).
-Sensu Integration variables can be used as Sensu Integration resource_patch values (e.g. value: interval).
-Sensu Integration variable can be interpolated into a string template via double square brackets (e.g. Hello, [[ team ]]).
+CheckConfig guidelines
+Check templates resources should be defined in the following order (by resource type):
 
-Available variables:
-A built-in variable named unique_id: randomly generated 8-digit hexadecimal string value (e.g. 168c41a1).
-User-provided variables: supplied via a user prompt (see the name field of any type:question prompt).
+CheckConfig
+HookConfig(s)
+Secret(s)
+Asset(s)
+Check resources must recommend one or more named subscriptions. At a minimum this should include the corresponding integrations "namespace" (sub-directory) as the default naming convention. For example, all PostgreSQL monitoring templates should include the "postgres" subscription. Check resources may optionally include additional/alternate subscription names (e.g. "pg" or "postgresql").
 
-**NEEDED**: incorporate https://github.com/sensu/catalog#sensu-integration-guidelines-1
+The command field should preferably be wrapped using the YAML >- multiline "block scalar" syntax for readability.
+
+spec:
+  command: >-
+    check-disk-usage.rb
+    -w {{ .annotations.disk_usage_warning | default 85 }}
+    -c {{ .annotations.disk_usage_critical | default 95 }}
+As shown in the example above, check commands should include tunables using Sensu tokens, preferably sourced from Entity annotations (not labels) with explicitly configured defaults.
+
+Check resources should use the "interval" scheduler, with a minimum interval of 30 seconds.
+
+Check timeout should be set to a non-zero value and should not be greater than 50% of the interval.
+
+Check pipelines should be configured to one of the following generic pipelines.
+
+alert (e.g. Slack, Mattermost, Microsoft Teams)
+incident-management (e.g. Pagerduty, ServiceNow)
+metrics (e.g. Sumo Logic, InfluxDB, TimescaleDB, Prometheus)
+events (e.g. Sumo Logic, Elasticsearch, Splunk)
+deregistration (e.g. Chef, Puppet, Ansible, EC2)
+remediation (e.g. Ansible Tower, Rundeck, SaltStack)
+Pipeline guidelines
+Pipeline template resources should be defined in the following order (by resource type):
+
+Pipeline
+Handler(s), SumoLogicMetricsHandler(s), and/or TCPStreamHandler(s)
+Filter(s)
+Mutator(s)
+Secret(s)
+Asset(s)
+For alert and incident-management handlers avoid the use of filters that have highly subjective configuration options. By default, use the built-in is_incident and not_silenced filters. However, we do encourage you to share your filters, as appropriate in the shared directory.
+
+Asset guidelines
+Asset resources and their corresponding runtime_assets references must include a version reference in their resource name. For example: sensu/system-check:0.5.0.
+
+Asset resources should include an organization or author the resource name. For example, the official Sensu Pagerduty plugin hosted in the "sensu" organization on GitHub (sensu/sensu-pagerduty-handler), and published to under the "sensu" organization on Bonsai (sensu/sensu-pagerduty-handler) should be named: sensu/sensu-pagerduty-handler:2.1.0.
+
+All Sensu Assets resources must refer to assets hosted on Bonsai.
 
 
 [1]: ../sensu-catalog/
@@ -1035,3 +1129,10 @@ User-provided variables: supplied via a user prompt (see the name field of any t
 [15]: #catalog-repository-example
 [16]: https://github.com/sensu/catalog-api
 [17]: ../build-private-catalog/
+[18]: #use-the-sensu-catalog-api-server-during-integration-development
+[19]: #input-ref
+[20]: #resource-patches-attributes
+[21]: #input-attributes
+[22]: #integration-prompts
+[23]: #resource-attributes
+[24]: #patches-attributes
