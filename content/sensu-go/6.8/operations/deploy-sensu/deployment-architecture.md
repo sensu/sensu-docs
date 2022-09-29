@@ -142,7 +142,7 @@ This configuration allows you to load-balance traffic between the backends in th
 
 {{% notice note %}}
 **NOTE**: Do not use read replicas in a cloud deployment.
-Read replicas can cause the backends in your cluster to become out-of-sync with each other.
+Sensu is write-heavy, and the brief, unavoidable replication delays will cause inconsistency between etcd data and PostgreSQL data.
 {{% /notice %}}
 
 This diagram depicts an example architecture for a Google Cloud Platform (GCP) deployment, but you can reproduce this architecture with your preferred cloud provider:
