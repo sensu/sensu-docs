@@ -340,7 +340,7 @@ ssl_key_file = '/etc/postgresql/14/main/tls/postgres.example.com-key.pem'
 
    {{< code shell  "RHEL/CentOS" >}}
 
-# vim /etc/postgresql/14/main/pg_hba.conf
+# vim /var/lib/pgsql/14/data/pg_hba.conf
 
 # Prevent "postgres" superuser login via a certificate
 hostssl all             postgres        ::/0                    reject
