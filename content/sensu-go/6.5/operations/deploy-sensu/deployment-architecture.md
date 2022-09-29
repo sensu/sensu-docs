@@ -134,6 +134,27 @@ Read the [datastore reference][8] to configure the Sensu backend to use PostgreS
 In load testing, Sensu Go has proven capable of processing 36,000 events per second when using PostgreSQL as the event store.
 Review the [sensu-perf project repository][10] for a detailed explanation of our testing methodology and results.
 
+### Large-scale cloud deployment for multiple regions
+
+In a large-scale cloud deployment for multiple regions, place all backends, etcd nodes, and event datastores in a single region.
+The backends communicate with agents in other regions via WebSocket transport.
+This configuration allows you to load-balance traffic between the backends in the main regions and the agents in other regions.
+
+{{% notice note %}}
+**NOTE**: Do not use read replicas in a cloud deployment.
+Sensu is write-heavy, and the brief, unavoidable replication delays will cause inconsistency between etcd data and PostgreSQL data.
+{{% /notice %}}
+
+This diagram depicts an example architecture for a Google Cloud Platform (GCP) deployment, but you can reproduce this architecture with your preferred cloud provider:
+
+{{< figure src="/images/go/deployment_architecture/cloud_multiregion_arch.png" alt="Large-scale clustered Sensu Go architecture for multiple availability zones" link="/images/go/deployment_architecture/cloud_multiregion_arch.png" target="_blank" >}}
+<!-- Diagram source: https://lucid.app/lucidchart/b558a2cd-aebd-4dbd-9b45-c156387e3826/edit?invitationId=inv_ae89d0e6-6512-4e77-b0b9-c83a3fe984a7# -->
+
+*<p style="text-align:center">Example Sensu Go architecture for multi-region cloud deployments</p>*
+
+In this example, the load balancer translates traffic on port 80 to port 3000 so that users do not need to include `:3000` in the web UI URL.
+API traffic is load-balanced to the backends as well.
+
 ## Architecture considerations
 
 ### Networking
