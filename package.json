@@ -8,13 +8,13 @@
   "devDependencies": {
     "autoprefixer": "^9.6.0",
     "conzole": "^0.2.0",
-    "cssnano": "^5.1.13",
+    "cssnano": "^4.1.10",
     "grunt": "^1.5.3",
     "grunt-concurrent": "^3.0.0",
     "grunt-contrib-watch": "^1.1.0",
-    "@lodder/grunt-postcss": "^3.1.1",
+    "grunt-postcss": "^0.9.0",
     "grunt-sass": "^3.0.2",
-    "node-sass": "^7.0.3",
+    "node-sass": "^7.0.0",
     "toml": "^3.0.0",
     "yaml": "^1.8.3"
   },
