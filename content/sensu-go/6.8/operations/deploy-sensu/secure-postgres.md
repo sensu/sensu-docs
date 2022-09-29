@@ -28,7 +28,7 @@ Your organization's needs may require a different approach.
 To use this guide, you must have:
 
 - A running Sensu deployment.
-- A running PostgreSQL instance that you've configured using the ["Scale with Enterprise Datastore"][4] guide using PostgreSQL 14
+- A running PostgreSQL instance that you've configured using the ["Scale with Enterprise Datastore"][4] guide with PostgreSQL version 14
 
 ## Install cfssl
 
