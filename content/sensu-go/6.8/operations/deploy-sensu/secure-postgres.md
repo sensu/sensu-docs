@@ -373,7 +373,7 @@ sudo systemctl restart postgresql.service
 
 {{< /language-toggle >}}
 
-Now that you've configured PostgreSQL to use TLS and your Sensu user is required to authenticate with a certificate, complete one final step to ensure that PostgreSQL uses the environment variables set earlier in this guide when constructing the PostgreSQL DSN.
+Now that you've configured PostgreSQL to use TLS and your Sensu user is required to authenticate with a certificate, complete one final step to ensure that the Sensu backend uses the environment variables set earlier in this guide when constructing the PostgreSQL DSN.
 
 ### Validate Sensu backend configuration for PostgreSQL
 
