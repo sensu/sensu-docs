@@ -88,7 +88,7 @@ Follow these steps to create a CA with cfssl and cfssljson:
 mkdir -p /etc/sensu/tls
 {{< /code >}}
 
-2. Navigate to the new /etc/sensu/tls directory:
+2. Navigate to the new `/etc/sensu/tls` directory:
 {{< code shell >}}
 cd /etc/sensu/tls
 {{< /code >}}
