@@ -4,12 +4,12 @@ linkTitle: "Catalog Integrations Reference"
 reference_title: "Catalog integrations"
 type: "reference"
 description: "Use Sensu's Catalog API to build a private catalog of Sensu integrations. Read the reference to create integrations for your catalog."
-weight: 110
+weight: 80
 version: "6.8"
 product: "Sensu Go"
 menu: 
   sensu-go-6.8:
-    parent: web-ui
+    parent: catalog
 ---
 
 {{% notice commercial %}}
@@ -24,9 +24,9 @@ For more information, read [Get started with commercial features](../../commerci
 The [Sensu Catalog][1] is a collection of Sensu integrations that provide reference implementations for effective observability.
 The contents of the official Sensu Catalog are periodically published to the official Sensu Catalog API, which is hosted at https://catalog.sensu.io and displayed within the Sensu web UI.
 
-When users install integrations in the Sensu web UI, they receive prompts to specify any customizations.
+When users install integrations in the Sensu web UI, they receive prompts to enter information.
 For example, the DNS Monitoring integration includes prompts for the domain name, record type, record class, servers, and port to query.
-Sensu then applies the user's customizations to the integration's resource definitions and automatically deploys the integration configuration to your agents in real time.
+Sensu then applies the user's customizations to the integration's resource definitions and automatically deploys the integration configuration to agents in real time.
 No external configuration management is required.
 
 ## Catalog repository example
@@ -301,13 +301,46 @@ The contents of a `version.json` file are similar to this example:
 If you make any changes to your integration files, the catalog-api tool will generate a new checksum directory.
 To revert to an older build, change the `release_sha256` in `version.json` to point to a different release directory.
 
-**TODO**: It's not clear how users should do this.
-
-**TODO**: How do users publish multiple versions of an integration?
-
 ### Catalog tags
 
-**PLACEHOLDER**
+The catalog-api tool consumes git tags and parses integration-specific git tags to manage and generate versioned integrations.
+This makes it possible to give users access to earlier versions of integrations to hedge against regressions in individual integrations.
+
+For example, in the [official Sensu Catalog repository][30], two `ansible-tower-remediation` version tags are defined:
+
+{{< code text >}}
+git tag --list |grep ansible-tower-remediation
+ansible/ansible-tower-remediation/20220223.0.0
+ansible/ansible-tower-remediation/20220421.0.0
+{{< /code >}}
+
+Using these tags, the catalog-api tool will generate the following integration structure:
+
+{{< code text >}}
+tree /tmp/generated-api/ -L 7
+/tmp/generated-api/
+├── release
+│   ├── 5029648381dff2426ea247147456b4f1227fd6d9050fa42f0660e67a218f8c87
+│   │   └── v1
+│   │ ├── ansible
+│   │ │   ├── ansible-tower-remediation
+│   │ │   │   ├── 20220223.0.0
+│   │ │   │   │   ├── CHANGELOG.md
+│   │ │   │   │   ├── img
+│   │ │   │   │   ├── logo.png
+│   │ │   │   │   ├── README.md
+│   │ │   │   │   └── sensu-resources.json
+│   │ │   │   ├── 20220223.0.0.json
+│   │ │   │   ├── 20220421.0.0
+│   │ │   │   │   ├── CHANGELOG.md
+│   │ │   │   │   ├── img
+│   │ │   │   │   ├── logo.png
+│   │ │   │   │   ├── README.md
+│   │ │   │   │   └── sensu-resources.json
+│   │ │   │   ├── 20220421.0.0.json
+│   │ │   │   └── versions.json
+│   │ │   └── ansible-tower-remediation.json
+{{< /code >}}
 
 ## Use the Sensu Catalog API server during integration development
 
@@ -347,7 +380,7 @@ cd ../catalog
 
 6. Run the catalog-api `server` subcommand:
 {{< code shell >}}
-catalog-api catalog server --repo-dir . -watch
+../catalog-api/catalog-api catalog server --repo-dir . -watch
 {{< /code >}}
 
    The `.` in the command tells Sensu to read the catalog contents from your local environment.
@@ -874,7 +907,7 @@ type: section
 
 body         | 
 -------------|------ 
-description  | Markdown content to display in a prompt. If you specify [`type: markdown`][9], you must provide a `body` attribute. **TODO** should describe it's typical use to provide instructions at the top of each prompt window.
+description  | Markdown content to display in a prompt. If you specify [`type: markdown`][9], you must include a `body` attribute. Body attributes are useful for providing instructions at the top of each prompt window.
 required     | false
 type         | String
 example      | {{< code yml >}}
@@ -1094,8 +1127,6 @@ example      | {{< code yml >}}
 type: CheckConfig
 {{< /code >}}
 
-## Integration guidelines
-
 ## Resource limits
 
 There is no limit on the number of resources you can bundle into a single integration.
@@ -1167,7 +1198,7 @@ Read [Build a private catalog of Sensu integrations][17] for information about u
 
 
 [1]: ../sensu-catalog/
-[2]: ../../api/catalog/
+[2]: ../catalog-api/
 [3]: https://github.github.com/gfm/
 [4]: ../../operations/control-access/namespaces/
 [5]: #spec-attributes
@@ -1195,3 +1226,4 @@ Read [Build a private catalog of Sensu integrations][17] for information about u
 [27]: ../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
 [28]: ../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced
 [29]: https://bonsai.sensu.io/
+[30]: https://github.com/sensu/catalog

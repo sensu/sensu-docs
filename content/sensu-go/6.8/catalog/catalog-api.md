@@ -3,13 +3,12 @@ title: "Catalog API"
 description: "Use the Sensu Catalog API to generate static API content that the web UI can consume. Build your own private catalog of Sensu integrations."
 product: "Sensu Go"
 version: "6.8"
-weight: 70
+weight: 60
 layout: "single"
 toc: true
 menu:
   sensu-go-6.8:
-    parent: api
-    identifier: catalog
+    parent: catalog
 ---
 
 {{% notice commercial %}}
@@ -472,4 +471,4 @@ output               | Logo in PNG format
 response codes       | **PLACEHOLDER**
 
 
-[1]: ../../web-ui/catalog-reference/#catalog-api-command-line-interface-tool
+[1]: ../catalog-reference/#catalog-api-command-line-interface-tool

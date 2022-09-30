@@ -4,12 +4,12 @@ linkTitle: "Build a Private Catalog"
 guide_title: "Build a private catalog of Sensu integrations"
 type: "guide"
 description: "Use Sensu's Catalog API to build and host your own private catalog of Sensu integrations."
-weight: 50
+weight: 40
 version: "6.8"
 product: "Sensu Go"
 menu: 
   sensu-go-6.8:
-    parent: web-ui
+    parent: catalog
 ---
 
 {{% notice commercial %}}
@@ -129,8 +129,6 @@ For example:
 }
 {{< /code >}}
 
-**TODO** I think I'm missing something here about what users need to know and do with versions. Maybe also something to do with the tags.
-
 ## Publish the static API to an endpoint
 
 Once you have generated the static API, you can serve the output on any HTTP service and publish it to any endpoint.
@@ -194,6 +192,6 @@ The page should include all of the integrations in your repository.
 
 
 [1]: ../sensu-catalog/
-[2]: ../
+[2]: ../../web-ui/
 [3]: ../catalog-reference/#catalog-repository-example
 [4]: https://github.com/sensu/catalog
