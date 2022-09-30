@@ -151,6 +151,8 @@ sudo systemctl restart postgresql
 
 With this configuration complete, you can configure Sensu to store events in your Postgres database.
 
+To secure communication between Sensu and the PostgreSQL event store using certificate authentication, read [Secure PostgreSQL][7].
+
 ## Configure Sensu
 
 If your Sensu backend is already licensed, the configuration for routing events to Postgres is relatively straightforward.
@@ -476,3 +478,4 @@ With this configuration complete, your Sensu events will be replicated to the st
 [4]: ../../maintain-sensu/troubleshoot/#log-file-locations
 [5]: https://www.postgresql.org/docs/9.5/auth-methods.html#AUTH-PASSWORD
 [6]: https://wiki.postgresql.org/wiki/Streaming_Replication
+[7]: ../secure-postgres/

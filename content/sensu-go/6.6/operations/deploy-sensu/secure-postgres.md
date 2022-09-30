@@ -5,11 +5,11 @@ guide_title: "Secure PostgreSQL"
 type: "guide"
 description: "Learn how to secure communication between Sensu and PostgreSQL with certificate authentication."
 weight: 65
-version: "6.8"
+version: "6.6"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-6.8:
+  sensu-go-6.6:
     parent: deploy-sensu
 ---
 
