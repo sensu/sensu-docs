@@ -136,12 +136,6 @@ Once you have generated the static API, you can serve the output on any HTTP ser
 The only requirement is that the endpoint URL must be fetchable for your web UI users.
 The web UI fetches catalog content from your endpoint; the Sensu backend does not serve any of the catalog content.
 
-To start serving private catalog content to the desired endpoint, run:
-
-{{< code shell >}}
-../catalog-api/catalog-api catalog server 
-{{< /code >}}
-
 ## Create a UI GlobalConfig definition
 
 Use Sensu's GlobalConfig resource to display the private catalog in the Sensu web UI.
