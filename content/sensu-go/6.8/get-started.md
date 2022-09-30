@@ -25,9 +25,9 @@ Sensu's [supported platforms][20] include CentOS/RHEL, Debian, Ubuntu, and Windo
 
 ## Learn Sensu
 
-Watch this video for an 8-minute Sensu Go overview and demo:
+Watch this video for a 10-minute introduction to Sensu Go:
 
-{{< youtube eUZTMdYtCmg >}}
+{{< youtube uyj3qFjq58g >}}
 
 We recommend these resources for learning more about Sensu:
 
@@ -63,7 +63,7 @@ Sensu Go's core is open source software, freely available under an MIT License.
 [9]: ../operations/maintain-sensu/license/
 [10]: https://github.com/sensu/sensu-go/
 [11]: https://www.github.com/sensu/sensu-go/blob/main/README.md#building-from-source
-[12]: https://github.com/sensu/sensu-go-workshop
+[12]: https://github.com/sensu/sensu-go-workshop#overview
 [13]: ../operations/maintain-sensu/migrate/
 [14]: https://sensu.io/features/compare
 [15]: #install-the-commercial-distribution-of-sensu-go

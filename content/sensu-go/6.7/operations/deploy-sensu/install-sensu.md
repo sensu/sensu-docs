@@ -18,7 +18,7 @@ We recommend using a [supported package][14] to follow this guide.
 To build from source and install Sensu from a [binary distribution][23], follow the [Sensu Go installation instructions on GitHub][44].
 
 {{% notice note %}}
-**NOTE**: If you’re trying Sensu for the first time, consider following the the [Sensu Go workshop](https://github.com/sensu/sensu-go-workshop) instead.
+**NOTE**: If you’re trying Sensu for the first time, consider following the the [Sensu Go workshop](https://github.com/sensu/sensu-go-workshop#overview) instead.
 The workshop includes a local sandbox environment and a collection of resources designed to help new users learn and test Sensu.<br><br>
 If you will deploy Sensu to your infrastructure, we recommend securing your installation with transport layer security (TLS) in addition to using one of our supported packages, Docker images, or [configuration management integrations](../configuration-management/).
 Read [Generate certificates](../generate-certificates) next to get the certificates you will need for TLS.
