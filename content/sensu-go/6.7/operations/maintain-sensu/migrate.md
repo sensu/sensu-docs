@@ -576,7 +576,7 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [45]: https://github.com/sensu/sensu-translator
 [46]: https://slack.sensu.io/
 [47]: https://discourse.sensu.io/c/sensu-go/migrating-to-go
-[48]: https://github.com/sensu/sensu-go-workshop
+[48]: https://github.com/sensu/sensu-go-workshop#overview
 [49]: https://sensu.io/support/
 [50]: ../../../plugins/use-assets-to-install-plugins/
 [51]: ../../../plugins/install-plugins/
