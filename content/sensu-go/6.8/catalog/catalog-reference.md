@@ -66,6 +66,12 @@ integrations/
         └── sensu-resources.yaml
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: In the context of catalog integration organization, `namespace` does not refer to the Sensu [role-based access control (RBAC) namespace](../../operations/control-access/namespaces/).
+In catalogs, namespaces are categories for integrations.
+For example, in the official Sensu Catalog, all integrations for AWS services are organized within the [`aws` namespace](https://github.com/sensu/catalog/tree/main/integrations/aws).
+{{% /notice %}}
+
 File | Description
 ---- | -----------
 `img` | Images used in the integration README.md, such as screenshots of available dashboards. Image files must be GIF, JPEG, or PNG format. External image links are not supported. Optional.
