@@ -257,13 +257,14 @@ The Sensu build with FIPS-mode configuration options is linked with the FIPS 140
 Sensu builds comply with the FIPS-mode kernel option to enforce FIPS systemwide in Red Hat Enterprise Linux (RHEL).
 [Contact Sensu][13] to request the build with FIPS support.
 
-This page provides Sensu configuration examples for FIPS compliance.
-The examples assume a system running CentOS 7 with the `dracut-fips` package.
+On systems with FIPS kernel mode, Sensu backends and agents will initialize if the `require-fips` and `require-openssl` configuration options are set to true in the backend and agent configuration files.
 
-{{% notice note %}}
-**NOTE**: Follow [Generate certificates for your Sensu installation](../generate-certificates/) if you do not already have the certificate and key files required to secure your Sensu instance.<br><br>
-Make sure to update the certificate and key file names and use your backend node IP address in place of the examples according to your own configuration.
-{{% /notice %}}
+Sensu backends and agents on systems with FIPS kernel mode will connect to PostgreSQL running in FIPS mode.
+If PostgreSQL is not running in FIPS mode, Sensu backends and agents on systems with FIPS kernel mode will *not* connect to PostgreSQL.
+
+Sensu agents and sensuctl on systems without FIPS kernel mode can connect to Sensu backends on systems with FIPS kernel mode.
+
+The configuration examples below assume a system running CentOS 7 with the `dracut-fips` package.
 
 ### Configuration example for embedded etcd
 
@@ -275,10 +276,10 @@ require-openssl: true
 require-fips: true
 
 # etcd configuration
-etcd-listen-client-urls: "https://[::]:2379"
-etcd-listen-peer-urls: "https://[::]:2380"
-etcd-advertise-client-urls: "https://centos-7-fips-1:2379"
-etcd-initial-advertise-peer-urls: "https://centos-7-fips-1:2380"
+etcd-listen-client-urls: "https://localhost:2379"
+etcd-listen-peer-urls: "https://localhost:2380"
+etcd-advertise-client-urls: "https://localhost:2379"
+etcd-initial-advertise-peer-urls: "https://localhost:2380"
 
 # etcd client tls configuration
 etcd-client-cert-auth: "true"
@@ -293,7 +294,7 @@ etcd-peer-cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
 etcd-peer-key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
 
 # api configuration
-api-url: "https://[::]:8080"
+api-url: "https://localhost:8080"
 
 # api tls configuration
 insecure-skip-tls-verify: false
@@ -301,6 +302,10 @@ trusted-ca-file: "/etc/sensu/tls/ca.pem"
 cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
 key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost`.
+{{% /notice %}}
 
 ### Configuration example for external etcd
 
@@ -315,11 +320,11 @@ require-fips: true
 etcd-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 etcd-cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
 etcd-key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
-etcd-client-urls: "https://centos-7-fips-1:2379"
+etcd-client-urls: "https://localhost:2379"
 no-embed-etcd: true
 
 # api configuration
-api-url: "https://[::]:8080"
+api-url: "https://localhost:8080"
 
 # api tls configuration
 insecure-skip-tls-verify: false
@@ -342,10 +347,10 @@ initial-cluster: "centos-7-fips-1=https://centos-7-fips-1:2380"
 initial-cluster-state: "new"
 
 # etcd configuration
-listen-client-urls: "https://[::]:2379"
-listen-peer-urls: "https://[::]:2380"
-advertise-client-urls: "https://centos-7-fips-1:2379"
-initial-advertise-peer-urls: "https://centos-7-fips-1:2380"
+listen-client-urls: "https://localhost:2379"
+listen-peer-urls: "https://localhost:2380"
+advertise-client-urls: "https://localhost:2379"
+initial-advertise-peer-urls: "https://localhost:2380"
 
 # etcd client tls configuration
 client-transport-security:
@@ -363,6 +368,10 @@ peer-transport-security:
   key-file: /etc/etcd/tls/centos-7-fips-1-backend-key.pem
   auto-tls: false
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost`.
+{{% /notice %}}
 
 ## Next step: Run a Sensu cluster
 
