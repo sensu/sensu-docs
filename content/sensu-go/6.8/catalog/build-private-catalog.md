@@ -103,7 +103,7 @@ cd ../catalog
 
 3. Validate the integration repository contents:
 {{< code shell >}}
-../catalog-api/catalog-api catalog validate --repo-dir .
+../catalog-api/catalog-api catalog validate
 {{< /code >}}
 
 ## Generate the private catalog
