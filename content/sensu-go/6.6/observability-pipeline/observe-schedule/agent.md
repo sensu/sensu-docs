@@ -692,7 +692,7 @@ Flags:
 
 {{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu.
-The `--discover-processes` configuration option is not available, and new events will not include data in the `processes` attributes.
+The `discover-processes` configuration option is not available, and new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
@@ -1251,7 +1251,7 @@ require-fips: true{{< /code >}}
 | require-openssl |      |
 ------------------|------
 description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu agent startup if `true` but Go's standard cryptography library is loaded. {{% notice note %}}
-**NOTE**: The `--require-openssl` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
+**NOTE**: The `require-openssl` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean
