@@ -30,7 +30,7 @@ Catalogs are namespaced, so you can have separate private catalogs with specific
 
 ## Update URLs in integration asset builds
 
-If the assets for your private catalog are stored behind a firewall, update the asset definitions in your `sensu-resources.yaml` files to use the endpoint URL that will serve your catalog.
+If the assets for your private catalog are stored behind a firewall or are otherwise not publicly available, update the asset definitions in your `sensu-resources.yaml` files to use the endpoint URL that will serve your catalog.
 
 For example, if you fork the [Sensu Catalog repository][4] as the starting point for your private catalog, asset definitions will include `assets.bonsai.sensu.io` in the `builds.url` values:
 

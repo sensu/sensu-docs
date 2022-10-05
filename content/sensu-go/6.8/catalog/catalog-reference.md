@@ -22,12 +22,14 @@ For more information, read [Get started with commercial features](../../commerci
 {{% /notice %}}
 
 The [Sensu Catalog][1] is a collection of Sensu integrations that provide reference implementations for effective observability.
-The contents of the official Sensu Catalog are periodically published to the official Sensu Catalog API, which is hosted at https://catalog.sensu.io and displayed within the Sensu web UI.
+The contents of the official Sensu Catalog are periodically published with the Sensu Catalog API, which is hosted at https://catalog.sensu.io and displayed within the Sensu web UI.
 
 When users install integrations in the Sensu web UI, they receive prompts to enter information.
 For example, the DNS Monitoring integration includes prompts for the domain name, record type, record class, servers, and port to query.
 Sensu then applies the user's customizations to the integration's resource definitions and automatically deploys the integration configuration to agents in real time.
 No external configuration management is required.
+The Sensu Catalog provides a way for you and your teams to configure powerful real-time monitoring and observability for the systems you rely on.
+Integrations are self-service, and the Catalog is designed to help you scale up with fewer barriers.
 
 ## Catalog repository example
 
