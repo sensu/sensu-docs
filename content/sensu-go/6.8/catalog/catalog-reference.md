@@ -243,18 +243,6 @@ spec:
 Sensu Catalog integration definitions resemble other Sensu resources, but Sensu Go does not process them directly.
 Instead, the [Sensu Catalog API][2] uses integration definitions along with the other files in the catalog repository, like READMEs and dashboard images, to generate a static API.
 
-## Private catalogs
-
-The [Sensu Catalog API][2] renders static HTTP API content that the Sensu web UI can consume.
-This means you can create a private enterprise catalog of custom integrations and make it available to users in the Sensu web UI.
-
-Consider forking the official Sensu Catalog repository, https://github.com/sensu/catalog, as a starting point for building your own private catalog.
-
-The Catalog API defines integrations globally rather than by namespace.
-When you create a private catalog, all integrations in your repository are available for all users across namespaces in the web UI.
-
-Read [Build a private catalog of Sensu integrations][17] for more information.
-
 ## catalog-api command line interface tool
 
 {{% notice note %}}
@@ -263,8 +251,8 @@ Read [Build a private catalog of Sensu integrations][17] for more information.
 
 Sensu's [catalog-api][16] command line interface (CLI) tool uses the [Sensu Catalog API][2] to convert integration files into static API content that you can host on any HTTP web service.
 
-Use the catalog-api tool to [generate a local catalog API][18] for testing as you develop new integrations and to build and run a private catalog.
-Integration files must be stored in a repository that follows the required [organizational framework][16].
+Use the catalog-api tool to [generate a local catalog API][18] for testing as you develop new integrations and to [build and run a private catalog][17].
+Integration files must be stored in a repository that follows the required [organizational framework][15].
 
 The catalog-api tool is written in Go.
 
@@ -289,30 +277,12 @@ FLAGS
   -repo-dir .                          path to the catalog repository
 {{< /code >}}
 
-### Catalog versions
+## Catalog tags and versions
 
-The catalog-api tool generates builds into a checksum-based output directory structure.
-The `version.json` file manages the path to the latest or production catalog API content and instructs the web UI to load catalog contents from the specified checksum directory.
-When you run the command to generate the catalog, catalog-api creates the `version.json` file.
+The catalog-api tool consumes and parses integration-specific git tags to manage and generate versioned integrations.
+This makes it possible to give users access to earlier versions of integrations and hedge against regressions in individual integrations.
 
-The contents of a `version.json` file are similar to this example:
-
-{{< code text "JSON" >}}
-{
-  "release_sha256": "5029648381dff2426ea247147456b4f1227fd6d9050fa42f0660e67a218f8c87",
-  "last_updated": 1655840571
-}
-{{< /code >}}
-
-If you make any changes to your integration files, the catalog-api tool will generate a new checksum directory.
-To revert to an older build, change the `release_sha256` in `version.json` to point to a different release directory.
-
-### Catalog tags
-
-The catalog-api tool consumes git tags and parses integration-specific git tags to manage and generate versioned integrations.
-This makes it possible to give users access to earlier versions of integrations to hedge against regressions in individual integrations.
-
-For example, in the [official Sensu Catalog repository][30], two `ansible-tower-remediation` version tags are defined:
+For example, in the [official Sensu Catalog repository][30], two versions of the [Ansible Tower Remediation][31] are defined:
 
 {{< code text >}}
 git tag --list |grep ansible-tower-remediation
@@ -320,7 +290,7 @@ ansible/ansible-tower-remediation/20220223.0.0
 ansible/ansible-tower-remediation/20220421.0.0
 {{< /code >}}
 
-Using these tags, the catalog-api tool will generate the following integration structure:
+Using these tags, the catalog-api tool would generate the following version structure, with both versions of the Ansible Tower Remediation integration:
 
 {{< code text >}}
 tree /tmp/generated-api/ -L 7
@@ -347,6 +317,53 @@ tree /tmp/generated-api/ -L 7
 │   │ │   │   └── versions.json
 │   │ │   └── ansible-tower-remediation.json
 {{< /code >}}
+
+### Generate tags
+
+If you update an integration, the first step in publishing the updated integration is to generate a new tag:
+
+{{< code shell >}}
+git tag <integration_namespace>/<integration_filename>/<YYYYMMDD>.0.0
+{{< /code >}}
+
+For example, to generate a new tag for an October 5, 2022 update to the [Ansible Tower Remediation][31] integration:
+
+{{< code shell >}}
+git tag ansible/ansible-tower-remediation/20221005.0.0
+{{< /code >}}
+
+Commit your changes to git after adding the tag.
+Then, run the `catalog-api generate` subcommand to generate a catalog that includes the tagged version.
+
+If you update the integration again on the same day, update the tag to `<YYYYMMDD>.0.1`.
+To continue the Ansible Tower Remediation example:
+
+{{< code shell >}}
+git tag ansible/ansible-tower-remediation/20221005.0.1
+{{< /code >}}
+
+Commit your changes to git.
+The next time you run `catalog-api generate`, it will generate a catalog that includes both tagged versions.
+
+### Catalog versions
+
+Catalog builds are versioned so that every previous iteration of the catalog is available.
+
+The catalog-api tool generates builds into a checksum-based output directory structure.
+The `version.json` file manages the path to the latest or production catalog API content and instructs the web UI to load catalog contents from the specified checksum directory.
+When you run `catalog-api generate` to generate the catalog, catalog-api creates the `version.json` file.
+
+The contents of a `version.json` file are similar to this example:
+
+{{< code text "JSON" >}}
+{
+  "release_sha256": "5029648381dff2426ea247147456b4f1227fd6d9050fa42f0660e67a218f8c87",
+  "last_updated": 1655840571
+}
+{{< /code >}}
+
+If you make any changes to your integration files, the catalog-api tool will generate a new checksum directory.
+To revert to an older build, change the `release_sha256` in `version.json` to point to a different release directory.
 
 ## Use the Sensu Catalog API server during integration development
 
@@ -433,6 +450,18 @@ EOF
 
 8. Navigate to the Catalog page in the Sensu web UI for your local instance.
 The Catalog page should include all of the integrations in your local repository and update automatically as you save local changes to your integration files.
+
+## Private catalogs
+
+The [Sensu Catalog API][2] renders static HTTP API content that the Sensu web UI can consume.
+This means you can create a private enterprise catalog of custom integrations and make it available to users in the Sensu web UI.
+
+Consider forking the official Sensu Catalog repository, https://github.com/sensu/catalog, as a starting point for building your own private catalog.
+
+The Catalog API defines integrations globally rather than by namespace.
+When you create a private catalog, all integrations in your repository are available for all users across namespaces in the web UI.
+
+Read [Build a private catalog of Sensu integrations][17] for more information.
 
 ## Catalog integration specification
 
@@ -1137,11 +1166,11 @@ type: CheckConfig
 
 There is no limit on the number of resources you can bundle into a single integration.
 Each integration can include as many checks, event filters, handlers, and pipelines as you need to achieve your observability goals.
-For example, you can develop a single host monitoring integration that includes all of the checks you want to run on every server.
+For example, you can develop a single host monitoring integration that installs all of the checks you want to run on every server.
 
 ## Check guidelines
 
-For integrations that create checks, list the resource definitions in your `sensu-resources.yaml` file in in the following order:
+For integrations that create checks, list the resource definitions in your `sensu-resources.yaml` file in the following order:
 
 1. CheckConfig
 2. HookConfig
@@ -1179,7 +1208,7 @@ Prompts for check pipelines should use one of the following generic categories:
 
 ## Pipeline guidelines
 
-For integrations that create pipelines, list the resource definitions in your `sensu-resources.yaml` file in in the following order:
+For integrations that create pipelines, list the resource definitions in your `sensu-resources.yaml` file in the following order:
 
 1. Pipeline
 2. Handler, SumoLogicMetricsHandler, and TCPStreamHandler
@@ -1196,7 +1225,7 @@ Use the built-in [is_incident][27] and [not_silenced][28] filters.
 Asset resources and their corresponding `runtime_assets` references in other Sensu resources must include an asset version reference in their resource name.
 For example, `sensu/system-check:0.5.0`.
 
-Asset resources should include an organization or author in the resource name.
+Asset resources should include an organization or author as the namespace in the resource name.
 For example, the official Sensu PagerDuty plugin hosted in the `sensu` organization on GitHub (sensu/sensu-pagerduty-handler) and published to under the `sensu` organization on Bonsai (sensu/sensu-pagerduty-handler) should be named `sensu/sensu-pagerduty-handler`.
 
 For integrations contributed to the official Sensu Catalog, asset resources in the `sensu-resources.yaml` file must refer to assets hosted on [Bonsai][29].
@@ -1233,3 +1262,4 @@ Read [Build a private catalog of Sensu integrations][17] for information about u
 [28]: ../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced
 [29]: https://bonsai.sensu.io/
 [30]: https://github.com/sensu/catalog
+[31]: https://github.com/sensu/catalog/tree/main/integrations/ansible/ansible-tower-remediation

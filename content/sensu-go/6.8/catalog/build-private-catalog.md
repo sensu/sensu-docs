@@ -61,6 +61,7 @@ spec:
 {{< /code >}}
 
 If needed, replace `assets.bonsai.sensu.io` with your preferred URL in asset `builds.url` values in all `sensu-resources.yaml` files before you continue.
+You do not need to change the asset `builds.SHA512` values.
 
 ## Install the catalog-api command line tool
 
@@ -115,23 +116,16 @@ With a validated repository, you can generate your private catalog locally:
 {{< /code >}}
 
 The `generate` subcommand generates the static API in a temporary directory, `/tmp/generated-api/`.
+To specify a different temporary directory, use the `--temp-dir` command line flag:
 
-These catalog builds are versioned so that every previous iteration is available.
-
-The catalog-api tool generates builds into a checksum-based output directory structure.
-The path to the latest or production Catalog API content is managed by a `version.json` file (in this example, the file would be https://catalog.sensu.io/version.json) that instructs the Sensu web UI to load API contents from the specified checksum subdirectory.
-For example:
-
-{{< code text >}}
-{
-  "release_sha256": "d0e2ba810c3d546c82121406fb5f214e66aeb7fe9026706f9a7391463cf4da19",
-  "last_updated": 1657574563
-}
+{{< code shell >}}
+../catalog-api/catalog-api catalog generate --temp-dir /tmp/2523661925/release
 {{< /code >}}
 
 ## Publish the static API to an endpoint
 
-Once you have generated the static API, you can serve the output on any HTTP service and publish it to any endpoint.
+Once you generate your private catalog in a temporary directory, you can serve the output on any HTTP service and publish it to any endpoint.
+For example, you can copy the private catalog contents from the temporary directory to a storage service and use a content delivery network (CDN) to serve the content from your storage service to the endpoint URL.
 
 The only requirement is that the endpoint URL must be fetchable for your web UI users.
 The web UI fetches catalog content from your endpoint; the Sensu backend does not serve any of the catalog content.
@@ -139,7 +133,7 @@ The web UI fetches catalog content from your endpoint; the Sensu backend does no
 ## Create a UI GlobalConfig definition
 
 Use Sensu's GlobalConfig resource to display the private catalog in the Sensu web UI.
-Create a GlobalConfig definition that includes the static API endpoint for your catalog as the `url` value:
+Create a GlobalConfig definition that includes the endpoint URL for your private catalog as the `url` value:
 
 {{< language-toggle >}}
 
