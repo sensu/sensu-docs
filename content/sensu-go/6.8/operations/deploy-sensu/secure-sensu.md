@@ -257,14 +257,13 @@ The Sensu build with FIPS-mode configuration options is linked with the FIPS 140
 Sensu builds comply with the FIPS-mode kernel option to enforce FIPS systemwide in Red Hat Enterprise Linux (RHEL).
 [Contact Sensu][13] to request the build with FIPS support.
 
-On systems with FIPS kernel mode, Sensu backends and agents will initialize if the `require-fips` and `require-openssl` configuration options are set to true in the backend and agent configuration files.
+Sensu backends and agents will work on systems with FIPS kernel mode if the `require-fips` and `require-openssl` configuration options are set to `true` in the [backend][14] and [agent][15] configuration files.
+Sensu backends and agents that have `require-fips` enabled will *not* work on systems without FIPS kernel mode.
 
-Sensu backends and agents on systems with FIPS kernel mode will connect to PostgreSQL running in FIPS mode.
-If PostgreSQL is not running in FIPS mode, Sensu backends and agents on systems with FIPS kernel mode will *not* connect to PostgreSQL.
+Sensu backends on systems with FIPS kernel mode will work with PostgreSQL on systems with FIPS kernel mode.
+For PostgreSQL on systems *without* FIPS kernel mode, Sensu backends with FIPS kernel mode will work as long as the PostgreSQL system supports FIPS-compliant ciphers/cipher suites.
 
-Sensu agents and sensuctl on systems without FIPS kernel mode can connect to Sensu backends on systems with FIPS kernel mode.
-
-The configuration examples below assume a system running CentOS 7 with the `dracut-fips` package.
+Sensu agents and sensuctl on systems with and without FIPS kernel mode can connect to Sensu backends on systems with FIPS kernel mode.
 
 ### Configuration example for embedded etcd
 
@@ -389,3 +388,5 @@ The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 [10]: ../cluster-sensu/
 [12]: ../generate-certificates/
 [13]: https://sensu.io/contact
+[14]: ../../../observability-pipeline/observe-schedule/backend/#fips-openssl
+[15]: ../../../observability-pipeline/observe-schedule/agent/#fips-openssl
