@@ -71,7 +71,7 @@ The [**Sensu backend**][3] is powered by an embedded transport and [etcd][36] da
 Sensu backends require persistent storage for their embedded database, disk space for local dynamic runtime asset caching, and several exposed ports:
 
 - 2379 (gRPC) Sensu storage client: Required for Sensu backends using an external etcd instance
-- 2380 (gRPC) Sensu storage peer: Required for other Sensu backends in a [cluster][37]
+- 2380 (gRPC) Sensu storage peer: Required for etcd [cluster][37] members to communicate directly with their peers
 - 3000 (HTTP/HTTPS) [Sensu web UI][39]: Required for all Sensu backends using a Sensu web UI
 - 8080 (HTTP/HTTPS) [Sensu API][40]: Required for all users accessing the Sensu API
 - 8081 (WS/WSS) Agent API: Required for all Sensu agents connecting to a Sensu backend
