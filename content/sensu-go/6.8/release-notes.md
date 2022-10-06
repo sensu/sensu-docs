@@ -133,7 +133,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
 - ([Commercial feature][295]) In the web UI, the link for entity documentation now points to the correct link.
 - ([Commercial feature][295]) In the web UI, errors displayed  when deleting and re-adding an asset from asset page have been addressed.
 - ([Commercial feature][295]) In the web UI, checks no  longer error when created  with leading white spaces.
-- ([Commercial feature][295]) In the web UI, the loading indicator no longer spins endlessly when loading resources.
+- ([Commercial feature][295]) In the web UI, the configuration resource pages now show an empty list instead of an endless loading indicator for users who do not have the required permissions.
 - ([Commercial feature][295]) In the web UI, fixed a bug that could cause a crash when an authorized user does not have an explicitly set username.
 - Fixed an issue where multi-expression exclusive "Deny" filters were not evaluated as described in the documentation.
 - Agent log messages now include the check name when a check execution request fails.
