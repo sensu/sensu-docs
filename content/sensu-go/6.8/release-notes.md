@@ -115,7 +115,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **October 6, 2022** &mdash; The latest release of Sensu Go, version 6.8.2, is now available for download.
 
-Sensu Go 6.8.2
+Sensu Go 6.8.2 includes logging improvements with the addition of login attempts, agent connection logs now including the backend entity name and including the check name when a check execution request fails. We also add a label to events with a truncated check output and automatically restart the agent on Windows platforms after failures. This patch release also modifies the keep startup logic and fixes a number of web UI issues in the resources and entities pages.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
 
