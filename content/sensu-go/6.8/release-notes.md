@@ -123,7 +123,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
 
 - The authentication module now logs successful (INFO) and unsuccessful (ERROR) login attempts.
 - Agent websocket connection logging now includes backend entity name.
-- A sensu.io/output_truncated_bytes label is now applied to events when the check output has been truncated due to a check's max_output_size configuration.
+- When check output is truncated due to the [max_output_size][303] configuration, the events the check produces will include a `sensu.io/output_truncated_bytes` label.
 
 **FIXES:**
 
