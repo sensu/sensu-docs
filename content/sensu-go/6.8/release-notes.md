@@ -124,6 +124,8 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
 - The authentication module now logs successful (INFO) and unsuccessful (ERROR) login attempts.
 - Agent websocket connection logging now includes backend entity name.
 - When check output is truncated due to the [max_output_size][302] configuration, the events the check produces will include a `sensu.io/output_truncated_bytes` label.
+- Agent log messages now include the check name when a check execution request fails.
+- On Windows platforms, the Sensu Agent service now automatically restarts after failures.
 
 **FIXES:**
 
@@ -135,9 +137,12 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
 - ([Commercial feature][295]) In the web UI, fixed the validation for resource names and array fields to prevent crashes.
 - ([Commercial feature][295]) In the web UI, the configuration resource pages now show an empty list instead of an endless loading indicator for users who do not have the required permissions.
 - ([Commercial feature][295]) In the web UI, fixed a bug that could cause a crash when an authorized user does not have an explicitly set username.
+- ([Commercial feature][295]) In the web UI, temporarily disabled saved searches on Entity, Services, Silences, and Check pages.
+- ([Commercial feature][295]) In the web UI, fixed a bug that prevented individual resource pages from displaying annotations and labels on initial page load.
+- ([Commercial feature][295]) In the web UI, when users do not have the required permissions to perform a specific action, the action's button is now disabled with a tooltip to explain the reason.
 - Fixed an issue that prevented multi-expression, exclusive event filters set to `deny` from being evaluated properly.
-- Agent log messages now include the check name when a check execution request fails.
-- On Windows platforms, the Sensu Agent service now automatically restarts after failures.
+- Modified keepalive startup so that etcd lease errors will not cause sensu-backend crashes.
+
 
 ## 6.8.1 release notes
 
