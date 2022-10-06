@@ -136,6 +136,8 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
 - ([Commercial feature][295]) In the web UI, the loading indicator no longer spins endlessly when loading resources.
 - ([Commercial feature][295]) In the web UI, users no longer encounter an error if they do not have an explicitly set username.
 - Fixed an issue where multi-expression exclusive "Deny" filters were not evaluated as described in the documentation.
+- Agent log messages now include the check name when a check execution request fails.
+- On Windows platforms, the Sensu Agent service now automatically restarts after failures.
 
 ## 6.8.1 release notes
 
