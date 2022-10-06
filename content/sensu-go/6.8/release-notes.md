@@ -128,7 +128,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
 **FIXES:**
 
 - ([Commercial feature][295]) In the web UI, restored the silence function on the Entities page.
-- ([Commercial feature][295]) In the web UI, newly created assets are displayed immediately upon creation.
+- ([Commercial feature][295]) In the web UI, resource pages now automatically refresh after creating resources.
 - ([Commercial feature][295]) In the web UI, the "Raw" tab for Pipelines now displays the raw configuration.
 - ([Commercial feature][295]) In the web UI, the link for entity documentation now points to the correct link.
 - ([Commercial feature][295]) In the web UI, errors displayed  when deleting and re-adding an asset from asset page have been addressed.
