@@ -9,6 +9,7 @@ version: "6.8"
 menu: "sensu-go-6.8"
 ---
 
+- [6.8.2 release notes](#682-release-notes)
 - [6.8.1 release notes](#681-release-notes)
 - [6.8.0 release notes](#680-release-notes)
 - [6.7.5 release notes](#675-release-notes)
@@ -109,6 +110,32 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.8.2 release notes
+
+**October 6, 2022** &mdash; The latest release of Sensu Go, version 6.8.2, is now available for download.
+
+Sensu Go 6.8.2
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
+
+**IMPROVEMENTS:**
+
+- The authentication module now logs successful (INFO) and unsuccessful (ERROR) login attempts.
+- Agent websocket connection logging includes backend entity name.
+- A sensu.io/output_truncated_bytes label is now applied to events when the check output has been truncated due to a check's max_output_size configuration.
+
+**FIXES:**
+
+- ([Commercial feature][295]) In the web UI, the silence action button is now present in the entities page.
+- ([Commercial feature][295]) In the web UI, newly created assets are displayed immediately upon creation.
+- ([Commercial feature][295]) In the web UI, the "Raw" tab for Pipelines now displays the raw configuration.
+- ([Commercial feature][295]) In the web UI, the link for entity documentation now points to the correct link.
+- ([Commercial feature][295]) In the web UI, errors displayed  when deleting and re-adding an asset from asset page have been addressed.
+- ([Commercial feature][295]) In the web UI, checks no  longer error when created  with leading white spaces.
+- ([Commercial feature][295]) In the web UI, the loading indicator no longer spins endlessly when loading resources.
+- ([Commercial feature][295]) In the web UI, users no longer encounter an error if they do not have an explicitly set username.
+- Fixed an issue where multi-expression exclusive "Deny" filters were not evaluated as described in the documentation.
 
 ## 6.8.1 release notes
 
