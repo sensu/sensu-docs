@@ -249,6 +249,129 @@ However, deployments can also use the same certificates and keys for etcd peer a
 
 The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for agent mTLS, etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
 
+## Optional: Configure Sensu for FIPS compliance
+
+Sensu provides a Linux amd64 OpenSSL-linked build that supports the Federal Information Processing Standard (FIPS) for Federal Risk and Authorization Management Program (FedRAMP) compliance.
+
+The Sensu build with FIPS-mode configuration options is linked with the FIPS 140-2 validated cryptographic library.
+Sensu builds comply with the FIPS-mode kernel option to enforce FIPS systemwide in Red Hat Enterprise Linux (RHEL).
+[Contact Sensu][13] to request the build with FIPS support.
+
+Sensu backends and agents will work on systems with FIPS kernel mode if the `require-fips` and `require-openssl` configuration options are set to `true` in the [backend][14] and [agent][15] configuration files.
+Sensu backends and agents that have `require-fips` enabled will *not* work on systems without FIPS kernel mode.
+
+Sensu backends on systems with FIPS kernel mode will work with PostgreSQL on systems with FIPS kernel mode.
+For PostgreSQL on systems *without* FIPS kernel mode, Sensu backends with FIPS kernel mode will work as long as the PostgreSQL system supports FIPS-compliant ciphers/cipher suites.
+
+Sensu agents and sensuctl on systems with and without FIPS kernel mode can connect to Sensu backends on systems with FIPS kernel mode.
+
+### Configuration example for embedded etcd
+
+To configure the Sensu backend for FIPS mode with embedded etcd, update the backend configuration file at `/etc/sensu/backend.yml` to use the following settings:
+
+{{< code shell >}}
+# fips configuration
+require-openssl: true
+require-fips: true
+
+# etcd configuration
+etcd-listen-client-urls: "https://localhost:2379"
+etcd-listen-peer-urls: "https://localhost:2380"
+etcd-advertise-client-urls: "https://localhost:2379"
+etcd-initial-advertise-peer-urls: "https://localhost:2380"
+
+# etcd client tls configuration
+etcd-client-cert-auth: "true"
+etcd-trusted-ca-file: "/etc/sensu/tls/ca.pem"
+etcd-cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
+etcd-key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
+
+# etcd peer tls configuration
+etcd-peer-client-cert-auth: "true"
+etcd-peer-trusted-ca-file: "/etc/sensu/tls/ca.pem"
+etcd-peer-cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
+etcd-peer-key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
+
+# api configuration
+api-url: "https://localhost:8080"
+
+# api tls configuration
+insecure-skip-tls-verify: false
+trusted-ca-file: "/etc/sensu/tls/ca.pem"
+cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
+key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost`.
+{{% /notice %}}
+
+### Configuration example for external etcd
+
+To configure the Sensu backend for FIPS mode with external etcd, update the backend configuration file at `/etc/sensu/backend.yml` to use the following settings:
+
+{{< code shell >}}
+# fips configuration
+require-openssl: true
+require-fips: true
+
+# etcd configuration
+etcd-trusted-ca-file: "/etc/sensu/tls/ca.pem"
+etcd-cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
+etcd-key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
+etcd-client-urls: "https://localhost:2379"
+no-embed-etcd: true
+
+# api configuration
+api-url: "https://localhost:8080"
+
+# api tls configuration
+insecure-skip-tls-verify: false
+trusted-ca-file: "/etc/sensu/tls/ca.pem"
+cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
+key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
+{{< /code >}}
+
+Use the following settings in your etcd configuration:
+
+{{< code shell >}}
+name: "centos-7-fips-1"
+data-dir: "/var/lib/etcd-external"
+auto-compaction-mode: "revision"
+auto-compaction-retention: "2"
+
+# cluster config
+initial-cluster-token: "sup3rs3cr3t"
+initial-cluster: "centos-7-fips-1=https://centos-7-fips-1:2380"
+initial-cluster-state: "new"
+
+# etcd configuration
+listen-client-urls: "https://localhost:2379"
+listen-peer-urls: "https://localhost:2380"
+advertise-client-urls: "https://localhost:2379"
+initial-advertise-peer-urls: "https://localhost:2380"
+
+# etcd client tls configuration
+client-transport-security:
+  client-cert-auth: true
+  trusted-ca-file: /etc/etcd/tls/ca.pem
+  cert-file: /etc/etcd/tls/centos-7-fips-1-backend.pem
+  key-file: /etc/etcd/tls/centos-7-fips-1-backend-key.pem
+  auto-tls: false
+
+# etcd peer tls configuration
+peer-transport-security:
+  client-cert-auth: true
+  trusted-ca-file: /etc/etcd/tls/ca.pem
+  cert-file: /etc/etcd/tls/centos-7-fips-1-backend.pem
+  key-file: /etc/etcd/tls/centos-7-fips-1-backend-key.pem
+  auto-tls: false
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost`.
+{{% /notice %}}
+
 ## Next step: Run a Sensu cluster
 
 Well done!
@@ -264,3 +387,6 @@ The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 [9]: https://github.com/cloudflare/cfssl
 [10]: ../cluster-sensu/
 [12]: ../generate-certificates/
+[13]: https://sensu.io/contact
+[14]: ../../../observability-pipeline/observe-schedule/backend/#fips-openssl
+[15]: ../../../observability-pipeline/observe-schedule/agent/#fips-openssl
