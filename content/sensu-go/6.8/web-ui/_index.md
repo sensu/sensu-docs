@@ -43,6 +43,14 @@ The access and refresh tokens are saved in your browser's local storage.
 The web UI complies with Sensu role-based access control (RBAC), so individual users can view information according to their access configurations.
 Read the [RBAC reference][3] for [default user credentials][4] and instructions for [creating new users][5].
 
+### Backend log messages for web UI sign-in
+
+As of Sensu Go 6.8.2, Sensu logs an INFO message in the backend log upon successful login, with details about the
+user and provider.
+For unsuccessful login attempts, Sensu logs an ERROR message upon authentication failure, along with the username that was tried.
+
+Read [Service logging][10] for more information about the backend log and log levels.
+
 ## View system information
 
 Press `CTRL .` in the web UI to open the system information modal and view information about your Sensu backend and etcd or PostgreSQL datastore.
@@ -85,3 +93,4 @@ Read [Troubleshoot Sensu][8] to resolve and investigate web UI errors.
 [7]: ../api/other/auth/
 [8]: ../operations/maintain-sensu/troubleshoot/#web-ui-errors
 [9]: ../web-ui/webconfig-reference/#license_expiry_reminder
+[10]: ../operations/maintain-sensu/troubleshoot/#service-logging
