@@ -175,10 +175,12 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.5.5/sensu-go_6.5
 
 Builds that support the Federal Information Processing Standard (FIPS) for Federal Risk and Authorization Management Program (FedRAMP) compliance are available for Linux `amd64`.
 
-Sensu FIPS builds with [FIPS-mode configuration options][51] are linked with the FIPS 140-2 validated cryptographic library.
+Sensu FIPS builds with FIPS-mode configuration options are linked with the FIPS 140-2 validated cryptographic library.
 You can run Red Hat Enterprise Linux (RHEL) with the FIPS-mode kernel option to enforce FIPS systemwide &mdash; Sensu FIPS builds comply with this mode.
 
 [Contact Sensu][50] to request builds with FIPS support.
+
+Read [Configure Sensu for FIPS compliance][65] to learn more about Sensu's FIPS build, including configuration examples.
 
 ### Windows
 
