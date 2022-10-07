@@ -2547,3 +2547,4 @@ To get started with Sensu Go:
 [299]: /sensu-go/6.8/api/other/ready/
 [300]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#api-serve-wait-time
 [301]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#agent-serve-wait-time
+[302]: /sensu-go/6.8/observability-pipeline/observe-schedule/checks/#check-output-truncation-attributes
