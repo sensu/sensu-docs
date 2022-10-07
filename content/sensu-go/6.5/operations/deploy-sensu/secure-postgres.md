@@ -361,7 +361,7 @@ hostssl sensu_events    sensu           0.0.0.0/0               cert
 
    Take care to add the new lines in the positions shown in the following example:
 
-   {{< figure src="/images/go/secure_sensu/config_cert_auth.png" alt="Clustered Sensu Go architecture for a single availability zone" link="/images/go/secure_sensu/config_cert_auth.png" target="_blank" >}}
+   {{< figure src="/images/go/secure_postgres/config_cert_auth.png" alt="Correct positions for new lines in pg_hba.conf file" link="/images/go/secure_postgres/config_cert_auth.png" target="_blank" >}}
 
 5. Restart PostgreSQL:
 
