@@ -329,13 +329,13 @@ ssl_key_file = '/etc/postgresql/14/main/tls/postgres.example.com-key.pem'
 
    Save your changes and close the file.
 
-4. Open the `pg_hba.conf` file in your respective Linux distribution and edit the following lines to configure host-based authentication to accept certificates only when accessing the `sensu_events` database:
+4. Open the `pg_hba.conf` file in your Linux distribution and add the following lines to configure host-based authentication to accept certificates only when accessing the `sensu_events` database:
 
    {{< language-toggle >}}
 
    {{< code shell  "RHEL/CentOS" >}}
 
-# vim /var/lib/pgsql/14/data/pg_hba.conf
+# /var/lib/pgsql/14/data/pg_hba.conf (file location)
 
 # Prevent "postgres" superuser login via a certificate
 hostssl all             postgres        ::/0                    reject
@@ -347,7 +347,7 @@ hostssl sensu_events    sensu           0.0.0.0/0               cert
 
    {{< code shell  "Ubuntu/Debian" >}}
 
-# vim /etc/postgresql/14/main/pg_hba.conf
+# /etc/postgresql/14/main/pg_hba.conf (file location)
 
 # Prevent "postgres" superuser login via a certificate
 hostssl all             postgres        ::/0                    reject
@@ -358,6 +358,10 @@ hostssl sensu_events    sensu           0.0.0.0/0               cert
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+   Take care to add the new lines in the positions shown in the following example:
+
+   {{< figure src="/images/go/secure_sensu/config_cert_auth.png" alt="Clustered Sensu Go architecture for a single availability zone" link="/images/go/secure_sensu/config_cert_auth.png" target="_blank" >}}
 
 5. Restart PostgreSQL:
 
