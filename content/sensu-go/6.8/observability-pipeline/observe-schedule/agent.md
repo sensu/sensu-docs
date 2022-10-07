@@ -1914,21 +1914,34 @@ sc.exe stop SensuAgent
 
 ### Restart the service
 
-Restart the agent using a service manager:
+You must restart the agent to implement any configuration updates.
 
-{{< language-toggle >}}
+{{< platformBlock "Linux" >}}
 
-{{< code shell "Linux" >}}
+**Linux**
+
+Restart the agent with a service manager:
+
+{{< code shell >}}
 sudo systemctl restart sensu-agent
 {{< /code >}}
 
-{{< code shell "Windows" >}}
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+Restart the agent with a service manager:
+
+{{< code shell >}}
 sc.exe start SensuAgent
 {{< /code >}}
 
-{{< /language-toggle >}}
+As of Sensu Go 6.8.2, the Sensu Agent service on Windows platforms will automatically restart after failures.
+You'll still need to use a service manager restart Windows agents to implement configuration updates.
 
-You must restart the agent to implement any configuration updates.
+{{< platformBlockClose >}}
 
 ### Enable on boot
 
