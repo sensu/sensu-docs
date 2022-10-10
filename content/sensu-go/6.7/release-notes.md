@@ -921,7 +921,7 @@ Visit the [Sensu Go Web repository][163] for more information.
 - ([Commercial feature][162]) Docker-only Sensu now binds to the hostname of containers instead of `localhost`. Docker images now set their own default values for environment variables `SENSU_AGENT_API_URL`, `SENSU_BACKEND_API_URL`, `SENSU_BACKEND_ETCD_INITIAL_CLUSTER`, `SENSU_BACKEND_ETCD_ADVERTISE_CLUSTER`, `SENSU_BACKEND_ETCD_INITIAL_ADVERTISE_PEER_URLS`, `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`, and `ETCD_LISTEN_PEER_URLS`.
 - ([Commercial feature][162]) Added Linux packages for 386; armv5, armv6, and armv7; MIPS hard float, MIPS LE hard float, and MIPS 64 LE hard float; ppc64le; and s390x architectures.
 Review the [supported platforms][165] page for a complete list of Sensu’s supported platforms.
-- ([Commercial feature][215])Added [Sensu query expression][168] `sensu.CheckDependencies`.
+- ([Commercial feature][162]) Added [Sensu query expression][168] `sensu.CheckDependencies`.
 - Added [binary-only distributions][164] for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
 - Added the `is_silenced` Boolean attribute to the event.Check object to indicate whether the event was silenced at the time it was processed.
 
