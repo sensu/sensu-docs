@@ -13,6 +13,11 @@ menu:
     parent: observe-schedule
 ---
 
+{{% notice protip %}}
+**PRO TIP**: You can use the HTTP Service Monitoring (Local) integration in the [Sensu Catalog](../../../web-ui/sensu-catalog/) to collect service metrics instead of following this guide.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
+{{% /notice %}}
+
 Sensu checks are **commands** (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.
 If you are unfamiliar with checks, read the [checks reference][1] for details and examples.
 You can also learn how to configure monitoring checks in [Monitor server resources][2].
