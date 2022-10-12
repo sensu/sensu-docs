@@ -13,9 +13,14 @@ menu:
     parent: observe-process
 ---
 
+{{% notice protip %}}
+**PRO TIP**: You can use the PagerDuty integration in the [Sensu Catalog](../../../web-ui/sensu-catalog/) to send alerts based on Sensu event data instead of following this guide.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
+{{% /notice %}}
+
+Follow this guide to create a pipeline that sends incident alerts to PagerDuty.
 Sensu [checks][2] are commands the Sensu agent executes that generate observability data in a status or metric [event][19].
 Sensu [pipelines][20] define the event filters and actions the Sensu backend executes on the events.
-Follow this guide to create a pipeline that sends incident alerts to PagerDuty.
 
 This guide will help you send alerts to PagerDuty by configuring a pipeline and adding it to a check named `check_cpu`.
 If you don't already have this check in place, follow [Monitor server resources][3] to add it.
