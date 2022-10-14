@@ -584,7 +584,12 @@ The `/checks/:check/execute` API endpoint provides HTTP POST access to create an
 ### Example {#checkscheckexecute-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/checks/:check/execute` API endpoint to execute the `check_cpu` check.
-The request includes the check name in the request body. 
+The request includes the check name in the request body.
+
+{{% notice protip %}}
+**PRO TIP**: Include the `subscriptions` attribute with the request body to override the subscriptions configured in the check definition.
+This gives you the flexibility to execute a check on any Sensu entity or group of entities on demand.
+{{% /notice %}}
 
 {{< code shell >}}
 curl -X POST \
@@ -605,9 +610,11 @@ The request will return a successful `HTTP/1.1 202 Accepted` response and an `is
 {"issued":1543861798}
 {{< /code >}}
 
-{{% notice protip %}}
-**PRO TIP**: Include the `subscriptions` attribute with the request body to override the subscriptions configured in the check definition.
-This gives you the flexibility to execute a check on any Sensu entity or group of entities on demand.
+{{% notice note %}}
+**NOTE**: If you specify a [round robin check](../../../observability-pipeline/observe-schedule/checks/#round-robin-checks), Sensu will execute the check on *all* agents with a matching subscription.
+After the ad hoc execution, the check will run as scheduled in round robin fashion.<br><br>
+To execute a round robin check on a single agent, include the agent's entity name subscription in the request body.
+For example, if the entity is named `webserver1`, use the subscription `entity:webserver1`.
 {{% /notice %}}
 
 ### API Specification {#checkscheckexecute-post-specification}
