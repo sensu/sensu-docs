@@ -1613,13 +1613,19 @@ log-level: debug
 
 ## Event logging
 
-If you wish, you can log all Sensu events to a file in JSON format.
-You can use this file as an input source for your favorite data lake solution.
-The event logging functionality provides better performance and reliability than event handlers.
+If you wish, you can log all Sensu event data to a file in JSON format.
+The Sensu event log file can be a reliable input source for your favorite data lake solution as well as a buffer for event data that you send to a database in case the database is unavailable.
 
 {{% notice note %}}
 **NOTE**: Event logs do not include log messages produced by sensu-backend service.
 To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../../operations/monitor-sensu/log-sensu-systemd/).
+{{% /notice %}}
+
+Depending on the number and size of events, logging status and metrics events to a file can require intensive input/output (I/O) performance.
+Make sure you have adequate I/O capacity before using the event logging function.
+
+{{% notice protip %}}
+**PRO TIP**: [TCP stream handlers](../../observe-process/tcp-stream-handlers/), which send observability event data to TCP sockets for external services to consume, are also a reliable way to transmit status and metrics event data without writing events to a local file.
 {{% /notice %}}
 
 Use these backend configuration options to customize event logging:
