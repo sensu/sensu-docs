@@ -266,17 +266,6 @@ sensuctl describe-type core/v2.CheckConfig --format wrapped-json
 
 {{< /language-toggle >}}
 
-## Best practices for sensuctl dump
-
-To reduce the running time for the sensuctl dump command, omit events and export only one namespace at a time.
-
-Omit events from your sensuctl dump command to reduce the size of the exported payload and the system resources required to export.
-The most important part of a backup is capturing the Sensu configuration, and even with regular backups, events are likely to be outdated by the time you restore them.
-If you need access to all events, send them to a database store instead of including events in routine Sensu backups.
-
-It takes longer to export resources from all namespaces at once than the resources from one namespace, especially as the number of resources in each namespace grows.
-To export resources more quickly, export a single namespace at a time.
-
 ## Example sensuctl dump commands
 
 To export only checks for only the current namespace to stdout in YAML or wrapped JSON format:
@@ -374,6 +363,17 @@ sensuctl dump handlers,filters --format wrapped-json --file my-handlers-and-filt
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+## Best practices for sensuctl dump
+
+To reduce the running time for the sensuctl dump command, omit events and export only one namespace at a time.
+
+Omit events from your sensuctl dump command to reduce the size of the exported payload and the system resources required to export.
+The most important part of a backup is capturing the Sensu configuration, and even with regular backups, events are likely to be outdated by the time you restore them.
+If you need access to all events, send them to a database store instead of including events in routine Sensu backups.
+
+It takes longer to export resources from all namespaces at once than the resources from one namespace, especially as the number of resources in each namespace grows.
+To export resources more quickly, export a single namespace at a time.
 
 
 [1]: ../create-manage-resources/#create-resources
