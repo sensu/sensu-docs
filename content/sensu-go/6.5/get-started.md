@@ -47,9 +47,8 @@ Sensu offers support packages for Sensu Go as well as commercial licenses design
 
 Sensu Go's core is open source software, freely available under an MIT License.
 
-- Get the Sensu Go [binary distribution][19] for your platform
-- [Visit Sensu Go on GitHub][10]
 - [Compare OSS and commercial features][14]
+- [Visit Sensu Go on GitHub][10]
 - [Build from source][11]
 
 
@@ -70,7 +69,6 @@ Sensu Go's core is open source software, freely available under an MIT License.
 [16]: #build-sensu-from-source-oss
 [17]: #explore-monitoring-at-scale-with-sensu-go
 [18]: ../operations/deploy-sensu/deployment-architecture/#common-sensu-architectures
-[19]: ../platforms/#binary-only-distributions
 [20]: ../platforms/
 [21]: https://sensu.io/learn
 [22]: ../observability-pipeline/
