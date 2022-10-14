@@ -64,9 +64,6 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 
 Sensu binary-only distributions are available in `.zip` and `.tar.gz` formats.
 
-The Sensu web UI is a standalone product &mdash; it is not distributed inside the Sensu backend binary.
-Visit the [Sensu Go Web GitHub repository][60] for more information.
-
 | Platform | Architectures |
 |----------|---------------|
 | [Linux][44] | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` `ppc64le` `s390x` |
@@ -358,7 +355,9 @@ You can also use cron to run Sensu checks locally on these systems and forward t
 Sensu Go's core is open source software, freely available under an MIT License.
 Sensu Go instances built from source do not include [commercial features][3] such as the web UI, single sign-on (SSO) authentication, and secrets management.
 Review the [feature comparison matrix][15] to learn more.
+
 To build Sensu Go from source, read the [Sensu Go installation instructions on GitHub][16].
+To download and run the web UI as a separate component, visit the [Sensu Go Web GitHub repository][60].
 
 ## Mirror packages
 
@@ -422,7 +421,7 @@ The [sensu/stable][8] packagecloud repository hosts packages for every Sensu Go 
 [57]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv6.tar.gz
 [58]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/cgo/sensu-go-cgo_6.8.2_darwin_amd64.tar.gz
 [59]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/cgo/sensu-go-cgo_6.8.2_darwin_amd64.zip
-[60]: https://github.com/sensu/web
+[60]: https://github.com/sensu/web#roadmap
 [61]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_darwin_arm64.tar.gz
 [62]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_darwin_arm64.zip
 [63]: https://packagecloud.io/sensu/stable/mirror#yum
