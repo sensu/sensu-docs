@@ -60,6 +60,14 @@ yarn
 
 This will install Hugo and build the site into the `public` directory.
 
+    **NOTE**: If you're using a Mac with an M1 chip, add the following steps. If you're not using an M1 Mac, proceed to step 4.
+
+    a. In your local copy of `sensu-docs`, open `node_modules` > `hugo-cli` > `index.js`.
+    b. Change line 76 to read `arch_exec = 'arm64';`.
+    c. Change line 77 to read `arch_dl = '-ARM64';`.
+    d. Save your changes to `index.js`.
+    e. Run `yarn` again.
+
 #### 4. Run the site locally
 
 If the site builds successfully, run:
@@ -82,10 +90,6 @@ Here are some things to try if you encounter an issue working with the site:
 The docs site displays incorrectly in Internet Explorer.
 If you cannot use a different browser, you can access a PDF copy of the Sensu documentation on our [supported versions][supp-vers] page.
 
-### Theme
-
-This project uses a [fork](themes/hugo-material-docs/) of the wonderful [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme.
-
 ### Developing Offline Docs
 
 Offline documentation uses a set of layouts located in the `offline` directory. To preview them:
@@ -94,7 +98,7 @@ Offline documentation uses a set of layouts located in the `offline` directory. 
 yarn run server --layoutDir=offline
 ```
 
-To exclude content from the offline documentation, the following can be added to a markdown file's front matter:
+To exclude content from the offline documentation, add this line to a markdown file's front matter:
 
 ```
 offline: false
