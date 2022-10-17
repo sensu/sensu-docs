@@ -1938,7 +1938,7 @@ Restart the agent with a service manager:
 sc.exe start SensuAgent
 {{< /code >}}
 
-As of Sensu Go 6.8.2, the Sensu Agent service on Windows platforms will automatically restart after failures.
+On Windows platforms, the Sensu Agent service will automatically restart after failures.
 You'll still need to use a service manager restart Windows agents to implement configuration updates.
 
 {{< platformBlockClose >}}

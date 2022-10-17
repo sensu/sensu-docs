@@ -45,8 +45,7 @@ Read the [RBAC reference][3] for [default user credentials][4] and instructions 
 
 ### Backend log messages for web UI sign-in
 
-As of Sensu Go 6.8.2, Sensu logs an INFO message in the backend log upon successful login, with details about the
-user and provider.
+Upon successful login, Sensu logs an INFO message in the backend log with details about the user and provider.
 For unsuccessful login attempts, Sensu logs an ERROR message upon authentication failure, along with the username that was tried.
 
 Read [Service logging][10] for more information about the backend log and log levels.
