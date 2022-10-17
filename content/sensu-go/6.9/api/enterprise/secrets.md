@@ -66,7 +66,7 @@ The request results in a successful `HTTP/1.1 200 OK` response and a JSON array 
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: In addition to the `VaultProvider` type, enterprise/secrets/v1 API also includes the `Env` secrets provider type that can retrieve backend [environment variables](../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables) as secrets.
+**NOTE**: In addition to the `VaultProvider` type, the enterprise/secrets/v1 API also includes the `CyberArkProvider` type, as well as the `Env` secrets provider type (which can retrieve backend [environment variables](../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables) as secrets).
 Learn more in the [secrets providers reference](../../../operations/manage-secrets/secrets-providers/).
 {{% /notice %}}
 
@@ -76,7 +76,7 @@ Learn more in the [secrets providers reference](../../../operations/manage-secre
 ---------------|------
 description    | Returns the list of secrets providers.
 example url    | http://hostname:8080/api/enterprise/secrets/v1/providers
-query parameters | `types`: Defines which type of secrets provider to retrieve. Join with `&` to retrieve multiple types: `?types=Env&types=VaultProvider`.
+query parameters | `types`: Defines which type of secrets provider to retrieve. Join with `&` to retrieve multiple types: `?types=Env&types=CyberArkProvider&types=VaultProvider`.
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

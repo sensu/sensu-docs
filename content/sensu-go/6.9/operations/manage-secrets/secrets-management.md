@@ -127,6 +127,173 @@ EOF
 You can securely pass your PagerDuty Integration Key in Sensu checks, handlers, and mutators by referring to the `pagerduty_key` secret.
 Skip to the [add a handler][19] section, where you'll use your `pagerduty_key` secret in your handler definition.
 
+## Use CyberArk Conjur for secrets management
+
+This section explains how to use [CyberArk Conjur][37] as your external [secrets provider][2].
+
+### Create an admin account in Conjur
+
+Follow the [Conjur documentation][38] to start the Conjur docker-compose stack and start the Conjur OSS environment.
+
+In the Conjur Docker container, run the following command to create a sensu.io account and admin credentials:
+
+{{< code shell >}}
+docker-compose exec conjur conjurctl account create sensu.io
+{{< /code >}}
+
+The response should confirm that Conjur created the sensu.io account and include an admin API key.
+For example:
+
+{{< code text >}}
+Created new account 'sensu.io'
+Token-Signing Public Key: -----BEGIN PUBLIC KEY-----
+MIIBIjANB...
+-----END PUBLIC KEY-----
+API key for admin: 5pj0kdx56npm8gksd9gre69sb21vh7zws2nk8jy73ekcyjk8e0xdj3
+{{< /code >}}
+
+### Write and load a Conjur policy with the secrets variable and host
+
+Use the [Conjur CLI][39] to load a policy and secrets for Sensu to use.
+
+1. Initialize the Conjur CLI client to use the sensu.io account and point it at the correct URL:
+
+   {{< code shell >}}
+conjur init -u conjur -a sensu.io
+{{< /code >}}
+
+2. Write a Conjur policy that defines a human user, a non-human identity that represents a Sensu backend, at least one secret variable, permissions for the human user, and a host for the Sensu backend to use:
+
+   {{< code shell >}}
+cat << EOF > /tmp/policy.yaml
+- !policy
+  id: Sensu
+  body:
+  - !user SensuAdmin
+  - !host sensuBackend
+  - !variable
+    id: PagerDutyKey
+  - !permit
+    role: !user SensuAdmin
+    privileges: [read, update, execute]
+    resource: !variable pagerDutyAPIKey
+  - !permit
+    role: !host sensuBackend
+    privileges: [read, execute]
+    resource: !variable pagerDutyAPIKey
+EOF
+{{< /code >}}
+
+3. Load the policy:
+
+   {{% notice note %}}
+**NOTE**: You may be prompted to enter the admin account username (SensuAdmin) and API key for the sensu.io account).
+{{% /notice %}}
+
+   {{< code shell >}}
+conjur policy load root /tmp/policy.yaml
+{{< /code >}}
+
+   The response should include a list of created roles and credentials.
+   Copy and save the API key value for the sensu.io:host:Sensu/sensuBackend role &mdash; you will need it when you create your CyberArkProvider secrets provider in Sensu.
+
+4. Use the Conjur CLI to set the PagerDutyKey secret, replacing `<INTEGRATION_KEY>` with your PagerDuty Integration Key:
+
+   {{< code shell >}}
+conjur variable values add Sensu/PagerDutyKey <INTEGRATION_KEY>
+{{< /code >}}
+
+### Create your Conjur secrets provider
+
+Use `sensuctl create` to create your secrets provider, `conjur`.
+In the code below, replace `<API_KEY>` with the API key value for the sensu.io:host:Sensu/sensuBackend role.
+
+Then, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: CyberArkProvider
+api_version: secrets/v1
+metadata:
+  name: conjur
+spec:
+  client:
+    account: sensu.io
+    appliance_url: http://localhost:8480
+    login: host/Sensu/sensuBackend
+    api_key: <API_KEY>
+    timeout: 1s
+    ttl: 60s
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "CyberArkProvider",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "conjur"
+  },
+  "spec": {
+    "client": {
+      "account": "sensu.io",
+      "appliance_url": "http://localhost:8480",
+      "login": "host/Sensu/sensuBackend",
+      "api_key": "<API_KEY>",
+      "timeout": "1s",
+      "ttl": "60s"
+    }
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Create your Conjur secret
+
+Use `sensuctl create` to create your secret:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: Secret
+api_version: secrets/v1
+metadata:
+  name: pagerduty_key
+spec:
+  provider: cyberark
+  id: Sensu/PagerDutyKey
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Secret",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "pagerduty_key"
+  },
+  "spec": {
+    "provider": "cyberark",
+    "id": "Sensu/PagerDutyKey"
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Now you can securely pass your PagerDuty Integration Key in the handlers and mutators by referring to the `pagerduty_key` secret.
+In the [add a handler][19] section, you'll use your `pagerduty_key` secret in your handler definition.
+
 ## Use HashiCorp Vault for secrets management
 
 This section explains how to use [HashiCorp Vault][1] as your external [secrets provider][2] to authenticate via the HashiCorp Vault integration's [token auth method][3] or [TLS certificate auth method][4].
@@ -552,3 +719,6 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [34]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
 [35]: ../../../observability-pipeline/observe-process/pipelines/#workflows
 [36]: ../../../observability-pipeline/observe-process/send-pagerduty-alerts/#assign-the-pipeline-to-a-check
+[37]: https://www.conjur.org/
+[38]: https://www.conjur.org/get-started/quick-start/oss-environment/
+[39]: https://docs.conjur.org/Latest/en/Content/Developer/CLI/cli-lp.htm?tocpath=Developer%7CConjur%20CLI%7C_____0

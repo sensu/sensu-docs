@@ -22,14 +22,14 @@ Your Sensu backend will be able to execute the handler with any check.
 ## Secrets
 
 Secrets are configured via secrets resources.
-A secret resource definition refers to the secrets provider (`Env` or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
+A secret resource definition refers to the secrets provider (`Env`, `CyberArkProvider`, or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
 
 The [secrets reference][3] includes the specification, sensuctl configuration subcommands, and examples for secrets resources.
 
 ## Secrets providers
 
 The [Sensu Go commercial distribution][2] includes a secrets provider, `Env`, that exposes secrets from environment variables on your Sensu backend nodes.
-You can also use the secrets provider `VaultProvider` to authenticate via the HashiCorp Vault integration.
+You can also use the secrets providers `CyberArkProvider` or `VaultProvider` to authenticate via the HashiCorp Vault integration.
 
 The [secrets providers reference][4] includes the resource specification, instructions for retrieving your secrets providers configuration via the Sensu API, and examples.
 
