@@ -60,20 +60,6 @@ yarn
 
 This will install Hugo and build the site into the `public` directory.
 
-**NOTE**: If you're using a Mac with an M1 chip, add the following steps. If you're not using an M1 Mac, proceed to step 4.
-
-*Additional steps for M1 Macs only*
-
-a. In your local copy of `sensu-docs`, open `node_modules` > `hugo-cli` > `index.js`.
-
-b. Change line 76 to read `arch_exec = 'arm64';`.
-
-c. Change line 77 to read `arch_dl = '-ARM64';`.
-
-d. Save your changes to `index.js`.
-
-e. Run `yarn` again.
-
 #### 4. Run the site locally
 
 If the site builds successfully, run:
