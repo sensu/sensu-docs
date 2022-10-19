@@ -21,7 +21,7 @@ Sensu's secrets management eliminates the need to expose secrets like usernames,
 With Sensu's secrets management, you can obtain secrets from one or more external secrets providers, refer to external secrets, and consume secrets via [backend environment variables][4].
 
 {{% notice note %}}
-**NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-with-secret), [handlers](../../../observability-pipeline/observe-process/handlers/#handler-with-secret), and [mutators](../../../observability-pipeline/observe-transform/mutators/#mutator-with-secret).
+**NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-example-that-uses-secrets-management), [handlers](../../../observability-pipeline/observe-process/handlers/#use-secrets-management-in-a-handler), and [mutators](../../../observability-pipeline/observe-transform/mutators/#use-secrets-management-in-a-mutator).
 {{% /notice %}}
 
 Only Sensu backends have access to request [secrets][9] from a secrets provider.
@@ -335,7 +335,7 @@ address: https://vaultserver.example.com:8200
 
 max_retries  | 
 -------------|------ 
-description  | Number of times to retry connecting to the vault provider.
+description  | Number of times to retry connecting to the Vault provider.
 required     | true
 type         | Integer
 default      | 2
@@ -392,7 +392,7 @@ timeout: 20s
 
 tls          | 
 -------------|------ 
-description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or [`cname`][15].
+description  | TLS object. Vault only works with TLS configured. You may need to set up a Certificate Authority (CA) certificate if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or [`cname`][15].
 required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -486,7 +486,7 @@ limit: 10.0
 [1]: ../../../commercial/
 [2]: ../../../api/enterprise/secrets/
 [3]: ../../../sensuctl/
-[4]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
+[4]: ../../../observability-pipeline/observe-schedule/backend/#environment-variables
 [5]: https://www.vaultproject.io/docs/what-is-vault/
 [6]: ../../control-access/rbac#default-users
 [7]: ../../../sensuctl/create-manage-resources/#create-resources
