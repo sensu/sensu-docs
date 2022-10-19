@@ -279,6 +279,12 @@ FLAGS
   -repo-dir .                          path to the catalog repository
 {{< /code >}}
 
+The server subcommand starts a webserver to serve the JSON files the Catalog API generates.
+To view your catalog in the web UI while running the server subcommand, you must also configure a Sensu backend and create a GlobalConfig resource to point to the webserver.
+
+The preview subcommand starts a webserver like the server subcommand but also serves a preview web UI that can communicate with the Sensu backend.
+If you use the preview subcommand, you do not need to interact with the Sensu backend or create a GlobalConfig resource.
+
 ## Catalog tags and versions
 
 The catalog-api tool consumes and parses integration-specific git tags to manage and generate versioned integrations.
@@ -1179,7 +1185,7 @@ For integrations that create checks, list the resource definitions in your `sens
 3. Secret
 4. Asset
 
-The prompts for check resources should include at least one subscription.
+The `sensu-integration.yaml` file for check resources should include at least one subscription, whether it is provided as a default or requested with a prompt.
 Subscriptions should be named according to the check's function.
 For example, a PostgreSQL monitoring check could include a subscription named `postgresql`.
 
