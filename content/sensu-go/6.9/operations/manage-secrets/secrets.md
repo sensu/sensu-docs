@@ -21,7 +21,7 @@ Sensu's secrets management eliminates the need to expose secrets in your Sensu c
 When a Sensu resource definition requires a secret (for example, a username or password), Sensu allows you to obtain secrets from one or more external secrets providers, so you can both refer to external secrets and consume secrets via [backend environment variables][5].
 
 {{% notice note %}}
-**NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-with-secret), [handlers](../../../observability-pipeline/observe-process/handlers/#handler-with-secret), and [mutators](../../../observability-pipeline/observe-transform/mutators/#mutator-with-secret).
+**NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-example-that-uses-secrets-management), [handlers](../../../observability-pipeline/observe-process/handlers/#use-secrets-management-in-a-handler), and [mutators](../../../observability-pipeline/observe-transform/mutators/#use-secrets-management-in-a-mutator).
 {{% /notice %}}
 
 Only Sensu backends have access to request secrets from a [secrets provider][7].
@@ -39,6 +39,8 @@ Sensu only exposes secrets to Sensu services like environment variables and auto
 
 A secret resource definition refers to a secrets `id` and a secrets `provider`.
 Read the [secrets provider reference][7] for the provider specification.
+
+This example shows a resource definition for a secret that uses Sensu's `Env` secrets provider:
 
 {{< language-toggle >}}
 
@@ -69,7 +71,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Configure secrets that target a HashiCorp Vault as shown in the following example:
+Configure secrets that target HashiCorp Vault as shown in the following example:
 
 {{< language-toggle >}}
 
@@ -267,9 +269,29 @@ namespace: default
 
 id           | 
 -------------|------ 
-description  | Identifying key for the provider to retrieve the secret. For the `Env` secrets provider, the `id` is the environment variable. For the `Vault` secrets provider, the `id` specifies the secrets engine path, the path to the secret within that secrets engine, and the field to retrieve within the secret.
+description  | Identifying key for the provider to use to retrieve the secret.<br><br>For the Env secrets provider, the id is the environment variable name.<br><br>For the VaultProvider secrets provider, the id specifies the secrets engine path, the path to the secret within that secrets engine, and the field to retrieve within the secret.<br><br>For the CyberArkProvider secrets provider, the id specifies the policy id and variable values.
 required     | true
 type         | String
+example for Env | {{< language-toggle >}}
+{{< code yml >}}
+id: ANSIBLE_TOKEN
+{{< /code >}}
+{{< code json >}}
+{
+  "id": "ANSIBLE_TOKEN"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+example for CyberArk Conjur | {{< language-toggle >}}
+{{< code yml >}}
+id: Sensu/pagerDutyAPIKey
+{{< /code >}}
+{{< code json >}}
+{
+  "id": "Sensu/pagerDutyAPIKey"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 example for Vault KV Secrets Engine v1 | {{< language-toggle >}}
 {{< code yml >}}
 id: secret/ansible#token
@@ -296,6 +318,7 @@ provider     |
 description  | Name of the provider with the secret.
 required     | true
 type         | String
+allowed values | `env`, `cyberark`, `vault`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 provider: vault
@@ -311,7 +334,7 @@ provider: vault
 [2]: ../../../api/enterprise/secrets/
 [3]: ../../../sensuctl/
 [4]: ../../../sensuctl/create-manage-resources/#subcommands
-[5]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
+[5]: ../../../observability-pipeline/observe-schedule/backend/#environment-variables
 [6]: ../../control-access/rbac#default-users
 [7]: ../secrets-providers/
 [8]: #spec-attributes

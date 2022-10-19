@@ -15,14 +15,14 @@ menu:
 Sensu's secrets management eliminates the need to expose secrets like usernames, passwords, and access keys in your Sensu configuration.
 Secrets management is available for Sensu handler, mutator, and check resources.
 
-[Use secrets management in Sensu][1] explains how to use Sensu's secrets provider (`Env`) or HashiCorp Vault as your external secrets provider and authenticate without exposing your secrets.
+[Use secrets management in Sensu][1] explains how to use Sensu's secrets provider (`Env`), CyberArk Conjur, or HashiCorp Vault as your external secrets provider and authenticate without exposing your secrets.
 Follow this guide to set up your PagerDuty Integration Key as a secret and create a PagerDuty handler definition that requires the secret.
 Your Sensu backend will be able to execute the handler with any check.
 
 ## Secrets
 
-Secrets are configured via secrets resources.
-A secret resource definition refers to the secrets provider (`Env`, `CyberArkProvider`, or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
+Secrets are configured with Sensu's `Secret` resources.
+A secret resource definition refers to the secrets provider and an ID (the named secret to fetch from the secrets provider).
 
 The [secrets reference][3] includes the specification, sensuctl configuration subcommands, and examples for secrets resources.
 

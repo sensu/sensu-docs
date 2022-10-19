@@ -3,7 +3,7 @@ title: "Use secrets management in Sensu"
 linkTitle: "Use Secrets Management"
 guide_title: "Use secrets management in Sensu"
 type: "guide"
-description: "Follow this guide to use Sensu's Env secrets provider or HashiCorp Vault to avoid exposing sensitive information in your Sensu configuration."
+description: "Follow this guide to use Sensu's Env secrets provider, CyberArk Conjur, or HashiCorp Vault to avoid exposing sensitive information in your Sensu configuration."
 weight: 10
 version: "6.9"
 product: "Sensu Go"
@@ -14,19 +14,19 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the Env, CyberArkProvider, and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu's secrets management allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration.
-In this guide, you'll learn how to use Sensu's `Env` secrets provider or [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing your secrets.
+In this guide, you'll learn how to use Sensu's `Env` secrets provider, [CyberArk Conjur][42], or [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing your secrets.
 You'll set up your PagerDuty Integration Key as a secret, create a PagerDuty handler definition that requires the secret, and configure a pipeline that includes the PagerDuty handler.
 Your Sensu backend can then execute the pipeline with any check.
 
 To follow this guide, [install the Sensu backend][5], make sure you have at least one [Sensu agent][11] running, and [install and configure sensuctl][7].
 
 Secrets are configured via [secrets resources][8].
-A secret resource definition refers to the secrets provider (`Env` or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
+A secret resource definition refers to the secrets provider (`Env`, `CyberArkProvider`, or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
 
 This guide only covers the handler use case, but you can use secrets management in handler, mutator, and check execution.
 When a check configuration references a secret, the Sensu backend will only transmit the check's execution requests to agents that are connected via [mutually authenticated transport layer security (mTLS)-encrypted WebSockets][15].
@@ -60,7 +60,7 @@ Next, configure your secrets provider:
 
 ## Use Env for secrets management
 
-The [Sensu Go commercial distribution][1] includes a secrets provider, `Env`, that exposes secrets from [environment variables][21] on your Sensu backend nodes.
+The [Sensu Go commercial distribution][41] includes a secrets provider, `Env`, that exposes secrets from [environment variables][21] on your Sensu backend nodes.
 The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
 
 ### Create your backend environment variable
@@ -734,7 +734,7 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [15]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [17]: ../../../operations/manage-secrets/secrets-providers#tls-vault
 [19]: #add-a-handler
-[21]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
+[21]: ../../../observability-pipeline/observe-schedule/backend/#environment-variables
 [22]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [24]: ../../../observability-pipeline/observe-schedule/checks/#pipelines-attribute
@@ -752,3 +752,5 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [38]: https://www.conjur.org/get-started/quick-start/oss-environment/
 [39]: https://docs.conjur.org/Latest/en/Content/Developer/CLI/cli-lp.htm?tocpath=Developer%7CConjur%20CLI%7C_____0
 [40]: #use-cyberark-conjur-for-secrets-management
+[41]: ../../../commercial/
+[42]: https://www.conjur.org/

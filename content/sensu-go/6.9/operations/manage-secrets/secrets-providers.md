@@ -21,7 +21,7 @@ Sensu's secrets management eliminates the need to expose secrets like usernames,
 With Sensu's secrets management, you can obtain secrets from one or more external secrets providers, refer to external secrets, and consume secrets via [backend environment variables][4].
 
 {{% notice note %}}
-**NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-with-secret), [handlers](../../../observability-pipeline/observe-process/handlers/#handler-with-secret), and [mutators](../../../observability-pipeline/observe-transform/mutators/#mutator-with-secret).
+**NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-example-that-uses-secrets-management), [handlers](../../../observability-pipeline/observe-process/handlers/#use-secrets-management-in-a-handler), and [mutators](../../../observability-pipeline/observe-transform/mutators/#use-secrets-management-in-a-mutator).
 {{% /notice %}}
 
 Only Sensu backends have access to request [secrets][9] from a secrets provider.
@@ -70,7 +70,7 @@ spec: {}
 
 {{< /language-toggle >}}
 
-## `CyberArkProvider` secrets provider example
+## CyberArkProvider secrets provider example
 
 The `CyberArkProvider` secrets provider is a vendor-specific implementation for [CyberArk Conjur][18] secrets management.
 
@@ -236,7 +236,38 @@ spec         |
 description  | Top-level map that includes secrets provider configuration spec attributes. Read [VaultProvider spec attributes][8] and [CyberArkProvider spec attributes][19] for details.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
-`VaultProvider` example | {{< language-toggle >}}
+CyberArkProvider example | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  client:
+    account: sensu.io
+    appliance_url: http://localhost:8480
+    login: host/Sensu/sensuBackend
+    api_key: CONJUR_API_KEY
+    timeout: 1s
+    tls:
+      ca_cert: "/etc/ssl/certs/conjur_ca_cert.pem"
+    ttl: 60s
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "client": {
+      "account": "sensu.io",
+      "appliance_url": "http://localhost:8480",
+      "login": "host/Sensu/sensuBackend",
+      "api_key": "CONJUR_API_KEY",
+      "timeout": "1s",
+      "tls": {
+        "ca_cert": "/etc/ssl/certs/conjur_ca_cert.pem"
+      },
+      "ttl": "60s"
+    }
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+VaultProvider example | {{< language-toggle >}}
 {{< code yml >}}
 spec:
   client:
@@ -267,37 +298,6 @@ spec:
       },
       "token": "VAULT_TOKEN",
       "version": "v1"
-    }
-  }
-}
-{{< /code >}}
-{{< /language-toggle >}}
-CyberArkProvider example | {{< language-toggle >}}
-{{< code yml >}}
-spec:
-  client:
-    account: sensu.io
-    appliance_url: http://localhost:8480
-    login: host/Sensu/sensuBackend
-    api_key: CONJUR_API_KEY
-    timeout: 1s
-    tls:
-      ca_cert: "/etc/ssl/certs/conjur_ca_cert.pem"
-    ttl: 60s
-{{< /code >}}
-{{< code json >}}
-{
-  "spec": {
-    "client": {
-      "account": "sensu.io",
-      "appliance_url": "http://localhost:8480",
-      "login": "host/Sensu/sensuBackend",
-      "api_key": "CONJUR_API_KEY",
-      "timeout": "1s",
-      "tls": {
-        "ca_cert": "/etc/ssl/certs/conjur_ca_cert.pem"
-      },
-      "ttl": "60s"
     }
   }
 }
@@ -355,7 +355,7 @@ name: vault
 {{< /code >}}
 {{< /language-toggle >}}
 
-### `CyberArkProvider` spec attributes
+### CyberArkProvider spec attributes
 
 client       | 
 -------------|------ 
@@ -391,7 +391,7 @@ client:
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### `CyberArkProvider` client attributes
+#### CyberArkProvider client attributes
 
 account      | 
 -------------|------ 
@@ -411,7 +411,7 @@ account: sensu.io
 
 appliance_url | 
 --------------|------ 
-description   | Conjur appliance URL.
+description   | Conjur appliance URL (the HTTP or HTTPS endpoint CyberArk listens on).
 required      | true
 type          | String
 example       | {{< language-toggle >}}
@@ -427,7 +427,7 @@ appliance_url: http://localhost:8480
 
 login        | 
 -------------|------ 
-description  | Conjur authentication login.
+description  | Conjur authentication login. The login includes `host` followed by the values provided for id and host in the Conjur policy: `host/<POLICY_ID>/<POLICY_HOST>`
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -446,7 +446,6 @@ timeout      |
 description  | Provider connection timeout (hard stop).
 required     | false
 type         | String
-default      | 60s
 example      | {{< language-toggle >}}
 {{< code yml >}}
 timeout: 1s
@@ -462,7 +461,7 @@ timeout: 1s
 
 tls          | 
 -------------|------ 
-description  | TLS object. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or `cname`.
+description  | TLS object. You may need to set up a Certificate Authority (CA) certificate if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or `cname`.
 required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -487,7 +486,7 @@ tls:
 
 ttl          | 
 -------------|------ 
-description  | The time-to-live (TTL) until `CyberArkProvider` secrets are considered stale. Sensu will cache secrets provider values for this duration.
+description  | The time-to-live (TTL) until CyberArkProvider secrets are considered stale. Sensu will cache secrets provider values for this duration.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
@@ -562,7 +561,7 @@ address: https://vaultserver.example.com:8200
 
 max_retries  | 
 -------------|------ 
-description  | Number of times to retry connecting to the vault provider.
+description  | Number of times to retry connecting to the Vault provider.
 required     | true
 type         | Integer
 default      | 2
@@ -619,8 +618,8 @@ timeout: 20s
 
 tls          | 
 -------------|------ 
-description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or [`cname`][15].
-required     | false
+description  | TLS object. Vault only works with TLS configured. You may need to set up a Certificate Authority (CA) certificate if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or [`cname`][15].
+required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -713,7 +712,7 @@ limit: 10.0
 [1]: ../../../commercial/
 [2]: ../../../api/enterprise/secrets/
 [3]: ../../../sensuctl/
-[4]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
+[4]: ../../../observability-pipeline/observe-schedule/backend/#environment-variables
 [5]: https://www.vaultproject.io/docs/what-is-vault/
 [6]: ../../control-access/rbac#default-users
 [7]: ../../../sensuctl/create-manage-resources/#create-resources
