@@ -269,7 +269,7 @@ namespace: default
 
 id           | 
 -------------|------ 
-description  | Identifying key for the provider to use to retrieve the secret.<br><br>For the Env secrets provider, the id is the environment variable name.<br><br>For the VaultProvider secrets provider, the id specifies the secrets engine path, the path to the secret within that secrets engine, and the field to retrieve within the secret.<br><br>For the CyberArkProvider secrets provider, the id specifies the policy id and variable values.
+description  | Identifying key for the provider to use to retrieve the secret.<br><br>For the Env secrets provider, the id is the environment variable name.<br><br>For the CyberArkProvider secrets provider, the id specifies the policy id and variable values.<br><br>For the VaultProvider secrets provider, the id specifies the secrets engine path, the path to the secret within that secrets engine, and the field to retrieve within the secret.
 required     | true
 type         | String
 example for Env | {{< language-toggle >}}
