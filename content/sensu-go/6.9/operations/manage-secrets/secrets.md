@@ -21,7 +21,7 @@ Sensu's secrets management eliminates the need to expose secrets in your Sensu c
 When a Sensu resource definition requires a secret (for example, a username or password), Sensu allows you to obtain secrets from one or more external secrets providers, so you can both refer to external secrets and consume secrets via [backend environment variables][5].
 
 {{% notice note %}}
-**NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-with-secret), [handlers](../../../observability-pipeline/observe-process/handlers/#handler-with-secret), and [mutators](../../../observability-pipeline/observe-transform/mutators/#mutator-with-secret).
+**NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-example-that-uses-secrets-management), [handlers](../../../observability-pipeline/observe-process/handlers/#use-secrets-management-in-a-handler), and [mutators](../../../observability-pipeline/observe-transform/mutators/#use-secrets-management-in-a-mutator).
 {{% /notice %}}
 
 Only Sensu backends have access to request secrets from a [secrets provider][7].
@@ -267,7 +267,7 @@ namespace: default
 
 id           | 
 -------------|------ 
-description  | Identifying key for the provider to retrieve the secret. For the `Env` secrets provider, the `id` is the environment variable. For the `Vault` secrets provider, the `id` specifies the secrets engine path, the path to the secret within that secrets engine, and the field to retrieve within the secret.
+description  | Identifying key for the provider to use to retrieve the secret. For the `Env` secrets provider, the `id` is the environment variable. For the `VaultProvider` secrets provider, the `id` specifies the secrets engine path, the path to the secret within that secrets engine, and the field to retrieve within the secret.
 required     | true
 type         | String
 example for Vault KV Secrets Engine v1 | {{< language-toggle >}}
@@ -311,7 +311,7 @@ provider: vault
 [2]: ../../../api/enterprise/secrets/
 [3]: ../../../sensuctl/
 [4]: ../../../sensuctl/create-manage-resources/#subcommands
-[5]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
+[5]: ../../../observability-pipeline/observe-schedule/backend/#environment-variables
 [6]: ../../control-access/rbac#default-users
 [7]: ../secrets-providers/
 [8]: #spec-attributes
