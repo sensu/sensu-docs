@@ -188,7 +188,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 ## Secrets provider specification
 
 {{% notice note %}}
-**NOTE**: The attribute descriptions in this section use the `VaultProvider` and `CyberArkProvider` datatypes.
+**NOTE**: The attribute descriptions in this section use the `CyberArkProvider` and `VaultProvider` datatypes.
 Review the [Env secrets provider example](#env-secrets-provider-example) for an example definition for the `Env` datatype.
 {{% /notice %}}
 

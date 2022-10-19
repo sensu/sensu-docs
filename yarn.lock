@@ -1688,10 +1688,10 @@ https-proxy-agent@^5.0.0:
     agent-base "6"
     debug "4"
 
-hugo-cli@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/hugo-cli/-/hugo-cli-0.11.0.tgz#ae10973b7b9b0ffd7ba47d8c8ca5a50250726aea"
-  integrity sha512-Gu2s535ASZuV4HOi1hJ1HmNG4zN4Jb30UHcMPzYgTa1Bx2v/urG+vb6c4J0DeYfj4YzpopjFW8w9c0iy51DwPQ==
+hugo-cli@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/hugo-cli/-/hugo-cli-0.11.1.tgz#07e9025b9b765c780139e7229998f694895efcab"
+  integrity sha512-UaZnuQjuog31ElAtll2yLzCNMmp55OWZ3k6IHd3qIswVhYT+zjoWVRXBQ8ZLmAHxT/ToNe2mCXH9FOUqHIxibw==
   dependencies:
     chalk "^2.4.1"
     decompress "^4.0.0"
