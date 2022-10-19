@@ -40,6 +40,8 @@ Sensu only exposes secrets to Sensu services like environment variables and auto
 A secret resource definition refers to a secrets `id` and a secrets `provider`.
 Read the [secrets provider reference][7] for the provider specification.
 
+### Env provider example
+
 This example shows a resource definition for a secret that uses Sensu's `Env` secrets provider:
 
 {{< language-toggle >}}
@@ -70,6 +72,43 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+### CyberArkProvider example
+
+Configure secrets that target CyberArk Conjur as shown in the following example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Secret
+api_version: secrets/v1
+metadata:
+  name: sensu-ansible
+spec:
+  id: Sensu/ansibleToken
+  provider: cyberark
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Secret",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "sensu-ansible"
+  },
+  "spec": {
+    "id": "Sensu/ansibleToken",
+    "provider": "cyberark"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The `id` value for secrets that target CyberArk Conjur includes the id and variable values specified in the Conjur policy.
+
+### HashiCorp Vault example
 
 Configure secrets that target HashiCorp Vault as shown in the following example:
 
@@ -284,11 +323,11 @@ id: ANSIBLE_TOKEN
 {{< /language-toggle >}}
 example for CyberArk Conjur | {{< language-toggle >}}
 {{< code yml >}}
-id: Sensu/pagerDutyAPIKey
+id: Sensu/ansibleToken
 {{< /code >}}
 {{< code json >}}
 {
-  "id": "Sensu/pagerDutyAPIKey"
+  "id": "Sensu/ansibleToken"
 }
 {{< /code >}}
 {{< /language-toggle >}}
