@@ -242,7 +242,6 @@ conjur variable values add Sensu/pagerDutyAPIKey <INTEGRATION_KEY>
 
 Use `sensuctl create` to create your secrets provider, `conjur`.
 In the code below, replace `<API_KEY>` with the API key value for the sensu.io:host:Sensu/sensuBackend role.
-
 Then, run:
 
 {{< language-toggle >}}
@@ -253,7 +252,7 @@ cat << EOF | sensuctl create
 type: CyberArkProvider
 api_version: secrets/v1
 metadata:
-  name: cyberark
+  name: conjur
 spec:
   client:
     account: sensu.io
@@ -271,7 +270,7 @@ cat << EOF | sensuctl create
   "type": "CyberArkProvider",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "cyberark"
+    "name": "conjur"
   },
   "spec": {
     "client": {
@@ -303,7 +302,7 @@ api_version: secrets/v1
 metadata:
   name: pagerduty_key
 spec:
-  provider: cyberark
+  provider: conjur
   id: Sensu/pagerDutyAPIKey
 EOF
 {{< /code >}}
@@ -317,7 +316,7 @@ cat << EOF | sensuctl create
     "name": "pagerduty_key"
   },
   "spec": {
-    "provider": "cyberark",
+    "provider": "conjur",
     "id": "Sensu/pagerDutyAPIKey"
   }
 }
