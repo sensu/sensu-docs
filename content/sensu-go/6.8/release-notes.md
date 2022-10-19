@@ -9,6 +9,7 @@ version: "6.8"
 menu: "sensu-go-6.8"
 ---
 
+- [6.8.2 release notes](#682-release-notes)
 - [6.8.1 release notes](#681-release-notes)
 - [6.8.0 release notes](#680-release-notes)
 - [6.7.5 release notes](#675-release-notes)
@@ -109,6 +110,38 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.8.2 release notes
+
+**October 6, 2022** &mdash; The latest release of Sensu Go, version 6.8.2, is now available for download.
+
+Sensu Go 6.8.2 includes logging improvements: logs now include login attempts, check names for failed check execution requests, and backend entity names for agent websocket connections. We also added a label to events with a truncated check output and now automatically restart the agent on Windows platforms after failures. The 6.8.2 patch release also modifies the keepalive startup logic and fixes a number of web UI issues in the Entities and configuration resource pages.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
+
+**IMPROVEMENTS:**
+
+- Agent websocket connection logging now includes backend entity name.
+- When check output is truncated due to the [max_output_size][302] configuration, the events the check produces will include a `sensu.io/output_truncated_bytes` label.
+- Agent log messages now include the check name when a check execution request fails.
+- On Windows platforms, the Sensu Agent service now automatically restarts after failures.
+
+**FIXES:**
+
+- ([Commercial feature][295]) In the web UI, restored the silence function on the Entities page.
+- ([Commercial feature][295]) In the web UI, resource pages now automatically refresh after creating resources.
+- ([Commercial feature][295]) The web UI now displays pipeline definitions under the **RAW** tab on individual pipeline resource pages.
+- ([Commercial feature][295]) In the web UI, corrected the link to the entity reference in the Edit Entity modal.
+- ([Commercial feature][295]) In the web UI, errors displayed  when deleting and re-adding an asset from asset page have been addressed.
+- ([Commercial feature][295]) In the web UI, fixed the validation for resource names and array fields to prevent crashes.
+- ([Commercial feature][295]) In the web UI, the configuration resource pages now show an empty list instead of an endless loading indicator for users who do not have the required permissions.
+- ([Commercial feature][295]) In the web UI, fixed a bug that could cause a crash when an authorized user does not have an explicitly set username.
+- ([Commercial feature][295]) In the web UI, temporarily disabled saved searches on Entity, Services, Silences, and Check pages.
+- ([Commercial feature][295]) In the web UI, fixed a bug that prevented individual resource pages from displaying annotations and labels on initial page load.
+- ([Commercial feature][295]) In the web UI, when users do not have the required permissions to perform a specific action, the action's button is now disabled with a tooltip to explain the reason.
+- Fixed an issue that prevented multi-expression, exclusive event filters set to `deny` from being evaluated properly.
+- Modified keepalive startup so that etcd lease errors will not cause sensu-backend crashes.
+
 
 ## 6.8.1 release notes
 
@@ -751,7 +784,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.2.4.
 
 **January 21, 2021** &mdash; The latest release of Sensu Go, version 6.2.3, is now available for download.
 
-This patch fixes two bugs: one that could prevent the `--agent-managed-entity` configuration from working properly and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
+This patch fixes two bugs: one that could prevent the `agent-managed-entity` configuration option from working properly and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.2.3.
 
@@ -964,7 +997,7 @@ Visit the [Sensu Go Web repository][163] for more information.
 - ([Commercial feature][162]) Docker-only Sensu now binds to the hostname of containers instead of `localhost`. Docker images now set their own default values for environment variables `SENSU_AGENT_API_URL`, `SENSU_BACKEND_API_URL`, `SENSU_BACKEND_ETCD_INITIAL_CLUSTER`, `SENSU_BACKEND_ETCD_ADVERTISE_CLUSTER`, `SENSU_BACKEND_ETCD_INITIAL_ADVERTISE_PEER_URLS`, `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`, and `ETCD_LISTEN_PEER_URLS`.
 - ([Commercial feature][162]) Added Linux packages for 386; armv5, armv6, and armv7; MIPS hard float, MIPS LE hard float, and MIPS 64 LE hard float; ppc64le; and s390x architectures.
 Review the [supported platforms][165] page for a complete list of Sensu’s supported platforms.
-- Added [Sensu query expression][168] `sensu.CheckDependencies`.
+- ([Commercial feature][162]) Added [Sensu query expression][168] `sensu.CheckDependencies`.
 - Added [binary-only distributions][164] for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
 - Added the `is_silenced` Boolean attribute to the event.Check object to indicate whether the event was silenced at the time it was processed.
 
@@ -1522,7 +1555,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
 
 **FIXES:**
 
-- As a result of upgrading etcd, TLS etcd clients that lose their connection will successfully reconnect when using `--no-embed-etcd`.
+- As a result of upgrading etcd, TLS etcd clients that lose their connection will successfully reconnect when using the `no-embed-etcd` configuration option.
 - Check TTL and keepalive switches are now correctly buried when associated events and entities are deleted.
 As a result, Sensu now uses far fewer leases for check TTLs and keepalives, which improves stability for most deployments.
 - Corrected a minor UX issue in interactive filter commands in sensuctl.
@@ -2514,3 +2547,4 @@ To get started with Sensu Go:
 [299]: /sensu-go/6.8/api/other/ready/
 [300]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#api-serve-wait-time
 [301]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#agent-serve-wait-time
+[302]: /sensu-go/6.8/observability-pipeline/observe-schedule/checks/#check-output-truncation-attributes

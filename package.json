@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "grunt-env": "^1.0.1",
-    "hugo-cli": "^0.11.0"
+    "hugo-cli": "^0.11.1"
   },
   "engines": {
     "node": ">= 12 <= 18"

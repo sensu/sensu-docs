@@ -708,7 +708,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.2.4.
 
 **January 21, 2021** &mdash; The latest release of Sensu Go, version 6.2.3, is now available for download.
 
-This patch fixes two bugs: one that could prevent the `--agent-managed-entity` configuration from working properly and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
+This patch fixes two bugs: one that could prevent the `agent-managed-entity` configuration option from working properly and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.2.3.
 
@@ -921,7 +921,7 @@ Visit the [Sensu Go Web repository][163] for more information.
 - ([Commercial feature][162]) Docker-only Sensu now binds to the hostname of containers instead of `localhost`. Docker images now set their own default values for environment variables `SENSU_AGENT_API_URL`, `SENSU_BACKEND_API_URL`, `SENSU_BACKEND_ETCD_INITIAL_CLUSTER`, `SENSU_BACKEND_ETCD_ADVERTISE_CLUSTER`, `SENSU_BACKEND_ETCD_INITIAL_ADVERTISE_PEER_URLS`, `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`, and `ETCD_LISTEN_PEER_URLS`.
 - ([Commercial feature][162]) Added Linux packages for 386; armv5, armv6, and armv7; MIPS hard float, MIPS LE hard float, and MIPS 64 LE hard float; ppc64le; and s390x architectures.
 Review the [supported platforms][165] page for a complete list of Sensu’s supported platforms.
-- Added [Sensu query expression][168] `sensu.CheckDependencies`.
+- ([Commercial feature][162]) Added [Sensu query expression][168] `sensu.CheckDependencies`.
 - Added [binary-only distributions][164] for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
 - Added the `is_silenced` Boolean attribute to the event.Check object to indicate whether the event was silenced at the time it was processed.
 
@@ -1479,7 +1479,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
 
 **FIXES:**
 
-- As a result of upgrading etcd, TLS etcd clients that lose their connection will successfully reconnect when using `--no-embed-etcd`.
+- As a result of upgrading etcd, TLS etcd clients that lose their connection will successfully reconnect when using the `no-embed-etcd` configuration option.
 - Check TTL and keepalive switches are now correctly buried when associated events and entities are deleted.
 As a result, Sensu now uses far fewer leases for check TTLs and keepalives, which improves stability for most deployments.
 - Corrected a minor UX issue in interactive filter commands in sensuctl.

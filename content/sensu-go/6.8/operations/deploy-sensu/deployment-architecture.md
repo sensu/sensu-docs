@@ -176,6 +176,15 @@ This approach gives operators more control over agent connection distribution an
 Conversely, you cannot configure the sensuctl command line tool with multiple backend URLs.
 Under normal conditions, sensuctl communications and browser access to the web UI should be routed via a load balancer.
 
+#### Load balancing algorithms
+
+If the load balancer uses round robin mode, when an agent comes online, the load balancer sends the agent's traffic to whichever backend is next in the pattern, regardless of load.
+This can result in slow load balancing among backends, especially after restarting a backend.
+
+In least connection mode, the load balancer sends new agent traffic to the backend with the least traffic.
+This helps to evenly distribute the load among backends more quickly.
+
+
 [1]: ../hardware-requirements/#backend-recommended-configuration
 [2]: ../../../api/
 [4]: https://etcd.io/docs/

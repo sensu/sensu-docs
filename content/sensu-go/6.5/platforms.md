@@ -175,10 +175,12 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.5.5/sensu-go_6.5
 
 Builds that support the Federal Information Processing Standard (FIPS) for Federal Risk and Authorization Management Program (FedRAMP) compliance are available for Linux `amd64`.
 
-Sensu FIPS builds with [FIPS-mode configuration options][51] are linked with the FIPS 140-2 validated cryptographic library.
+Sensu FIPS builds with FIPS-mode configuration options are linked with the FIPS 140-2 validated cryptographic library.
 You can run Red Hat Enterprise Linux (RHEL) with the FIPS-mode kernel option to enforce FIPS systemwide &mdash; Sensu FIPS builds comply with this mode.
 
 [Contact Sensu][50] to request builds with FIPS support.
+
+Read [Configure Sensu for FIPS compliance][65] to learn more about Sensu's FIPS build, including configuration examples.
 
 ### Windows
 
@@ -354,7 +356,9 @@ You can also use cron to run Sensu checks locally on these systems and forward t
 Sensu Go's core is open source software, freely available under an MIT License.
 Sensu Go instances built from source do not include [commercial features][3] such as the web UI, single sign-on (SSO) authentication, and secrets management.
 Review the [feature comparison matrix][15] to learn more.
+
 To build Sensu Go from source, read the [Sensu Go installation instructions on GitHub][16].
+To download and run the web UI as a separate component, visit the [Sensu Go Web GitHub repository][60].
 
 ## Mirror packages
 

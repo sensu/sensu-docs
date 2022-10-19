@@ -798,7 +798,7 @@ require-fips: true{{< /code >}}
 | require-openssl |      |
 ------------------|------
 description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu backend startup if `true` but Go's standard cryptography library is loaded. {{% notice note %}}
-**NOTE**: The `--require-openssl` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
+**NOTE**: The `require-openssl` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean
@@ -963,7 +963,7 @@ etcd-client-cert-auth: true{{< /code >}}
 
 | etcd-client-urls      |      |
 ------------------------|------
-description             | List of client URLs to use when a sensu-backend is not operating as an etcd member. To configure sensu-backend for use with an external etcd instance, use this flag in conjunction with `--no-embed-etcd` when executing sensu-backend start or [sensu-backend init][22]. If you do not use this flag when using `--no-embed-etcd`, sensu-backend start and sensu-backend-init will fall back to [--etcd-listen-client-urls][23].{{% notice note %}}
+description             | List of client URLs to use when a sensu-backend is not operating as an etcd member. To configure sensu-backend for use with an external etcd instance, use this configuration option in conjunction with `no-embed-etcd` when executing sensu-backend start or [sensu-backend init][22]. If you do not use this option when using `no-embed-etcd`, sensu-backend start and sensu-backend-init will fall back to [--etcd-listen-client-urls][23].{{% notice note %}}
 **NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
@@ -1613,13 +1613,19 @@ log-level: debug
 
 ## Event logging
 
-If you wish, you can log all Sensu events to a file in JSON format.
-You can use this file as an input source for your favorite data lake solution.
-The event logging functionality provides better performance and reliability than event handlers.
+If you wish, you can log all Sensu event data to a file in JSON format.
+The Sensu event log file can be a reliable input source for your favorite data lake solution as well as a buffer for event data that you send to a database in case the database is unavailable.
 
 {{% notice note %}}
 **NOTE**: Event logs do not include log messages produced by sensu-backend service.
 To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../../operations/monitor-sensu/log-sensu-systemd/).
+{{% /notice %}}
+
+Depending on the number and size of events, logging status and metrics events to a file can require intensive input/output (I/O) performance.
+Make sure you have adequate I/O capacity before using the event logging function.
+
+{{% notice protip %}}
+**PRO TIP**: [TCP stream handlers](../../observe-process/tcp-stream-handlers/), which send observability event data to TCP sockets for external services to consume, are also a reliable way to transmit status and metrics event data without writing events to a local file.
 {{% /notice %}}
 
 Use these backend configuration options to customize event logging:

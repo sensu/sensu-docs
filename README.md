@@ -82,10 +82,6 @@ Here are some things to try if you encounter an issue working with the site:
 The docs site displays incorrectly in Internet Explorer.
 If you cannot use a different browser, you can access a PDF copy of the Sensu documentation on our [supported versions][supp-vers] page.
 
-### Theme
-
-This project uses a [fork](themes/hugo-material-docs/) of the wonderful [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme.
-
 ### Developing Offline Docs
 
 Offline documentation uses a set of layouts located in the `offline` directory. To preview them:
@@ -94,7 +90,7 @@ Offline documentation uses a set of layouts located in the `offline` directory. 
 yarn run server --layoutDir=offline
 ```
 
-To exclude content from the offline documentation, the following can be added to a markdown file's front matter:
+To exclude content from the offline documentation, add this line to a markdown file's front matter:
 
 ```
 offline: false

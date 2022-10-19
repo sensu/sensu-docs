@@ -21,7 +21,7 @@ To visualize how Sensu concepts work together in the observability pipeline, [ta
 
 ## Sensu Go workshop
 
-The [Sensu Go workshop][2] is a collection of resources designed to help you learn Sensu:
+The [Sensu Go workshop][4] is a collection of resources designed to help you learn Sensu:
 
 - Interactive lessons designed for self-guided learning.
 - Detailed instructions for Linux, macOS, and Windows workstations.
@@ -43,7 +43,6 @@ You’ll also learn to use sensuctl to configure Nagios-style monitoring checks 
 
 
 [1]: concepts-terminology/
-[2]: https://github.com/sensu/sensu-go-workshop
 [3]: demo/
 [4]: https://github.com/sensu/sensu-go-workshop#overview
 [5]: https://github.com/sensu/sensu-k8s-quick-start

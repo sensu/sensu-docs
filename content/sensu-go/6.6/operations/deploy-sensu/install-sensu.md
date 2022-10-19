@@ -15,10 +15,10 @@ This installation guide describes how to install the Sensu backend, Sensu agent,
 These instructions explain how to install Sensu for proof-of-concept purposes or testing in a development environment.
 We recommend using a [supported package][14] to follow this guide.
 
-To build from source and install Sensu from a [binary distribution][23], follow the [Sensu Go installation instructions on GitHub][44].
+To build Sensu Go from source (OSS), follow the [Sensu Go installation instructions on GitHub][44].
 
 {{% notice note %}}
-**NOTE**: If you’re trying Sensu for the first time, consider following the the [Sensu Go workshop](https://github.com/sensu/sensu-go-workshop) instead.
+**NOTE**: If you’re trying Sensu for the first time, consider following the the [Sensu Go workshop](https://github.com/sensu/sensu-go-workshop#overview) instead.
 The workshop includes a local sandbox environment and a collection of resources designed to help new users learn and test Sensu.<br><br>
 If you will deploy Sensu to your infrastructure, we recommend securing your installation with transport layer security (TLS) in addition to using one of our supported packages, Docker images, or [configuration management integrations](../configuration-management/).
 Read [Generate certificates](../generate-certificates) next to get the certificates you will need for TLS.
@@ -64,7 +64,7 @@ Sensu backends require the following ports:
 Port | Protocol | Description |
 ---- | -------- | ----------- |
 2379 | gRPC | Sensu storage client: Required for Sensu backends using an external etcd instance |
-2380 | gRPC | Sensu storage peer: Required for other Sensu backends in a [cluster][22] |
+2380 | gRPC | Sensu storage peer: Required for etcd [cluster][22] members to communicate directly with their peers |
 3000 | HTTP/HTTPS | [Sensu web UI][3]: Required for all Sensu backends using a Sensu web UI |
 6060 | HTTP/HTTPS | Required for all Sensu backends when performance profiling is enabled via [debug][43] setting |
 8080 | HTTP/HTTPS | [Sensu API][26]: Required for all users accessing the Sensu API |
@@ -576,7 +576,6 @@ sensuctl license info
 [20]: ../../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../cluster-sensu/
-[23]: ../../../platforms/#binary-only-distributions
 [24]: #4-open-the-web-ui
 [25]: ../hardware-requirements/
 [26]: ../../../api/

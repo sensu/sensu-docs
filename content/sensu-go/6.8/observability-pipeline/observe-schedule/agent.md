@@ -722,7 +722,7 @@ Flags:
 
 {{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu.
-The `--discover-processes` configuration option is not available, and new events will not include data in the `processes` attributes.
+The `discover-processes` configuration option is not available, and new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
@@ -1310,7 +1310,7 @@ require-fips: true{{< /code >}}
 | require-openssl |      |
 ------------------|------
 description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu agent startup if `true` but Go's standard cryptography library is loaded. {{% notice note %}}
-**NOTE**: The `--require-openssl` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
+**NOTE**: The `require-openssl` configuration option is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean
@@ -1914,21 +1914,34 @@ sc.exe stop SensuAgent
 
 ### Restart the service
 
-Restart the agent using a service manager:
+You must restart the agent to implement any configuration updates.
 
-{{< language-toggle >}}
+{{< platformBlock "Linux" >}}
 
-{{< code shell "Linux" >}}
+**Linux**
+
+Restart the agent with a service manager:
+
+{{< code shell >}}
 sudo systemctl restart sensu-agent
 {{< /code >}}
 
-{{< code shell "Windows" >}}
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+Restart the agent with a service manager:
+
+{{< code shell >}}
 sc.exe start SensuAgent
 {{< /code >}}
 
-{{< /language-toggle >}}
+As of Sensu Go 6.8.2, the Sensu Agent service on Windows platforms will automatically restart after failures.
+You'll still need to use a service manager restart Windows agents to implement configuration updates.
 
-You must restart the agent to implement any configuration updates.
+{{< platformBlockClose >}}
 
 ### Enable on boot
 

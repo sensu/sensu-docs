@@ -34,7 +34,7 @@ To prevent connection errors, follow [Generate certificates](../generate-certifi
 If you do not properly configure secure etcd communication, your Sensu configuration will be vulnerable to unauthorized manipulation via etcd client connections.
 {{% /notice %}}
 
-To properly secure etcd communication, replace the default parameter values in your backend store configuration in `/etc/sensu/backend.yml` as follows:
+To properly secure etcd communication, replace the default configuration option values in your backend store configuration in `/etc/sensu/backend.yml` as follows:
 
 1. Replace the placeholder with the path to your certificate and key for the `etcd-cert-file` and `etcd-key-file` to secure client communication:
 {{< code yml >}}
@@ -72,10 +72,10 @@ etcd-client-cert-auth: "true"
 etcd-peer-client-cert-auth: "true"
 {{< /code >}}
 
-   Because etcd does not require authentication by default, you must set the `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` parameters to `true` to secure Sensu's embedded etcd datastore against unauthorized access.
+   Because etcd does not require authentication by default, you must set the `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` configuration options to `true` to secure Sensu's embedded etcd datastore against unauthorized access.
 
 {{% notice note %}}
-**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration) includes more information about each etcd store parameter.
+**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration) includes more information about each etcd store configuration option.
 {{% /notice %}}
 
 ## Secure the Sensu agent API, HTTP API, and web UI
@@ -83,26 +83,26 @@ etcd-peer-client-cert-auth: "true"
 The Sensu Go agent API, HTTP API, and web UI use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication.
 
 {{% notice note %}}
-**NOTE**: By changing these parameters, the server will communicate using transport layer security (TLS) and expect agents that connect to it to use the WebSocket secure protocol.
+**NOTE**: By changing these configuration options, the server will communicate using transport layer security (TLS) and expect agents that connect to it to use the WebSocket secure protocol.
 For communication to continue, you must complete the configuration in this section **and** in the [Sensu agent-to-server communication](#secure-sensu-agent-to-server-communication) section.
 {{% /notice %}}
 
 Configure the following backend secure sockets layer (SSL) attributes in `/etc/sensu/backend.yml`:
 
-1. Replace the placeholders with the paths to your CA root, backend certificate, and backend key files for the `trusted-ca-file`, `cert-file`, and `key-file` parameters:
+1. Replace the placeholders with the paths to your CA root, backend certificate, and backend key files for the `trusted-ca-file`, `cert-file`, and `key-file` configuration options:
 {{< code yml >}}
 trusted-ca-file: "/etc/sensu/tls/ca.pem"
 cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
 key-file: "/etc/sensu/tls/backend-1.example.com-key.pem"
 {{< /code >}}
 
-2. Set the `insecure-skip-tls-verify` parameter to `false`:
+2. Set the `insecure-skip-tls-verify` configuration option to `false`:
 {{< code yml >}}
 insecure-skip-tls-verify: false
 {{< /code >}}
 
-3. When you provide these cert-file and key-file parameters, the agent WebSocket API and HTTP API will serve requests over SSL/TLS (https).
-For this reason, you must also specify `https://` schema for the `api-url` parameter for backend API configuration:
+3. When you provide these cert-file and key-file configuration options, the agent WebSocket API and HTTP API will serve requests over SSL/TLS (https).
+For this reason, you must also specify `https://` schema for the `api-url` configuration option for backend API configuration:
 {{< code yml >}}
 api-url: "https://localhost:8080"
 {{< /code >}}
@@ -113,11 +113,11 @@ Restart the `sensu-backend` service:
 sudo systemctl restart sensu-backend
 {{< /code >}}
 
-After you restart the `sensu-backend` service, the parameters will load and you will able to access the web UI at https://localhost:3000.
-Configuring these attributes will also ensure that agents can communicate securely.
+After you restart the `sensu-backend` service, the configuration options will load and you will able to access the web UI at https://localhost:3000.
+Configuring these options will also ensure that agents can communicate securely.
 
 {{% notice note %}}
-**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#security-configuration) includes more information about each API and web UI security configuration parameter.
+**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#security-configuration) includes more information about each API and web UI security configuration option.
 {{% /notice %}}
 
 ### Specify a separate web UI certificate and key
@@ -125,7 +125,7 @@ Configuring these attributes will also ensure that agents can communicate secure
 You can use the same certificates and keys to secure etcd, the HTTP API, and the web UI.
 However, if you prefer, you can use a separate certificate and key for the web UI (for example, a commercially purchased certificate and key).
 
-To do this, add the `dashboard-cert-file` and `dashboard-key-file` parameters for backend SSL configuration in `/etc/sensu/backend.yml`:
+To do this, add the `dashboard-cert-file` and `dashboard-key-file` configuration options for backend SSL configuration in `/etc/sensu/backend.yml`:
 
 {{< code yml >}}
 dashboard-cert-file: "/etc/sensu/tls/separate-webui-cert.pem"
@@ -133,8 +133,8 @@ dashboard-key-file: "/etc/sensu/tls/separate-webui-key.pem"
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: If you do not specify a separate certificate and key for the web UI with `dashboard-cert-file` and `dashboard-key-file`, Sensu uses the certificate and key specified for the `cert-file` and `key-file` parameters for the web UI.
-The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration) includes more information about the `dashboard-cert-file` and `dashboard-key-file` web UI configuration parameters.
+**NOTE**: If you do not specify a separate certificate and key for the web UI with `dashboard-cert-file` and `dashboard-key-file`, Sensu uses the certificate and key specified for the `cert-file` and `key-file` configuration options for the web UI.
+The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration) includes more information about the `dashboard-cert-file` and `dashboard-key-file` web UI configuration options.
 {{% /notice %}}
 
 ## Secure Sensu agent-to-server communication
@@ -164,7 +164,7 @@ Remember, if you change the configuration to wss, plaintext communication will n
 
 You can also provide a trusted CA root certificate file as part of the agent configuration (named `ca.pem` in the example in [Generate certificates][4]).
 If you will start the agent via `sensu-agent start`, pass the `--trusted-ca-file` flag with the start command.
-Otherwise, include the `trusted-ca-file` parameter in the agent configuration in `/etc/sensu/agent.yml`: 
+Otherwise, include the `trusted-ca-file` configuration option in the agent configuration in `/etc/sensu/agent.yml`: 
 
 {{< code yml>}}
 trusted-ca-file: "/etc/sensu/tls/ca.pem"
@@ -228,14 +228,14 @@ To enable agent mTLS authentication:
 
 1. Create and distribute a new Certificate Authority (CA) root certificate and new agent and backend certificates and keys according to the [Generate certificates][12] guide.
 
-2. Add the following parameters and values to the backend configuration `/etc/sensu/backend.yml`:
+2. Add the following configuration options and values to the backend configuration `/etc/sensu/backend.yml`:
 {{< code yml >}}
 agent-auth-cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
 agent-auth-key-file: "/etc/sensu/tls/backend-1.example.com-key.pem"
 agent-auth-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
-3. Add the following parameters and values to the agent configuration in `/etc/sensu/agent.yml`:
+3. Add the following configuration options and values to the agent configuration in `/etc/sensu/agent.yml`:
 {{< code yml >}}
 cert-file: "/etc/sensu/tls/agent.pem"
 key-file: "/etc/sensu/tls/agent-key.pem"
@@ -248,6 +248,129 @@ However, deployments can also use the same certificates and keys for etcd peer a
 ### Certificate revocation check
 
 The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for agent mTLS, etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
+
+## Optional: Configure Sensu for FIPS compliance
+
+Sensu provides a Linux amd64 OpenSSL-linked build that supports the Federal Information Processing Standard (FIPS) for Federal Risk and Authorization Management Program (FedRAMP) compliance.
+
+The Sensu build with FIPS-mode configuration options is linked with the FIPS 140-2 validated cryptographic library.
+Sensu builds comply with the FIPS-mode kernel option to enforce FIPS systemwide in Red Hat Enterprise Linux (RHEL).
+[Contact Sensu][13] to request the build with FIPS support.
+
+Sensu backends and agents will work on systems with FIPS kernel mode if the `require-fips` and `require-openssl` configuration options are set to `true` in the [backend][14] and [agent][15] configuration files.
+Sensu backends and agents that have `require-fips` enabled will *not* work on systems without FIPS kernel mode.
+
+Sensu backends on systems with FIPS kernel mode will work with PostgreSQL on systems with FIPS kernel mode.
+For PostgreSQL on systems *without* FIPS kernel mode, Sensu backends with FIPS kernel mode will work as long as the PostgreSQL system supports FIPS-compliant ciphers/cipher suites.
+
+Sensu agents and sensuctl on systems with and without FIPS kernel mode can connect to Sensu backends on systems with FIPS kernel mode.
+
+### Configuration example for embedded etcd
+
+To configure the Sensu backend for FIPS mode with embedded etcd, update the backend configuration file at `/etc/sensu/backend.yml` to use the following settings:
+
+{{< code shell >}}
+# fips configuration
+require-openssl: true
+require-fips: true
+
+# etcd configuration
+etcd-listen-client-urls: "https://localhost:2379"
+etcd-listen-peer-urls: "https://localhost:2380"
+etcd-advertise-client-urls: "https://localhost:2379"
+etcd-initial-advertise-peer-urls: "https://localhost:2380"
+
+# etcd client tls configuration
+etcd-client-cert-auth: "true"
+etcd-trusted-ca-file: "/etc/sensu/tls/ca.pem"
+etcd-cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
+etcd-key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
+
+# etcd peer tls configuration
+etcd-peer-client-cert-auth: "true"
+etcd-peer-trusted-ca-file: "/etc/sensu/tls/ca.pem"
+etcd-peer-cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
+etcd-peer-key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
+
+# api configuration
+api-url: "https://localhost:8080"
+
+# api tls configuration
+insecure-skip-tls-verify: false
+trusted-ca-file: "/etc/sensu/tls/ca.pem"
+cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
+key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost`.
+{{% /notice %}}
+
+### Configuration example for external etcd
+
+To configure the Sensu backend for FIPS mode with external etcd, update the backend configuration file at `/etc/sensu/backend.yml` to use the following settings:
+
+{{< code shell >}}
+# fips configuration
+require-openssl: true
+require-fips: true
+
+# etcd configuration
+etcd-trusted-ca-file: "/etc/sensu/tls/ca.pem"
+etcd-cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
+etcd-key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
+etcd-client-urls: "https://localhost:2379"
+no-embed-etcd: true
+
+# api configuration
+api-url: "https://localhost:8080"
+
+# api tls configuration
+insecure-skip-tls-verify: false
+trusted-ca-file: "/etc/sensu/tls/ca.pem"
+cert-file: "/etc/sensu/tls/centos-7-fips-1-backend.pem"
+key-file: "/etc/sensu/tls/centos-7-fips-1-backend-key.pem"
+{{< /code >}}
+
+Use the following settings in your etcd configuration:
+
+{{< code shell >}}
+name: "centos-7-fips-1"
+data-dir: "/var/lib/etcd-external"
+auto-compaction-mode: "revision"
+auto-compaction-retention: "2"
+
+# cluster config
+initial-cluster-token: "sup3rs3cr3t"
+initial-cluster: "centos-7-fips-1=https://centos-7-fips-1:2380"
+initial-cluster-state: "new"
+
+# etcd configuration
+listen-client-urls: "https://localhost:2379"
+listen-peer-urls: "https://localhost:2380"
+advertise-client-urls: "https://localhost:2379"
+initial-advertise-peer-urls: "https://localhost:2380"
+
+# etcd client tls configuration
+client-transport-security:
+  client-cert-auth: true
+  trusted-ca-file: /etc/etcd/tls/ca.pem
+  cert-file: /etc/etcd/tls/centos-7-fips-1-backend.pem
+  key-file: /etc/etcd/tls/centos-7-fips-1-backend-key.pem
+  auto-tls: false
+
+# etcd peer tls configuration
+peer-transport-security:
+  client-cert-auth: true
+  trusted-ca-file: /etc/etcd/tls/ca.pem
+  cert-file: /etc/etcd/tls/centos-7-fips-1-backend.pem
+  key-file: /etc/etcd/tls/centos-7-fips-1-backend-key.pem
+  auto-tls: false
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost`.
+{{% /notice %}}
 
 ## Next step: Run a Sensu cluster
 
@@ -264,3 +387,6 @@ The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 [9]: https://github.com/cloudflare/cfssl
 [10]: ../cluster-sensu/
 [12]: ../generate-certificates/
+[13]: https://sensu.io/contact
+[14]: ../../../observability-pipeline/observe-schedule/backend/#fips-openssl
+[15]: ../../../observability-pipeline/observe-schedule/agent/#fips-openssl
