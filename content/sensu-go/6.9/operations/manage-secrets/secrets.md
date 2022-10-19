@@ -357,7 +357,6 @@ provider     |
 description  | Name of the provider with the secret.
 required     | true
 type         | String
-allowed values | `env`, `cyberark`, `vault`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 provider: vault
