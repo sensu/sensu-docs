@@ -169,6 +169,12 @@ Use the [Conjur CLI][39] to load a policy and secrets for Sensu to use.
 conjur init -u conjur -a sensu.io
 {{< /code >}}
 
+   The response should confirm that initialization succeeded:
+
+   {{< code text >}}
+Wrote configuration to /root/.conjurrc
+{{< /code >}}
+
 2. Write a Conjur policy that defines a human user, a non-human identity that represents a Sensu backend, at least one secret variable, permissions for the human user, and a host for the Sensu backend to use:
 
    {{< code shell >}}
@@ -229,6 +235,8 @@ Loaded policy 'root'
    {{< code shell >}}
 conjur variable values add Sensu/pagerDutyAPIKey <INTEGRATION_KEY>
 {{< /code >}}
+
+   You should receive the response `Value added`.
 
 ### Create your Conjur secrets provider
 
