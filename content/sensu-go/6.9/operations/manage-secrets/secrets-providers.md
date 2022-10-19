@@ -620,7 +620,7 @@ timeout: 20s
 tls          | 
 -------------|------ 
 description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or [`cname`][15].
-required     | true
+required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
