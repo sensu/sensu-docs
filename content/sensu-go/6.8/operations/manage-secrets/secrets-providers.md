@@ -98,7 +98,7 @@ Sensu's `Env` secrets provider exposes secrets from [backend environment variabl
 The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
 
 Using the `Env` secrets provider may require you to synchronize environment variables in Sensu backend clusters.
-The [Use secrets management][16] guide demonstrates how to configure the `Env` secrets provider.
+Read [Use secrets management][16] to learn how to configure the `Env` secrets provider.
 
 {{< language-toggle >}}
 
@@ -140,7 +140,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 
 {{% notice note %}}
 **NOTE**: The attribute descriptions in this section use the `VaultProvider` datatype.
-The [secrets provider examples](#env-example) section includes an example for the `Env` datatype.
+Review the [Env secrets provider example](#env-secrets-provider-example) for an example definition for the `Env` datatype.
 {{% /notice %}}
 
 ### Top-level attributes
