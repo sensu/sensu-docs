@@ -253,7 +253,7 @@ cat << EOF | sensuctl create
 type: CyberArkProvider
 api_version: secrets/v1
 metadata:
-  name: conjur
+  name: cyberark
 spec:
   client:
     account: sensu.io
@@ -271,7 +271,7 @@ cat << EOF | sensuctl create
   "type": "CyberArkProvider",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "conjur"
+    "name": "cyberark"
   },
   "spec": {
     "client": {
