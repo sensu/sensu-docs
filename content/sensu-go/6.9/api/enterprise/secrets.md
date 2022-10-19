@@ -66,7 +66,7 @@ The request results in a successful `HTTP/1.1 200 OK` response and a JSON array 
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: In addition to the `VaultProvider` type, the enterprise/secrets/v1 API also includes the `CyberArkProvider` type, as well as the `Env` secrets provider type (which can retrieve backend [environment variables](../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables) as secrets).
+**NOTE**: In addition to the `VaultProvider` type, the enterprise/secrets/v1 API also includes the `CyberArkProvider` and `Env` types.
 Learn more in the [secrets providers reference](../../../operations/manage-secrets/secrets-providers/).
 {{% /notice %}}
 
