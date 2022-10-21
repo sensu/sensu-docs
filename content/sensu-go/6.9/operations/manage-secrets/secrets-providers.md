@@ -13,7 +13,7 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the `Env`, `CyberArkProvider`, and `VaultProvider` secrets provider datatypes in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
@@ -31,12 +31,93 @@ For checks, hooks, and dynamic runtime assets, you must [enable mutual TLS (mTLS
 Sensu will not transmit secrets to agents that do not use mTLS.
 
 The [Sensu Go commercial distribution][1] includes a secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
-You can also use the secrets provider `VaultProvider` to authenticate via the HashiCorp Vault integration's [token auth method][10] or [TLS certificate auth method][11].
+You can also use the `CyberArkProvider` and `VaultProvider` secrets providers.
 
-You can configure any number of `VaultProvider` secrets providers.
+You can configure any number of `CyberArkProvider` and `VaultProvider` secrets providers.
 However, you can only have a single `Env` secrets provider: the one that is included with the Sensu Go [commercial distribution][1].
 
 Secrets providers are cluster-wide resources and compatible with generic functions.
+
+## Env secrets provider example
+
+Sensu's `Env` secrets provider exposes secrets from [backend environment variables][4].
+The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
+
+Using the `Env` secrets provider may require you to synchronize environment variables in Sensu backend clusters.
+Read [Use secrets management][16] to learn how to configure the `Env` secrets provider.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Env
+api_version: secrets/v1
+metadata:
+  name: env
+spec: {}
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Env",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "env"
+  },
+  "spec": {}
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## CyberArkProvider secrets provider example
+
+The `CyberArkProvider` secrets provider is a vendor-specific implementation for [CyberArk Conjur][18] secrets management.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CyberArkProvider
+api_version: secrets/v1
+metadata:
+  name: cyberark
+spec:
+  client:
+    account: sensu.io
+    appliance_url: http://localhost:8480
+    login: host/Sensu/sensuBackend
+    api_key: CONJUR_API_KEY
+    timeout: 1s
+    tls:
+      ca_cert: "/etc/ssl/certs/conjur_ca_cert.pem"
+    ttl: 60s
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CyberArkProvider",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "cyberark"
+  },
+  "spec": {
+    "client": {
+      "account": "sensu.io",
+      "appliance_url": "http://localhost:8480",
+      "login": "host/Sensu/sensuBackend",
+      "api_key": "CONJUR_API_KEY",
+      "timeout": "1s",
+      "tls": {
+        "ca_cert": "/etc/ssl/certs/conjur_ca_cert.pem"
+      },
+      "ttl": "60s"
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## VaultProvider secrets provider example
 
@@ -92,38 +173,6 @@ spec:
 
 {{< /language-toggle >}}
 
-## Env secrets provider example
-
-Sensu's `Env` secrets provider exposes secrets from [backend environment variables][4].
-The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
-
-Using the `Env` secrets provider may require you to synchronize environment variables in Sensu backend clusters.
-Read [Use secrets management][16] to learn how to configure the `Env` secrets provider.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Env
-api_version: secrets/v1
-metadata:
-  name: env
-spec: {}
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Env",
-  "api_version": "secrets/v1",
-  "metadata": {
-    "name": "env"
-  },
-  "spec": {}
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
 ## Secrets provider configuration
 
 You can use the [enterprise/secrets/v1 API endpoints][2] to create, view, and manage your secrets provider configuration.
@@ -139,7 +188,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 ## Secrets provider specification
 
 {{% notice note %}}
-**NOTE**: The attribute descriptions in this section use the `VaultProvider` datatype.
+**NOTE**: The attribute descriptions in this section use the `CyberArkProvider` and `VaultProvider` datatypes.
 Review the [Env secrets provider example](#env-secrets-provider-example) for an example definition for the `Env` datatype.
 {{% /notice %}}
 
@@ -184,10 +233,41 @@ metadata:
 
 spec         | 
 -------------|------
-description  | Top-level map that includes secrets provider configuration [spec attributes][8].
+description  | Top-level map that includes secrets provider configuration spec attributes. Read [VaultProvider spec attributes][8] and [CyberArkProvider spec attributes][19] for details.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
-example      | {{< language-toggle >}}
+CyberArkProvider example | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  client:
+    account: sensu.io
+    appliance_url: http://localhost:8480
+    login: host/Sensu/sensuBackend
+    api_key: CONJUR_API_KEY
+    timeout: 1s
+    tls:
+      ca_cert: "/etc/ssl/certs/conjur_ca_cert.pem"
+    ttl: 60s
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "client": {
+      "account": "sensu.io",
+      "appliance_url": "http://localhost:8480",
+      "login": "host/Sensu/sensuBackend",
+      "api_key": "CONJUR_API_KEY",
+      "timeout": "1s",
+      "tls": {
+        "ca_cert": "/etc/ssl/certs/conjur_ca_cert.pem"
+      },
+      "ttl": "60s"
+    }
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+VaultProvider example | {{< language-toggle >}}
 {{< code yml >}}
 spec:
   client:
@@ -226,9 +306,10 @@ spec:
 
 type         | 
 -------------|------
-description  | Top-level attribute that specifies the resource type. May be either `Env` (if you are using Sensu's secrets provider) or `VaultProvider` (if you are using HashiCorp Vault as the secrets provider).
+description  | Top-level attribute that specifies the resource type.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
+allowed values | - `Env` if using Sensu's secrets provider<br>- `CyberArkProvider` if using CyberArk Conjur as the secrets provider<br>- `VaultProvider` if using HashiCorpVault as the secrets provider
 example      | {{< language-toggle >}}
 {{< code yml >}}
 type: VaultProvider
@@ -274,11 +355,156 @@ name: vault
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Spec attributes
+### CyberArkProvider spec attributes
 
 client       | 
 -------------|------ 
-description  | Map that includes secrets provider configuration [client attributes][12].
+description  | Map that includes [CyberArkProvider client attributes][20].
+required     | true
+type         | Map of key-value pairs
+example      | {{< language-toggle >}}
+{{< code yml >}}
+client:
+  account: sensu.io
+  appliance_url: http://localhost:8480
+  login: host/Sensu/sensuBackend
+  api_key: CONJUR_API_KEY
+  timeout: 1s
+  tls:
+    ca_cert: "/etc/ssl/certs/conjur_ca_cert.pem"
+  ttl: 60s
+{{< /code >}}
+{{< code json >}}
+{
+  "client": {
+    "account": "sensu.io",
+    "appliance_url": "http://localhost:8480",
+    "login": "host/Sensu/sensuBackend",
+    "api_key": "CONJUR_API_KEY",
+    "timeout": "1s",
+    "tls": {
+      "ca_cert": "/etc/ssl/certs/conjur_ca_cert.pem"
+    },
+    "ttl": "60s"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### CyberArkProvider client attributes
+
+account      | 
+-------------|------ 
+description  | Conjur account name.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+account: sensu.io
+{{< /code >}}
+{{< code json >}}
+{
+  "account": "sensu.io"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+appliance_url | 
+--------------|------ 
+description   | Conjur appliance URL (the HTTP or HTTPS endpoint CyberArk listens on).
+required      | true
+type          | String
+example       | {{< language-toggle >}}
+{{< code yml >}}
+appliance_url: http://localhost:8480
+{{< /code >}}
+{{< code json >}}
+{
+  "appliance_url": "http://localhost:8480"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+login        | 
+-------------|------ 
+description  | Conjur authentication login. The login includes `host` followed by the values provided for id and host in the Conjur policy: `host/<POLICY_ID>/<POLICY_HOST>`
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+login: host/Sensu/sensuBackend
+{{< /code >}}
+{{< code json >}}
+{
+  "login": "host/Sensu/sensuBackend"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+timeout      | 
+-------------|------ 
+description  | Provider connection timeout (hard stop).
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+timeout: 1s
+{{< /code >}}
+{{< code json >}}
+{
+  "timeout": "1s"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="tls-conjur"></a>
+
+tls          | 
+-------------|------ 
+description  | TLS object. You may need to set up a Certificate Authority (CA) certificate if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or `cname`.
+required     | false
+type         | Map of key-value pairs
+example      | {{< language-toggle >}}
+{{< code yml >}}
+tls:
+  ca_cert: "/etc/ssl/certs/conjur_ca_cert.pem"
+  client_cert: "/etc/ssl/certs/conjur_cert.pem"
+  client_key: "/etc/ssl/certs/conjur_key.pem"
+  cname: conjur_client.example.com
+{{< /code >}}
+{{< code json >}}
+{
+  "tls": {
+    "ca_cert": "/etc/ssl/certs/conjur_ca_cert.pem",
+    "client_cert": "/etc/ssl/certs/conjur_cert.pem",
+    "client_key": "/etc/ssl/certs/conjur_key.pem",
+    "cname": "conjur_client.example.com"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+ttl          | 
+-------------|------ 
+description  | The time-to-live (TTL) until CyberArkProvider secrets are considered stale. Sensu will cache secrets provider values for this duration.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+ttl: 1s
+{{< /code >}}
+{{< code json >}}
+{
+  "ttl": "1s"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### VaultProvider spec attributes
+
+client       | 
+-------------|------ 
+description  | Map that includes [VaultProvider client attributes][12].
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -315,7 +541,7 @@ client:
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### Client attributes
+#### VaultProvider client attributes
 
 address      | 
 -------------|------ 
@@ -490,13 +716,16 @@ limit: 10.0
 [5]: https://www.vaultproject.io/docs/what-is-vault/
 [6]: ../../control-access/rbac#default-users
 [7]: ../../../sensuctl/create-manage-resources/#create-resources
-[8]: #spec-attributes
+[8]: #vaultprovider-spec-attributes
 [9]: ../secrets/
 [10]: https://www.vaultproject.io/docs/auth/token/
 [11]: https://www.vaultproject.io/api/other/auth/cert/index.html
-[12]: #client-attributes
+[12]: #vaultprovider-client-attributes
 [13]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [14]: https://www.vaultproject.io/docs/secrets/kv
 [15]: https://www.vaultproject.io/api/other/auth/cert/index.html#parameters-7
 [16]: ../secrets-management/
 [17]: #rate-limiter-attributes
+[18]: https://www.conjur.org/
+[19]: #cyberarkprovider-spec-attributes
+[20]: #cyberarkprovider-client-attributes
