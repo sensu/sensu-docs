@@ -3,7 +3,7 @@ title: "Catalog API"
 description: "Use the Sensu Catalog API to generate static API content that the web UI can consume. Build your own private catalog of Sensu integrations."
 product: "Sensu Go"
 version: "6.8"
-weight: 60
+weight: 80
 layout: "single"
 toc: true
 menu:
@@ -20,7 +20,8 @@ For more information, read [Get started with commercial features](../../commerci
 **NOTE**: The Sensu Catalog is in public preview and is subject to change.
 {{% /notice %}}
 
-The Catalog API generates a static API from a repository of integrations, such as https://github.com/sensu/catalog, via the [catalog-api command line tool][1].
+The Catalog API is a static API that the [catalog-api command line tool][1] generates from a repository of integrations, such as https://github.com/sensu/catalog.
+The Sensu web UI uses the generated API files to determine which integrations to display in the Sensu Catalog.
 
 ## Get the latest catalog SHA-256 checksum
 
@@ -57,7 +58,7 @@ output               | {{< code text >}}
   "last_updated": 1643664852
 }
 {{< /code >}}
-response codes       | **PLACEHOLDER**
+response codes       | The Catalog API is statically generated, so response codes indicate an issue with the webserver that is serving the content.<br><ul><li>**Error**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get all integration namespaces and names
 
@@ -105,7 +106,7 @@ output               | {{< code text >}}
   }
 }
 {{< /code >}}
-response codes       | **PLACEHOLDER**
+response codes       | The Catalog API is statically generated, so response codes indicate an issue with the webserver that is serving the content.<br><ul><li>**Error**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get the configuration and versions for an integration
 
@@ -188,7 +189,7 @@ output               | {{< code text >}}
     "20220126.0.0"
   ]
 }{{< /code >}}
-response codes       | **PLACEHOLDER**
+response codes       | The Catalog API is statically generated, so response codes indicate an issue with the webserver that is serving the content.<br><ul><li>**Error**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get all versions for an integration
 
@@ -224,7 +225,7 @@ output               | {{< code text >}}
   "20220126.0.0"
 ]
 {{< /code >}}
-response codes       | **PLACEHOLDER**
+response codes       | The Catalog API is statically generated, so response codes indicate an issue with the webserver that is serving the content.<br><ul><li>**Error**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get the configuration for an integration version
 
@@ -300,7 +301,7 @@ output               | {{< code text >}}
   "version": "20220125.0.0"
 }
 {{< /code >}}
-response codes       | **PLACEHOLDER**
+response codes       | The Catalog API is statically generated, so response codes indicate an issue with the webserver that is serving the content.<br><ul><li>**Error**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get the Sensu resources for an integration
 
@@ -396,7 +397,7 @@ output               | {{< code text >}}
   "type": "CheckConfig"
 }
 {{< /code >}}
-response codes       | **PLACEHOLDER**
+response codes       | The Catalog API is statically generated, so response codes indicate an issue with the webserver that is serving the content.<br><ul><li>**Error**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get the integration README
 
@@ -420,7 +421,7 @@ The request returns the README for the specified integration version in Markdown
 description          | Retrieves the README for the specified integration version in Markdown format.
 endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>/readme.md
 output               | README in Markdown format
-response codes       | **PLACEHOLDER**
+response codes       | The Catalog API is statically generated, so response codes indicate an issue with the webserver that is serving the content.<br><ul><li>**Error**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get the integration changelog 
 
@@ -444,7 +445,7 @@ The request returns the changelog for the specified integration version in Markd
 description          | Retrieves the changelog for the specified integration version in Markdown format.
 endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>/changelog.md
 output               | Changelog in Markdown format
-response codes       | **PLACEHOLDER**
+response codes       | The Catalog API is statically generated, so response codes indicate an issue with the webserver that is serving the content.<br><ul><li>**Error**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get the integration logo 
 
@@ -468,7 +469,7 @@ The request returns the logo for the specified integration version in PNG format
 description          | Retrieves the logo for the specified integration version in PNG format.
 endpoint             | /<release_sha256>/v1/\<namespace>/\<name>/\<version>/logo.md
 output               | Logo in PNG format
-response codes       | **PLACEHOLDER**
+response codes       | The Catalog API is statically generated, so response codes indicate an issue with the webserver that is serving the content.<br><ul><li>**Error**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
 [1]: ../catalog-reference/#catalog-api-command-line-interface-tool

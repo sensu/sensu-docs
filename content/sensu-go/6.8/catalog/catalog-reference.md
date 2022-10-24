@@ -4,7 +4,7 @@ linkTitle: "Catalog Integrations Reference"
 reference_title: "Catalog integrations"
 type: "reference"
 description: "Use Sensu's Catalog API to build a private catalog of Sensu integrations. Read the reference to create integrations for your catalog."
-weight: 80
+weight: 60
 version: "6.8"
 product: "Sensu Go"
 menu: 
@@ -251,9 +251,10 @@ Instead, the [Sensu Catalog API][2] uses integration definitions along with the 
 **NOTE**: The catalog-api tool is an alpha feature and may include breaking changes.
 {{% /notice %}}
 
-Sensu's [catalog-api][16] command line interface (CLI) tool uses the [Sensu Catalog API][2] to convert integration files into static API content that you can host on any HTTP web service.
+Sensu's [catalog-api][16] command line interface (CLI) tool generates the [Sensu Catalog API][2] to convert integration files into static API content that you can host on any HTTP web service.
+The Sensu web UI uses the generated API files to determine which integrations to display in the Sensu Catalog.
 
-Use the catalog-api tool to [generate a local catalog API][18] for testing as you develop new integrations and to [build and run a private catalog][17].
+Use the catalog-api tool to [generate a local Catalog API][18] for testing as you develop new integrations and to [build and run a private catalog][17].
 Integration files must be stored in a repository that follows the required [organizational framework][15].
 
 The catalog-api tool is written in Go.
@@ -284,6 +285,12 @@ To view your catalog in the web UI while running the server subcommand, you must
 
 The preview subcommand starts a webserver like the server subcommand but also serves a preview web UI that can communicate with the Sensu backend.
 If you use the preview subcommand, you do not need to interact with the Sensu backend or create a GlobalConfig resource.
+The last line of the preview subcommand response provides the address to use to view the preview catalog in your browser.
+For example:
+
+{{< code text >}}
+10:07AM INF API server started address=:3003
+{{< /code >}}
 
 ## Catalog tags and versions
 
