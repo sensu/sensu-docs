@@ -1242,8 +1242,7 @@ For integrations that create pipelines, list the resource definitions in your `s
 5. Secret
 6. Asset
 
-For alert and incident management pipelines, do not use event filters that have subjective configuration options.
-Use the built-in [is_incident][27] and [not_silenced][28] filters.
+For alert and incident management pipelines, we recommend using the built-in [is_incident][27] and [not_silenced][28] event filters instead of custom event filters that are configured for specific use cases.
 
 ## Asset guidelines
 
