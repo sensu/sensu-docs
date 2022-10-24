@@ -3,7 +3,7 @@ title: "Catalog integrations reference"
 linkTitle: "Catalog Integrations Reference"
 reference_title: "Catalog integrations"
 type: "reference"
-description: "Use Sensu's Catalog API to build a private catalog of Sensu integrations. Read the reference to create integrations for your catalog."
+description: "Create integrations that allow teams to configure observability for the systems you rely on and serve them in your own Sensu Catalog."
 weight: 60
 version: "6.8"
 product: "Sensu Go"
@@ -28,6 +28,7 @@ When users install integrations in the Sensu web UI, they receive prompts to ent
 For example, the DNS Monitoring integration includes prompts for the domain name, record type, record class, servers, and port to query.
 Sensu then applies the user's customizations to the integration's resource definitions and automatically deploys the integration configuration to agents in real time.
 No external configuration management is required.
+
 The Sensu Catalog provides a way for you and your teams to configure powerful real-time monitoring and observability for the systems you rely on.
 Integrations are self-service, and the Catalog is designed to help you scale up with fewer barriers.
 
@@ -244,6 +245,7 @@ spec:
 
 Sensu Catalog integration definitions resemble other Sensu resources, but Sensu Go does not process them directly.
 Instead, the [Sensu Catalog API][2] uses integration definitions along with the other files in the catalog repository, like READMEs and dashboard images, to generate a static API.
+The Sensu web UI uses the generated API files to determine which integrations to display in the Sensu Catalog.
 
 ## catalog-api command line interface tool
 
@@ -280,6 +282,10 @@ FLAGS
   -repo-dir .                          path to the catalog repository
 {{< /code >}}
 
+The generate subcommand generates the contents of a catalog repository locally in a temporary directory, `/tmp/generated-api/`.
+
+The validate subcommand confirms that all files in a catalog repository are organized properly.
+
 The server subcommand starts a webserver to serve the JSON files the Catalog API generates.
 To view your catalog in the web UI while running the server subcommand, you must also configure a Sensu backend and create a GlobalConfig resource to point to the webserver.
 
@@ -292,116 +298,28 @@ For example:
 10:07AM INF API server started address=:3003
 {{< /code >}}
 
-## Catalog tags and versions
-
-The catalog-api tool consumes and parses integration-specific git tags to manage and generate versioned integrations.
-This makes it possible to give users access to earlier versions of integrations and hedge against regressions in individual integrations.
-
-For example, in the [official Sensu Catalog repository][30], two versions of the [Ansible Tower Remediation][31] are defined:
-
-{{< code text >}}
-git tag --list |grep ansible-tower-remediation
-ansible/ansible-tower-remediation/20220223.0.0
-ansible/ansible-tower-remediation/20220421.0.0
-{{< /code >}}
-
-Using these tags, the catalog-api tool would generate the following version structure, with both versions of the Ansible Tower Remediation integration:
-
-{{< code text >}}
-tree /tmp/generated-api/ -L 7
-/tmp/generated-api/
-├── release
-│   ├── 5029648381dff2426ea247147456b4f1227fd6d9050fa42f0660e67a218f8c87
-│   │   └── v1
-│   │ ├── ansible
-│   │ │   ├── ansible-tower-remediation
-│   │ │   │   ├── 20220223.0.0
-│   │ │   │   │   ├── CHANGELOG.md
-│   │ │   │   │   ├── img
-│   │ │   │   │   ├── logo.png
-│   │ │   │   │   ├── README.md
-│   │ │   │   │   └── sensu-resources.json
-│   │ │   │   ├── 20220223.0.0.json
-│   │ │   │   ├── 20220421.0.0
-│   │ │   │   │   ├── CHANGELOG.md
-│   │ │   │   │   ├── img
-│   │ │   │   │   ├── logo.png
-│   │ │   │   │   ├── README.md
-│   │ │   │   │   └── sensu-resources.json
-│   │ │   │   ├── 20220421.0.0.json
-│   │ │   │   └── versions.json
-│   │ │   └── ansible-tower-remediation.json
-{{< /code >}}
-
-### Generate tags
-
-If you update an integration, the first step in publishing the updated integration is to generate a new tag:
-
-{{< code shell >}}
-git tag <integration_namespace>/<integration_filename>/<YYYYMMDD>.0.0
-{{< /code >}}
-
-For example, to generate a new tag for an October 5, 2022 update to the [Ansible Tower Remediation][31] integration:
-
-{{< code shell >}}
-git tag ansible/ansible-tower-remediation/20221005.0.0
-{{< /code >}}
-
-Commit your changes to git after adding the tag.
-Then, run the `catalog-api generate` subcommand to generate a catalog that includes the tagged version.
-
-If you update the integration again on the same day, update the tag to `<YYYYMMDD>.0.1`.
-To continue the Ansible Tower Remediation example:
-
-{{< code shell >}}
-git tag ansible/ansible-tower-remediation/20221005.0.1
-{{< /code >}}
-
-Commit your changes to git.
-The next time you run `catalog-api generate`, it will generate a catalog that includes both tagged versions.
-
-### Catalog versions
-
-Catalog builds are versioned so that every previous iteration of the catalog is available.
-
-The catalog-api tool generates builds into a checksum-based output directory structure.
-The `version.json` file manages the path to the latest or production catalog API content and instructs the web UI to load catalog contents from the specified checksum directory.
-When you run `catalog-api generate` to generate the catalog, catalog-api creates the `version.json` file.
-
-The contents of a `version.json` file are similar to this example:
-
-{{< code text "JSON" >}}
-{
-  "release_sha256": "5029648381dff2426ea247147456b4f1227fd6d9050fa42f0660e67a218f8c87",
-  "last_updated": 1655840571
-}
-{{< /code >}}
-
-If you make any changes to your integration files, the catalog-api tool will generate a new checksum directory.
-To revert to an older build, change the `release_sha256` in `version.json` to point to a different release directory.
-
-## Use the Sensu Catalog API server during integration development
+## Use the Sensu Catalog API server for integration development
 
 When you're developing integrations, it can be helpful to run the Sensu Catalog API server from your local environment so that you can preview integrations as you work.
-To do this, use the `server` subcommand in the catalog-api command line tool.
+To do this, use the server subcommand in the catalog-api command line tool.
 
 {{% notice note %}}
 **NOTE**: Make sure you have a local Sensu instance running with access to the Sensu web UI.
 {{% /notice %}}
 
-1. Clone the Sensu Catalog API repository:
+1. Clone the Sensu Catalog API repository and navigate to the local catalog-api repository:
 {{< code shell >}}
-git clone https://github.com/sensu/catalog-api
+git clone https://github.com/sensu/catalog-api && cd catalog-api
 {{< /code >}}
 
-2. Navigate to the local catalog-api repository:
-{{< code shell >}}
-cd catalog-api
-{{< /code >}}
-
-3. Build the `catalog-api` tool:
+2. Build the `catalog-api` tool:
 {{< code shell >}}
 go build
+{{< /code >}}
+
+3. Exit the local `catalog-api` repository:
+{{< code shell >}}
+cd ..
 {{< /code >}}
 
 4. Clone the repository that stores your Sensu integrations.
@@ -416,7 +334,8 @@ This example uses https://github.com/sensu/catalog, so the repository is `catalo
 cd ../catalog
 {{< /code >}}
 
-6. Run the catalog-api `server` subcommand:
+6. Run the catalog-api server subcommand:
+This example uses https://github.com/sensu/catalog, so the repository is `catalog`:
 {{< code shell >}}
 ../catalog-api/catalog-api catalog server --repo-dir . -watch
 {{< /code >}}
@@ -466,6 +385,97 @@ EOF
 8. Navigate to the Catalog page in the Sensu web UI for your local instance.
 The Catalog page should include all of the integrations in your local repository and update automatically as you save local changes to your integration files.
 
+## Catalog tags and versions
+
+The catalog-api tool consumes and parses integration-specific git tags to manage and generate versioned integrations.
+This makes it possible to give users access to earlier versions of integrations and hedge against regressions in individual integrations.
+
+For example, in the [official Sensu Catalog repository][30], two versions of the [Ansible Tower Remediation][31] are defined:
+
+{{< code text >}}
+git tag --list |grep ansible-tower-remediation
+ansible/ansible-tower-remediation/20220223.0.0
+ansible/ansible-tower-remediation/20220421.0.0
+{{< /code >}}
+
+Using these tags, the catalog-api tool would generate the following version structure, with both versions of the Ansible Tower Remediation integration:
+
+{{< code text >}}
+tree /tmp/generated-api/ -L 7
+/tmp/generated-api/
+├── release
+│   ├── 5029648381dff2426ea247147456b4f1227fd6d9050fa42f0660e67a218f8c87
+│   │   └── v1
+│   │ ├── ansible
+│   │ │   ├── ansible-tower-remediation
+│   │ │   │   ├── 20220223.0.0
+│   │ │   │   │   ├── CHANGELOG.md
+│   │ │   │   │   ├── img
+│   │ │   │   │   ├── logo.png
+│   │ │   │   │   ├── README.md
+│   │ │   │   │   └── sensu-resources.json
+│   │ │   │   ├── 20220223.0.0.json
+│   │ │   │   ├── 20220421.0.0
+│   │ │   │   │   ├── CHANGELOG.md
+│   │ │   │   │   ├── img
+│   │ │   │   │   ├── logo.png
+│   │ │   │   │   ├── README.md
+│   │ │   │   │   └── sensu-resources.json
+│   │ │   │   ├── 20220421.0.0.json
+│   │ │   │   └── versions.json
+│   │ │   └── ansible-tower-remediation.json
+{{< /code >}}
+
+### Catalog versions
+
+Catalog builds are versioned so that every previous iteration of the catalog is available.
+You are not limited to providing only the most recent version of the catalog, and you can provide older versions as a fallback.
+
+The catalog-api tool generates builds into a checksum-based output directory structure.
+The `version.json` file manages the path to the latest or production catalog API content and instructs the web UI to load catalog contents from the specified checksum directory.
+When you run `catalog-api generate` to generate the catalog, catalog-api creates the `version.json` file.
+
+The contents of a `version.json` file are similar to this example:
+
+{{< code text "JSON" >}}
+{
+  "release_sha256": "5029648381dff2426ea247147456b4f1227fd6d9050fa42f0660e67a218f8c87",
+  "last_updated": 1655840571
+}
+{{< /code >}}
+
+If you make any changes to your integration files, the catalog-api tool will generate a new checksum directory.
+To revert to an older build, change the `release_sha256` in `version.json` to point to a different release directory.
+
+#### Generate version tags
+
+The catalog-api tool uses version tags to create versions of integrations and present them to users within the catalog.
+
+If you update an integration, the first step in publishing the updated integration is to generate a new tag:
+
+{{< code shell >}}
+git tag <integration_namespace>/<integration_filename>/<YYYYMMDD>.0.0
+{{< /code >}}
+
+For example, to generate a new tag for an October 5, 2022 update to the [Ansible Tower Remediation][31] integration:
+
+{{< code shell >}}
+git tag ansible/ansible-tower-remediation/20221005.0.0
+{{< /code >}}
+
+Commit your changes to git after adding the tag.
+Then, run the `catalog-api generate` subcommand to generate a catalog that includes the tagged version.
+
+If you update the integration again on the same day, update the tag to `<YYYYMMDD>.0.1`.
+To continue the Ansible Tower Remediation example:
+
+{{< code shell >}}
+git tag ansible/ansible-tower-remediation/20221005.0.1
+{{< /code >}}
+
+Commit your changes to git.
+The next time you run `catalog-api generate`, it will generate a catalog that includes both tagged versions.
+
 ## Private catalogs
 
 The [Sensu Catalog API][2] renders static HTTP API content that the Sensu web UI can consume.
@@ -478,7 +488,7 @@ When you create a private catalog, all integrations in your repository are avail
 
 Read [Build a private catalog of Sensu integrations][17] for more information.
 
-## Catalog integration specification
+## Integration specification
 
 ### Top-level attributes
 
@@ -1264,7 +1274,7 @@ Read [Build a private catalog of Sensu integrations][17] for information about u
 [15]: #catalog-repository-example
 [16]: https://github.com/sensu/catalog-api
 [17]: ../build-private-catalog/
-[18]: #use-the-sensu-catalog-api-server-during-integration-development
+[18]: #use-the-sensu-catalog-api-server-for-integration-development
 [19]: #input-ref
 [20]: #resource-patches-attributes
 [21]: #input-attributes

@@ -26,9 +26,12 @@ The official Sensu Catalog is available in the [web UI][2], but you can also cre
 
 Before you begin, make sure that your integration files are saved in a repository that follows the required [organizational framework][3].
 
-Catalogs are namespaced, so you can have separate private catalogs with specific integrations for different groups of users.
+## Update URLs in integration asset builds (optional)
 
-## Update URLs in integration asset builds
+{{% notice note %}}
+**NOTE**: If your catalog assets are stored publicly, you do not need to complete this step.
+Continue to [Install the catalog-api command line tool](#install-the-catalog-api-command-line-tool).
+{{% /notice %}}
 
 If the assets for your private catalog are stored behind a firewall or are otherwise not publicly available, update the asset definitions in your `sensu-resources.yaml` files to use the endpoint URL that will serve your catalog.
 
@@ -60,7 +63,7 @@ spec:
   - filters: ...
 {{< /code >}}
 
-If needed, replace `assets.bonsai.sensu.io` with your preferred URL in asset `builds.url` values in all `sensu-resources.yaml` files before you continue.
+If assets are not publicly available, replace `assets.bonsai.sensu.io` with your preferred URL in asset `builds.url` values in all `sensu-resources.yaml` files before you continue.
 You do not need to change the asset `builds.SHA512` values.
 
 ## Install the catalog-api command line tool
@@ -70,19 +73,19 @@ The catalog-api tool is an open-source static API generator: it renders static H
 
 To install the catalog-api tool:
 
-1. Clone the Sensu Catalog API repository:
+1. Clone the Sensu Catalog API repository and navigate to the local catalog-api repository:
 {{< code shell >}}
-git clone https://github.com/sensu/catalog-api
+git clone https://github.com/sensu/catalog-api && cd catalog-api
 {{< /code >}}
 
-2. Navigate to the local catalog-api repository:
-{{< code shell >}}
-cd catalog-api
-{{< /code >}}
-
-3. Build the `catalog-api` tool:
+2. Build the `catalog-api` tool:
 {{< code shell >}}
 go build
+{{< /code >}}
+
+3. Exit your local copy of the catalog-api repository:
+{{< code shell >}}
+cd ..
 {{< /code >}}
 
 ## Clone and validate the integration repository
@@ -99,23 +102,38 @@ git clone https://github.com/sensu/catalog
 2. Navigate to your local copy of the repository that stores the Sensu integrations.
 This example uses https://github.com/sensu/catalog, so the repository is `catalog`: 
 {{< code shell >}}
-cd ../catalog
+cd catalog
 {{< /code >}}
 
-3. Validate the integration repository contents:
+3. In the following command, replace <INTEGRATION_REPO> with the name of your local repository of integrations.
+Then, run this command to validate the integration repository contents:
 {{< code shell >}}
-../catalog-api/catalog-api catalog validate
+../catalog-api/catalog-api <INTEGRATION_REPO> validate
 {{< /code >}}
+
+   The response lists the integrations found in the local integration repository:
+
+   {{< code text >}}
+11:05AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=path version=99991231.0.0
+11:05AM INF Found integration version name=aws-alb-monitoring namespace=aws source=path version=99991231.0.0
+11:05AM INF Found integration version name=aws-ec2-monitoring namespace=aws source=path version=99991231.0.0
+...
+11:05AM INF Found integration version name=wavefront-metrics namespace=wavefront source=path version=99991231.0.0
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: The catalog-api command line tool also includes [server and preview subcommands](../catalog-reference/#catalog-api-subcommands) for viewing your catalog in the web UI during development.
+{{% /notice %}}
 
 ## Generate the private catalog
 
-With a validated repository, you can generate your private catalog locally:
+With a validated repository, you can generate your private catalog locally.
+The `generate` subcommand generates the static API in a temporary directory, `/tmp/generated-api/`:
 
 {{< code shell >}}
 ../catalog-api/catalog-api catalog generate
 {{< /code >}}
 
-The `generate` subcommand generates the static API in a temporary directory, `/tmp/generated-api/`.
 To specify a different temporary directory, use the `--temp-dir` command line flag:
 
 {{< code shell >}}
@@ -175,8 +193,8 @@ EOF
 
 ## Confirm the private catalog is available in the web UI
 
-Log into the Sensu web UI and navigate to the Catalog page.
-The page should include all of the integrations in your repository.
+Log into the Sensu web UI at the URL specified in your GlobalConfig resource and navigate to the Catalog page.
+The Catalog page should include all of the integrations in your repository.
 
 
 [1]: ../sensu-catalog/
