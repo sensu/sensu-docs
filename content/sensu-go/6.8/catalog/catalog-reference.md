@@ -244,7 +244,7 @@ spec:
 {{< /code >}}
 
 Sensu Catalog integration definitions resemble other Sensu resources, but Sensu Go does not process them directly.
-Instead, the [Sensu Catalog API][2] uses integration definitions along with the other files in the catalog repository, like READMEs and dashboard images, to generate a static API.
+Instead, the [catalog-api][32] command line interface tool uses integration definitions along with the other files in the catalog repository, like READMEs and dashboard images, to generate a [static Catalog API][2].
 The Sensu web UI uses the generated API files to determine which integrations to display in the Sensu Catalog.
 
 ## catalog-api command line interface tool
@@ -253,7 +253,7 @@ The Sensu web UI uses the generated API files to determine which integrations to
 **NOTE**: The catalog-api tool is an alpha feature and may include breaking changes.
 {{% /notice %}}
 
-Sensu's [catalog-api][16] command line interface (CLI) tool generates the [Sensu Catalog API][2] to convert integration files into static API content that you can host on any HTTP web service.
+Sensu's [catalog-api][16] command line interface (CLI) tool generates the [static Catalog API][2] to convert integration files into static API content that you can host on any HTTP web service.
 The Sensu web UI uses the generated API files to determine which integrations to display in the Sensu Catalog.
 
 Use the catalog-api tool to [generate a local Catalog API][18] for testing as you develop new integrations and to [build and run a private catalog][17].
@@ -478,10 +478,15 @@ The next time you run `catalog-api generate`, it will generate a catalog that in
 
 ## Private catalogs
 
-The [Sensu Catalog API][2] renders static HTTP API content that the Sensu web UI can consume.
+The [catalog-api][32] command line interface tool renders static HTTP API content that the Sensu web UI can consume.
 This means you can create a private enterprise catalog of custom integrations and make it available to users in the Sensu web UI.
 
-Consider forking the official Sensu Catalog repository, https://github.com/sensu/catalog, as a starting point for building your own private catalog.
+You can use the official Sensu Catalog repository, https://github.com/sensu/catalog, as a starting point for building your own private catalog.
+To do this, clone the repository with the `no-tags` flag to get a copy that does not include Sensu's tags for the existing integrations:
+
+{{< code shell >}}
+git clone --no-tags https://github.com/sensu/catalog
+{{< /code >}}
 
 The Catalog API defines integrations globally rather than by namespace.
 When you create a private catalog, all integrations in your repository are available for all users across namespaces in the web UI.
@@ -1287,3 +1292,4 @@ Read [Build a private catalog of Sensu integrations][17] for information about u
 [29]: https://bonsai.sensu.io/
 [30]: https://github.com/sensu/catalog
 [31]: https://github.com/sensu/catalog/tree/main/integrations/ansible/ansible-tower-remediation
+[32]: #catalog-api-command-line-interface-tool
