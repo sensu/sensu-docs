@@ -66,10 +66,9 @@ spec:
 If assets are not publicly available, replace `assets.bonsai.sensu.io` with your preferred URL in asset `builds.url` values in all `sensu-resources.yaml` files before you continue.
 You do not need to change the asset `builds.SHA512` values.
 
-## Install the catalog-api command line tool
+## Install the catalog-api command line interface tool
 
-The Sensu Catalog API includes the catalog-api command line tool.
-The catalog-api tool is an open-source static API generator: it renders static HTTP API content that the Sensu web UI can consume.
+The catalog-api command line interface tool is an open-source static API generator: it renders static HTTP API content that the Sensu web UI can consume.
 
 To install the catalog-api tool:
 
@@ -78,7 +77,7 @@ To install the catalog-api tool:
 git clone https://github.com/sensu/catalog-api && cd catalog-api
 {{< /code >}}
 
-2. Build the `catalog-api` tool:
+2. Build the catalog-api tool:
 {{< code shell >}}
 go build
 {{< /code >}}

@@ -263,12 +263,14 @@ The catalog-api tool is written in Go.
 
 ### catalog-api subcommands
 
-The catalog-api tool provides the following subcommands:
+The catalog-api tool provides the following subcommands.
+Replace <REPO_NAME> with the name of your local repository of integrations:
 
 {{< code text >}}
-catalog-api catalog --help
+catalog-api <REPO_NAME> --help
+
 USAGE
-  catalog-api catalog [flags] <subcommand> [flags]
+  catalog-api <REPO_NAME> [flags] <subcommand> [flags]
 
 SUBCOMMANDS
   generate  Generate a static catalog API
@@ -282,23 +284,131 @@ FLAGS
   -repo-dir .                          path to the catalog repository
 {{< /code >}}
 
+#### Generate subcommand
+
 The generate subcommand generates the contents of a catalog repository locally in a temporary directory, `/tmp/generated-api/`.
+
+Output for the generate subcommand lists the name, catalog namespace, source, and version number for all integration versions (<REPO_NAME> represents the name of the local repository of integrations):
+
+{{< code text >}}
+../catalog-api/catalog-api <REPO_NAME> generate
+
+10:40AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=git tag=ansible/ansible-tower-remediation/20220223.0.0 version=20220223.0.0
+10:40AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=git tag=ansible/ansible-tower-remediation/20220421.0.0 version=20220421.0.0
+10:40AM INF Found integration version name=aws-alb-monitoring namespace=aws source=git tag=aws/aws-alb-monitoring/20220421.0.0 version=20220421.0.0
+10:40AM INF Found integration version name=aws-ec2-monitoring namespace=aws source=git tag=aws/aws-ec2-monitoring/20220421.0.0 version=20220421.0.0
+...
+10:40AM INF Found integration version name=timescaledb-metrics namespace=timescaledb source=git tag=timescaledb/timescaledb-metrics/20220308.0.0 version=20220308.0.0
+10:40AM INF Found integration version name=timescaledb-metrics namespace=timescaledb source=git tag=timescaledb/timescaledb-metrics/20220421.0.0 version=20220421.0.0
+10:40AM INF Found integration version name=wavefront-metrics namespace=wavefront source=git tag=wavefront/wavefront-metrics/20220421.0.0 version=20220421.0.0
+::set-output name=release-dir::/var/folders/60/cljzzn5n05d91t4x71jx9xzm0000gn/T/3556668713/release
+{{< /code >}}
+
+The last line of output lists the local path for the generated catalog.
+
+##### Generate subcommand flags
+
+The catalog-api generate subcommand provides the following configuration flags.
+<REPO_NAME> represents the name of the local repository of integrations:
+
+{{< code text >}}
+catalog-api <REPO_NAME> generate --help
+
+USAGE
+  catalog-api <REPO_NAME> generate [flags]
+
+FLAGS
+  -integrations-dir-name integrations                          path to the directory containing namespaced integrations
+  -log-level info                                              log level of this command ([panic fatal error warn info debug trace])
+  -repo-dir .                                                  path to the catalog repository
+  -snapshot=false                                              generate a catalog api for the current catalog branch
+  -temp-dir /var/folders/60/cljzzn5n05d91t4x71jx9xzm0000gn/T/  path to a temporary directory for generated files
+  -watch=false                                                 enter watch mode, which rebuilds on file change
+{{< /code >}}
+
+#### Validate subcommand
 
 The validate subcommand confirms that all files in a catalog repository are organized properly.
 
-The server subcommand starts a webserver to serve the JSON files the Catalog API generates.
-To view your catalog in the web UI while running the server subcommand, you must also configure a Sensu backend and create a GlobalConfig resource to point to the webserver.
+Output for the validate subcommand lists the name, catalog namespace, source, and version number for integrations found (<REPO_NAME> represents the name of the local repository of integrations):
 
-The preview subcommand starts a webserver like the server subcommand but also serves a preview web UI that can communicate with the Sensu backend.
-If you use the preview subcommand, you do not need to interact with the Sensu backend or create a GlobalConfig resource.
-The last line of the preview subcommand response provides the address to use to view the preview catalog in your browser.
+{{< code text >}}
+../catalog-api/catalog-api <REPO_NAME> validate
+
+10:37AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=path version=99991231.0.0
+10:37AM INF Found integration version name=aws-alb-monitoring namespace=aws source=path version=99991231.0.0
+10:37AM INF Found integration version name=aws-ec2-monitoring namespace=aws source=path version=99991231.0.0
+...
+10:37AM INF Found integration version name=wavefront-metrics namespace=wavefront source=path version=99991231.0.0
+{{< /code >}}
+
+##### Validate subcommand flags
+
+The catalog-api validate subcommand provides the following configuration flags.
+<REPO_NAME> represents the name of the local repository of integrations:
+
+{{< code text >}}
+catalog-api <REPO_NAME> validate --help
+
+USAGE
+  catalog-api <REPO_NAME> validate [flags]
+
+FLAGS
+  -integrations-dir-name integrations  path to the directory containing namespaced integrations
+  -log-level info                      log level of this command ([panic fatal error warn info debug trace])
+  -repo-dir .                          path to the catalog repository
+{{< /code >}}
+
+#### Server subcommand
+
+The server subcommand starts a webserver to serve the JSON files the Catalog API generates.
+To view your catalog in the Sensu web UI while running the server subcommand, you must also configure a Sensu backend and create a GlobalConfig resource to point to the webserver.
+
+The last line of the server subcommand response provides the address to use to view the content the Catalog API is serving the web UI in your browser.
 For example:
 
 {{< code text >}}
-10:07AM INF API server started address=:3003
+10:00AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=git tag=ansible/ansible-tower-remediation/20220223.0.0 version=20220223.0.0
+10:00AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=git tag=ansible/ansible-tower-remediation/20220421.0.0 version=20220421.0.0
+10:00AM INF Found integration version name=aws-alb-monitoring namespace=aws source=git tag=aws/aws-alb-monitoring/20220421.0.0 version=20220421.0.0
+...
+10:00AM INF Found integration version name=wavefront-metrics namespace=wavefront source=path version=99991231.0.0
+10:00AM INF API generated path=/var/folders/60/cljzzn5n05d91t4x71jx9xzm0000gn/T/2304694052
+10:00AM INF API server started address=:3003
 {{< /code >}}
 
-## Use the Sensu Catalog API server for integration development
+Visit your webserver address at port 3003 (for example, http://localhost:3003) to view the static Catalog API content that catalog-api is serving.
+
+Click the SHA-256 checksum to view the content for all catalog versions, including the integrations in each catalog version; the JSON definition for each integration version; the catalog repository files for each integration version; and a versions.json file that lists all versions for the integration:
+
+{{< figure src="/images/go/catalog_reference/server_checksum.gif" alt="View the API content for all catalog versions that catalog-api is serving in the browser" link="/images/go/catalog_reference/server_checksum.gif" target="_blank" >}} 
+
+Click version.json to view the contents of the version.json file for the content that catalog-api is serving:
+
+{{< figure src="/images/go/catalog_reference/server_versions_json.gif" alt="View the version.json file for the content that catalog-api is serving in the browser" link="/images/go/catalog_reference/server_versions_json.gif" target="_blank" >}} 
+
+##### Server subcommand flags
+
+The catalog-api server subcommand provides the following configuration flags.
+<REPO_NAME> represents the name of the local repository of integrations:
+
+{{< code text >}}
+catalog-api <REPO_NAME> server --help
+
+USAGE
+  catalog-api <REPO_NAME> server [flags]
+
+FLAGS
+  -integrations-dir-name integrations                          path to the directory containing namespaced integrations
+  -log-level info                                              log level of this command ([panic fatal error warn info debug trace])
+  -port 8083                                                   port to use for dev server
+  -repo-dir .                                                  path to the catalog repository
+  -temp-dir /var/folders/60/cljzzn5n05d91t4x71jx9xzm0000gn/T/  path to a temporary directory for generated files
+  -watch=false                                                 enter watch mode, which rebuilds on file change
+  -without-snapshot=false                                      generate a catalog api using tags only
+{{< /code >}}
+
+##### Use the Sensu Catalog API server for integration development
 
 When you're developing integrations, it can be helpful to run the Sensu Catalog API server from your local environment so that you can preview integrations as you work.
 To do this, use the server subcommand in the catalog-api command line tool.
@@ -312,12 +422,12 @@ To do this, use the server subcommand in the catalog-api command line tool.
 git clone https://github.com/sensu/catalog-api && cd catalog-api
 {{< /code >}}
 
-2. Build the `catalog-api` tool:
+2. Build the catalog-api tool:
 {{< code shell >}}
 go build
 {{< /code >}}
 
-3. Exit the local `catalog-api` repository:
+3. Exit the local catalog-api repository:
 {{< code shell >}}
 cd ..
 {{< /code >}}
@@ -356,7 +466,7 @@ metadata:
 spec:
   always_show_local_cluster: true
   catalog:
-    url: "https://127.0.0.1:8080"
+    url: "https://127.0.0.1:3000"
     release_version: version
 EOF
 {{< /code >}}
@@ -372,7 +482,7 @@ cat << EOF | sensuctl create
   "spec": {
     "always_show_local_cluster": true,
     "catalog": {
-      "url": "https://127.0.0.1:8080",
+      "url": "https://127.0.0.1:3000",
       "release_version": "version"
     }
   }
@@ -382,8 +492,50 @@ EOF
 
 {{< /language-toggle >}}
 
-8. Navigate to the Catalog page in the Sensu web UI for your local instance.
+8. Navigate to the Catalog page in the Sensu web UI for your local instance (in this example, https://127.0.0.1:3000).
 The Catalog page should include all of the integrations in your local repository and update automatically as you save local changes to your integration files.
+
+#### Preview subcommand
+
+The preview subcommand starts a webserver like the server subcommand but also serves a preview web UI that can communicate with the Sensu backend.
+If you use the preview subcommand, you do not need to interact with the Sensu backend or create a GlobalConfig resource.
+
+The last line of the preview subcommand response provides the address to use to view the preview catalog in your browser.
+For example:
+
+{{< code text >}}
+9:57AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=git tag=ansible/ansible-tower-remediation/20220223.0.0 version=20220223.0.0
+9:57AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=git tag=ansible/ansible-tower-remediation/20220421.0.0 version=20220421.0.0
+9:57AM INF Found integration version name=aws-alb-monitoring namespace=aws source=git tag=aws/aws-alb-monitoring/20220421.0.0 version=20220421.0.0
+...
+9:57AM INF Found integration version name=wavefront-metrics namespace=wavefront source=path version=99991231.0.0
+9:57AM INF API generated path=/var/folders/60/cljzzn5n05d91t4x71jx9xzm0000gn/T/2316699223
+9:57AM INF API server started address=:3003
+{{< /code >}}
+
+Visit your webserver address at port 3003 (for example, http://localhost:3003) to view a preview of the catalog in the Sensu web UI.
+
+##### Preview subcommand flags
+
+The catalog-api preview subcommand provides the following configuration flags.
+<REPO_NAME> represents the name of the local repository of integrations:
+
+{{< code text >}}
+catalog-api <REPO_NAME> preview --help
+
+USAGE
+  catalog-api <REPO_NAME> preview [flags]
+
+FLAGS
+  -api-url http://localhost:8080                               host URL of Sensu installation; optional
+  -integrations-dir-name integrations                          path to the directory containing namespaced integrations
+  -log-level info                                              log level of this command ([panic fatal error warn info debug trace])
+  -port 3003                                                   port to use for dev server
+  -repo-dir .                                                  path to the catalog repository
+  -temp-dir /var/folders/60/cljzzn5n05d91t4x71jx9xzm0000gn/T/  path to a temporary directory for generated files
+  -without-snapshot=false                                      generate a catalog api using tags only
+  -without-watch=false                                         enter watch mode, which rebuilds on file change
+{{< /code >}}
 
 ## Catalog tags and versions
 
@@ -432,10 +584,10 @@ Catalog builds are versioned so that every previous iteration of the catalog is 
 You are not limited to providing only the most recent version of the catalog, and you can provide older versions as a fallback.
 
 The catalog-api tool generates builds into a checksum-based output directory structure.
-The `version.json` file manages the path to the latest or production catalog API content and instructs the web UI to load catalog contents from the specified checksum directory.
-When you run `catalog-api generate` to generate the catalog, catalog-api creates the `version.json` file.
+The version.json file manages the path to the latest or production catalog API content and instructs the web UI to load catalog contents from the specified checksum directory.
+When you run the catalog-api generate subcommand to generate the catalog, catalog-api creates the version.json file.
 
-The contents of a `version.json` file are similar to this example:
+The contents of a version.json file are similar to this example:
 
 {{< code text "JSON" >}}
 {
@@ -445,13 +597,13 @@ The contents of a `version.json` file are similar to this example:
 {{< /code >}}
 
 If you make any changes to your integration files, the catalog-api tool will generate a new checksum directory.
-To revert to an older build, change the `release_sha256` in `version.json` to point to a different release directory.
+To revert to an older build of the catalog, change the `release_sha256` in version.json to point to a different release directory.
 
 #### Generate version tags
 
 The catalog-api tool uses version tags to create versions of integrations and present them to users within the catalog.
 
-If you update an integration, the first step in publishing the updated integration is to generate a new tag:
+If you update an integration, the first step in publishing the updated integration is to generate a new tag for it:
 
 {{< code shell >}}
 git tag <integration_namespace>/<integration_filename>/<YYYYMMDD>.0.0
@@ -464,7 +616,11 @@ git tag ansible/ansible-tower-remediation/20221005.0.0
 {{< /code >}}
 
 Commit your changes to git after adding the tag.
-Then, run the `catalog-api generate` subcommand to generate a catalog that includes the tagged version.
+Then, run the catalog-api generate subcommand to generate a catalog that includes the tagged version:
+
+{{< code shell >}}
+../catalog-api/catalog-api <REPO_NAME> generate
+{{< /code >}}
 
 If you update the integration again on the same day, update the tag to `<YYYYMMDD>.0.1`.
 To continue the Ansible Tower Remediation example:
@@ -474,7 +630,7 @@ git tag ansible/ansible-tower-remediation/20221005.0.1
 {{< /code >}}
 
 Commit your changes to git.
-The next time you run `catalog-api generate`, it will generate a catalog that includes both tagged versions.
+The next time you run the catalog-api generate subcommand, it will generate a catalog that includes both tagged versions.
 
 ## Private catalogs
 
