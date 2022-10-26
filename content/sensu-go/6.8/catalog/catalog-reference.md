@@ -264,13 +264,12 @@ The catalog-api tool is written in Go.
 ### catalog-api subcommands
 
 The catalog-api tool provides the following subcommands.
-Replace <REPO_NAME> with the name of your local repository of integrations:
 
 {{< code text >}}
-catalog-api <REPO_NAME> --help
+catalog-api catalog --help
 
 USAGE
-  catalog-api <REPO_NAME> [flags] <subcommand> [flags]
+  catalog-api catalog [flags] <subcommand> [flags]
 
 SUBCOMMANDS
   generate  Generate a static catalog API
@@ -288,10 +287,10 @@ FLAGS
 
 The generate subcommand generates the contents of a catalog repository locally in a temporary directory, `/tmp/generated-api/`.
 
-Output for the generate subcommand lists the name, catalog namespace, source, and version number for all integration versions (<REPO_NAME> represents the name of the local repository of integrations):
+Output for the generate subcommand lists the name, catalog namespace, source, and version number for all integration versions:
 
 {{< code text >}}
-../catalog-api/catalog-api <REPO_NAME> generate
+../catalog-api/catalog-api catalog generate
 
 10:40AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=git tag=ansible/ansible-tower-remediation/20220223.0.0 version=20220223.0.0
 10:40AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=git tag=ansible/ansible-tower-remediation/20220421.0.0 version=20220421.0.0
@@ -308,14 +307,13 @@ The last line of output lists the local path for the generated catalog.
 
 ##### Generate subcommand flags
 
-The catalog-api generate subcommand provides the following configuration flags.
-<REPO_NAME> represents the name of the local repository of integrations:
+The catalog-api generate subcommand provides the following configuration flags:
 
 {{< code text >}}
-catalog-api <REPO_NAME> generate --help
+catalog-api catalog generate --help
 
 USAGE
-  catalog-api <REPO_NAME> generate [flags]
+  catalog-api catalog generate [flags]
 
 FLAGS
   -integrations-dir-name integrations                          path to the directory containing namespaced integrations
@@ -330,10 +328,10 @@ FLAGS
 
 The validate subcommand confirms that all files in a catalog repository are organized properly.
 
-Output for the validate subcommand lists the name, catalog namespace, source, and version number for integrations found (<REPO_NAME> represents the name of the local repository of integrations):
+Output for the validate subcommand lists the name, catalog namespace, source, and version number for integrations found:
 
 {{< code text >}}
-../catalog-api/catalog-api <REPO_NAME> validate
+../catalog-api/catalog-api catalog validate
 
 10:37AM INF Found integration version name=ansible-tower-remediation namespace=ansible source=path version=99991231.0.0
 10:37AM INF Found integration version name=aws-alb-monitoring namespace=aws source=path version=99991231.0.0
@@ -344,14 +342,13 @@ Output for the validate subcommand lists the name, catalog namespace, source, an
 
 ##### Validate subcommand flags
 
-The catalog-api validate subcommand provides the following configuration flags.
-<REPO_NAME> represents the name of the local repository of integrations:
+The catalog-api validate subcommand provides the following configuration flags:
 
 {{< code text >}}
-catalog-api <REPO_NAME> validate --help
+catalog-api catalog validate --help
 
 USAGE
-  catalog-api <REPO_NAME> validate [flags]
+  catalog-api catalog validate [flags]
 
 FLAGS
   -integrations-dir-name integrations  path to the directory containing namespaced integrations
@@ -389,14 +386,13 @@ Click version.json to view the contents of the version.json file for the content
 
 ##### Server subcommand flags
 
-The catalog-api server subcommand provides the following configuration flags.
-<REPO_NAME> represents the name of the local repository of integrations:
+The catalog-api server subcommand provides the following configuration flags:
 
 {{< code text >}}
-catalog-api <REPO_NAME> server --help
+catalog-api catalog server --help
 
 USAGE
-  catalog-api <REPO_NAME> server [flags]
+  catalog-api catalog server [flags]
 
 FLAGS
   -integrations-dir-name integrations                          path to the directory containing namespaced integrations
@@ -517,14 +513,13 @@ Visit your webserver address at port 3003 (for example, http://localhost:3003) t
 
 ##### Preview subcommand flags
 
-The catalog-api preview subcommand provides the following configuration flags.
-<REPO_NAME> represents the name of the local repository of integrations:
+The catalog-api preview subcommand provides the following configuration flags:
 
 {{< code text >}}
-catalog-api <REPO_NAME> preview --help
+catalog-api catalog preview --help
 
 USAGE
-  catalog-api <REPO_NAME> preview [flags]
+  catalog-api catalog preview [flags]
 
 FLAGS
   -api-url http://localhost:8080                               host URL of Sensu installation; optional
@@ -619,7 +614,7 @@ Commit your changes to git after adding the tag.
 Then, run the catalog-api generate subcommand to generate a catalog that includes the tagged version:
 
 {{< code shell >}}
-../catalog-api/catalog-api <REPO_NAME> generate
+../catalog-api/catalog-api catalog generate
 {{< /code >}}
 
 If you update the integration again on the same day, update the tag to `<YYYYMMDD>.0.1`.

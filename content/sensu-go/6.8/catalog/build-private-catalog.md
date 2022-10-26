@@ -99,15 +99,14 @@ git clone <REPO_URL>
 {{< /code >}}
 
 2. Navigate to your local copy of the repository that stores the Sensu integrations.
-Replace <REPO_NAME> with the repository name (for example, for the repository https://github.com/sensu/catalog, the <REPO_NAME> is `catalog`):
+Replace <REPO_NAME> with the repository name (for example, for https://github.com/sensu/catalog, the <REPO_NAME> is `catalog`):
 {{< code shell >}}
-cd catalog
+cd <REPO_NAME>
 {{< /code >}}
 
-3. Validate the integration repository contents.
-Replace <REPO_NAME> with the name of your local repository of integrations:
+3. Validate the integration repository contents:
 {{< code shell >}}
-../catalog-api/catalog-api <REPO_NAME> validate
+../catalog-api/catalog-api catalog validate
 {{< /code >}}
 
    The response lists the integrations found in the local integration repository:
@@ -127,18 +126,16 @@ Replace <REPO_NAME> with the name of your local repository of integrations:
 ## Generate the private catalog
 
 With a validated repository, you can generate your private catalog locally.
-The `generate` subcommand generates the static API in a temporary directory, `/tmp/generated-api/`.
-
-Replace <REPO_NAME> with the name of your local repository of integrations and run this command:
+The `generate` subcommand generates the static API in a temporary directory, `/tmp/generated-api/`:
 
 {{< code shell >}}
-../catalog-api/catalog-api <REPO_NAME> generate
+../catalog-api/catalog-api catalog generate
 {{< /code >}}
 
 To specify a different temporary directory, use the `--temp-dir` command line flag:
 
 {{< code shell >}}
-../catalog-api/catalog-api <REPO_NAME> generate --temp-dir /tmp/2523661925/release
+../catalog-api/catalog-api catalog generate --temp-dir /tmp/2523661925/release
 {{< /code >}}
 
 ## Publish the static API to an endpoint
