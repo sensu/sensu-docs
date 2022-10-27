@@ -83,11 +83,11 @@ Follow the [Install Sensu](../install-sensu/) guide if you have not already done
 **Store configuration for backend-1.example.com/10.0.0.1**
 
 {{< code yml >}}
-etcd-advertise-client-urls: "http://10.0.0.1:2379"
-etcd-listen-client-urls: "http://10.0.0.1:2379"
-etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "http://10.0.0.1:2380"
+etcd-advertise-client-urls: "https://10.0.0.1:2379"
+etcd-listen-client-urls: "https://10.0.0.1:2379"
+etcd-listen-peer-urls: "https://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1.example.com=https://10.0.0.1:2380,backend-2.example.com=https://10.0.0.2:2380,backend-3.example.com=https://10.0.0.3:2380"
+etcd-initial-advertise-peer-urls: "https://10.0.0.1:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: "unique_token_for_this_cluster"
 etcd-name: "backend-1.example.com"
@@ -96,11 +96,11 @@ etcd-name: "backend-1.example.com"
 **Store configuration for backend-2.example.com/10.0.0.2**
 
 {{< code yml >}}
-etcd-advertise-client-urls: "http://10.0.0.2:2379"
-etcd-listen-client-urls: "http://10.0.0.2:2379"
-etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "http://10.0.0.2:2380"
+etcd-advertise-client-urls: "https://10.0.0.2:2379"
+etcd-listen-client-urls: "https://10.0.0.2:2379"
+etcd-listen-peer-urls: "https://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1.example.com=https://10.0.0.1:2380,backend-2.example.com=https://10.0.0.2:2380,backend-3.example.com=https://10.0.0.3:2380"
+etcd-initial-advertise-peer-urls: "https://10.0.0.2:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: "unique_token_for_this_cluster"
 etcd-name: "backend-2.example.com"
@@ -109,11 +109,11 @@ etcd-name: "backend-2.example.com"
 **Store configuration for backend-3.example.com/10.0.0.3**
 
 {{< code yml >}}
-etcd-advertise-client-urls: "http://10.0.0.3:2379"
-etcd-listen-client-urls: "http://10.0.0.3:2379"
-etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "http://10.0.0.3:2380"
+etcd-advertise-client-urls: "https://10.0.0.3:2379"
+etcd-listen-client-urls: "https://10.0.0.3:2379"
+etcd-listen-peer-urls: "https://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1.example.com=https://10.0.0.1:2380,backend-2.example.com=https://10.0.0.2:2380,backend-3.example.com=https://10.0.0.3:2380"
+etcd-initial-advertise-peer-urls: "https://10.0.0.3:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: "unique_token_for_this_cluster"
 etcd-name: "backend-3.example.com"
@@ -179,11 +179,11 @@ To add a new member node to an existing cluster:
 For the new node `backend-4.example.com` with IP address `10.0.0.4`:
 
    {{< code yml >}}
-etcd-advertise-client-urls: "http://10.0.0.4:2379"
-etcd-listen-client-urls: "http://10.0.0.4:2379"
-etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380,backend-4.example.com=http://10.0.0.4:2380"
-etcd-initial-advertise-peer-urls: "http://10.0.0.4:2380"
+etcd-advertise-client-urls: "https://10.0.0.4:2379"
+etcd-listen-client-urls: "https://10.0.0.4:2379"
+etcd-listen-peer-urls: "https://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1.example.com=https://10.0.0.1:2380,backend-2.example.com=https://10.0.0.2:2380,backend-3.example.com=https://10.0.0.3:2380,backend-4.example.com=https://10.0.0.4:2380"
+etcd-initial-advertise-peer-urls: "https://10.0.0.4:2380"
 etcd-initial-cluster-state: "existing"
 etcd-initial-cluster-token: "unique_token_for_this_cluster"
 etcd-name: "backend-4.example.com"
@@ -197,7 +197,7 @@ Also, when you are adding a cluster member, make sure the `etcd-initial-cluster-
 2. Run the sensuctl command to add the new cluster member:
 
    {{< code shell >}}
-sensuctl cluster member-add backend-4.example.com http://10.0.0.4:2380
+sensuctl cluster member-add backend-4.example.com https://10.0.0.4:2380
 {{< /code >}}
 
    You will receive a sensuctl response to confirm that the new member was added:
@@ -235,10 +235,10 @@ You will receive a sensuctl response that lists all cluster members:
 {{< code text >}}
        ID            Name                        Peer URLs                Client URLs
 ────────────────── ─────────────────────── ───────────────────────── ─────────────────────────
-a32e8f613b529ad4   backend-1.example.com    http://10.0.0.1:2380      http://10.0.0.1:2379  
-c3d9f4b8d0dd1ac9   backend-2.example.com    http://10.0.0.2:2380      http://10.0.0.2:2379
-c8f63ae435a5e6bf   backend-3.example.com    http://10.0.0.3:2380      http://10.0.0.3:2379
-2f7ae42c315f8c2d   backend-4.example.com    http://10.0.0.4:2380      http://10.0.0.4:2379
+a32e8f613b529ad4   backend-1.example.com    https://10.0.0.1:2380     https://10.0.0.1:2379  
+c3d9f4b8d0dd1ac9   backend-2.example.com    https://10.0.0.2:2380     https://10.0.0.2:2379
+c8f63ae435a5e6bf   backend-3.example.com    https://10.0.0.3:2380     https://10.0.0.3:2379
+2f7ae42c315f8c2d   backend-4.example.com    https://10.0.0.4:2380     https://10.0.0.4:2379
 {{< /code >}}
 
 ### Remove a cluster member
@@ -300,7 +300,7 @@ If replacing the faulty cluster member does not resolve the problem, read the [e
 Update the peer URLs of a member in a cluster:
 
 {{< code shell >}}
-sensuctl cluster member-update c8f63ae435a5e6bf http://10.0.0.4:2380
+sensuctl cluster member-update c8f63ae435a5e6bf https://10.0.0.4:2380
 {{< /code >}}
 
 You will receive a sensuctl response to confirm that the cluster member was updated:
