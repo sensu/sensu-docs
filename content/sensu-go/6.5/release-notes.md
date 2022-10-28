@@ -1109,7 +1109,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.16.0.
 
 **IMPORTANT:**
 
-- For Ubuntu/Debian and RHEL/CentOS installations, the backend is no longer seeded with a default admin username and password.
+- For Debian- and RHEL-family installations, the backend is no longer seeded with a default admin username and password.
 Users will need to [run 'sensu-backend init'][102] on every new installation and specify an admin username and password.
 
 **NEW FEATURES:**
@@ -1189,14 +1189,14 @@ Read the [blog announcement][91] for more information about our usage policy.
 ## 5.14.2 release notes
 
 **November 4, 2019** &mdash; The latest release of Sensu Go, version 5.14.2, is now available for download.
-This release includes an etcd upgrade, fixes that improve stability and performance, and a Sensu Go package for CentOS 8.
+This release includes an etcd upgrade, fixes that improve stability and performance, and a Sensu Go package for RHEL 8.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
 
 **IMPROVEMENTS:**
 
 - Upgraded etcd to 3.3.17.
-- Added build package for CentOS 8 (`el/8`).
+- Added build package for RHEL 8 (`el/8`).
 - Sensu Go now uses serializable event reads, which helps improve performance.
 
 **FIXES:**
@@ -1429,8 +1429,8 @@ For a complete list of supported platforms, visit the [platforms page][73].
 - Multiple nested set handlers are now flagged correctly, fixing an issue in which they were flagged as deeply nested.
 - Round robin proxy checks now execute as expected in the event of updated entities.
 - The Sensu backend now avoids situations of high CPU usage in the event that watchers enter a tight loop.
-- Due to incompatibility with the Go programming language, Sensu is incompatible with CentOS/RHEL 5.
-As a result, CentOS/RHEL 5 has been removed as a [supported platform][73] for all versions of Sensu Go.
+- Due to incompatibility with the Go programming language, Sensu is incompatible with RHEL 5.
+As a result, RHEL 5 has been removed as a [supported platform][73] for all versions of Sensu Go.
 
 ## 5.10.2 release notes
 

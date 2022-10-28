@@ -73,11 +73,11 @@ Then, run the following code, replacing `INTEGRATION_KEY` with your PagerDuty In
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 

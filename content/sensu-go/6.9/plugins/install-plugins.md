@@ -106,11 +106,11 @@ To download and update package information:
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 sudo apt-get update
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 sudo yum update
 {{< /code >}}
 
@@ -120,11 +120,11 @@ Depending on the plugin, you may need to install developer tool packages:
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 sudo apt-get install build-essential
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 sudo yum groupinstall "Development Tools"
 {{< /code >}}
 
