@@ -38,7 +38,7 @@ The `sensu-perf` test environment comfortably handles 40,000 Sensu agent connect
 
 {{% notice warning %}}
 **IMPORTANT**: PostgreSQL configuration file locations differ depending on platform.
-The steps in this guide use common paths for RHEL/CentOS, but the files may be stored elsewhere on your system.
+The steps in this guide use common paths for RHEL-family distributions, but the files may be stored elsewhere on your system.
 Learn more about [PostgreSQL configuration file locations](https://www.postgresql.org/docs/current/runtime-config-file-locations.html).
 {{% /notice %}}
 

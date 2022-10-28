@@ -21,7 +21,7 @@ The step for [translating integrations, contact routing, and LDAP authentication
 Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, the observation data (event) model, check dependencies, filter evaluation, and more.
 Sensu Go also includes many powerful [commercial features][27] to make monitoring easier to build, scale, and offer as a self-service tool to your internal customers.
 
-Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].
+Sensu Go is available for [Debian- and RHEL-family distributions and Docker][43].
 The Sensu Go agent is also available for Windows.
 
 {{% notice warning %}}
@@ -201,7 +201,7 @@ Read the [API overview][17] for more information.
 
 #### 1. Install the Sensu Go backend 
 
-The Sensu backend is available for Ubuntu/Debian, RHEL/CentOS, and Docker.
+The Sensu backend is available for Debian- and RHEL-family distributions and Docker.
 Read the [installation guide][52] to install, configure, and start the Sensu backend according to your [deployment strategy][38].
 
 #### 2. Log in to the Sensu web UI
@@ -232,7 +232,7 @@ In addition to built-in RBAC, Sensu Go's [commercial features][27] include suppo
 
 #### 5. Install agents
 
-The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
+The Sensu agent is available for Debian- and RHEL-family distributions, Windows, and Docker.
 Read the [installation guide][55] to install, configure, and start Sensu agents.
 
 If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56] (`/etc/sensu/agent.yml` or `C:\ProgramData\sensu\config\agent.yml.example`).

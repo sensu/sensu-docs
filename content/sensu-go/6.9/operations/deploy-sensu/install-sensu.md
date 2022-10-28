@@ -82,7 +82,7 @@ The agent TCP and UDP sockets are deprecated in favor of the [agent API][27].
 
 ## Install the Sensu backend
 
-The Sensu backend is available for Ubuntu/Debian, RHEL/CentOS, and Docker.
+The Sensu backend is available for Debian- and RHEL-family distributions and Docker.
 Review [supported platforms][5] for more information.
 
 ### 1. Download
@@ -99,7 +99,7 @@ docker pull sensu/sensu
 docker pull sensu/sensu-rhel
 {{< /code >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 # Add the Sensu repository
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 
@@ -107,7 +107,7 @@ curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh 
 sudo apt-get install sensu-go-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 # Add the Sensu repository
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 
@@ -166,7 +166,7 @@ volumes:
 
 {{< /code >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 # Copy the config template from the docs
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/backend.yml -o /etc/sensu/backend.yml
 
@@ -177,7 +177,7 @@ sudo systemctl start sensu-backend
 sudo systemctl status sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 # Copy the config template from the docs
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/backend.yml -o /etc/sensu/backend.yml
 
@@ -211,13 +211,13 @@ Replace `<username>` and `<password>` with the username and password you want to
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
 export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
 sensu-backend init
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
 export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
 sensu-backend init
@@ -271,7 +271,7 @@ To install sensuctl:
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 # Add the Sensu repository
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 
@@ -279,7 +279,7 @@ curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh 
 sudo apt-get install sensu-go-cli
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 # Add the Sensu repository
 curl https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 
@@ -341,7 +341,7 @@ sensuctl user change-password --interactive
 
 ## Install Sensu agents
 
-The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
+The Sensu agent is available for Debian- and RHEL-family distributions, Windows, and Docker.
 Review [supported platforms][5] for more information.
 
 ### 1. Download {#agent-download}
@@ -358,7 +358,7 @@ docker pull sensu/sensu
 docker pull sensu/sensu-rhel
 {{< /code >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 # Add the Sensu repository
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 
@@ -366,7 +366,7 @@ curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh 
 sudo apt-get install sensu-go-agent
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 # Add the Sensu repository
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 
@@ -429,7 +429,7 @@ volumes:
     driver: local
 {{< /code >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 # Copy the config template from the docs
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/agent.yml -o /etc/sensu/agent.yml
 
@@ -437,7 +437,7 @@ sudo curl -L https://docs.sensu.io/sensu-go/latest/files/agent.yml -o /etc/sensu
 sudo systemctl start sensu-agent
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 # Copy the config template from the docs
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/agent.yml -o /etc/sensu/agent.yml
 

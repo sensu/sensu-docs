@@ -40,14 +40,14 @@ If not, run the following commands:
 
 {{< language-toggle >}}
 
-{{< code "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 sudo curl -s -L -o /bin/cfssl https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssl_1.6.2_linux_amd64
 sudo curl -s -L -o /bin/cfssljson https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssljson_1.6.2_linux_amd64
 sudo curl -s -L -o /bin/cfssl-certinfo https://github.com/cloudflare/cfssl/releases/download/v1.6.2/cfssl-certinfo_1.6.2_linux_amd64
 sudo chmod +x /bin/cfssl*
 {{< /code >}}
 
-{{< code "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 
 # Update apt repos
 sudo apt-get update
@@ -187,7 +187,7 @@ Working from your Sensu backend, follow these steps to configure Sensu to use ce
 
    {{< language-toggle >}}
 
-  {{< code "RHEL/CentOS" >}}
+  {{< code shell "RHEL family" >}}
 echo 'PGUSER=sensu
 PGSSLMODE="verify-full"
 PGSSLCERT="/etc/sensu/tls/sensu.pem"
@@ -195,7 +195,7 @@ PGSSLKEY="/etc/sensu/tls/sensu-key.pem"
 PGSSLROOTCERT="/etc/sensu/tls/ca.pem"' | sudo tee /etc/sysconfig/sensu-backend
 {{< /code >}}
 
-  {{< code "Ubuntu/Debian" >}}
+  {{< code shell "Debian family" >}}
 echo 'PGUSER=sensu
 PGSSLMODE="verify-full"
 PGSSLCERT="/etc/sensu/tls/sensu.pem"
@@ -281,7 +281,7 @@ scp ca.pem postgres.example.com:/home/user
 
    {{< language-toggle >}}
 
-   {{< code shell "RHEL/CentOS">}}
+   {{< code shell "RHEL family" >}}
 sudo mkdir /var/lib/pgsql/14/data/tls
 cd /var/lib/pgsql/14/data/tls
 cp /home/user/postgres.example.com* /var/lib/pgsql/14/data/tls/
@@ -289,7 +289,7 @@ cp /home/user/ca.pem /var/lib/pgsql/14/data/tls/
 chown -R postgres:postgres /var/lib/pgsql/14/data
 {{< /code >}}
 
-   {{< code shell "Ubuntu/Debian">}}
+   {{< code shell "Debian family" >}}
 sudo mkdir /etc/postgresql/14/main/tls
 cd /etc/postgresql/14/main/tls
 cp /home/user/postgres.example.com* /etc/postgresql/14/main/tls/
@@ -303,7 +303,7 @@ chown -R postgres:postgres /etc/postgresql/14/main/
 
    {{< language-toggle >}}
 
-   {{< code shell "RHEL/CentOS">}}
+   {{< code shell "RHEL family" >}}
 # vim /var/lib/pgsql/14/data/postgresql.conf
 
 # - SSL -
@@ -314,7 +314,7 @@ ssl_cert_file = '/var/lib/pgsql/14/data/tls/postgres.example.com.pem'
 ssl_key_file = '/var/lib/pgsql/14/data/tls/postgres.example.com-key.pem'
 {{< /code >}}
 
-   {{< code shell "Ubuntu/Debian" >}}
+   {{< code shell "Debian family" >}}
 # vim /etc/postgresql/14/main/postgresql.conf
 
 # - SSL -
@@ -333,7 +333,7 @@ ssl_key_file = '/etc/postgresql/14/main/tls/postgres.example.com-key.pem'
 
    {{< language-toggle >}}
 
-   {{< code shell  "RHEL/CentOS" >}}
+   {{< code shell "RHEL family" >}}
 
 # /var/lib/pgsql/14/data/pg_hba.conf (file location)
 
@@ -345,7 +345,7 @@ hostssl all             postgres        0.0.0.0/0               reject
 hostssl sensu_events    sensu           0.0.0.0/0               cert
 {{< /code >}}
 
-   {{< code shell  "Ubuntu/Debian" >}}
+   {{< code shell "Debian family" >}}
 
 # /etc/postgresql/14/main/pg_hba.conf (file location)
 
@@ -367,11 +367,11 @@ hostssl sensu_events    sensu           0.0.0.0/0               cert
 
    {{< language-toggle >}}
 
-   {{< code shell "RHEL/Centos" >}}
+   {{< code shell "RHEL family" >}}
 sudo systemctl restart postgresql-14.service
 {{< /code >}}
 
-   {{< code shell "Ubuntu/Debian" >}}
+   {{< code shell "Debian family" >}}
 sudo systemctl restart postgresql.service
 {{< /code >}}
 

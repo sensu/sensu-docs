@@ -32,7 +32,7 @@ Replace the `<service>` variable with the name of the desired service (for examp
 
 {{< language-toggle >}}
 
-{{< code shell "RHEL/CentOS >= 7" >}}
+{{< code shell "RHEL/family >= 7" >}}
 journalctl --follow --unit sensu-<service>
 {{< /code >}}
 
@@ -51,7 +51,7 @@ Replace the `<service>` variable with the name of the desired service (for examp
 
 {{< language-toggle >}}
 
-{{< code shell "RHEL/CentOS <= 6" >}}
+{{< code shell "RHEL/family <= 6" >}}
 tail --follow /var/log/sensu/sensu-<service>
 {{< /code >}}
 

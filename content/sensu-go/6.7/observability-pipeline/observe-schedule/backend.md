@@ -18,7 +18,7 @@ menu:
 The Sensu backend is a service that manages check requests and observability data.
 Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], [handlers][11], and [pipelines][70], an embedded [etcd][2] datastore for storing configuration and state, and the Sensu [API][14], Sensu [web UI][6], and [sensuctl][37] command line tool.
 
-The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
+The Sensu backend is available for Debian- and RHEL-family distributions of Linux.
 For these operating systems, the Sensu backend uses the Bourne shell (sh) for the execution environment.
 
 Read the [installation guide][1] to install the backend.
@@ -29,8 +29,8 @@ For a **new** installation, the backend database must be initialized by providin
 Although initialization is required for every new installation, the implementation differs depending on your method of installation:
 
 - If you are using Docker, you can use environment variables to override the default admin username (`admin`) and password (`P@ssw0rd!`) during [step 2 of the backend installation process][24].
-- If you are using Ubuntu/Debian or RHEL/CentOS, you must specify admin credentials during [step 3 of the backend installation process][25].
-Sensu does not apply default admin credentials for Ubuntu/Debian or RHEL/CentoOS installations.
+- If you are using a Debian- or RHEL-family distribution, you must specify admin credentials during [step 3 of the backend installation process][25].
+Sensu does not apply default admin credentials for Debian- or RHEL-family installations.
 
 The initialization step bootstraps the first admin user account for your Sensu installation.
 This first account will be granted the cluster admin role.
@@ -82,9 +82,9 @@ volumes:
 
 If you did not use environment variables to override the default admin credentials in [step 2 of the backend installation process][24], we recommend [changing your default admin password][26] as soon as you have installed sensuctl.
 
-### Ubuntu/Debian or RHEL/CentOS initialization
+### Debian or RHEL family initialization
 
-For Ubuntu/Debian or RHEL/CentOS, set administrator credentials with environment variables at [initialization][25] as shown below.
+For Debian- or RHEL-family distributions, set administrator credentials with environment variables at [initialization][25] as shown below.
 
 To initialize with your username and password, replace `<username>` and `<password>` with the username and password you want to use:
 
@@ -145,7 +145,7 @@ volumes:
     driver: local
 {{< /code >}}
 
-{{< code shell "Ubuntu/Debian and RHEL/CentOS" >}}
+{{< code shell "Debian and RHEL families" >}}
 export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
 export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
 export SENSU_BACKEND_CLUSTER_ADMIN_API_KEY=<api_key>
@@ -468,7 +468,7 @@ api-request-limit: 1024000{{< /code >}}
 -------------|------
 description  | URL used to connect to the API.
 type         | String
-default      | `http://localhost:8080` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:8080` (Docker){{% notice note %}}
+default      | `http://localhost:8080` (Debian and RHEL families)<br><br>`http://$SENSU_HOSTNAME:8080` (Docker){{% notice note %}}
 **NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
 environment variable | `SENSU_BACKEND_API_URL`
@@ -898,7 +898,7 @@ description   | List of this member's client URLs to advertise to the rest of th
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type          | List
-default       | `http://localhost:2379` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:2379` (Docker){{% notice note %}}
+default       | `http://localhost:2379` (Debian and RHEL families)<br><br>`http://$SENSU_HOSTNAME:2379` (Docker){{% notice note %}}
 **NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
 environment variable | `SENSU_BACKEND_ETCD_ADVERTISE_CLIENT_URLS`
@@ -1044,7 +1044,7 @@ description                        | List of this member's peer URLs to advertis
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                               | List
-default                            | `http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:2380` (Docker){{% notice note %}}
+default                            | `http://127.0.0.1:2380` (Debian and RHEL families)<br><br>`http://$SENSU_HOSTNAME:2380` (Docker){{% notice note %}}
 **NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
 environment variable               | `SENSU_BACKEND_ETCD_INITIAL_ADVERTISE_PEER_URLS`
@@ -1065,7 +1065,7 @@ description            | Initial cluster configuration for bootstrapping.{{% not
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | String
-default                | `default=http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`default=http://$SENSU_HOSTNAME:2380` (Docker){{% notice note %}}
+default                | `default=http://127.0.0.1:2380` (Debian and RHEL families)<br><br>`default=http://$SENSU_HOSTNAME:2380` (Docker){{% notice note %}}
 **NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
 environment variable   | `SENSU_BACKEND_ETCD_INITIAL_CLUSTER`
@@ -1124,7 +1124,7 @@ description               | List of URLs to listen on for client traffic. Sensu'
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                      | List
-default                   | `http://127.0.0.1:2379` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://[::]:2379` (Docker)
+default                   | `http://127.0.0.1:2379` (Debian and RHEL families)<br><br>`http://[::]:2379` (Docker)
 environment variable      | `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
@@ -1143,7 +1143,7 @@ description             | List of URLs to listen on for peer traffic. Sensu's de
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                    | List
-default                 | `http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://[::]:2380` (Docker)
+default                 | `http://127.0.0.1:2380` (Debian and RHEL families)<br><br>`http://[::]:2380` (Docker)
 environment variable    | `SENSU_BACKEND_ETCD_LISTEN_PEER_URLS`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
@@ -1466,11 +1466,11 @@ Here's how.
 
      {{< language-toggle >}}
      
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 sudo touch /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 sudo touch /etc/sysconfig/sensu-backend
 {{< /code >}}
      
@@ -1490,11 +1490,11 @@ sudo touch /etc/sysconfig/sensu-backend
      
      {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
@@ -1504,11 +1504,11 @@ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/s
 
      {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 sudo systemctl restart sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 sudo systemctl restart sensu-backend
 {{< /code >}}
 
@@ -1527,11 +1527,11 @@ For example, to create the labels `"region": "us-east-1"` and `"type": "website"
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
@@ -1541,11 +1541,11 @@ To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
@@ -1553,7 +1553,7 @@ echo 'BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hook
 
 ### Use environment variables with the Sensu backend
 
-Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
+Any environment variables you create in `/etc/default/sensu-backend` (Debian family) or `/etc/sysconfig/sensu-backend` (RHEL family) will be available to handlers executed by the Sensu backend.
 
 For example, if you create a custom environment variable `TEST_VARIABLE` in your sensu-backend file, it will be available to use in your handler configurations as `$TEST_VARIABLE`.
 The following handler will print the `TEST_VARIABLE` value set in your sensu-backend file in `/tmp/test.txt`:
@@ -1602,7 +1602,7 @@ Depending on your environment and preferences, you may want to create overrides 
 You can create configuration overrides in several ways:
 
 - Command line configuration flag arguments for `sensu-backend start`.
-- Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
+- Environment variables in `/etc/default/sensu-backend` (Debian family) or `/etc/sysconfig/sensu-backend` (RHEL family).
 - Configuration settings in the backend.yml config file.
 
 {{% notice note %}}
@@ -1613,7 +1613,7 @@ Future package upgrades can overwrite changes in the systemd unit file.
 Sensu applies the following precedence to override settings:
 
 1. Arguments passed to the Sensu backend via command line configuration flags.
-2. Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
+2. Environment variables in `/etc/default/sensu-backend` (Debian family) or `/etc/sysconfig/sensu-backend` (RHEL family).
 3. Configuration in the backend.yml config file.
 
 For example, if you create overrides using all three methods, the command line configuration flag values will take precedence over the values you specify in `/etc/default/sensu-backend` or `/etc/sysconfig/sensu-backend` or the backend.yml config file.
@@ -1632,11 +1632,11 @@ To configure an environment variable for the desired backend log level:
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
