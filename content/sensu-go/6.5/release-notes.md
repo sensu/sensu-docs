@@ -292,14 +292,14 @@ This change improves backend reliability with older versions of federation and s
 
 **IMPROVEMENTS:**
 - ([Commercial feature][215]) The default webd log level is now `warn`.
-- The default log level for the Sensu API and [`sensu-agent`][225] is now `warn` (instead of `info`). 
+- The default log level for the Sensu API and [`sensu-agent`][225] is now `warn` (instead of `info`).
 - The sensu-backend now reports when it is ready to process events at the `warn` level.
 - You can now create resources with fields that are unknown to Sensu.
 This change improves forward-compatibility with newer Sensu backends.
 
 ## 6.4.0 release notes
 
-**June 28, 2021** &mdash; The latest release of Sensu Go, version 6.4.0, is now available for download. 
+**June 28, 2021** &mdash; The latest release of Sensu Go, version 6.4.0, is now available for download.
 
 The latest release of Sensu Go, version 6.4.0, is now available for download. This release includes a number of feature improvements and important bug fixes. We upgraded the embedded etcd from version 3.3 to 3.5 for improved stability and security. The `sensu-backend init` command now supports a `wait` flag, which indicates that the backend should repeatedly try to establish a connection to etcd until it is successful -- fantastic news for Kubernetes users who want to bootstrap new Sensu Go clusters with external etcd! Check timeout also now works properly on Windows hosts: the Sensu Go agent can terminate check sub-processes on check execution timeout. This release fixes a bug that prevented deregistration events from working. There’s something for everyone in this release!
 
@@ -430,7 +430,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.2.4.
 
 **January 21, 2021** &mdash; The latest release of Sensu Go, version 6.2.3, is now available for download.
 
-This patch fixes two bugs: one that could prevent the `--agent-managed-entity` configuration from working properly and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
+This patch fixes two bugs: one that could prevent the `agent-managed-entity` configuration option from working properly and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.2.3.
 
@@ -643,7 +643,7 @@ Visit the [Sensu Go Web repository][163] for more information.
 - ([Commercial feature][162]) Docker-only Sensu now binds to the hostname of containers instead of `localhost`. Docker images now set their own default values for environment variables `SENSU_AGENT_API_URL`, `SENSU_BACKEND_API_URL`, `SENSU_BACKEND_ETCD_INITIAL_CLUSTER`, `SENSU_BACKEND_ETCD_ADVERTISE_CLUSTER`, `SENSU_BACKEND_ETCD_INITIAL_ADVERTISE_PEER_URLS`, `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`, and `ETCD_LISTEN_PEER_URLS`.
 - ([Commercial feature][162]) Added Linux packages for 386; armv5, armv6, and armv7; MIPS hard float, MIPS LE hard float, and MIPS 64 LE hard float; ppc64le; and s390x architectures.
 Review the [supported platforms][165] page for a complete list of Sensu’s supported platforms.
-- Added [Sensu query expression][168] `sensu.CheckDependencies`.
+- ([Commercial feature][162]) Added [Sensu query expression][168] `sensu.CheckDependencies`.
 - Added [binary-only distributions][164] for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
 - Added the `is_silenced` Boolean attribute to the event.Check object to indicate whether the event was silenced at the time it was processed.
 
@@ -814,7 +814,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.20.1.
 
 **May 12, 2020** &mdash; The latest release of Sensu Go, version 5.20.0, is now available for download.
 
-This release delivers several new features, substantial improvements, and important fixes. One exciting new feature is agent local process discovery to further enrich entities and their events with valuable context. Other additions include a web UI federation view that provides a single pane of glass for all of your Sensu Go clusters and token substitution for assets. And Windows users rejoice! This release includes many Windows agent fixes, as well as agent log rotation capabilities! 
+This release delivers several new features, substantial improvements, and important fixes. One exciting new feature is agent local process discovery to further enrich entities and their events with valuable context. Other additions include a web UI federation view that provides a single pane of glass for all of your Sensu Go clusters and token substitution for assets. And Windows users rejoice! This release includes many Windows agent fixes, as well as agent log rotation capabilities!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
@@ -837,7 +837,7 @@ The `sensuctl describe-type` command deprecates `sensuctl dump --types`.
 
 **IMPROVEMENTS:**
 
-- ([Commercial feature][141]) The web UI homepage is now a federated view. 
+- ([Commercial feature][141]) The web UI homepage is now a federated view.
 - You can now [increment the log level][140] by sending SIGUSR1 to the sensu-backend or sensu-agent process.
 - [License metadata][149] now includes the [current entity count and license entity limit][150].
 - In the [web UI][153], users will receive a notification when they try to delete an event without appropriate authorization.
@@ -1109,7 +1109,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.16.0.
 
 **IMPORTANT:**
 
-- For Ubuntu/Debian and RHEL/CentOS installations, the backend is no longer seeded with a default admin username and password.
+- For Debian- and RHEL-family installations, the backend is no longer seeded with a default admin username and password.
 Users will need to [run 'sensu-backend init'][102] on every new installation and specify an admin username and password.
 
 **NEW FEATURES:**
@@ -1189,19 +1189,19 @@ Read the [blog announcement][91] for more information about our usage policy.
 ## 5.14.2 release notes
 
 **November 4, 2019** &mdash; The latest release of Sensu Go, version 5.14.2, is now available for download.
-This release includes an etcd upgrade, fixes that improve stability and performance, and a Sensu Go package for CentOS 8.
+This release includes an etcd upgrade, fixes that improve stability and performance, and a Sensu Go package for RHEL 8.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
 
 **IMPROVEMENTS:**
 
 - Upgraded etcd to 3.3.17.
-- Added build package for CentOS 8 (`el/8`).
+- Added build package for RHEL 8 (`el/8`).
 - Sensu Go now uses serializable event reads, which helps improve performance.
 
 **FIXES:**
 
-- As a result of upgrading etcd, TLS etcd clients that lose their connection will successfully reconnect when using `--no-embed-etcd`.
+- As a result of upgrading etcd, TLS etcd clients that lose their connection will successfully reconnect when using the `no-embed-etcd` configuration option.
 - Check TTL and keepalive switches are now correctly buried when associated events and entities are deleted.
 As a result, Sensu now uses far fewer leases for check TTLs and keepalives, which improves stability for most deployments.
 - Corrected a minor UX issue in interactive filter commands in sensuctl.
@@ -1429,8 +1429,8 @@ For a complete list of supported platforms, visit the [platforms page][73].
 - Multiple nested set handlers are now flagged correctly, fixing an issue in which they were flagged as deeply nested.
 - Round robin proxy checks now execute as expected in the event of updated entities.
 - The Sensu backend now avoids situations of high CPU usage in the event that watchers enter a tight loop.
-- Due to incompatibility with the Go programming language, Sensu is incompatible with CentOS/RHEL 5.
-As a result, CentOS/RHEL 5 has been removed as a [supported platform][73] for all versions of Sensu Go.
+- Due to incompatibility with the Go programming language, Sensu is incompatible with RHEL 5.
+As a result, RHEL 5 has been removed as a [supported platform][73] for all versions of Sensu Go.
 
 ## 5.10.2 release notes
 
@@ -1555,7 +1555,7 @@ Read the [Tessen reference][48] for more information.
 Read the [license management docs][49] to learn more about entity limits.
 - Sensu backends now perform better at scale using increased worker pool sizes for events and keepalives.
 - The maximum size of the etcd database and etcd requests is now configurable using the `etcd-quota-backend-bytes` and `etcd-max-request-bytes` backend configuration options.
-These are advanced configuration options requiring familiarly with etcd. 
+These are advanced configuration options requiring familiarly with etcd.
 Use with caution.
 Read the [backend reference][50] for more information.
 - Most Sensu resources now use ProtoBuf serialization in etcd.

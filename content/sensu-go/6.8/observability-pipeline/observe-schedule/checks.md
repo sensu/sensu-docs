@@ -1783,7 +1783,7 @@ ttl: 100
 
 |max_output_size  | |
 -------------|-------
-description  | Maximum size of stored check outputs. In bytes. When set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
+description  | Maximum size of stored check outputs. In bytes. When set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.<br><br>As of Sensu Go 6.8.2, when check output is truncated due to the `max_output_size` configuration, the events the check produces will include a `sensu.io/output_truncated_bytes` label.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}

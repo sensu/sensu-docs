@@ -168,6 +168,20 @@ This diagram shows the subscriptions to list for each of the 12 servers (the ent
 In this scenario, none of the Windows servers should execute the NGINX metrics check, so the `check_nginx` subscriptions do not match any subscriptions listed for any of the Windows servers.
 Two of the six Windows servers *should* execute the SQL Server metrics check, so the subscription listed in the `check_sqlsrv` definition matches a subscription listed for those two Windows server entities.
 
+## Subscription naming considerations
+
+Consistent subscription naming helps you group and filter different entities and quickly understand which entities will be affected by any changes.
+
+Subscriptions based on function are helpful when you're creating silences.
+For example, if you need to silence all webservers for maintenance, it's easier to silence the affected entities if they all include a subscription like `webserver` instead of identifying and silencing all of your webserver entities individually.
+Other function-based subscriptions might be `database`, `switch`, `service`, or `container`.
+
+Subscription naming is also important in the context of API and sensuctl filters and web UI searches.
+Consistent subscription naming means that search queries like `"linux" in checks.subscriptions` will actually retrieve all of your checks that run on Linux agents.
+
+To make subscriptions more granular, use camel case to append information about environment, roles, entity type, or any other category as needed.
+For example, you can use `webserverDev` and `webserverProd` to specify a distinction between development and production webservers while preserving your ability to find all webserver entities with a search query like `"webserver" in entity.subscriptions`.
+
 
 [1]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [2]: ../agent/#subscriptions-option

@@ -13,13 +13,18 @@ menu:
     parent: observe-process
 ---
 
+{{% notice protip %}}
+**PRO TIP**: You can use the Slack Alerts integration in the [Sensu Catalog](../../../web-ui/sensu-catalog/) to send Slack alerts based on Sensu event data instead of following this guide.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
+{{% /notice %}}
+
 Pipelines are Sensu resources composed of [observation event][1] processing workflows that include filters, mutators, and handlers.
 You can use pipelines to send email alerts, create or resolve incidents (in PagerDuty, for example), or store metrics in a time-series database like InfluxDB.
 
 This guide will help you send alerts to Slack in the channel `monitoring` by configuring a pipeline and adding it to a check named `check_cpu`.
 If you don't already have this check in place, follow [Monitor server resources][2] to add the check.
 
-Before you start, follow the RHEL/CentOS [install instructions][17] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+Before you start, follow the RHEL family [install instructions][17] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
 
 ## Configure a Sensu entity
 

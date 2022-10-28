@@ -19,7 +19,7 @@ You can use pipelines to send email alerts, create or resolve incidents (in Page
 This guide will help you send alerts to Slack in the channel `monitoring` by configuring a pipeline and adding it to a check named `check_cpu`.
 If you don't already have this check in place, follow [Monitor server resources][2] to add the check.
 
-Before you start, follow the RHEL/CentOS [install instructions][17] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+Before you start, follow the RHEL family [install instructions][17] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
 
 ## Configure a Sensu entity
 

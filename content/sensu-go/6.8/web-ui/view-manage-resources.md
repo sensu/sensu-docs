@@ -2,7 +2,7 @@
 title: "View and manage resources in the web UI"
 linkTitle: "View and Manage Resources"
 description: "View and manage Sensu resources in the user-friendly web UI, including events, entities, silences, checks, handlers, event filters, and mutators."
-weight: 20
+weight: 10
 version: "6.8"
 product: "Sensu Go"
 platformContent: false
@@ -117,6 +117,13 @@ In the Execute Check dialog window, you can execute the check according to its e
 {{% /notice %}}
 
 {{< figure src="/images/go/view_manage_resources/execute_check_dialog_670.png" alt="Execute Check dialog window for executing a check on demand from the web UI" link="/images/go/view_manage_resources/execute_check_dialog_670.png" target="_blank" >}}
+
+{{% notice note %}}
+**NOTE**: If you manually execute a [round robin check](../../observability-pipeline/observe-schedule/checks/#round-robin-checks) in the web UI, Sensu will execute the check on *all* subscribed agents.
+After the manual execution, the check will run as scheduled in round robin fashion.<br><br>
+To manually execute a round robin check on a single agent, specify the agent's entity name subscription in the Execute Check dialog.
+For example, if the entity is named `webserver1`, use the subscription `entity:webserver1`.
+{{% /notice %}}
 
 ## View resource data in the web UI
 

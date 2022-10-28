@@ -21,7 +21,7 @@ The step for [translating integrations, contact routing, and LDAP authentication
 Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, the observation data (event) model, check dependencies, filter evaluation, and more.
 Sensu Go also includes many powerful [commercial features][27] to make monitoring easier to build, scale, and offer as a self-service tool to your internal customers.
 
-Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].
+Sensu Go is available for [Debian- and RHEL-family distributions and Docker][43].
 The Sensu Go agent is also available for Windows.
 
 {{% notice warning %}}
@@ -71,7 +71,7 @@ The [**Sensu backend**][3] is powered by an embedded transport and [etcd][36] da
 Sensu backends require persistent storage for their embedded database, disk space for local dynamic runtime asset caching, and several exposed ports:
 
 - 2379 (gRPC) Sensu storage client: Required for Sensu backends using an external etcd instance
-- 2380 (gRPC) Sensu storage peer: Required for other Sensu backends in a [cluster][37]
+- 2380 (gRPC) Sensu storage peer: Required for etcd [cluster][37] members to communicate directly with their peers
 - 3000 (HTTP/HTTPS) [Sensu web UI][39]: Required for all Sensu backends using a Sensu web UI
 - 8080 (HTTP/HTTPS) [Sensu API][40]: Required for all users accessing the Sensu API
 - 8081 (WS/WSS) Agent API: Required for all Sensu agents connecting to a Sensu backend
@@ -201,7 +201,7 @@ Read the [API overview][17] for more information.
 
 #### 1. Install the Sensu Go backend 
 
-The Sensu backend is available for Ubuntu/Debian, RHEL/CentOS, and Docker.
+The Sensu backend is available for Debian- and RHEL-family distributions and Docker.
 Read the [installation guide][52] to install, configure, and start the Sensu backend according to your [deployment strategy][38].
 
 #### 2. Log in to the Sensu web UI
@@ -232,7 +232,7 @@ In addition to built-in RBAC, Sensu Go's [commercial features][27] include suppo
 
 #### 5. Install agents
 
-The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
+The Sensu agent is available for Debian- and RHEL-family distributions, Windows, and Docker.
 Read the [installation guide][55] to install, configure, and start Sensu agents.
 
 If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56] (`/etc/sensu/agent.yml` or `C:\ProgramData\sensu\config\agent.yml.example`).
@@ -576,7 +576,7 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [45]: https://github.com/sensu/sensu-translator
 [46]: https://slack.sensu.io/
 [47]: https://discourse.sensu.io/c/sensu-go/migrating-to-go
-[48]: https://github.com/sensu/sensu-go-workshop
+[48]: https://github.com/sensu/sensu-go-workshop#overview
 [49]: https://sensu.io/support/
 [50]: ../../../plugins/use-assets-to-install-plugins/
 [51]: ../../../plugins/install-plugins/

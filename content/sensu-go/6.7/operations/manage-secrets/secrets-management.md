@@ -54,7 +54,7 @@ Make a note of your Integration Key &mdash; you'll need it to create your [backe
 
 ## Use Env for secrets management
 
-The [Sensu Go commercial distribution][1] includes a secrets provider, `Env`, that exposes secrets from [environment variables][21] on your Sensu backend nodes.
+The [Sensu Go commercial distribution][41] includes a secrets provider, `Env`, that exposes secrets from [environment variables][21] on your Sensu backend nodes.
 The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
 
 ### Create your backend environment variable
@@ -67,11 +67,11 @@ Then, run the following code, replacing `INTEGRATION_KEY` with your PagerDuty In
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
@@ -538,7 +538,7 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [15]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [17]: ../../../operations/manage-secrets/secrets-providers#tls-vault
 [19]: #add-a-handler
-[21]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
+[21]: ../../../observability-pipeline/observe-schedule/backend/#environment-variables
 [22]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [24]: ../../../observability-pipeline/observe-schedule/checks/#pipelines-attribute
@@ -552,3 +552,4 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [34]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
 [35]: ../../../observability-pipeline/observe-process/pipelines/#workflows
 [36]: ../../../observability-pipeline/observe-process/send-pagerduty-alerts/#assign-the-pipeline-to-a-check
+[41]: ../../../commercial/

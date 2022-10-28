@@ -13,6 +13,11 @@ menu:
     parent: observe-process
 ---
 
+{{% notice protip %}}
+**PRO TIP**: You can use the Sumo Logic Analytics integration in the [Sensu Catalog](../../../web-ui/sensu-catalog/) to send Sensu event data to Sumo Logic instead of following this guide.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
+{{% /notice %}}
+
 Follow this guide to create a pipeline that sends data from a Sensu check to Sumo Logic for long-term logs and metrics storage.
 Sensu [checks][2] are commands the Sensu agent executes that generate observability data in a status or metric [event][16].
 Sensu [pipelines][14] define the event filters and actions the Sensu backend executes on the events.
@@ -162,11 +167,11 @@ If you have already created this file on your system, skip to step 2.
 
      {{< language-toggle >}}
      
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 sudo touch /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 sudo touch /etc/sysconfig/sensu-backend
 {{< /code >}}
      
@@ -177,11 +182,11 @@ Run:
 
      {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'SUMOLOGIC_URL=<SumoLogic_HTTPSourceAddress_URL>' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'SUMOLOGIC_URL=<SumoLogic_HTTPSourceAddress_URL>' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 

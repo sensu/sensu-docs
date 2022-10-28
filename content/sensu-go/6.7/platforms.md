@@ -17,7 +17,7 @@ Sensu downloads are provided under the [Sensu commercial license][7].
 ## Supported packages
 
 This page lists supported packages for the most common platforms.
-Supported packages for common platforms are available from [sensu/stable][8] on packagecloud and the [Sensu downloads page][9].
+Supported packages are available from [sensu/stable][8] on packagecloud and the [Sensu downloads page][9].
 
 {{% notice note %}}
 **NOTE**: The [sensu/stable](https://packagecloud.io/sensu/stable/) repository on packagecloud includes packages for every platform Sensu supports, in addition to packages for the common platforms listed on this page.
@@ -25,7 +25,7 @@ Supported packages for common platforms are available from [sensu/stable][8] on 
 
 ### Sensu backend
 
-|  | RHEL/CentOS<br>6, 7, 8 | Debian 8, 9, 10, 11 | Ubuntu 14.04<br>16.04, 18.04<br>18.10, 19.04<br>19.10, 20.04 |
+|  | RHEL family<br>6, 7, 8 | Debian 8, 9, 10, 11 | Ubuntu 14.04<br>16.04, 18.04<br>18.10, 19.04<br>19.10, 20.04 |
 |----------------------|---------|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} |
 | `arm64` | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -33,11 +33,11 @@ Supported packages for common platforms are available from [sensu/stable][8] on 
 
 As of Sensu Go 6.7.2, supported packages for the Sensu backend also include **Ubuntu 22.04** (`amd64`, `arm64`, `ppe64le`).
 
-As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL/CentOS 9** (`amd64`, `arm64`, `ppe64le`).
+As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL 9** (`amd64`, `arm64`, `ppe64le`).
 
 ### Sensu agent
 
-|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
+|  | RHEL<br>family<br>6, 7, 8 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -47,11 +47,11 @@ As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RH
 
 As of Sensu Go 6.7.2, supported packages for the Sensu agent also include **Ubuntu 22.04** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
 
-As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL/CentOS 9** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
+As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL 9** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
 
 ### Sensuctl command line tool
 
-|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
+|  | RHEL<br>family<br>6, 7, 8 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -61,7 +61,7 @@ As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RH
 
 As of Sensu Go 6.7.2, supported packages for the sensuctl command line tool also include **Ubuntu 22.04** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
 
-As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL/CentOS 9** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
+As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL 9** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
 
 ## Docker images
 
@@ -189,10 +189,12 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.7.5/sensu-go_6.7
 
 Builds that support the Federal Information Processing Standard (FIPS) for Federal Risk and Authorization Management Program (FedRAMP) compliance are available for Linux `amd64`.
 
-Sensu FIPS builds with [FIPS-mode configuration options][51] are linked with the FIPS 140-2 validated cryptographic library.
+Sensu FIPS builds with FIPS-mode configuration options are linked with the FIPS 140-2 validated cryptographic library.
 You can run Red Hat Enterprise Linux (RHEL) with the FIPS-mode kernel option to enforce FIPS systemwide &mdash; Sensu FIPS builds comply with this mode.
 
 [Contact Sensu][50] to request builds with FIPS support.
+
+Read [Configure Sensu for FIPS compliance][65] to learn more about Sensu's FIPS build, including configuration examples.
 
 ### Windows
 
@@ -368,7 +370,9 @@ You can also use cron to run Sensu checks locally on these systems and forward t
 Sensu Go's core is open source software, freely available under an MIT License.
 Sensu Go instances built from source do not include [commercial features][3] such as the web UI, single sign-on (SSO) authentication, and secrets management.
 Review the [feature comparison matrix][15] to learn more.
+
 To build Sensu Go from source, read the [Sensu Go installation instructions on GitHub][16].
+To download and run the web UI as a separate component, visit the [Sensu Go Web GitHub repository][60].
 
 ## Mirror packages
 

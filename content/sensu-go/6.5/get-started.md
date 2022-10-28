@@ -15,7 +15,7 @@ You can [install the commercial distribution][15] or [build Sensu from source][1
 
 ## Install the commercial distribution of Sensu Go
 
-Sensu's [supported platforms][20] include CentOS/RHEL, Debian, Ubuntu, and Windows.
+Sensu's [supported platforms][20] include Debian- and RHEL-family distributions and Windows.
 
 - [**Install Sensu Go**][2] with a commercial package and get started for free
 - Learn about Sensu's [commercial features][3] &mdash; all commercial features are available for free in the packaged Sensu Go distribution up to an entity limit of 100
@@ -27,7 +27,7 @@ Sensu's [supported platforms][20] include CentOS/RHEL, Debian, Ubuntu, and Windo
 
 Watch this video for an 8-minute Sensu Go overview and demo:
 
-{{< youtube eUZTMdYtCmg >}}
+{{< youtube uyj3qFjq58g >}}
 
 We recommend these resources for learning more about Sensu:
 
@@ -47,9 +47,8 @@ Sensu offers support packages for Sensu Go as well as commercial licenses design
 
 Sensu Go's core is open source software, freely available under an MIT License.
 
-- Get the Sensu Go [binary distribution][19] for your platform
-- [Visit Sensu Go on GitHub][10]
 - [Compare OSS and commercial features][14]
+- [Visit Sensu Go on GitHub][10]
 - [Build from source][11]
 
 
@@ -63,14 +62,13 @@ Sensu Go's core is open source software, freely available under an MIT License.
 [9]: ../operations/maintain-sensu/license/
 [10]: https://github.com/sensu/sensu-go/
 [11]: https://www.github.com/sensu/sensu-go/blob/main/README.md#building-from-source
-[12]: https://github.com/sensu/sensu-go-workshop
+[12]: https://github.com/sensu/sensu-go-workshop#overview
 [13]: ../operations/maintain-sensu/migrate/
 [14]: https://sensu.io/features/compare
 [15]: #install-the-commercial-distribution-of-sensu-go
 [16]: #build-sensu-from-source-oss
 [17]: #explore-monitoring-at-scale-with-sensu-go
 [18]: ../operations/deploy-sensu/deployment-architecture/#common-sensu-architectures
-[19]: ../platforms/#binary-only-distributions
 [20]: ../platforms/
 [21]: https://sensu.io/learn
 [22]: ../observability-pipeline/

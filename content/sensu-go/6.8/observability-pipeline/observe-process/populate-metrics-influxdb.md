@@ -13,6 +13,11 @@ menu:
     parent: observe-process
 ---
 
+{{% notice protip %}}
+**PRO TIP**: You can use the InfluxDB Metrics integration in the [Sensu Catalog](../../../web-ui/sensu-catalog/) to send Sensu event data to InfluxDB instead of following this guide.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
+{{% /notice %}}
+
 A Sensu event handler is an action the Sensu backend executes when a specific [event][1] occurs.
 In this guide, you'll use a [handler][9] to populate the time-series database [InfluxDB][2] with Sensu observability event data.
 

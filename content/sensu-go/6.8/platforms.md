@@ -17,7 +17,7 @@ Sensu downloads are provided under the [Sensu commercial license][7].
 ## Supported packages
 
 This page lists supported packages for the most common platforms.
-Supported packages for common platforms are available from [sensu/stable][8] on packagecloud and the [Sensu downloads page][9].
+Supported packages are available from [sensu/stable][8] on packagecloud and the [Sensu downloads page][9].
 
 {{% notice note %}}
 **NOTE**: The [sensu/stable](https://packagecloud.io/sensu/stable/) repository on packagecloud includes packages for every platform Sensu supports, in addition to packages for the common platforms listed on this page.
@@ -25,7 +25,7 @@ Supported packages for common platforms are available from [sensu/stable][8] on 
 
 ### Sensu backend
 
-|  | RHEL/CentOS<br>6, 7, 8, 9 | Debian 8, 9, 10, 11 | Ubuntu 14.04<br>16.04, 18.04, 18.10<br>19.04, 19.10, 20.04<br>22.04 |
+|  | RHEL family<br>6, 7, 8, 9 | Debian 8, 9, 10, 11 | Ubuntu 14.04<br>16.04, 18.04, 18.10<br>19.04, 19.10, 20.04<br>22.04 |
 |----------------------|---------|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} |
 | `arm64` | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -33,7 +33,7 @@ Supported packages for common platforms are available from [sensu/stable][8] on 
 
 ### Sensu agent
 
-|  | RHEL/<br>CentOS<br>6, 7, 8, 9 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04<br>22.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
+|  | RHEL<br>family<br>6, 7, 8, 9 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04<br>22.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -43,7 +43,7 @@ Supported packages for common platforms are available from [sensu/stable][8] on 
 
 ### Sensuctl command line tool
 
-|  | RHEL/<br>CentOS<br>6, 7, 8, 9 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04<br>22.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
+|  | RHEL<br>family<br>6, 7, 8, 9 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04<br>22.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -63,9 +63,6 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 ## Binary-only distributions
 
 Sensu binary-only distributions are available in `.zip` and `.tar.gz` formats.
-
-The Sensu web UI is a standalone product &mdash; it is not distributed inside the Sensu backend binary.
-Visit the [Sensu Go Web GitHub repository][60] for more information.
 
 | Platform | Architectures |
 |----------|---------------|
@@ -104,49 +101,49 @@ Binaries for all other Linux architectures include only the Sensu agent and sens
 <tbody>
 <tr>
 <td><code>386</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_386.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_386.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_386.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_386.zip"><code>.zip</code></a></td>
 <td class="vertline"><code>MIPS LE hard float</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mipsle-hardfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mipsle-hardfloat.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mipsle-hardfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mipsle-hardfloat.zip"><code>.zip</code></a></td>
 </tr>
 <tr>
 <td><code>amd64</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_amd64.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_amd64.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_amd64.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_amd64.zip"><code>.zip</code></a></td>
 <td class="vertline"><code>MIPS LE soft float</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mipsle-softfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mipsle-softfloat.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mipsle-softfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mipsle-softfloat.zip"><code>.zip</code></a></td>
 </tr>
 <tr>
 <td><code>arm64</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_arm64.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_arm64.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_arm64.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_arm64.zip"><code>.zip</code></a></td>
 <td class="vertline"><code>MIPS 64 hard float</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips64-hardfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips64-hardfloat.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips64-hardfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips64-hardfloat.zip"><code>.zip</code></a></td>
 </tr>
 <tr>
 <td><code>armv5</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv5.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv5.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv5.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv5.zip"><code>.zip</code></a></td>
 <td class="vertline"><code>MIPS 64 soft float</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips64-softfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips64-softfloat.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips64-softfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips64-softfloat.zip"><code>.zip</code></a></td>
 </tr>
 <tr>
 <td><code>armv6</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv6.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv6.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv6.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv6.zip"><code>.zip</code></a></td>
 <td class="vertline"><code>MIPS 64 LE hard float</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips64le-hardfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips64le-hardfloat.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips64le-hardfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips64le-hardfloat.zip"><code>.zip</code></a></td>
 </tr>
 <tr>
 <td><code>armv7</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv7.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv7.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv7.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv7.zip"><code>.zip</code></a></td>
 <td class="vertline"><code>MIPS 64 LE soft float</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips64le-softfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips64le-softfloat.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips64le-softfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips64le-softfloat.zip"><code>.zip</code></a></td>
 </tr>
 <td><code>MIPS hard float</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips-hardfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips-hardfloat.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips-hardfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips-hardfloat.zip"><code>.zip</code></a></td>
 <td class="vertline"><code>s390x</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_s390x.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_s390x.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_s390x.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_s390x.zip"><code>.zip</code></a></td>
 </tr>
 <td><code>MIPS soft float</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips-softfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_mips-softfloat.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips-softfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_mips-softfloat.zip"><code>.zip</code></a></td>
 <td class="vertline"><code>ppc64le</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_ppc64le.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_ppc64le.zip"><code>.zip</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_ppc64le.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_ppc64le.zip"><code>.zip</code></a></td>
 </tr>
 </tbody>
 </table>
@@ -154,19 +151,19 @@ Binaries for all other Linux architectures include only the Sensu agent and sens
 For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 
 {{< code shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_amd64.tar.gz
 {{< /code >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< code shell >}}
-sha256sum sensu-go_6.8.1_linux_amd64.tar.gz
+sha256sum sensu-go_6.8.2_linux_amd64.tar.gz
 {{< /code >}}
 
 The result should match the checksum for your platform:
 
 {{< code shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_checksums.txt && cat sensu-go_6.8.1_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_checksums.txt && cat sensu-go_6.8.2_checksums.txt
 {{< /code >}}
 
 {{< platformBlockClose >}}
@@ -177,10 +174,12 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8
 
 Builds that support the Federal Information Processing Standard (FIPS) for Federal Risk and Authorization Management Program (FedRAMP) compliance are available for Linux `amd64`.
 
-Sensu FIPS builds with [FIPS-mode configuration options][51] are linked with the FIPS 140-2 validated cryptographic library.
+Sensu FIPS builds with FIPS-mode configuration options are linked with the FIPS 140-2 validated cryptographic library.
 You can run Red Hat Enterprise Linux (RHEL) with the FIPS-mode kernel option to enforce FIPS systemwide &mdash; Sensu FIPS builds comply with this mode.
 
 [Contact Sensu][50] to request builds with FIPS support.
+
+Read [Configure Sensu for FIPS compliance][65] to learn more about Sensu's FIPS build, including configuration examples.
 
 ### Windows
 
@@ -200,21 +199,21 @@ We support Windows 7 and later and Windows Server 2008R2 and later for binary di
 For example, to download Sensu for Windows `amd64` in `zip` format:
 
 {{< code text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_windows_amd64.zip  -OutFile "$env:userprofile\sensu-go_6.8.1_windows_amd64.zip"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_windows_amd64.zip  -OutFile "$env:userprofile\sensu-go_6.8.2_windows_amd64.zip"
 {{< /code >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< code text >}}
-Get-FileHash "$env:userprofile\sensu-go_6.8.1_windows_amd64.zip" -Algorithm SHA256 | Format-List
+Get-FileHash "$env:userprofile\sensu-go_6.8.2_windows_amd64.zip" -Algorithm SHA256 | Format-List
 {{< /code >}}
 
 The result should match (with the exception of capitalization) the checksum for your platform:
 
 {{< code text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_checksums.txt -OutFile "$env:userprofile\sensu-go_6.8.1_checksums.txt"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_checksums.txt -OutFile "$env:userprofile\sensu-go_6.8.2_checksums.txt"
 
-Get-Content "$env:userprofile\sensu-go_6.8.1_checksums.txt" | Select-String -Pattern windows_amd64
+Get-Content "$env:userprofile\sensu-go_6.8.2_checksums.txt" | Select-String -Pattern windows_amd64
 {{< /code >}}
 
 {{< platformBlockClose >}}
@@ -240,25 +239,25 @@ We support macOS 10.11 and later for binary distributions.
 For example, to download Sensu for macOS `amd64` in `tar.gz` format:
 
 {{< code shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_darwin_amd64.tar.gz
 {{< /code >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< code shell >}}
-shasum -a 256 sensu-go_6.8.1_darwin_amd64.tar.gz
+shasum -a 256 sensu-go_6.8.2_darwin_amd64.tar.gz
 {{< /code >}}
 
 The result should match the checksum for your platform:
 
 {{< code shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_checksums.txt && cat sensu-go_6.8.1_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_checksums.txt && cat sensu-go_6.8.2_checksums.txt
 {{< /code >}}
 
 Extract the archive:
 
 {{< code shell >}}
-tar -xvf sensu-go_6.8.1_darwin_amd64.tar.gz
+tar -xvf sensu-go_6.8.2_darwin_amd64.tar.gz
 {{< /code >}}
 
 Copy the executable into your PATH:
@@ -292,19 +291,19 @@ We support FreeBSD 11.2 and later for binary distributions.
 For example, to download Sensu for FreeBSD `amd64` in `tar.gz` format:
 
 {{< code shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_amd64.tar.gz
 {{< /code >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< code shell >}}
-sha256sum sensu-go_6.8.1_freebsd_amd64.tar.gz
+sha256sum sensu-go_6.8.2_freebsd_amd64.tar.gz
 {{< /code >}}
 
 The result should match the checksum for your platform:
 
 {{< code shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_checksums.txt && cat sensu-go_6.8.1_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_checksums.txt && cat sensu-go_6.8.2_checksums.txt
 {{< /code >}}
 
 {{< platformBlockClose >}}
@@ -328,19 +327,19 @@ We support Solaris 11 and later (not SPARC) for binary distributions.
 For example, to download Sensu for Solaris `amd64` in `tar.gz` format:
 
 {{< code shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_solaris_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_solaris_amd64.tar.gz
 {{< /code >}}
 
 Generate a SHA-256 checksum for the downloaded artifact.
 
 {{< code shell >}}
-sha256sum sensu-go_6.8.1_solaris_amd64.tar.gz
+sha256sum sensu-go_6.8.2_solaris_amd64.tar.gz
 {{< /code >}}
 
 The result should match the checksum for your platform.
 
 {{< code shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_checksums.txt && cat sensu-go_6.8.1_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_checksums.txt && cat sensu-go_6.8.2_checksums.txt
 {{< /code >}}
 
 {{< platformBlockClose >}}
@@ -356,7 +355,9 @@ You can also use cron to run Sensu checks locally on these systems and forward t
 Sensu Go's core is open source software, freely available under an MIT License.
 Sensu Go instances built from source do not include [commercial features][3] such as the web UI, single sign-on (SSO) authentication, and secrets management.
 Review the [feature comparison matrix][15] to learn more.
+
 To build Sensu Go from source, read the [Sensu Go installation instructions on GitHub][16].
+To download and run the web UI as a separate component, visit the [Sensu Go Web GitHub repository][60].
 
 ## Mirror packages
 
@@ -381,31 +382,31 @@ The [sensu/stable][8] packagecloud repository hosts packages for every Sensu Go 
 [15]: https://sensu.io/features/compare
 [16]: https://github.com/sensu/sensu-go#installation
 [17]: https://github.com/jaredledvina/sensu-go-ansible/
-[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv7.tar.gz
-[20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_amd64.zip
-[21]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_arm64.zip
-[22]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv5.zip
-[23]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv6.zip
-[24]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv7.zip
+[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv7.tar.gz
+[20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_amd64.zip
+[21]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_arm64.zip
+[22]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv5.zip
+[23]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv6.zip
+[24]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv7.zip
 [25]: https://github.com/sensu/sensu-push
-[26]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_windows_amd64.tar.gz
-[27]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_windows_386.tar.gz
-[28]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_windows_amd64.zip
-[29]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_windows_386.zip
-[30]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_darwin_amd64.tar.gz
-[31]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_darwin_amd64.zip
-[32]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_amd64.tar.gz
-[33]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_amd64.zip
-[34]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_386.tar.gz
-[35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_386.zip
-[36]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_solaris_amd64.tar.gz
-[37]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_solaris_amd64.zip
-[38]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_armv5.tar.gz
-[39]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_armv5.zip
-[40]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_armv6.tar.gz
-[41]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_armv6.zip
-[42]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_armv7.tar.gz
-[43]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_freebsd_armv7.zip
+[26]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_windows_amd64.tar.gz
+[27]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_windows_386.tar.gz
+[28]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_windows_amd64.zip
+[29]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_windows_386.zip
+[30]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_darwin_amd64.tar.gz
+[31]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_darwin_amd64.zip
+[32]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_amd64.tar.gz
+[33]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_amd64.zip
+[34]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_386.tar.gz
+[35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_386.zip
+[36]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_solaris_amd64.tar.gz
+[37]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_solaris_amd64.zip
+[38]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_armv5.tar.gz
+[39]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_armv5.zip
+[40]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_armv6.tar.gz
+[41]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_armv6.zip
+[42]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_armv7.tar.gz
+[43]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_freebsd_armv7.zip
 [44]: #linux
 [45]: #windows
 [46]: #macos
@@ -414,14 +415,15 @@ The [sensu/stable][8] packagecloud repository hosts packages for every Sensu Go 
 [49]: ../api
 [50]: https://sensu.io/contact
 [51]: ../observability-pipeline/observe-schedule/backend/#fips-openssl
-[54]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_amd64.tar.gz
-[55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_arm64.tar.gz
-[56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv5.tar.gz
-[57]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_linux_armv6.tar.gz
-[58]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/cgo/sensu-go-cgo_6.8.1_darwin_amd64.tar.gz
-[59]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/cgo/sensu-go-cgo_6.8.1_darwin_amd64.zip
-[60]: https://github.com/sensu/web
-[61]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_darwin_arm64.tar.gz
-[62]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.1/sensu-go_6.8.1_darwin_arm64.zip
+[54]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_amd64.tar.gz
+[55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_arm64.tar.gz
+[56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv5.tar.gz
+[57]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_linux_armv6.tar.gz
+[58]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/cgo/sensu-go-cgo_6.8.2_darwin_amd64.tar.gz
+[59]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/cgo/sensu-go-cgo_6.8.2_darwin_amd64.zip
+[60]: https://github.com/sensu/web#roadmap
+[61]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_darwin_arm64.tar.gz
+[62]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.8.2/sensu-go_6.8.2_darwin_arm64.zip
 [63]: https://packagecloud.io/sensu/stable/mirror#yum
 [64]: https://packagecloud.io/sensu/stable/mirror#apt
+[65]: ../operations/deploy-sensu/secure-sensu/#optional-configure-sensu-for-fips-compliance

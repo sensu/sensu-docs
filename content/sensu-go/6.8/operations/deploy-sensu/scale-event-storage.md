@@ -38,7 +38,7 @@ The `sensu-perf` test environment comfortably handles 40,000 Sensu agent connect
 
 {{% notice warning %}}
 **IMPORTANT**: PostgreSQL configuration file locations differ depending on platform.
-The steps in this guide use common paths for RHEL/CentOS, but the files may be stored elsewhere on your system.
+The steps in this guide use common paths for RHEL-family distributions, but the files may be stored elsewhere on your system.
 Learn more about [PostgreSQL configuration file locations](https://www.postgresql.org/docs/current/runtime-config-file-locations.html).
 {{% /notice %}}
 
@@ -150,6 +150,8 @@ sudo systemctl restart postgresql
 {{< /code >}}
 
 With this configuration complete, you can configure Sensu to store events in your Postgres database.
+
+To secure communication between Sensu and the PostgreSQL event store using certificate authentication, read [Secure PostgreSQL][7].
 
 ## Configure Sensu
 
@@ -476,3 +478,4 @@ With this configuration complete, your Sensu events will be replicated to the st
 [4]: ../../maintain-sensu/troubleshoot/#log-file-locations
 [5]: https://www.postgresql.org/docs/9.5/auth-methods.html#AUTH-PASSWORD
 [6]: https://wiki.postgresql.org/wiki/Streaming_Replication
+[7]: ../secure-postgres/
