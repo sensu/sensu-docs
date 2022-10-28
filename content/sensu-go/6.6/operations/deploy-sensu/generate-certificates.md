@@ -300,7 +300,7 @@ We recommend installing the CA root certificate in the trust store of both your 
 Installing the CA certificate in the trust store for these systems makes it easier to connect via web UI or sensuctl without being prompted to accept certificates signed by your self-generated CA.
 
 {{< language-toggle >}}
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 chmod 644 /etc/sensu/tls/ca.pem
 chown root /etc/sensu/tls/ca.pem
 sudo apt-get install ca-certificates -y
@@ -308,7 +308,7 @@ sudo ln -sfv /etc/sensu/tls/ca.pem /usr/local/share/ca-certificates/sensu-ca.crt
 sudo update-ca-certificates
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 chmod 644 /etc/sensu/tls/ca.pem
 chown root /etc/sensu/tls/ca.pem
 sudo yum install -y ca-certificates

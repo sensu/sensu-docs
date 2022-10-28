@@ -25,7 +25,7 @@ Supported packages for common platforms are available from [sensu/stable][8] on 
 
 ### Sensu backend
 
-|  | RHEL/CentOS<br>6, 7, 8 | Debian 8, 9, 10, 11 | Ubuntu 14.04<br>16.04, 18.04<br>18.10, 19.04<br>19.10, 20.04 |
+|  | RHEL family<br>6, 7, 8 | Debian 8, 9, 10, 11 | Ubuntu 14.04<br>16.04, 18.04<br>18.10, 19.04<br>19.10, 20.04 |
 |----------------------|---------|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} |
 | `arm64` | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -33,11 +33,11 @@ Supported packages for common platforms are available from [sensu/stable][8] on 
 
 As of Sensu Go 6.7.2, supported packages for the Sensu backend also include **Ubuntu 22.04** (`amd64`, `arm64`, `ppe64le`).
 
-As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL/CentOS 9** (`amd64`, `arm64`, `ppe64le`).
+As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL 9** (`amd64`, `arm64`, `ppe64le`).
 
 ### Sensu agent
 
-|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
+|  | RHEL<br>family<br>6, 7, 8 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -47,11 +47,11 @@ As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RH
 
 As of Sensu Go 6.7.2, supported packages for the Sensu agent also include **Ubuntu 22.04** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
 
-As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL/CentOS 9** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
+As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL 9** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
 
 ### Sensuctl command line tool
 
-|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
+|  | RHEL<br>family<br>6, 7, 8 | Debian<br>8, 9, 10, 11 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -61,7 +61,7 @@ As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RH
 
 As of Sensu Go 6.7.2, supported packages for the sensuctl command line tool also include **Ubuntu 22.04** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
 
-As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL/CentOS 9** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
+As of Sensu Go 6.7.5, supported packages for the Sensu backend also include **RHEL 9** (`amd64`, `arm64`, `arm7`, `ppe64le`, `s390x`).
 
 ## Docker images
 

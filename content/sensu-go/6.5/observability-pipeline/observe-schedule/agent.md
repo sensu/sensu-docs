@@ -815,7 +815,7 @@ description   | ws or wss URL of the Sensu backend server. To specify multiple b
 **NOTE**: If you do not specify a port for your backend-url values, the agent will automatically append the default backend port (8081).
 {{% /notice %}}
 type          | List
-default       | `ws://127.0.0.1:8081`(CentOS/RHEL, Debian, and Ubuntu)<br><br>`$SENSU_HOSTNAME:8080` (Docker){{% notice note %}}
+default       | `ws://127.0.0.1:8081`(Debian and RHEL families)<br><br>`$SENSU_HOSTNAME:8080` (Docker){{% notice note %}}
 **NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
 environment variable | `SENSU_BACKEND_URL`
@@ -1551,11 +1551,11 @@ Here's how.
 
      {{< language-toggle >}}
      
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 sudo touch /etc/default/sensu-agent
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 sudo touch /etc/sysconfig/sensu-agent
 {{< /code >}}
 
@@ -1584,11 +1584,11 @@ All environment variables that control Sensu agent configuration begin with `SEN
      
      {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
@@ -1605,11 +1605,11 @@ SENSU_API_HOST="0.0.0.0"
 
      {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 sudo systemctl restart sensu-agent
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 sudo systemctl restart sensu-agent
 {{< /code >}}
 
@@ -1632,11 +1632,11 @@ For example, to create the labels `"region": "us-east-1"` and `"type": "website"
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
@@ -1646,11 +1646,11 @@ To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
@@ -1658,7 +1658,7 @@ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.
 
 ### Use environment variables with the Sensu agent
 
-Any environment variables you create in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS) will be available to check and hook commands executed by the Sensu agent.
+Any environment variables you create in `/etc/default/sensu-agent` (Debian family) or `/etc/sysconfig/sensu-agent` (RHEL family) will be available to check and hook commands executed by the Sensu agent.
 This includes your checks and plugins.
 
 For example, if you create a custom environment variable `TEST_VARIABLE` in your sensu-agent file, it will be available to use in your check and hook configurations as `$TEST_VARIABLE`.
@@ -1735,7 +1735,7 @@ Depending on your environment and preferences, you may want to create overrides 
 You can create configuration overrides in several ways:
 
 - Command line configuration flag arguments for `sensu-agent start`.
-- Environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
+- Environment variables in `/etc/default/sensu-agent` (Debian family) or `/etc/sysconfig/sensu-agent` (RHEL family).
 - Configuration settings in the agent.yml config file.
 
 {{% notice note %}}
@@ -1746,7 +1746,7 @@ Future package upgrades can overwrite changes in the systemd unit file.
 Sensu applies the following precedence to override settings:
 
 1. Arguments passed to the Sensu agent via command line configuration flags.
-2. Environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
+2. Environment variables in `/etc/default/sensu-agent` (Debian family) or `/etc/sysconfig/sensu-agent` (RHEL family).
 3. Configuration in the agent.yml config file.
 
 For example, if you create overrides using all three methods, the command line configuration flag values will take precedence over the values you specify in `/etc/default/sensu-agent` or `/etc/sysconfig/sensu-agent` or the agent.yml config file.
@@ -1766,11 +1766,11 @@ To configure an environment variable for the desired agent log level:
 
 {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
