@@ -162,11 +162,11 @@ If you have already created this file on your system, skip to step 2.
 
      {{< language-toggle >}}
      
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 sudo touch /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 sudo touch /etc/sysconfig/sensu-backend
 {{< /code >}}
      
@@ -177,11 +177,11 @@ Run:
 
      {{< language-toggle >}}
 
-{{< code shell "Ubuntu/Debian" >}}
+{{< code shell "Debian family" >}}
 echo 'SUMOLOGIC_URL=<SumoLogic_HTTPSourceAddress_URL>' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
-{{< code shell "RHEL/CentOS" >}}
+{{< code shell "RHEL family" >}}
 echo 'SUMOLOGIC_URL=<SumoLogic_HTTPSourceAddress_URL>' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 

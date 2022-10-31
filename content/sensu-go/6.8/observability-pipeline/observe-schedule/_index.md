@@ -31,7 +31,7 @@ Agent entities are responsible for creating [status and metrics events][6] to se
 The Sensu backend includes an integrated structure for scheduling checks using subscriptions and an event pipeline that applies [event filters][15], [mutators][16], and [handlers][17], an embedded [etcd][10] datastore for storing configuration and state, and the Sensu [API][4], Sensu [web UI][5], and [sensuctl][19] command line tool.
 
 The Sensu agent is available for Linux, macOS, and Windows.
-The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
+The Sensu backend is available for Debian- and RHEL-family distributions of Linux.
 Learn more in the [agent][11] and [backend][2] references.
 
 Follow the [installation guide][1] to install the agent and backend.

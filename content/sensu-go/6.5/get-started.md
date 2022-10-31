@@ -15,7 +15,7 @@ You can [install the commercial distribution][15] or [build Sensu from source][1
 
 ## Install the commercial distribution of Sensu Go
 
-Sensu's [supported platforms][20] include CentOS/RHEL, Debian, Ubuntu, and Windows.
+Sensu's [supported platforms][20] include Debian- and RHEL-family distributions and Windows.
 
 - [**Install Sensu Go**][2] with a commercial package and get started for free
 - Learn about Sensu's [commercial features][3] &mdash; all commercial features are available for free in the packaged Sensu Go distribution up to an entity limit of 100
