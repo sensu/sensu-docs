@@ -1,6 +1,6 @@
 ---
 title: "Sensu Catalog"
-description: "PLACEHOLDER."
+description: "Read the Sensu Catalog documentation to deploy effective monitoring and observability solutions, add catalog integrations, and create your own private catalog."
 product: "Sensu Go"
 version: "6.8"
 weight: 55
@@ -12,7 +12,7 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the Catalog API in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the Sensu Catalog in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
