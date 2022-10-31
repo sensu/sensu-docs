@@ -597,6 +597,34 @@ On Linux systems, the Sensu agent downloads assets into `/tmp`.
 The log error message specifies the size of the asset artifact in parentheses after the asset name.
 If space in `/tmp` is insufficient, asset downloads will be truncated and the checksum will not be validated.
 
+### Certificate error when fetching assets
+
+When Sensu cannot fetch the assets referenced in a resource definition, the agent logs a message similar to this example:
+
+{{< code text >}}
+error getting assets for check: error fetching asset: Get "https://assets.bonsai.sensu.io/2940de675113d07710c0f896efa8b43b7c301c5c/sensu-plugins-process-checks_4.0.0_centos_linux_amd64.tar.gz": x509: certificate signed by unknown authority
+{{< /code >}}
+
+To correct this issue, confirm that you can download the asset from one of the agent hosts using the link quoted in the error message.
+If the download does not work, the problem may be due to a proxy between the agent and the internet or the proxy settings.
+
+If there are no proxies or no proxy settings of concern, you may need to update the certificate store on your agents.
+The https://assets.bonsai.sensu.io SSL certificate uses the AWS Private Certificate Authority (CA), which your agents' operating systems should be configured to trust.
+
+If you are using PowerShell, you may see this error if PowerShell is configured to use TLS 1.0 &mdash; https://assets.bonsai.sensu.io requires TLS 1.2.
+
+To check which TLS version PowerShell is using, run:
+
+{{< code powershell >}}
+[Net.ServicePointManager]::SecurityProtocol
+{{< /code >}}
+
+If the response does not include `Tls12`, run the following command to require it:
+
+{{< code powershell >}}
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+{{< /code >}}
+
 ## Etcd clusters
 
 Some issues require you to investigate the state of the etcd cluster or data stored within etcd.
