@@ -116,7 +116,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **November 1, 2022** &mdash; The latest release of Sensu Go, version 6.9.0, is now available for download.
 
-Sensu Go 6.9.0 provides a mix of new features as well as customer experience improvements and bug fixes. The new CyberArk integration provides a new way to store your secrets, while we also now support metric tags in the Graphite plaintext protocol. Additionally, the agent websocket connection log entries now include the backend name and authentication requests are now logged with their status. Under the hood, the keepalive reconstructions no longer block backend startup and now run gradually in the background and etcd was bumped to 3.5.5. Lastly, a number of usability enhancements and bug fixes were implemented for the Web UI.
+Sensu Go 6.9.0 provides a mix of new features, customer experience improvements, and bug fixes. The new CyberArk integration provides a new way to store your secrets, and Sensu also now supports metric tags in the Graphite plaintext protocol. Additionally, agent websocket connection log entries now include the backend name and authentication requests are now logged with their status. Under the hood, keepalive reconstructions no longer block backend startup &mdash; they now run gradually in the background &mdash; and we bumped the etcd version to 3.5.5. Last but not least, Sensu Go 6.9.0 implements a number of usability enhancements and bug fixes for the web UI.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.9.0.
 
