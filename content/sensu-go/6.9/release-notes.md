@@ -2581,3 +2581,6 @@ To get started with Sensu Go:
 [300]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#api-serve-wait-time
 [301]: /sensu-go/6.8/observability-pipeline/observe-schedule/backend/#agent-serve-wait-time
 [302]: /sensu-go/6.8/observability-pipeline/observe-schedule/checks/#check-output-truncation-attributes
+[303]: /sensu-go/6.9/commercial/
+[304]: /sensu-go/6.9/operations/manage-secrets/secrets-providers/#cyberarkprovider-spec-attributes
+[305]: /sensu-go/6.9/operations/manage-secrets/secrets-management/#use-cyberark-conjur-for-secrets-management
