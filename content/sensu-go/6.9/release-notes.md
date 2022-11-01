@@ -142,11 +142,6 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.9.0.
 - ([Commercial feature][303]) In the web UI, saved searches now must have unique names to prevent accidentally overwriting existing saved searches.
 - Fixed an issue that prevented multi-expression, exclusive event filters set to `deny` from being evaluated properly.
 
-
-[303]: /sensu-go/6.9/commercial/
-[304]: /sensu-go/6.9/operations/manage-secrets/secrets-providers/#cyberarkprovider-spec-attributes
-[305]: /sensu-go/6.9/operations/manage-secrets/secrets-management/#use-cyberark-conjur-for-secrets-management
-
 ## 6.8.2 release notes
 
 **October 6, 2022** &mdash; The latest release of Sensu Go, version 6.8.2, is now available for download.
