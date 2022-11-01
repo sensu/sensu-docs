@@ -113,18 +113,18 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ---
 
 ## 6.9.0 release notes
-​
+
 **November 1, 2022** &mdash; The latest release of Sensu Go, version 6.9.0, is now available for download.
-​
-Sensu Go 6.9.0 provides a mix of new features as well as customer experience improvements and bug fixes. The new CyberArk integration provides a new way to store your secrets, while we also now support metric tags in the Graphite plaintext protocol. Additionally, the agent websocket connection log entries now include the backend name and authentication requests are now logged with their status. Under the hood, the keepalive reconstructions no longer block backend startup and now run gradually in the background and etcd was bumped to 3.5.5. Lastly, a number of usability enhancements and bug fixes were implemented for the Web UI .
-​
+
+Sensu Go 6.9.0 provides a mix of new features as well as customer experience improvements and bug fixes. The new CyberArk integration provides a new way to store your secrets, while we also now support metric tags in the Graphite plaintext protocol. Additionally, the agent websocket connection log entries now include the backend name and authentication requests are now logged with their status. Under the hood, the keepalive reconstructions no longer block backend startup and now run gradually in the background and etcd was bumped to 3.5.5. Lastly, a number of usability enhancements and bug fixes were implemented for the Web UI.
+
 Read the [upgrade guide][1] to upgrade Sensu to version 6.9.0.
-​
+
 **NEW FEATURES:**
 - ([Commercial feature][303]) Sensu now supports [CyberArk Conjur for secrets management][305] with the [`CyberArkProvider`][304] external secrets provider.
-​
+
 **IMPROVEMENTS:**
-​
+
 - ([Commercial feature][303]) In the web UI, when an action is disabled based on a user's role-based access control (RBAC) permissions, the error message now explains that the issue is due to missing permissions.
 - ([Commercial feature][303]) In the web UI, you can now completely hide the Sensu Catalog in the left navigation menu by setting the `disabled` attribute to true in the GlobalConfig `catalog` object.
 - ([Commercial feature][303]) In the web UI, when a catalog search does not retrieve any results, the user will see a prompt to submit feedback to the Sensu team.
@@ -134,15 +134,15 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.9.0.
 - The Sensu agent now ingests Graphite Plaintext Protocol tags and converts them to Sensu metric points with tags. For example, Sensu will ingest the Graphite tag `my.series;tag1=value1 1 999999999` as a metric point with the name "my.series" and a "tag1": "value1" tag.
 - Keepalive reconstruction now runs gradually in the background, which improves stability during backend startup.
 - Upgraded etcd version from 3.5.4 to 3.5.5.
-​
+
 **FIXES:**
 - ([Commercial feature][303]) In the web UI, the built-in subscriptions search query on the Entities page is now properly constructed.
 - ([Commercial feature][303]) In the web UI, the check detail page now indicates when Sensu could not fetch a dynamic runtime asset listed in the check definition.
 - ([Commercial feature][303]) In the web UI, the mutation dialog now properly reports unauthorized errors.
 - ([Commercial feature][303]) In the web UI, saved searches now must have unique names to prevent accidentally overwriting existing saved searches.
 - Fixed an issue that prevented multi-expression, exclusive event filters set to `deny` from being evaluated properly.
-​
-​
+
+
 [303]: /sensu-go/6.9/commercial/
 [304]: /sensu-go/6.9/operations/manage-secrets/secrets-providers/#cyberarkprovider-spec-attributes
 [305]: /sensu-go/6.9/operations/manage-secrets/secrets-management/#use-cyberark-conjur-for-secrets-management
@@ -593,7 +593,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.1.
 
 **October 13, 2021** &mdash; The latest release of Sensu Go, version 6.5.0, is now available for download.
 
-This release includes a number of improvements, specifically exciting new capabilities in the observability pipeline and a major simplification to how "pipelines" are configured. Sensu Go 6.5.0 introduces a new first-class `Pipeline` resource for defining logical pipeline workflows composed of filters + mutators + handlers. We’re also introducing new streaming handler types: a TCPStreamHandler with TLS support and a SumoLogicMetricsHandler for seamless integration with the Sumo Logic Continuous Intelligence platform. Enhancements in the web UI include a completely overhauled configuration management system (with new views for the Checks, Filters, Handlers, and Mutators pages) and behind-the-scenes improvements that pave the way for even more new configuration management capabilities in future releases. Read the full release notes below for all the details!
+This release includes a number of improvements, specifically exciting new capabilities in the observability pipeline and a major simplification to how "pipelines" are configured. Sensu Go 6.5.0 introduces a new first-class `Pipeline` resource for defining logical pipeline workflows composed of filters + mutators + handlers. We're also introducing new streaming handler types: a TCPStreamHandler with TLS support and a SumoLogicMetricsHandler for seamless integration with the Sumo Logic Continuous Intelligence platform. Enhancements in the web UI include a completely overhauled configuration management system (with new views for the Checks, Filters, Handlers, and Mutators pages) and behind-the-scenes improvements that pave the way for even more new configuration management capabilities in future releases. Read the full release notes below for all the details!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 
@@ -688,7 +688,7 @@ This change improves forward-compatibility with newer Sensu backends.
 
 **June 28, 2021** &mdash; The latest release of Sensu Go, version 6.4.0, is now available for download.
 
-The latest release of Sensu Go, version 6.4.0, is now available for download. This release includes a number of feature improvements and important bug fixes. We upgraded the embedded etcd from version 3.3 to 3.5 for improved stability and security. The `sensu-backend init` command now supports a `wait` flag, which indicates that the backend should repeatedly try to establish a connection to etcd until it is successful -- fantastic news for Kubernetes users who want to bootstrap new Sensu Go clusters with external etcd! Check timeout also now works properly on Windows hosts: the Sensu Go agent can terminate check sub-processes on check execution timeout. This release fixes a bug that prevented deregistration events from working. There’s something for everyone in this release!
+The latest release of Sensu Go, version 6.4.0, is now available for download. This release includes a number of feature improvements and important bug fixes. We upgraded the embedded etcd from version 3.3 to 3.5 for improved stability and security. The `sensu-backend init` command now supports a `wait` flag, which indicates that the backend should repeatedly try to establish a connection to etcd until it is successful -- fantastic news for Kubernetes users who want to bootstrap new Sensu Go clusters with external etcd! Check timeout also now works properly on Windows hosts: the Sensu Go agent can terminate check sub-processes on check execution timeout. This release fixes a bug that prevented deregistration events from working. There's something for everyone in this release!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
 
@@ -727,7 +727,7 @@ The API now returns status `403` with a message to explain that the referenced r
 
 **May 26, 2021** &mdash; The latest release of Sensu Go, version 6.3.0, is now available for download.
 
-This release includes several new features, enhancements, bug fixes, and usability improvements. Construct a top-level business service-centric view for distributed infrastructure and applications with a preview of Business Service Monitoring! Rate-limit Sensu Go agent transport connections without using a separate load balancer. Use an API key to authenticate sensuctl, which is handy when automating Sensu Go configuration (for example CI pipelines) and other actions (like ad hoc check execution requests). The 6.3.0 release also improves the PostgreSQL store batching capabilities, raising the event processing throughput ceiling for most deployments. Check out the release notes below for more details &mdash; there’s so much to love about this release!
+This release includes several new features, enhancements, bug fixes, and usability improvements. Construct a top-level business service-centric view for distributed infrastructure and applications with a preview of Business Service Monitoring! Rate-limit Sensu Go agent transport connections without using a separate load balancer. Use an API key to authenticate sensuctl, which is handy when automating Sensu Go configuration (for example CI pipelines) and other actions (like ad hoc check execution requests). The 6.3.0 release also improves the PostgreSQL store batching capabilities, raising the event processing throughput ceiling for most deployments. Check out the release notes below for more details &mdash; there's so much to love about this release!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
 
@@ -962,7 +962,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.1.1.
 
 **October 5, 2020** &mdash; The latest release of Sensu Go, version 6.1.0, is now available for download.
 
-This release delivers significant performance and stability gains, feature enhancements, and several bug fixes. The web UI is now much snappier, and its search is redesigned with an improved syntax and suggestions! Monitor even more services and infrastructure when using the PostgreSQL store: batched Sensu event writes and improved indexing allows a single Sensu Go deployment to process and query more data than ever before. If you’re using Prometheus client libraries to instrument your applications, the Sensu Go agent can now scrape and enrich those metrics! And if you’re collecting metrics in other formats like Nagios PerfData, you can use the new output metric tags feature to enrich those metrics too! The sensuctl prune command also received some love, and it now loads and prunes configuration resources from multiple files!
+This release delivers significant performance and stability gains, feature enhancements, and several bug fixes. The web UI is now much snappier, and its search is redesigned with an improved syntax and suggestions! Monitor even more services and infrastructure when using the PostgreSQL store: batched Sensu event writes and improved indexing allows a single Sensu Go deployment to process and query more data than ever before. If you're using Prometheus client libraries to instrument your applications, the Sensu Go agent can now scrape and enrich those metrics! And if you're collecting metrics in other formats like Nagios PerfData, you can use the new output metric tags feature to enrich those metrics too! The sensuctl prune command also received some love, and it now loads and prunes configuration resources from multiple files!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.1.0.
 
@@ -1011,7 +1011,7 @@ SaltStack Enterprise Jobs for automated remediation.
 
 **August 10, 2020** &mdash; The latest release of Sensu Go, version 6.0.0, is now available for download.
 
-With Sensu Go 6.0.0, you can control everything through the API. You can still use configuration management tools to bootstrap agent entities, but you don’t need to! Our new agent entity management feature via the backend configuration API nearly eliminates the need for external (or out-of-band) configuration management for Sensu, which allows you to manage agent entity subscriptions and automate the discovery of system facts without updating agent local configuration files. Run a sensuctl command, click a button in the web UI, or execute a custom check plugin!
+With Sensu Go 6.0.0, you can control everything through the API. You can still use configuration management tools to bootstrap agent entities, but you don't need to! Our new agent entity management feature via the backend configuration API nearly eliminates the need for external (or out-of-band) configuration management for Sensu, which allows you to manage agent entity subscriptions and automate the discovery of system facts without updating agent local configuration files. Run a sensuctl command, click a button in the web UI, or execute a custom check plugin!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
 
@@ -1029,7 +1029,7 @@ Visit the [Sensu Go Web repository][163] for more information.
 - ([Commercial feature][162]) Added [JavaScript functions][169] `sensu.EventStatus`, `sensu.FetchEvent`, and `sensu.ListEvents` to the filter execution environment so you can now query the Sensu event store for other events within the filter namespace.
 - ([Commercial feature][162]) Docker-only Sensu now binds to the hostname of containers instead of `localhost`. Docker images now set their own default values for environment variables `SENSU_AGENT_API_URL`, `SENSU_BACKEND_API_URL`, `SENSU_BACKEND_ETCD_INITIAL_CLUSTER`, `SENSU_BACKEND_ETCD_ADVERTISE_CLUSTER`, `SENSU_BACKEND_ETCD_INITIAL_ADVERTISE_PEER_URLS`, `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`, and `ETCD_LISTEN_PEER_URLS`.
 - ([Commercial feature][162]) Added Linux packages for 386; armv5, armv6, and armv7; MIPS hard float, MIPS LE hard float, and MIPS 64 LE hard float; ppc64le; and s390x architectures.
-Review the [supported platforms][165] page for a complete list of Sensu’s supported platforms.
+Review the [supported platforms][165] page for a complete list of Sensu's supported platforms.
 - ([Commercial feature][162]) Added [Sensu query expression][168] `sensu.CheckDependencies`.
 - Added [binary-only distributions][164] for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
 - Added the `is_silenced` Boolean attribute to the event.Check object to indicate whether the event was silenced at the time it was processed.
@@ -1178,7 +1178,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.20.2.
 **FIXES:**
 
 - ([Commercial feature][141]) [Process discovery in the agent][155] is temporarily disabled.
-- The system’s libc_type attribute is now properly populated for Ubuntu entities.
+- The system's libc_type attribute is now properly populated for Ubuntu entities.
 - Single-letter subscriptions are now allowed.
 - Subjects are now validated in RBAC role binding and cluster role binding.
 - [Sensuctl command][154] assets can now be retrieved and installed from Bonsai.
@@ -1291,7 +1291,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.19.2.
 
 **IMPROVEMENTS:**
 
-- Sensu packages are now available for Ubuntu 19.10 (Eoan Ermine) and 20.04 (Focal Fossa). Review the [supported platforms][133] page for a complete list of Sensu’s supported platforms and the [installation guide][134] to install Sensu packages for Ubuntu.
+- Sensu packages are now available for Ubuntu 19.10 (Eoan Ermine) and 20.04 (Focal Fossa). Review the [supported platforms][133] page for a complete list of Sensu's supported platforms and the [installation guide][134] to install Sensu packages for Ubuntu.
 
 ## 5.19.1 release notes
 
@@ -1371,8 +1371,8 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 
 **February 25, 2020** &mdash; The latest release of Sensu Go, version 5.18.0, is now available for download.
 This release delivers a number of improvements to the overall Sensu Go experience.
-From automatic proxy entity creation to unique Sensu event IDs, it’s now much easier to use and troubleshoot your monitoring event pipelines!
-If you’re working behind an HTTP proxy, you can now manage remote Sensu Go clusters, as sensuctl now honors proxy environment variables (for example, HTTPS_PROXY).
+From automatic proxy entity creation to unique Sensu event IDs, it's now much easier to use and troubleshoot your monitoring event pipelines!
+If you're working behind an HTTP proxy, you can now manage remote Sensu Go clusters, as sensuctl now honors proxy environment variables (for example, HTTPS_PROXY).
 This release also includes a number of fixes for usability bugs, making for the most polished release of Sensu Go yet, so go ahead and give it a download!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
@@ -1432,7 +1432,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.17.1.
 
 **January 28, 2020** &mdash; The latest release of Sensu Go, version 5.17.0, is now available for download.
 This is a significant release, with new features, improvements, and fixes!
-We’re ecstatic to announce the release of secrets management, which eliminates the need to expose sensitive information in your Sensu configuration.
+We're ecstatic to announce the release of secrets management, which eliminates the need to expose sensitive information in your Sensu configuration.
 When a Sensu component such as a check or handler requires a secret (like a username or password), Sensu will be able to fetch that information from one or more external secrets providers (for example, HashiCorp Vault) and provide it to the Sensu component via temporary environment variables.
 Secrets management allows you to move secrets out of your Sensu configuration, giving you the ability to safely and confidently share your Sensu configurations with your fellow Sensu users!
 This release also includes per-entity keepalive event handler configuration, a sought-after feature for users who have migrated from Sensu 1.x to Sensu Go.
@@ -2031,7 +2031,7 @@ Read the [agent reference][29] to add annotations in the agent configuration fil
 
 **April 4, 2019** &mdash; The latest release of Sensu Go, version 5.5.0, is now available for download.
 This release has some key bug fixes and additions, including the introduction of Tessen into Sensu Go.
-For more information, read Sean Porter’s [blog post][28] on Tessen.
+For more information, read Sean Porter's [blog post][28] on Tessen.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 5.5.0.
 

@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": "content/sensu-go/6.9"
 		}
 	],
 	"settings": {}
