@@ -9,7 +9,6 @@ version: "6.9"
 menu: "sensu-go-6.9"
 ---
 
-- [6.9.0 release notes](#690-release-notes)
 - [6.8.2 release notes](#682-release-notes)
 - [6.8.1 release notes](#681-release-notes)
 - [6.8.0 release notes](#680-release-notes)
@@ -111,41 +110,6 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
-
-## 6.9.0 release notes
-​
-**November 1, 2022** &mdash; The latest release of Sensu Go, version 6.9.0, is now available for download.
-​
-Sensu Go 6.9.0 provides a mix of new features as well as customer experience improvements and bug fixes. The new CyberArk integration provides a new way to store your secrets, while we also now support metric tags in the Graphite plaintext protocol. Additionally, the agent websocket connection log entries now include the backend name and authentication requests are now logged with their status. Under the hood, the keepalive reconstructions no longer block backend startup and now run gradually in the background and etcd was bumped to 3.5.5. Lastly, a number of usability enhancements and bug fixes were implemented for the Web UI .
-​
-Read the [upgrade guide][1] to upgrade Sensu to version 6.9.0.
-​
-**NEW FEATURES:**
-- ([Commercial feature][303]) Sensu now supports [CyberArk Conjur for secrets management][305] with the [`CyberArkProvider`][304] external secrets provider.
-​
-**IMPROVEMENTS:**
-​
-- ([Commercial feature][303]) In the web UI, when an action is disabled based on a user's role-based access control (RBAC) permissions, the error message now explains that the issue is due to missing permissions.
-- ([Commercial feature][303]) In the web UI, you can now completely hide the Sensu Catalog in the left navigation menu by setting the `disabled` attribute to true in the GlobalConfig `catalog` object.
-- ([Commercial feature][303]) In the web UI, when a catalog search does not retrieve any results, the user will see a prompt to submit feedback to the Sensu team.
-- ([Commercial feature][303]) Updated Sensu packaging to use 0755 permissions for `/var/cache/sensu/sensu-agent` instead of 0750.
-- Agent websocket connection logging now includes backend entity name.
-- The authentication module now logs successful (INFO) and unsuccessful (ERROR) login attempts.
-- The Sensu agent now ingests Graphite Plaintext Protocol tags and converts them to Sensu metric points with tags. For example, Sensu will ingest the Graphite tag `my.series;tag1=value1 1 999999999` as a metric point with the name "my.series" and a "tag1": "value1" tag.
-- Keepalive reconstruction now runs gradually in the background, which improves stability during backend startup.
-- Upgraded etcd version from 3.5.4 to 3.5.5.
-​
-**FIXES:**
-- ([Commercial feature][303]) In the web UI, the built-in subscriptions search query on the Entities page is now properly constructed.
-- ([Commercial feature][303]) In the web UI, the check detail page now indicates when Sensu could not fetch a dynamic runtime asset listed in the check definition.
-- ([Commercial feature][303]) In the web UI, the mutation dialog now properly reports unauthorized errors.
-- ([Commercial feature][303]) In the web UI, saved searches now must have unique names to prevent accidentally overwriting existing saved searches.
-- Fixed an issue that prevented multi-expression, exclusive event filters set to `deny` from being evaluated properly.
-​
-​
-[303]: /sensu-go/6.9/commercial/
-[304]: /sensu-go/6.9/operations/manage-secrets/secrets-providers/#cyberarkprovider-spec-attributes
-[305]: /sensu-go/6.9/operations/manage-secrets/secrets-management/#use-cyberark-conjur-for-secrets-management
 
 ## 6.8.2 release notes
 
