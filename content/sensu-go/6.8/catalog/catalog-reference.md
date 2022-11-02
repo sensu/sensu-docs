@@ -29,65 +29,17 @@ For example, the DNS Monitoring integration includes prompts for the domain name
 Sensu then applies the user's customizations to the integration's resource definitions and automatically deploys the integration configuration to agents in real time.
 No external configuration management is required.
 
+Integration definitions resemble other Sensu resources, but Sensu Go does not process them directly.
+Instead, the [catalog-api][32] command line interface tool uses integration definitions along with the other files in the catalog repository, like READMEs and dashboard images, to generate a [static Catalog API][2].
+The Sensu web UI uses the generated API files to determine which integrations to display in the Sensu Catalog.
+
 The Sensu Catalog provides a way for you and your teams to configure powerful real-time monitoring and observability for the systems you rely on.
 Integrations are self-service, and the Catalog is designed to help you scale up with fewer barriers.
-
-## Catalog repository example
-
-The repository that stores Sensu integrations must organize files in the following structure:
-
-{{< code text >}}
-integrations/
-└── <namespace>/
-    └── <integration_name>/
-        ├── img/
-        │   ├── dashboard-1.gif
-        │   └── dashboard-2.png
-        ├── CHANGELOG.md
-        ├── README.md
-        ├── logo.png
-        ├── sensu-integration.yaml
-        └── sensu-resources.yaml
-    └── <integration_name>/
-        ├── img/
-        │   ├── dashboard-1.gif
-        │   └── dashboard-2.png
-        ├── CHANGELOG.md
-        ├── README.md
-        ├── logo.png
-        ├── sensu-integration.yaml
-        └── sensu-resources.yaml
-└── <namespace>/
-    └── <integration_name>/
-        ├── img/
-        │   ├── dashboard-1.gif
-        │   └── dashboard-2.png
-        ├── CHANGELOG.md
-        ├── README.md
-        ├── logo.png
-        ├── sensu-integration.yaml
-        └── sensu-resources.yaml
-{{< /code >}}
-
-{{% notice note %}}
-**NOTE**: In the context of catalog integration organization, `namespace` does not refer to the Sensu [role-based access control (RBAC) namespace](../../operations/control-access/namespaces/).
-In catalogs, namespaces are categories for integrations.
-For example, in the official Sensu Catalog, all integrations for AWS services are organized within the [`aws` namespace](https://github.com/sensu/catalog/tree/main/integrations/aws).
-{{% /notice %}}
-
-File | Description
----- | -----------
-`img` | Images used in the integration README.md, such as screenshots of available dashboards. Image files must be GIF, JPEG, or PNG format. External image links are not supported. Optional.
-`CHANGELOG.md` | Changelog for the integration. Not displayed in the web UI. Optional.
-`README.md` | Help documentation for the integration, including an overview, setup steps, descriptions of the events and metrics the integration produces, and links to supplemental reference information. Sensu supports [GitHub-flavored Markdown][3] for integration READMEs. Required.
-`logo.png` | Logo image to display in the web UI integration browser. Logo files must be PNG format. Required.
-`sensu-integration.yaml` | Metadata for the integration, including title, description, prompts for configuration, patches for updating integration resources, and post-installation instructions. Integration metadata files must be YAML format and must use the `.yaml` file extension (not `.yml`).
-`sensu-resources.yaml` | Sensu resources the integration will install, including checks, handlers, event filters, pipelines, and assets. Do not include a namespace in resource definitions in the `sensu-resources.yaml` file. Integration resource files must be YAML format and must use the `.yaml` file extension (not `.yml`).
 
 ## Integration example
 
 This example shows an integration definition for NGINX monitoring.
-Integration definitions are saved as the `sensu-integration.yaml` file for a Sensu Catalog integration:
+Integration definitions are saved as the `sensu-integration.yaml` file in a [catalog repository][15]:
 
 {{< code yml >}}
 ---
@@ -243,9 +195,57 @@ spec:
         The `nginx-metrics` check will run for all Sensu agents with these subscriptions: [[subscriptions]].
 {{< /code >}}
 
-Sensu Catalog integration definitions resemble other Sensu resources, but Sensu Go does not process them directly.
-Instead, the [catalog-api][32] command line interface tool uses integration definitions along with the other files in the catalog repository, like READMEs and dashboard images, to generate a [static Catalog API][2].
-The Sensu web UI uses the generated API files to determine which integrations to display in the Sensu Catalog.
+## Catalog repository example
+
+The repository that stores Sensu integrations must organize files in the following structure:
+
+{{< code text >}}
+integrations/
+└── <namespace>/
+    └── <integration_name>/
+        ├── img/
+        │   ├── dashboard-1.gif
+        │   └── dashboard-2.png
+        ├── CHANGELOG.md
+        ├── README.md
+        ├── logo.png
+        ├── sensu-integration.yaml
+        └── sensu-resources.yaml
+    └── <integration_name>/
+        ├── img/
+        │   ├── dashboard-1.gif
+        │   └── dashboard-2.png
+        ├── CHANGELOG.md
+        ├── README.md
+        ├── logo.png
+        ├── sensu-integration.yaml
+        └── sensu-resources.yaml
+└── <namespace>/
+    └── <integration_name>/
+        ├── img/
+        │   ├── dashboard-1.gif
+        │   └── dashboard-2.png
+        ├── CHANGELOG.md
+        ├── README.md
+        ├── logo.png
+        ├── sensu-integration.yaml
+        └── sensu-resources.yaml
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: In the context of catalog integration organization, "namespace" does not refer to the Sensu [role-based access control (RBAC) namespace](../../operations/control-access/namespaces/).
+In catalogs, namespaces are categories for integrations.
+For example, in the official Sensu Catalog, all integrations for AWS services are organized within the [`aws` namespace](https://github.com/sensu/catalog/tree/main/integrations/aws).
+{{% /notice %}}
+
+File | Description
+---- | -----------
+`img` | Images used in the integration README.md, such as screenshots of available dashboards. Image files must be GIF, JPEG, or PNG format. External image links are not supported. Optional.
+`CHANGELOG.md` | Changelog for the integration. Not displayed in the web UI. Optional.
+`README.md` | Help documentation for the integration, including an overview, setup steps, descriptions of the events and metrics the integration produces, and links to supplemental reference information. Sensu supports [GitHub-flavored Markdown][3] for integration READMEs. Required.
+`logo.png` | Logo image to display in the web UI integration browser. Logo files must be PNG format. Required.
+`sensu-integration.yaml` | Metadata for the integration, including title, description, prompts for configuration, patches for updating integration resources, and post-installation instructions. Integration metadata files must be in YAML format and must use the `.yaml` file extension (not `.yml`). Required.
+`sensu-resources.yaml` | Sensu resources the integration will install, including checks, handlers, event filters, pipelines, and assets. Do not include [RBAC namespaces][4] in the resource definitions in the `sensu-resources.yaml` file. Resources files must be in YAML format and must use the `.yaml` file extension (not `.yml`). Required.
 
 ## catalog-api command line interface tool
 
@@ -254,7 +254,7 @@ The Sensu web UI uses the generated API files to determine which integrations to
 {{% /notice %}}
 
 Sensu's [catalog-api][16] command line interface (CLI) tool generates the [static Catalog API][2] to convert integration files into static API content that you can host on any HTTP web service.
-The Sensu web UI uses the generated API files to determine which integrations to display in the Sensu Catalog.
+The Sensu web UI uses the generated API files to determine which integrations to display in the catalog.
 
 Use the catalog-api tool to [generate a local Catalog API][18] for testing as you develop new integrations and to [build and run a private catalog][17].
 Integration files must be stored in a repository that follows the required [organizational framework][15].
@@ -358,10 +358,10 @@ FLAGS
 
 #### Server subcommand
 
-The server subcommand starts a webserver to serve the JSON files the Catalog API generates.
+The server subcommand starts a webserver to serve the JSON files the catalog-api tool generates.
 To view your catalog in the Sensu web UI while running the server subcommand, you must also configure a Sensu backend and create a GlobalConfig resource to point to the webserver.
 
-The last line of the server subcommand response provides the address to use to view the content the Catalog API is serving the web UI in your browser.
+The last line of the server subcommand response provides the address to use to view the content the catalog-api tool is serving the web UI in your browser.
 For example:
 
 {{< code text >}}
@@ -578,7 +578,7 @@ tree /tmp/generated-api/ -L 7
 Catalog builds are versioned so that every previous iteration of the catalog is available.
 You are not limited to providing only the most recent version of the catalog, and you can provide older versions as a fallback.
 
-The catalog-api tool generates builds into a checksum-based output directory structure.
+The [catalog-api][32] tool generates builds into a checksum-based output directory structure.
 The version.json file manages the path to the latest or production catalog API content and instructs the web UI to load catalog contents from the specified checksum directory.
 When you run the catalog-api generate subcommand to generate the catalog, catalog-api creates the version.json file.
 
@@ -596,7 +596,7 @@ To revert to an older build of the catalog, change the `release_sha256` in versi
 
 #### Generate version tags
 
-The catalog-api tool uses version tags to create versions of integrations and present them to users within the catalog.
+The [catalog-api][32] tool uses version tags to create versions of integrations and present them to users within the catalog.
 
 If you update an integration, the first step in publishing the updated integration is to generate a new tag for it:
 
@@ -629,7 +629,7 @@ The next time you run the catalog-api generate subcommand, it will generate a ca
 
 ## Private catalogs
 
-The [catalog-api][32] command line interface tool renders static HTTP API content that the Sensu web UI can consume.
+The [catalog-api][32] tool renders static HTTP API content that the Sensu web UI can consume.
 This means you can create a private enterprise catalog of custom integrations and make it available to users in the Sensu web UI.
 
 You can use the official Sensu Catalog repository, https://github.com/sensu/catalog, as a starting point for building your own private catalog.
@@ -843,7 +843,7 @@ name: nginx-monitoring
 
 | namespace  |      |
 -------------|------
-description  | [Sensu RBAC namespace][4] that the check belongs to.
+description  | [Sensu RBAC namespace][4] that the integration belongs to.
 required     | false
 type         | String
 example      | {{< code yml >}}
@@ -884,7 +884,7 @@ display_name: NGINX Monitoring
 
 post_install |      |
 -------------|------
-description  | Content to display for the final step in integration configuration. The post_install dialog is helpful for confirming successful installation and providing instructions for any further configuration an integration may require. If you do not include a post_install array in your integration definition, Sensu will display a default "Success" window. Read [Post install attributes][11] for more information.
+description  | Content to display for the final step in integration configuration.<br><br>The post_install dialog is helpful for confirming successful installation and providing instructions for any further configuration an integration may require. If you do not include a post_install array in your integration definition, Sensu will display a default "Success" window.<br><br>Read [Post install attributes][11] for more information.
 required     | false
 type         | Array
 example      | {{< code yml >}}
@@ -901,7 +901,7 @@ post_install:
 
 prompts      |      |
 -------------|------
-description  | Attributes for soliciting user-provided variables to use in `resource_patches`. Read [Prompts attributes][10] for more information.
+description  | Attributes for soliciting user-provided variable values to use in `resource_patches`. Read [Prompts attributes][10] for more information.
 required     | true
 type         | Map of key-value pairs
 example      | {{< code yml >}}
@@ -995,7 +995,7 @@ provider     |      |
 description  | Integration function to use for categorizing the integration in the web UI.
 required     | true
 type         | String
-allowed values | `alerts`, `deregistration`, `discovery`, `events`, `incidents`, `metrics`, `monitoring`, and `remediation`
+allowed values | `alerts`, `deregistration`, `discovery`, `events`, `incidents`, `metrics`, `monitoring`, `remediation`
 example      | {{< code yml >}}
 provider: monitoring
 {{< /code >}}
@@ -1110,7 +1110,7 @@ title: Success
 
 type         | 
 -------------|------ 
-description  | Type of post install content to display. To configure a window of post install content, include a `type: section` attribute and a `type: markdown` attribute. For `type: section`, provide a [title][8]. For `type: markdown`, provide a [body][7]. Each `type: section` attribute you add corresponds to one window of post install content; if you need more than one window of post install content, add another `type: section` attribute.
+description  | Type of post install content to display.<br><br>To configure a window of post install content, include a `type: section` attribute and a `type: markdown` attribute. For `type: section`, provide a [title][8]. For `type: markdown`, provide a [body][7].<br><br>Each `type: section` attribute you add corresponds to one window of post install content; if you need more than one window of post install content, add another `type: section` attribute.
 required     | false
 type         | String
 example      | {{< code yml >}}
@@ -1177,9 +1177,9 @@ title: Configure NGINX URL and Monitoring Thresholds
 
 type         | 
 -------------|------ 
-description  | Type of prompt to display. To configure a window of prompts, include a `type: section` attribute followed by a [title][12]. Within each window of prompts, use `type: question` attributes to collect user responses and `type: markdown` attributes to provide user instructions. Each `type: section` attribute you add corresponds to one window of prompts; if you need more than one window of prompts, add another `type: section` attribute.
+description  | Type of prompt to display.<br><br>To configure a window of prompts, include a `type: section` attribute followed by a [title][12]. Within each window of prompts, use `type: question` attributes to collect user responses and `type: markdown` attributes to provide user instructions.<br><br>Each `type: section` attribute you add corresponds to one window of prompts; if you need more than one window of prompts, add another `type: section` attribute.
 required     | false
-type         | 
+type         | String
 example      | {{< code yml >}}
 type: section 
 {{< /code >}}
@@ -1188,7 +1188,7 @@ type: section
 
 patches      | 
 -------------|------ 
-description  | Updates to apply to the selected resource, in [JSON Patch][13] format. Variable substitution and templating are supported with `varname` references in double square brackets (for example, `Hello, [[varname]]`). If an individual operation fails, Sensu considers it optional and skips it. All patches must specify a `path`, `op` (operation), and `value`. Read [Patches attributes][24] for more information.
+description  | Updates to apply to the selected resource, in [JSON Patch][13] format.<br><br>Variable substitution and templating are supported with `varname` references in double square brackets (for example, `Hello, [[varname]]`).<br><br>If an individual operation fails, Sensu considers it optional and skips it.<br><br>All patches must specify a `path`, `op` (operation), and `value`. Read [Patches attributes][24] for more information.
 required     | false
 type         | Map of key-value pairs
 example      | {{< code yml >}}
@@ -1249,7 +1249,7 @@ format: email
 
 ref          | 
 -------------|------ 
-description  | Reference to a Sensu API resource in <api_group>/<version>/<api_resource>/<api_field_path> format (for example, `core/v2/pipelines/metadata/name` refers to the names of `core/v2/pipelines` resources). The referenced resources are presented to the user in a drop-down selector. Sensu captures the resource the user selects as the input value.
+description  | Reference to a Sensu API resource in the format `<api_group>/<version>/<api_resource>/<api_field_path>` (for example, `core/v2/pipelines/metadata/name` refers to the names of core/v2 pipelines resources).<br><br>The referenced resources are presented to the user in a drop-down selector. Sensu captures the resource the user selects as the input value.
 required     | false
 type         | String
 example      | {{< code yml >}}
@@ -1420,7 +1420,7 @@ Read [Build a private catalog of Sensu integrations][17] for information about u
 [6]: ../../commercial/
 [7]: #post-install-body
 [8]: #post-install-title
-[9]: #post-install-attributes
+[9]: #post-install-type
 [10]: #prompts-attributes
 [11]: #post-install-attributes
 [12]: #prompts-type

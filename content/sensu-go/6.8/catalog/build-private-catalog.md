@@ -21,8 +21,8 @@ For more information, read [Get started with commercial features](../../commerci
 **NOTE**: The Sensu Catalog is in public preview and is subject to change.
 {{% /notice %}}
 
-The [Sensu Catalog][1] is a collection of Sensu integrations that provide reference implementations for effective observability.
-The official Sensu Catalog is available in the [web UI][2], but you can also create a private catalog of custom integrations and make it available to users in the Sensu web UI.
+The [Sensu Catalog][1] is a collection of Sensu integrations that provide reference implementations for effective monitoring and observability.
+The official Sensu Catalog is available in the [web UI][2], but you can also create a private catalog of custom integrations and make it available to users in place of the official Sensu Catalog.
 
 Before you begin, make sure that your integration files are saved in a repository that follows the required [organizational framework][3].
 
@@ -35,7 +35,7 @@ Continue to [Install the catalog-api command line tool](#install-the-catalog-api
 
 If the assets for your private catalog are stored behind a firewall or are otherwise not publicly available, update the asset definitions in your `sensu-resources.yaml` files to use the endpoint URL that will serve your catalog.
 
-For example, if you fork the [Sensu Catalog repository][4] as the starting point for your private catalog, asset definitions will include `assets.bonsai.sensu.io` in the `builds.url` values:
+For example, in the [Sensu Catalog repository][4], asset definitions include `assets.bonsai.sensu.io` in the `builds.url` values:
 
 {{< code yaml >}}
 ---
