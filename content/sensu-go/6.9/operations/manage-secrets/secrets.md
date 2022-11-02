@@ -73,7 +73,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### CyberArkProvider example
+### CyberArk Conjur example
 
 Configure secrets that target CyberArk Conjur as shown in the following example:
 
