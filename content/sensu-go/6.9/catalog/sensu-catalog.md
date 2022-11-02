@@ -2,13 +2,13 @@
 title: "Configure integrations in the Sensu Catalog"
 linkTitle: "Configure Integrations in the Sensu Catalog"
 description: "Find, configure, and install powerful monitoring and observability integrations in the Sensu Catalog, Sensu's online marketplace."
-weight: 30
+weight: 20
 version: "6.9"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.9:
-    parent: web-ui
+    parent: catalog
 ---
 
 {{% notice commercial %}}
@@ -199,7 +199,7 @@ For contributing guidelines and more information, visit the [Sensu Catalog GitHu
 [6]: ../../observability-pipeline/observe-process/pipelines/
 [7]: ../../commercial/
 [8]: ../../operations/maintain-sensu/license/
-[9]: ../view-manage-resources/
+[9]: ../../web-ui/view-manage-resources/
 [10]: ../../sensuctl/create-manage-resources/
 [11]: ../../api/
 [13]: #get-information-about-an-integration
@@ -210,5 +210,5 @@ For contributing guidelines and more information, visit the [Sensu Catalog GitHu
 [18]: #browse-a-metadata-based-list
 [19]: #search-for-integrations
 [20]: ../../plugins/assets/
-[21]: ../
+[21]: ../../web-ui/
 [22]: https://github.com/sensu/catalog

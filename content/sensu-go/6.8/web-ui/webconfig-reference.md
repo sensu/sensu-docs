@@ -49,6 +49,10 @@ metadata:
 spec:
   signin_message: with your *LDAP or system credentials*
   always_show_local_cluster: false
+  catalog:
+    disabled: false
+    url: "https://catalog.sensu.io"
+    release_version: "1.0"
   default_preferences:
     poll_interval: 120000
     page_size: 50
@@ -84,6 +88,11 @@ spec:
   "spec": {
     "signin_message": "with your *LDAP or system credentials*",
     "always_show_local_cluster": false,
+    "catalog": {
+      "disabled": false,
+      "url": "https://catalog.sensu.io",
+      "release_version": "1.0"
+    },
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 50,
@@ -187,6 +196,10 @@ example      | {{< language-toggle >}}
 spec:
   signin_message: with your *LDAP or system credentials*
   always_show_local_cluster: false
+  catalog:
+    disabled: false
+    url: "https://catalog.sensu.io"
+    release_version: "1.0"
   default_preferences:
     poll_interval: 120000
     page_size: 50
@@ -216,6 +229,11 @@ spec:
   "spec": {
     "signin_message": "with your *LDAP or system credentials*",
     "always_show_local_cluster": false,
+    "catalog": {
+      "disabled": false,
+      "url": "https://catalog.sensu.io",
+      "release_version": "1.0"
+    },
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 50,
@@ -323,6 +341,31 @@ always_show_local_cluster: false
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="catalog-config-attribute"></a>
+
+catalog      | 
+-------------|------ 
+description  | [Sensu Catalog][14] configuration preferences. Read [Catalog attributes][13] for more information.
+required     | false
+type         | Map of key-value pairs
+example      | {{< language-toggle >}}
+{{< code yml >}}
+catalog:
+  disabled: false
+  url: "https://catalog.sensu.io"
+  release_version: "1.0"
+{{< /code >}}
+{{< code json >}}
+{
+  "catalog": {
+    "disabled": false,
+    "url": "https://catalog.sensu.io",
+    "release_version": "1.0"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+    
 default_preferences | 
 -------------|------ 
 description  | Global [default preferences][1] page size and theme preferences for all users.
@@ -452,6 +495,56 @@ signin_message: with your *LDAP or system credentials*
 {{< code json >}}
 {
   "signin_message": "with your *LDAP or system credentials*"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### Catalog attributes
+
+disabled     | 
+-------------|------ 
+description  | Set to `true` to disable the Sensu Catalog in the web UI. Otherwise, `false`.
+required     | false
+type         | Boolean
+example      | {{< language-toggle >}}
+{{< code yml >}}
+disabled: false
+{{< /code >}}
+{{< code json >}}
+{
+  "disabled": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+release_version | 
+-------------|------ 
+description  | Release version to use for generating a private catalog with the Sensu Catalog API.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+release_version: version
+{{< /code >}}
+{{< code json >}}
+{
+  "release_version": "version"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+url          | 
+-------------|------ 
+description  | Base URL where Sensu Catalog API output is served for a private catalog. Sensu presents the content published to this URL endpoint in place of the official Sensu Catalog in the web UI.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+url: "https://catalog.sensu.io"
+{{< /code >}}
+{{< code json >}}
+{
+  "url": "https://catalog.sensu.io"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -665,3 +758,5 @@ urls:
 [10]: https://www.markdownguide.org/
 [11]: #page-preferences-attribute
 [12]: ../#license-expiration-banner
+[13]: #catalog-attributes
+[14]: ../sensu-catalog/

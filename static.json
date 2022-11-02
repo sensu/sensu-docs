@@ -339,6 +339,22 @@
             "url": "/sensu-go/latest/api/other/version/$1",
             "status": 301
         },
+        "~ ^/sensu-go/6.7/web-ui/sensu-catalog/?$": {
+            "url": "/sensu-go/6.7/catalog/sensu-catalog/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.8/web-ui/sensu-catalog/?$": {
+            "url": "/sensu-go/6.8/catalog/sensu-catalog/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.9/web-ui/sensu-catalog/?$": {
+            "url": "/sensu-go/6.9/catalog/sensu-catalog/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/web-ui/sensu-catalog/?$": {
+            "url": "/sensu-go/latest/catalog/sensu-catalog/$1",
+            "status": 301
+        },
         "~ ^/sensu-go/6.[3-7]/plugins/supported-integrations/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/plugins/featured-integrations/$1",
             "status": 301
