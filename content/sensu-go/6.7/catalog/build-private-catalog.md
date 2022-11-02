@@ -5,10 +5,10 @@ guide_title: "Build a private catalog of Sensu integrations"
 type: "guide"
 description: "Use Sensu's Catalog API to build and host your own private catalog of Sensu integrations."
 weight: 40
-version: "6.8"
+version: "6.7"
 product: "Sensu Go"
 menu: 
-  sensu-go-6.8:
+  sensu-go-6.7:
     parent: catalog
 ---
 
