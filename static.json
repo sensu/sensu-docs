@@ -39,11 +39,11 @@
             "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
             "status": 301
         },
-        "~ ^/sensu-go/6.8/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/6.9/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 302
         },
-        "~ ^/sensu-go/6.[0-4]/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/6.[0-5]/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
         },
@@ -337,6 +337,22 @@
         },
         "~ ^/sensu-go/latest/api/version/?$": {
             "url": "/sensu-go/latest/api/other/version/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.7/web-ui/sensu-catalog/?$": {
+            "url": "/sensu-go/6.7/catalog/sensu-catalog/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.8/web-ui/sensu-catalog/?$": {
+            "url": "/sensu-go/6.8/catalog/sensu-catalog/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.9/web-ui/sensu-catalog/?$": {
+            "url": "/sensu-go/6.9/catalog/sensu-catalog/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/web-ui/sensu-catalog/?$": {
+            "url": "/sensu-go/latest/catalog/sensu-catalog/$1",
             "status": 301
         },
         "~ ^/sensu-go/6.[3-7]/plugins/supported-integrations/?((?<=\/).*)?$": {

@@ -49,4 +49,4 @@ Sensu allows you to bring new life to the 50+ plugins in the official [Nagios Pl
 [7]: https://exchange.nagios.org/
 [8]: https://github.com/sensu-plugins/community
 [9]: https://github.com/sensu-community/sensu-plugin-sdk
-[10]: ../web-ui/sensu-catalog/
+[10]: ../catalog/sensu-catalog/

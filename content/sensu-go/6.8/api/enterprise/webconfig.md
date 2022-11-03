@@ -48,6 +48,11 @@ The request results in a successful `HTTP/1.1 200 OK` response and a JSON array 
     },
     "spec": {
       "always_show_local_cluster": false,
+      "catalog": {
+        "disabled": false,
+        "release_version": "version",
+        "url": "https://catalog.sensu.io"
+      },
       "default_preferences": {
         "poll_interval": 120000,
         "page_size": 500,
@@ -104,6 +109,11 @@ output         | {{< code text >}}
     },
     "spec": {
       "always_show_local_cluster": false,
+      "catalog": {
+        "disabled": false,
+        "release_version": "version",
+        "url": "https://catalog.sensu.io"
+      },
       "default_preferences": {
         "poll_interval": 120000,
         "page_size": 500,
@@ -167,6 +177,11 @@ The request will return a successful `HTTP/1.1 200 OK` response and a JSON map t
   },
   "spec": {
     "always_show_local_cluster": false,
+    "catalog": {
+      "disabled": false,
+      "release_version": "version",
+      "url": "https://catalog.sensu.io"
+    },
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
@@ -221,6 +236,11 @@ output               | {{< code text >}}
   },
   "spec": {
     "always_show_local_cluster": false,
+    "catalog": {
+      "disabled": false,
+      "release_version": "version",
+      "url": "https://catalog.sensu.io"
+    },
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
@@ -277,6 +297,11 @@ curl -X PUT \
   },
   "spec": {
     "always_show_local_cluster": false,
+    "catalog": {
+      "disabled": false,
+      "release_version": "version",
+      "url": "https://catalog.sensu.io"
+    },
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
@@ -331,6 +356,11 @@ payload         | {{< code json >}}
   },
   "spec": {
     "always_show_local_cluster": false,
+    "catalog": {
+      "disabled": false,
+      "release_version": "version",
+      "url": "https://catalog.sensu.io"
+    },
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,

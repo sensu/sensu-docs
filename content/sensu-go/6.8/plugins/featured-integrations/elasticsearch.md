@@ -18,7 +18,7 @@ The [Sensu Elasticsearch Handler plugin][4] is a Sensu [handler][1] that sends o
 With this handler, the Sensu observation data you send to Elasticsearch is available for indexing and visualization in Kibana.
 
 {{% notice protip %}}
-**PRO TIP**: Use the [Sensu Catalog](../../../web-ui/sensu-catalog/) to enable this integration directly from your browser.
+**PRO TIP**: Use the [Sensu Catalog](../../../catalog/sensu-catalog/) to enable this integration directly from your browser.
 Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
@@ -48,4 +48,4 @@ You can also add the [Sensu Elasticsearch Handler plugin][4] with a dynamic runt
 [5]: ../../assets/
 [7]: ../../../operations/manage-secrets/
 [8]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
-[10]: ../../../web-ui/sensu-catalog/
+[10]: ../../../catalog/sensu-catalog/

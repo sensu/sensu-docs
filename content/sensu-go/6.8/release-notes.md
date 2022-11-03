@@ -115,13 +115,12 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **October 6, 2022** &mdash; The latest release of Sensu Go, version 6.8.2, is now available for download.
 
-Sensu Go 6.8.2 includes logging improvements: logs now include login attempts, check names for failed check execution requests, and backend entity names for agent websocket connections. We also added a label to events with a truncated check output and now automatically restart the agent on Windows platforms after failures. The 6.8.2 patch release also modifies the keepalive startup logic and fixes a number of web UI issues in the Entities and configuration resource pages.
+Sensu Go 6.8.2 includes logging improvements with the addition of check names for failed check execution requests. We also added a label to events with a truncated check output and now automatically restart the agent on Windows platforms after failures. The 6.8.2 patch release also modifies the keepalive startup logic and fixes a number of web UI issues in the Entities and configuration resource pages.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
 
 **IMPROVEMENTS:**
 
-- Agent websocket connection logging now includes backend entity name.
 - When check output is truncated due to the [max_output_size][302] configuration, the events the check produces will include a `sensu.io/output_truncated_bytes` label.
 - Agent log messages now include the check name when a check execution request fails.
 - On Windows platforms, the Sensu Agent service now automatically restarts after failures.
@@ -139,7 +138,6 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.8.2.
 - ([Commercial feature][295]) In the web UI, temporarily disabled saved searches on Entity, Services, Silences, and Check pages.
 - ([Commercial feature][295]) In the web UI, fixed a bug that prevented individual resource pages from displaying annotations and labels on initial page load.
 - ([Commercial feature][295]) In the web UI, when users do not have the required permissions to perform a specific action, the action's button is now disabled with a tooltip to explain the reason.
-- Fixed an issue that prevented multi-expression, exclusive event filters set to `deny` from being evaluated properly.
 - Modified keepalive startup so that etcd lease errors will not cause sensu-backend crashes.
 
 
@@ -2514,7 +2512,7 @@ To get started with Sensu Go:
 [266]: /sensu-go/6.6/web-ui/search/#events-and-entities-search-limits
 [267]: /sensu-go/latest/operations/deploy-sensu/datastore/#strict-attribute
 [268]: /sensu-go/6.7/commercial/
-[269]: /sensu-go/6.7/web-ui/sensu-catalog/
+[269]: /sensu-go/6.7/catalog/sensu-catalog/
 [270]: /sensu-go/6.7/web-ui/
 [271]: /sensu-go/6.7/sensu-plus/
 [272]: /sensu-go/6.7/observability-pipeline/observe-schedule/backend/#etcd-election-timeout
@@ -2534,8 +2532,8 @@ To get started with Sensu Go:
 [286]: /sensu-go/6.7/web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
 [287]: /sensu-go/6.7/web-ui/webconfig-reference/#serialization_format
 [288]: /sensu-go/6.7/web-ui/webconfig-reference/#sign-in-message
-[289]: /sensu-go/6.7/web-ui/sensu-catalog/#duplicate-integrations-and-existing-resources
-[290]: /sensu-go/6.7/web-ui/sensu-catalog/
+[289]: /sensu-go/6.7/catalog/sensu-catalog/#duplicate-integrations-and-existing-resources
+[290]: /sensu-go/6.7/catalog/sensu-catalog/
 [291]: /sensu-go/6.7/observability-pipeline/observe-events/events/#check-scope
 [292]: /sensu-go/5.16/observability-pipeline/observe-schedule/backend/#etcd-discovery-srv
 [293]: https://nvd.nist.gov/vuln/detail/CVE-2022-37315

@@ -72,4 +72,4 @@ Sensu Go's core is open source software, freely available under an MIT License.
 [20]: ../platforms/
 [21]: https://sensu.io/learn
 [22]: ../observability-pipeline/
-[23]: ../web-ui/sensu-catalog/
+[23]: ../catalog/sensu-catalog/

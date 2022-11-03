@@ -1033,7 +1033,7 @@ output_metric_tags:
 
 ### Collect metrics in formats that do not support tags
 
-Output metric tags are useful when you want to collect metrics in a format that does not natively support tags, like Graphite Plaintext Protocol or Nagios Performance Data.
+Output metric tags are useful when you want to collect metrics in a format that does not natively support tags, like Nagios Performance Data.
 
 For example, you might want to collect and transmit metrics in Nagios Performance Data format, which does not support tags, and store the metrics in Prometheus, which does support tags.
 In this case, you can specify the tags to include with metrics with output metric tags.

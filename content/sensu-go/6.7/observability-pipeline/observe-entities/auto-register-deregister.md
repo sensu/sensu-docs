@@ -222,6 +222,6 @@ Follow [Create limited service accounts][14] to automatically remove AWS EC2 ins
 [9]: ../../observe-schedule/agent/#ephemeral-agent-configuration
 [10]: ../../observe-schedule/agent/#agent-deregistration-handler-attribute
 [11]: ../../observe-schedule/backend/#deregistration-handler-attribute
-[12]: ../../../web-ui/sensu-catalog/
+[12]: ../../../catalog/sensu-catalog/
 [13]: https://github.com/sensu/catalog/tree/main/integrations/sensu/platform-discovery
 [14]: ../../../operations/control-access/create-limited-service-accounts/

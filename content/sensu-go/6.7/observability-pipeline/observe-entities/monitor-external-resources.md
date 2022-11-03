@@ -584,7 +584,7 @@ Follow any of these guides to learn how to configure event filters, handlers, an
 [22]: ../../observe-process/handlers/
 [23]: ../../observe-process/pipelines/
 [24]: https://sensu.io
-[25]: ../../../web-ui/sensu-catalog/
+[25]: ../../../catalog/sensu-catalog/
 [26]: ../../../web-ui/view-manage-resources/#manage-entities
 [27]: #use-a-proxy-entity-to-monitor-a-website-sensu-catalog-configuration
 [28]: #use-a-proxy-entity-to-monitor-a-website-command-line-configuration
