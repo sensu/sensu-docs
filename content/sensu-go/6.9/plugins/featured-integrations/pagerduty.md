@@ -13,7 +13,7 @@ The [Sensu PagerDuty Handler plugin][4] is a Sensu [handler][1] that manages Pag
 With this handler, Sensu can trigger and resolve PagerDuty incidents according to the PagerDuty schedules, notifications, and escalation, response, and orchestration workflows you already have configured.
 
 {{% notice protip %}}
-**PRO TIP**: Use the [Sensu Catalog](../../../web-ui/sensu-catalog/) to enable this integration directly from your browser.
+**PRO TIP**: Use the [Sensu Catalog](../../../catalog/sensu-catalog/) to enable this integration directly from your browser.
 Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
@@ -46,4 +46,4 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [6]: ../../use-assets-to-install-plugins/
 [7]: ../../../observability-pipeline/observe-process/send-pagerduty-alerts/
 [8]: ../../../operations/manage-secrets/
-[10]: ../../../web-ui/sensu-catalog/
+[10]: ../../../catalog/sensu-catalog/

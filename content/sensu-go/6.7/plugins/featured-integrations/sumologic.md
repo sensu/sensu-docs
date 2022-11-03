@@ -13,7 +13,7 @@ The [Sensu Sumo Logic Handler plugin][4] is a Sensu [handler][1] that sends Sens
 This handler sends Sensu events as log entries, a set of metrics, or both, depending on the mode of operation you specify.
 
 {{% notice protip %}}
-**PRO TIP**: Use the [Sensu Catalog](../../../web-ui/sensu-catalog/) to enable this integration directly from your browser.
+**PRO TIP**: Use the [Sensu Catalog](../../../catalog/sensu-catalog/) to enable this integration directly from your browser.
 Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
@@ -46,4 +46,4 @@ Read [Send data to Sumo Logic with Sensu][3] to learn how to add and configure a
 [7]: ../../../operations/manage-secrets/
 [8]: https://github.com/sensu/catalog/blob/docs-archive/integrations/sumologic/sumologic-metrics-handler.yaml
 [9]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
-[10]: ../../../web-ui/sensu-catalog/
+[10]: ../../../catalog/sensu-catalog/

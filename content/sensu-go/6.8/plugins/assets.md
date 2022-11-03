@@ -1306,7 +1306,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [30]: ../../observability-pipeline/observe-schedule/agent#disable-assets
 [31]: ../../platforms/#docker-images
 [32]: ../../platforms/#supported-packages
-[33]: ../../web-ui/sensu-catalog/
+[33]: ../../catalog/sensu-catalog/
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
 [39]: ../../web-ui/search#search-for-labels

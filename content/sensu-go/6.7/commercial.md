@@ -134,4 +134,4 @@ These resources will help you use commercial features in Sensu Go:
 [31]: ../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
 [32]: ../observability-pipeline/observe-process/tcp-stream-handlers/
 [33]: ../web-ui/webconfig/
-[34]: ../web-ui/sensu-catalog/
+[34]: ../catalog/sensu-catalog/

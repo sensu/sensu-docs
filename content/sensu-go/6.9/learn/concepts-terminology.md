@@ -155,4 +155,4 @@ Tokens let you fine-tune check attributes (like thresholds) on a per-entity leve
 [21]: ../../observability-pipeline/observe-schedule/service-components/
 [22]: ../../observability-pipeline/observe-schedule/subscriptions/
 [23]: ../../observability-pipeline/observe-process/pipelines/
-[24]: ../../web-ui/sensu-catalog/
+[24]: ../../catalog/sensu-catalog/

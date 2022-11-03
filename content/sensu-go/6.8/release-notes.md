@@ -2512,7 +2512,7 @@ To get started with Sensu Go:
 [266]: /sensu-go/6.6/web-ui/search/#events-and-entities-search-limits
 [267]: /sensu-go/latest/operations/deploy-sensu/datastore/#strict-attribute
 [268]: /sensu-go/6.7/commercial/
-[269]: /sensu-go/6.7/web-ui/sensu-catalog/
+[269]: /sensu-go/6.7/catalog/sensu-catalog/
 [270]: /sensu-go/6.7/web-ui/
 [271]: /sensu-go/6.7/sensu-plus/
 [272]: /sensu-go/6.7/observability-pipeline/observe-schedule/backend/#etcd-election-timeout
@@ -2532,8 +2532,8 @@ To get started with Sensu Go:
 [286]: /sensu-go/6.7/web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
 [287]: /sensu-go/6.7/web-ui/webconfig-reference/#serialization_format
 [288]: /sensu-go/6.7/web-ui/webconfig-reference/#sign-in-message
-[289]: /sensu-go/6.7/web-ui/sensu-catalog/#duplicate-integrations-and-existing-resources
-[290]: /sensu-go/6.7/web-ui/sensu-catalog/
+[289]: /sensu-go/6.7/catalog/sensu-catalog/#duplicate-integrations-and-existing-resources
+[290]: /sensu-go/6.7/catalog/sensu-catalog/
 [291]: /sensu-go/6.7/observability-pipeline/observe-events/events/#check-scope
 [292]: /sensu-go/5.16/observability-pipeline/observe-schedule/backend/#etcd-discovery-srv
 [293]: https://nvd.nist.gov/vuln/detail/CVE-2022-37315

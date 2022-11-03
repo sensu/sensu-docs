@@ -17,7 +17,7 @@ For more information, read [Get started with commercial features](../../../comme
 The Sensu Ansible Handler plugin is a Sensu [handler][1] that launches Ansible Tower job templates for automated remediation based on Sensu observability event data.
 
 {{% notice protip %}}
-**PRO TIP**: Use the [Sensu Catalog](../../../web-ui/sensu-catalog/) to enable this integration directly from your browser.
+**PRO TIP**: Use the [Sensu Catalog](../../../catalog/sensu-catalog/) to enable this integration directly from your browser.
 Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
@@ -52,4 +52,4 @@ The [documentation site][8] includes installation instructions, example playbook
 [7]: https://galaxy.ansible.com/sensu/sensu_go
 [8]: https://sensu.github.io/sensu-go-ansible/
 [9]: ../../../operations/manage-secrets/
-[10]: ../../../web-ui/sensu-catalog/
+[10]: ../../../catalog/sensu-catalog/

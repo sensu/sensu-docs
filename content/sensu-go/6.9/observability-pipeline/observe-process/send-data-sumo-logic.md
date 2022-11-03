@@ -14,7 +14,7 @@ menu:
 ---
 
 {{% notice protip %}}
-**PRO TIP**: You can use the Sumo Logic Analytics integration in the [Sensu Catalog](../../../web-ui/sensu-catalog/) to send Sensu event data to Sumo Logic instead of following this guide.
+**PRO TIP**: You can use the Sumo Logic Analytics integration in the [Sensu Catalog](../../../catalog/sensu-catalog/) to send Sensu event data to Sumo Logic instead of following this guide.
 Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
