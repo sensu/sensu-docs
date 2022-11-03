@@ -13,18 +13,24 @@ menu:
     parent: observe-schedule
 ---
 
-Check hooks are **commands** the Sensu agent runs in response to the result of check execution. 
+Check hooks are commands the Sensu agent runs in response to the result of check execution. 
 The Sensu agent executes the appropriate configured hook command based on the exit status code of the check (for example, `1`).
 
 Check hooks allow you to automate data collection that operators would routinely perform to investigate observability alerts, which frees up precious operator time.
 Although you can use check hooks for rudimentary auto-remediation tasks, they are intended to enrich observability event data.
 
 Follow this guide to create a check hook that captures the process tree if a check returns a status of `2` (critical, not running).
-You’ll need to [install][2] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+
+## Requirements
+
+To follow this guide, install the Sensu [backend][2], make sure at least one Sensu [agent][14] is running, and install and configure [sensuctl][15].
+
+The hook you will create in this guide relies on the `nginx_service` check created in the [Monitor server resources][16] guide.
+Before you begin, add the [sensu/sensu-processes-check][12] dynamic runtime asset and [`nginx_service` check][13].
 
 ## Configure a Sensu entity
 
-Every Sensu agent has a defined set of [subscriptions][3] that determine which checks the agent will execute.
+Every Sensu agent has a defined set of subscriptions that determine which checks the agent will execute.
 For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
 To run the `nginx_service` check used as an example in this guide, you'll need a Sensu entity with the subscription `webserver`.
 
@@ -94,7 +100,7 @@ ETag: "xxxxxxxx-xxxx"
 Accept-Ranges: bytes
 {{< /code >}}
 
-With your NGINX service running, you can configure the webserver check.
+With your NGINX service running, you can configure the hook.
 
 ## Create a hook
 
@@ -156,11 +162,6 @@ spec:
 {{< /language-toggle >}}
 
 ## Assign the hook to a check
-
-{{% notice note %}}
-**NOTE**: Before you proceed, make sure you have added the [sensu/sensu-processes-check](../monitor-server-resources/#register-the-sensu-processes-check-asset) dynamic runtime asset and the [`nginx_service` check](../monitor-server-resources/#create-a-check-to-monitor-a-webserver) from the [Monitor server resources](../monitor-server-resources/) guide.
-The hook you create in this step relies on the `nginx_service` check.
-{{% /notice %}}
 
 Now that you've created the `process_tree` hook, you can assign it to the `nginx_service` check.
 Setting the `type` to `critical` ensures that whenever the check command returns a critical status, Sensu executes the `process_tree` hook and adds the output to the resulting event data.
@@ -270,10 +271,6 @@ spec:
 
 {{< /language-toggle >}}
 
-{{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
-{{% /notice %}}
-
 ## Simulate a critical event
 
 After you confirm that the hook is attached to your check, stop the NGINX service to observe the check hook in action on the next check execution.
@@ -379,7 +376,7 @@ sensuctl event info <entity_name> nginx_service --format json | jq -r '.check.ho
 
 This example output is truncated for brevity, but it reflects the output of the `ps aux` command specified in the check hook you created:
 
-{{< code shell >}}
+{{< code text >}}
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         1  0.0  0.3  46164  6704 ?        Ss   Nov17   0:11 /usr/lib/systemd/systemd --switched-root --system --deserialize 20
 root         2  0.0  0.0      0     0 ?        S    Nov17   0:00 [kthreadd]
@@ -411,20 +408,24 @@ The response should list the `nginx_service` check with an OK status (`0`).
 
 Now when you are alerted that NGINX is not running, you can review the check hook output to confirm this is true with no need to start up an SSH session to investigate.
 
-## Next steps
+## What's next
 
 To learn more about data collection with check hooks, read the [hooks reference][1].
 
-You can also create [pipelines][11] with [event filters][9], [mutators][10], and [handlers][5] to send the event data your checks generate to another service for analysis, tracking, and long-term storage.
+Read the [subscriptions reference][3] to learn more about Sensu's publish/subscribe model.
+
+Create [pipelines][11] with [event filters][9], [mutators][10], and [handlers][5] to send the event data your checks generate to another service for analysis, tracking, and long-term storage.
 For example:
 
 - [Send data to Sumo Logic with Sensu][6]
 - [Send PagerDuty alerts with Sensu][7]
 - [Send Slack alerts with a pipeline][8]
 
+In this guide, you used sensuctl to view your check definition, but you can also [view complete resource definitions in the Sensu web UI][17].
+
 
 [1]: ../hooks/
-[2]: ../../../operations/deploy-sensu/install-sensu/
+[2]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [3]: ../subscriptions/
 [4]: ../../../sensuctl/
 [5]: ../../observe-process/handlers/
@@ -434,3 +435,9 @@ For example:
 [9]: ../../observe-filter/filters/
 [10]: ../../observe-transform/mutators/
 [11]: ../../observe-process/pipelines/
+[12]: ../monitor-server-resources/#register-the-sensusensu-processes-check-asset
+[13]: ../monitor-server-resources/#create-the-webserver-check-definition
+[14]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[15]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[16]: ../monitor-server-resources/
+[17]: ../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
