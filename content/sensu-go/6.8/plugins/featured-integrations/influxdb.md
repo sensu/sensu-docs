@@ -13,7 +13,7 @@ The [Sensu InfluxDB Handler plugin][4] is a Sensu [handler][1] that sends Sensu 
 You can also use the Sensu InfluxDB Handler integration to create metrics from Sensu status check results for long-term storage in InfluxDB.
 
 {{% notice protip %}}
-**PRO TIP**: Use the [Sensu Catalog](../../../web-ui/sensu-catalog/) to enable this integration directly from your browser.
+**PRO TIP**: Use the [Sensu Catalog](../../../catalog/sensu-catalog/) to enable this integration directly from your browser.
 Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
@@ -40,4 +40,4 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [5]: ../../assets/
 [6]: ../../../operations/manage-secrets/
 [7]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
-[10]: ../../../web-ui/sensu-catalog/
+[10]: ../../../catalog/sensu-catalog/

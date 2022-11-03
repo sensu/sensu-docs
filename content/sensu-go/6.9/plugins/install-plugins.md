@@ -139,4 +139,4 @@ sudo yum groupinstall "Development Tools"
 [7]: ../use-assets-to-install-plugins/
 [8]: https://bonsai.sensu.io/
 [9]: ../assets#share-an-asset-on-bonsai
-[10]: ../../web-ui/sensu-catalog/
+[10]: ../../catalog/sensu-catalog/

@@ -108,4 +108,4 @@ Sensu is a comprehensive monitoring and observability solution for enterprises, 
 [38]: plugins/featured-integrations/
 [39]: observability-pipeline/observe-schedule/subscriptions/
 [40]: observability-pipeline/observe-schedule/collect-metrics-with-checks/
-[41]: web-ui/sensu-catalog/
+[41]: catalog/sensu-catalog/
