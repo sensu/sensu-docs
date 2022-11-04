@@ -24,7 +24,14 @@ For more information, read [Get started with commercial features](../../commerci
 The [Sensu Catalog][1] is a collection of Sensu integrations that provide reference implementations for effective monitoring and observability.
 The official Sensu Catalog is available in the [web UI][2], but you can also create a private catalog of custom integrations and make it available to users in place of the official Sensu Catalog.
 
-Before you begin, make sure that your integration files are saved in a repository that follows the required [organizational framework][3].
+## Requirements
+
+To follow this guide, install the Sensu [backend][5], make sure at least one Sensu [agent][6] is running, and install and configure [sensuctl][7].
+
+You will also need a GitHub repository that stores the integration files you want to include in your private catalog.
+Before you begin, make sure that the repository follows the required [organizational framework][3].
+
+To serve your private catalog, you will need an endpoint URL that is fetchable for your web UI users.
 
 ## Update URLs in integration asset builds (optional)
 
@@ -35,7 +42,7 @@ Continue to [Install the catalog-api command line tool](#install-the-catalog-api
 
 If the assets for your private catalog are stored behind a firewall or are otherwise not publicly available, update the asset definitions in your `sensu-resources.yaml` files to use the endpoint URL that will serve your catalog.
 
-For example, in the [Sensu Catalog repository][4], asset definitions include `assets.bonsai.sensu.io` in the `builds.url` values:
+For example, in the official Sensu Catalog repository, asset definitions include `assets.bonsai.sensu.io` in the `builds.url` values:
 
 {{< code yaml >}}
 ---
@@ -119,10 +126,6 @@ cd <REPO_NAME>
 11:05AM INF Found integration version name=wavefront-metrics namespace=wavefront source=path version=99991231.0.0
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: The catalog-api command line tool also includes [server and preview subcommands](../catalog-reference/#catalog-api-subcommands) for viewing your catalog in the web UI during development.
-{{% /notice %}}
-
 ## Generate the private catalog
 
 With a validated repository, you can generate your private catalog locally.
@@ -194,8 +197,20 @@ EOF
 Log into the Sensu web UI at the URL specified in your GlobalConfig resource and navigate to the Catalog page.
 The Catalog page should include all of the integrations in your repository.
 
+## What's next
+
+Review the official [Sensu Catalog repository][4] as an example of repository setup and integration configuration.
+
+The Catalog integrations reference includes the [integration specification][10] as well as details about the [catalog-api command line interface tool][8] and the [server subcommand][9], which you can use to serve integrations from your local environment during development.
+
 
 [1]: ../sensu-catalog/
 [2]: ../../web-ui/
 [3]: ../catalog-reference/#catalog-repository-example
 [4]: https://github.com/sensu/catalog
+[5]: ../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
+[6]: ../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[7]: ../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[8]: ../catalog-reference/#catalog-api-command-line-interface-tool
+[9]: ../catalog-reference/#server-subcommand
+[10]: ../catalog-reference/#integration-specification
