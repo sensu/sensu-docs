@@ -13,17 +13,22 @@ menu:
     parent: observe-schedule
 ---
 
-Sensu checks are **commands** (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.
+Sensu checks are commands (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.
 If you are unfamiliar with checks, read the [checks reference][1] for details and examples.
 You can also learn how to configure monitoring checks in [Monitor server resources][2].
 
 This guide demonstrates how to use a check to extract service metrics for an NGINX webserver, with output in [Nagios Performance Data][3] format.
 
-To follow this guide, you’ll need to [install][13] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+## Requirements
+
+To follow this guide, [install][13] the Sensu backend, make sure at least one Sensu [agent][16] is running, and install and configure [sensuctl][17].
+
+Before you begin, add the [debug handler][10] to your Sensu instance.
+The check in this guide will use it to write metric events to a file for inspection.
 
 ## Configure a Sensu entity
 
-Every Sensu agent has a defined set of [subscriptions][8] that determine which checks the agent will execute.
+Every Sensu agent has a defined set of subscriptions that determine which checks the agent will execute.
 For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
 To run the NGINX webserver check, you'll need a Sensu entity with the subscription `webserver`.
 
@@ -35,8 +40,8 @@ sensuctl entity list
 
 The `ID` is the name of your entity.
 
-Replace `<ENTITY_NAME>` with the name of your agent entity in the following [sensuctl][17] command.
-Run:
+Replace `<ENTITY_NAME>` with the name of your agent entity in the following sensuctl command.
+Then, run:
 
 {{< code shell >}}
 sensuctl entity update <ENTITY_NAME>
@@ -55,7 +60,7 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the dynamic runtime asset
 
-To power the check to collect service metrics, you will use a check in the [sensu/http-checks][7] dynamic runtime asset.
+To power the check to collect service metrics, you will use a check in the sensu/http-checks dynamic runtime asset.
 Use sensuctl to register the sensu/http-checks dynamic runtime asset:
 
 {{< code shell >}}
@@ -75,8 +80,6 @@ resource, populate the "runtime_assets" field with ["http-checks"].
 
 This example uses the -r (rename) flag to specify a shorter name for the dynamic runtime asset: http-checks.
 
-You can also download the dynamic runtime asset definition from [Bonsai][7] and register the asset with `sensuctl create --file filename.yml`.
-
 Use sensuctl to confirm that both the http-checks dynamic runtime asset is ready to use:
 
 {{< code shell >}}
@@ -95,11 +98,6 @@ The sensuctl response should list http-checks:
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_386.tar.gz       60b8883  
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_amd64.tar.gz     1db73a8  
 {{< /code >}}
-
-{{% notice note %}}
-**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
-{{% /notice %}}
 
 ## Install and configure NGINX
 
@@ -143,18 +141,14 @@ Accept-Ranges: bytes
 
 With your NGINX service running, you can configure the check to collect service metrics.
 
-{{% notice note %}}
-**NOTE**: Read [Monitor server resources with checks](../monitor-server-resources/) to learn how to [monitor an NGINX webserver](../monitor-server-resources/#create-a-check-to-monitor-a-webserver) rather than collect metrics.
-{{% /notice %}}
-
 ## Create a check to collect metrics
 
-The http-checks dynamic runtime asset includes the [`http-perf`][4] check.
-To use this check, create the `collect-metrics` check with a command that uses `http-perf`:
+Create the `collect-metrics` check with a command that uses the `http-perf` performance check from the http-checks dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl check create collect-metrics \
 --command 'http-perf --url http://localhost --warning 1s --critical 2s' \
+--handlers debug \
 --interval 15 \
 --subscriptions webserver \
 --runtime-assets http-checks \
@@ -179,7 +173,7 @@ sensuctl check info collect-metrics --format wrapped-json
 
 {{< /language-toggle >}}
 
-The sensuctl response will list the complete check resource definition &mdash; you can add it to your [monitoring as code][9] repository:
+The sensuctl response will list the complete check resource definition:
 
 {{< language-toggle >}}
 
@@ -188,12 +182,15 @@ The sensuctl response will list the complete check resource definition &mdash; y
 type: CheckConfig
 api_version: core/v2
 metadata:
+  created_by: admin
   name: collect-metrics
+  namespace: default
 spec:
   check_hooks: null
   command: http-perf --url http://localhost --warning 1s --critical 2s
   env_vars: null
-  handlers: []
+  handlers:
+  - debug
   high_flap_threshold: 0
   interval: 15
   low_flap_threshold: 0
@@ -219,19 +216,24 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "collect-metrics"
+    "created_by": "admin",
+    "name": "collect-metrics",
+    "namespace": "default"
   },
   "spec": {
     "check_hooks": null,
     "command": "http-perf --url http://localhost --warning 1s --critical 2s",
     "env_vars": null,
-    "handlers": [],
+    "handlers": [
+      "debug"
+    ],
     "high_flap_threshold": 0,
     "interval": 15,
     "low_flap_threshold": 0,
     "output_metric_format": "nagios_perfdata",
     "output_metric_handlers": null,
-    "pipelines": [],
+    "pipelines": [
+    ],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -252,20 +254,18 @@ spec:
 
 {{< /language-toggle >}}
 
-{{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
-{{% /notice %}}
-
 ## Confirm that your check is collecting metrics
 
 If the check is collecting metrics correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the observability pipeline for handling.
 The Sensu agent will log errors if it cannot parse the check output.
 
-Add a [debug handler][10] to write metric events to a file for inspection.
-To confirm that the check extracted metrics, inspect the event passed to the handler in the debug-event.json file.
-The event will include a top-level [metrics section][11] populated with [metrics points arrays][12] if the Sensu agent correctly ingested the metrics.
+To confirm that the check extracted metrics, inspect the event passed to the debug handler in the debug-event.json file:
 
-If you add the debug handler and configure the `collect-metrics` check to use it, the metrics event printed to the debug-event.json file will be similar to this example:
+{{< code shell >}}
+cat /var/log/sensu/debug-event.json
+{{< /code >}}
+
+The event will include a top-level metrics section populated with metrics points arrays if the Sensu agent correctly ingested the metrics, similar to this example:
 
 {{< code text >}}
 {
@@ -448,14 +448,24 @@ If you add the debug handler and configure the `collect-metrics` check to use it
 }
 {{< /code >}}
 
-## Next step: Send metrics to a handler
+## What's next
 
 Now that you know how to extract metrics from check output, learn to use a metrics handler to [populate service and time-series metrics in InfluxDB][5].
 For a turnkey experience with the Sensu InfluxDB Handler plugin, use our curated, configurable [quick-start template][6] to integrate Sensu with your existing workflows and store Sensu metrics in InfluxDB.
 
-Read the [pipelines reference][15] for information about configuring observability event processing workflows with event filters, mutators, and handlers.
-
+Read [Monitor server resources with checks][2] to learn how to monitor an NGINX webserver rather than collect metrics.
 You can also learn to use Sensu to [collect Prometheus metrics][14].
+
+Learn more about the Sensu resources you created in this guide:
+
+- [Checks][1]
+- [Dynamic runtime assets][19]
+- [Handlers][18] and [pipelines][15]
+- [Subscriptions][8]
+
+The events reference includes more information about the [metrics section][11] and [metrics points array][12].
+
+Visit Bonsai, the Sensu asset index, for more information about the [sensu/http-checks][7] dynamic runtime asset's capabilities.
 
 
 [1]: ../checks/
@@ -473,3 +483,7 @@ You can also learn to use Sensu to [collect Prometheus metrics][14].
 [13]: ../../../operations/deploy-sensu/install-sensu/
 [14]: ../prometheus-metrics/
 [15]: ../../observe-process/pipelines/
+[16]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[17]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[18]: ../../observe-process/handlers/
+[19]: ../../../plugins/assets/
