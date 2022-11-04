@@ -94,11 +94,7 @@ For details about etcd snapshot and restore capabilities, read [etcd's disaster 
 Whether you're using the embedded version of etcd for Sensu or an external etcd instance, embedded etcdctl must be installed the system you use to generate a snapshot.
 Read the [etcd installation documentation][4] to install etcdctl.
 
-Run the following command to take a snapshot of the Sensu etcd database:
-
-To create a snapshot of Sensu's embedded etcd, do the following:
-
-To create a snapshot of Sensu's embedded etcd, do the following:
+Run the following command to take a snapshot of Sensu's embedded etcd database:
 
 {{< language-toggle >}}
 
@@ -131,11 +127,11 @@ If you use embedded etcd for your Sensu instance, follow these steps to restore 
 
 1. Start a new Sensu backend or cluster:
 
-   {{% notice warning %}}
+    {{% notice warning %}}
 **IMPORTANT**: Update the example values in these commands according to your Sensu configuration before running the commands.
 {{% /notice %}}
 
-  {{< code >}}
+   {{< code >}}
 mkdir -p /var/lib/sensu/sensu-backend/new_sensu
 
 chown -R /var/lib/sensu/sensu-backend/new_sensu
@@ -173,7 +169,6 @@ sensu-backend start \
 --etcd-initial-advertise-peer-urls http://sensu-backend-03:2380 \
 --etcd-advertise-client-urls http://sensu-backend-03:2379
 --state-dir /var/lib/sensu/sensu-backend/new_sensu
-
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -238,7 +233,7 @@ You should see the restored Sensu configuration in the web UI or sensuctl output
 
 ### Restore the Sensu configuration for external etcd
 
-If you are using an externally deployed Etcd instance or cluster follow the steps below:
+If you are using an externally deployed etcd instance or cluster, follow these steps to restore your Sensu configuration:
 
 1. Create a snapshot of your etcd database:
 
@@ -247,27 +242,20 @@ ETCDCTL_API=3 etcdctl snapshot --endpoints http://localhost:2379 save sensu_etcd
 {{< /code >}}
 
 {{% notice note %}}
-
-When creating the snapshot, it will copy what etcd is currently using for it's `wal-dir` and its `data-dir`. For example, if your `data-dir` is `/var/lib/etcd/data` and your wal dir is `/var/lib/etcd/wal`, the snapshot you generate will restore the data from the snapshot to those same directories. For the purposes of this example, we assume those are the directories you are using as a part of your deployment. If you are using a different set of locations, please ensure that they match the instructions for starting etcd and restoring the snapshot below.
-
+**NOTE**: When creating the snapshot, it will copy what etcd is currently using for it's `wal-dir` and its `data-dir`. For example, if your `data-dir` is `/var/lib/etcd/data` and your wal dir is `/var/lib/etcd/wal`, the snapshot you generate will restore the data from the snapshot to those same directories. For the purposes of this example, we assume those are the directories you are using as a part of your deployment. If you are using a different set of locations, please ensure that they match the instructions for starting etcd and restoring the snapshot below.
 {{% /notice %}}
 
 2. Copy the etcd snapshot file to each cluster member so that all members will be restored using the same snapshot.
 
 3. Create a new directory to use on your new Etcd cluster:
-
 {{< code >}}
-
 mkdir -p /var/lib/etcd/new_sensu/data
 
 mkdir -p /var/lib/etcd/new_sensu/wal
-
 {{< /code >}}
 
 4. Start up etcd using the data and wal directories you created above:
-
 {{< code shell >}}
-
 etcd \
 --listen-client-urls "https://10.0.0.1:2379" \
 --advertise-client-urls "https://10.0.0.1:2379" \
@@ -330,13 +318,10 @@ etcd \
 --auto-compaction-retention 2
 --data-dir /var/lib/etcd/new_sensu/data
 --wal-dir /var/lib/etcd/new_sensu/wal
-
 {{< /code >}}
 
 5. Restore the snapshot:
-
-    {{< code shell >}}
-
+{{< code shell >}}
 ETCDCTL_API=3 etcdctl snapshot restore sensu_etcd_snapshot.db \
 --name backend-1.example.com \
 --initial-cluster backend-1.example.com=http://10.0.01:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
@@ -360,12 +345,10 @@ ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 --initial-advertise-peer-urls http://backend-3.example.com:2380 \
 --data-dir /var/lib/etcd/data \
 --wal-dir /var/lib/etcd/wal
-
 {{< /code >}}
 
 6. Restart etcd to point at the restored data and wal directories:
-
-   {{< code shell >}}
+{{< code shell >}}
 
 etcd \
 --listen-client-urls "https://10.0.0.1:2379" \
@@ -429,31 +412,24 @@ etcd \
 --auto-compaction-retention 2
 --data-dir /var/lib/etcd/data
 --wal-dir /var/lib/etcd/wal
-
 {{< /code >}}
 
 7. Confirm that etcd is showing as healthy:
-
-   {{< code shell >}}
-
+{{< code shell >}}
 curl -s https://10.0.0.1:2379/health
-
 {{< /code >}}
 
 8. Start up Sensu and point it at the new etcd cluster:
-
-   {{< code shell >}}
-
+{{< code shell >}}
 sensu-backend start \
 --etcd-trusted-ca-file=./ca.pem \
 --etcd-cert-file=./backend-1.example.com.pem \
 --etcd-key-file=./backend-1.example.com-key.pem \
 --etcd-client-urls='https://10.0.0.1:2379 https://10.0.0.2:2379 https://10.0.0.3:2379' \
 --no-embed-etcd
-
 {{< /code >}}
 
-9. Confirm in the UI that you're seeing all of your original configuration
+9. In the Sensu web UI, confirm that you can view your original configuration.
 
 ## Best practices for backups
 
@@ -479,9 +455,7 @@ The most important part of a backup is capturing the Sensu configuration.
 If you need access to all events, send events to a time-series database (TDSB) for storage instead of including events in routine Sensu backups.
 
 {{% notice note %}}
-
-We don't recommend performing a backup of the PostgreSQL event store at this time, as the event data there is seldom useful or necessary within a disaster recovery context. Using a TSDB allows you to bypass the need to perform regular backups of PostgreSQL.
-
+**NOTE**: We don't recommend performing a backup of the PostgreSQL event store at this time, as the event data there is seldom useful or necessary within a disaster recovery context. Using a TSDB allows you to bypass the need to perform regular backups of PostgreSQL.
 {{% /notice %}}
 
 
