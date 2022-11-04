@@ -13,8 +13,11 @@ menu:
 
 This page describes best practices for making Sensu configuration backups and processes for restoring your Sensu configuration for disaster recovery.
 
-The disaster recovery processes include steps for creating a backup, but you must make backups *before* you need to use them.
+The disaster recovery processes include steps for creating backups of various configurations pertaining to Sensu, but you must make backups *before* you need to use them.
+
 Read [best practices for backups][2] for more information.
+
+This page also makes some assumptions about the disaster scenario, namely that your primary Sensu deployment is down and you need to bring up a new one to take its place.
 
 ## PostgreSQL
 
@@ -37,17 +40,7 @@ If you use PostgreSQL for your Sensu instance, follow these steps to create a ba
 mkdir backup
 {{< /code >}}
 
-2. Create a backup of the entire configuration, except events, PostgreSQL configuration, API keys, and users, for all namespaces:
-
-   {{< code shell >}}
-sensuctl dump all \
---all-namespaces \
---omit core/v2.Event,store/v1.PostgresConfig,core/v2.APIKey,core/v2.User \
---format wrapped-json \
---file backup/config_backup.json
-{{< /code >}}
-
-3. Export the PostgreSQL configuration:
+2. Export the PostgreSQL configuration:
 
    {{< code shell >}}
 sensuctl dump store/v1.PostgresConfig \
@@ -55,92 +48,35 @@ sensuctl dump store/v1.PostgresConfig \
 --file backup/psql_config_backup.json
 {{< /code >}}
 
-4. Export the API keys and users, for all namespaces:
-
-   {{< code shell >}}
-sensuctl dump core/v2.APIKey,core/v2.User \
---all-namespaces \
---format wrapped-json \
---file backup/apikeys_users_backup.json
-{{< /code >}}
 
 ### Restore the Sensu configuration for PostgreSQL
 
-If you use PostgreSQL for your Sensu instance, follow these steps to restore your Sensu configuration:
+This portion of the page presumes that you already have the following:
 
-1. Stop each backend using the system manager:
+* A newly deployed Sensu instance (or instances in a cluster configuration)
+* A newly deployed PostgreSQL instance
 
-   {{< code shell >}}
-systemctl stop sensu-backend
-{{< /code >}}
+To restore the PostgreSQL configuration for Sensu, follow these steps:
 
-2. Delete the existing `pg_hba.conf` file:
-
-   {{< code shell >}}
-rm -rf /var/lib/pgsql/data/pg_hba.conf
-{{< /code >}}
-
-3. Reconfigure the PostgreSQL database.
-
-4. Start a new Sensu backend or cluster:
-
-   {{% notice warning %}}
-**IMPORTANT**: Update the example values in these startup commands according to your Sensu configuration before running the commands.
-{{% /notice %}}
-
-   {{< language-toggle >}}
-
-{{< code shell "Single backend startup" >}}
-sensu-backend start \
---etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380 \
---etcd-initial-cluster-token backend-1.example.com \
---etcd-initial-advertise-peer-urls http://localhost:2380 \
---etcd-advertise-client-urls http://localhost:2379
-{{< /code >}}
-
-{{< code shell "Clustered backend startup" >}}
-sensu-backend start \
---etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
---etcd-initial-cluster-token backend-1.example.com \
---etcd-initial-advertise-peer-urls http://backend-1.example.com:2380 \
---etcd-advertise-client-urls http://backend-1.example.com:2379
-
-sensu-backend start \
---etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
---etcd-initial-cluster-token backend-2.example.com \
---etcd-initial-advertise-peer-urls http://backend-2.example.com:2380 \
---etcd-advertise-client-urls http://backend-2.example.com:2379
-
-sensu-backend start \
---etcd-initial-cluster sbackend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
---etcd-initial-cluster-token backend-3.example.com \
---etcd-initial-advertise-peer-urls http://backend-3.example.com:2380 \
---etcd-advertise-client-urls http://backend-3.example.com:2379
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-4. Confirm that the new Sensu backend or cluster is running:
+1. Confirm that your new Sensu deployment is up and running:
 
    {{< code shell >}}
 systemctl status sensu-backend
 {{< /code >}}
 
-   The response should indicate `active (running)`.
+2. Confirm that your new Sensu deployment is healthy:
 
-5. Restore the PostgreSQL configuration to activate the PostgreSQL event store:
+   {{< code shell >}}
+sensuctl cluster health
+{{< /code >}}
+
+3. After confirming that Sensu is running and is showing as healthy, restore the PostgreSQL configuration to activate the PostgreSQL event store:
 
    {{< code shell >}}
 sensuctl create --file backup/psql_config_backup.json
 {{< /code >}}
 
-6. Restore the exported resources with [`sensuctl create`][1]:
 
-   {{< code shell >}}
-sensuctl create -r -f backup/config_backup.json
-{{< /code >}}
-
-You should see the restored Sensu configuration in the web UI or sensuctl output.
 
 {{% notice note %}}
 **NOTE**: For details about the sensuctl dump command, read [Back up and recover resources with sensuctl](../../../sensuctl/back-up-recover/).
