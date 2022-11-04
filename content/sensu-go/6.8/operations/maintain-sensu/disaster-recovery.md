@@ -118,7 +118,7 @@ Snapshot saved at sensu_etcd_snapshot.db
 
 ### Restore the Sensu configuration for external etcd
 
-If you use external etcd for your Sensu instance, follow these steps to restore your Sensu configuration:
+If you use embedded etcd for your Sensu instance, follow these steps to restore your Sensu configuration:
 
 1. Stop each backend using the system manager:
 
