@@ -5,7 +5,7 @@ description: "Learn how to export and back up your Sensu resources and restore a
 weight: 27
 version: "6.8"
 product: "Sensu Go"
-platformContent: false 
+platformContent: false
 menu:
   sensu-go-6.8:
     parent: maintain-sensu
@@ -16,7 +16,9 @@ This page describes best practices for making Sensu configuration backups and pr
 The disaster recovery processes include steps for creating a backup, but you must make backups *before* you need to use them.
 Read [best practices for backups][2] for more information.
 
-## Disaster recovery for PostgreSQL
+## PostgreSQL
+
+The scope of this section does not include backing up the PostgreSQL database, but instead discusses creating a backup PosgreSQL Sensu configuration. PostgreSQL's current role in a Sensu deployment is limited to storing the last 21 check executions, limiting its use in a true disaster recovery scenario. As a best practice, we recommending using a time series database (TSDB) for long-term event retention and storage.
 
 {{% notice note %}}
 **NOTE**: This process uses [sensuctl dump](../../../sensuctl/back-up-recover/) to create backups.
@@ -373,7 +375,7 @@ ETCDCTL_API=3 etcdctl snapshot restore sensu_etcd_snapshot.db \
 --initial-cluster-token sensu-backend-01 \
 --initial-advertise-peer-urls http://sensu-backend-01:2380 \
 --data-dir /var/lib/sensu/sensu-backend/etcd/data \
---wal-dir /var/lib/sensu/sensu-backend/etcd/wal 
+--wal-dir /var/lib/sensu/sensu-backend/etcd/wal
 {{< /code >}}
 
 {{< code shell "Restore a clustered backend" >}}
@@ -391,7 +393,7 @@ ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 --initial-cluster-token sensu-backend-02 \
 --initial-advertise-peer-urls http://sensu-backend-02:2380 \
 --data-dir /var/lib/sensu/sensu-backend/etcd/data \
---wal-dir /var/lib/sensu/sensu-backend/etcd/wal 
+--wal-dir /var/lib/sensu/sensu-backend/etcd/wal
 
 ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 --name sensu-backend-03 \
@@ -399,7 +401,7 @@ ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 --initial-cluster-token sensu-backend-03 \
 --initial-advertise-peer-urls http://sensu-backend-03:2380 \
 --data-dir /var/lib/sensu/sensu-backend/etcd/data \
---wal-dir /var/lib/sensu/sensu-backend/etcd/wal 
+--wal-dir /var/lib/sensu/sensu-backend/etcd/wal
 {{< /code >}}
 
 {{< /language-toggle >}}
