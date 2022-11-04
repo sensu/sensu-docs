@@ -14,14 +14,17 @@ menu:
 This page describes best practices for making Sensu configuration backups and processes for restoring your Sensu configuration for disaster recovery.
 
 The disaster recovery processes include steps for creating backups of various configurations pertaining to Sensu, but you must make backups *before* you need to use them.
-
 Read [best practices for backups][2] for more information.
 
-This page also makes some assumptions about the disaster scenario, namely that your primary Sensu deployment is down and you need to bring up a new one to take its place.
+{{% notice note %}}
+**NOTE**: The instructions on this page assume that your primary Sensu deployment is down and you need to bring up a new one to take its place.
+{{% /notice %}}
 
 ## PostgreSQL
 
-The scope of this section does not include backing up the PostgreSQL database, but instead discusses creating a backup PosgreSQL Sensu configuration. PostgreSQL's current role in a Sensu deployment is limited to storing the last 21 check executions, limiting its use in a true disaster recovery scenario. As a best practice, we recommending using a time series database (TSDB) for long-term event retention and storage.
+This section explains how to create a backup PostgreSQL Sensu configuration rather than how to back up the PostgreSQL database.
+In a Sensu deployment, PostgreSQL stores the last 21 check executions, which limits its use in a true disaster recovery scenario.
+As a best practice, we recommend using a time series database (TSDB) for long-term event retention and storage.
 
 {{% notice note %}}
 **NOTE**: This process uses [sensuctl dump](../../../sensuctl/back-up-recover/) to create backups.
@@ -48,13 +51,12 @@ sensuctl dump store/v1.PostgresConfig \
 --file backup/psql_config_backup.json
 {{< /code >}}
 
-
 ### Restore the Sensu configuration for PostgreSQL
 
-This portion of the page presumes that you already have the following:
+The instructions in this section assume that you already have:
 
-* A newly deployed Sensu instance (or instances in a cluster configuration)
-* A newly deployed PostgreSQL instance
+- A newly deployed Sensu instance (or instances in a cluster configuration).
+- A newly deployed PostgreSQL instance.
 
 To restore the PostgreSQL configuration for Sensu, follow these steps:
 
@@ -80,16 +82,19 @@ sensuctl create --file backup/psql_config_backup.json
 **NOTE**: For details about the sensuctl dump command, read [Back up and recover resources with sensuctl](../../../sensuctl/back-up-recover/).
 {{% /notice %}}
 
-## Disaster recovery for etcd
+## Etcd
 
 {{% notice note %}}
 **NOTE**: This process uses the `etcdctl snapshot save` command to create a backup.
 For details about etcd snapshot and restore capabilities, read [etcd's disaster recovery documentation](https://etcd.io/docs/latest/op-guide/recovery/).
 {{% /notice %}}
 
-### Snapshotting Sensu's etcd database
+### Snapshot the Sensu etcd database
 
-Whether using the embedded version of etcd for Sensu, or using an external etcd instance, you'll need to ensure that you have `etcdctl` installed the system you use to generate the snapshot. To install `etcdctl`, see [Etcd's installation docs][4].
+Whether you're using the embedded version of etcd for Sensu or an external etcd instance, etcdctl must be installed the system you use to generate a snapshot.
+Read the [etcd installation documentation][4] to install etcdctl.
+
+Run the following command to take a snapshot of the Sensu etcd database:
 
 {{< language-toggle >}}
 
