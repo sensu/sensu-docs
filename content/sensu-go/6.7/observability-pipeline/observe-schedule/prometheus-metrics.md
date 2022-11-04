@@ -20,18 +20,20 @@ Sensu and Prometheus can run in parallel, complementing each other and making us
 You can use the [sensu/sensu-prometheus-collector][19] dynamic runtime asset to create checks that collect [metrics][10] from a [Prometheus exporter][2] or the [Prometheus query API][3].
 This allows Sensu to route the collected metrics to one or more time-series databases, such as InfluxDB or Graphite.
 
-To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
-
-The examples in this guide use CentOS 7 as the operating system, with all components running on the same compute resource.
-Commands and steps may change for different distributions or if components are running on different compute resources.
-
 At the end of this guide, Prometheus will be scraping metrics.
 The check that uses the sensu/sensu-prometheus-collector asset will query the Prometheus API as a Sensu check and send the metrics to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance.
 Finally, Grafana will query InfluxDB to display the collected metrics.
 
+## Requirements
+
+To follow this guide, [install][4] the Sensu backend, make sure at least one Sensu [agent][21] is running, and install and configure [sensuctl][22].
+
+The examples in this guide use CentOS 7 as the operating system, with all components running on the same compute resource.
+Commands and steps may change for different distributions or if components are running on different compute resources.
+
 ## Configure a Sensu entity
 
-Use [sensuctl][15] to add an `app_tier` [subscription][16] to one of your entities.
+Use sensuctl to add the `app_tier` subscription to one of your entities.
 Before you run the following code, replace `<ENTITY_NAME>` with the name of the entity on your system.
 
 {{% notice note %}}
@@ -158,7 +160,7 @@ Install Grafana:
 sudo yum install -y https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.1.4-1.x86_64.rpm
 {{< /code >}}
 
-Change Grafana's listen port so that it does not conflict with the Sensu [web UI][14]:
+Change Grafana's listen port so that it does not conflict with the Sensu web UI:
 
 {{< code shell >}}
 sudo sed -i 's/^;http_port = 3000/http_port = 4000/' /etc/grafana/grafana.ini
@@ -194,7 +196,7 @@ sudo systemctl start grafana-server
 
 ### Add the Sensu InfluxDB handler asset
 
-To add the [sensu/sensu-influxdb-handler][18] [dynamic runtime asset][11] to Sensu, run the following command:
+To add the sensu/sensu-influxdb-handler dynamic runtime asset to Sensu, run the following command:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.7.0 -r sensu-influxdb-handler
@@ -234,7 +236,7 @@ The response should list the `sensu-influxdb-handler` dynamic runtime asset:
 
 ### Add an InfluxDB handler
 
-To add the [handler][12] definition that uses the Sensu InfluxDB Handler dynamic runtime asset, run:
+To add the handler definition that uses the Sensu InfluxDB Handler dynamic runtime asset, run:
 
 {{< language-toggle >}}
 
@@ -283,7 +285,7 @@ You could save both the asset and handler definitions in a single file and use `
 
 ## Create a pipeline that includes the InfluxDB handler
 
-Add your handler to a [pipeline][20] workflow.
+Add your handler to a pipeline.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
 In this case, the pipeline includes only the InfluxDB handler you've already configured.
@@ -340,7 +342,7 @@ Now you can add the `prometheus_metrics_workflows` pipeline to a check for check
 
 ### Add the sensu/sensu-prometheus-collector asset
 
-To add the [sensu/sensu-prometheus-collector][19] [dynamic runtime asset][11] to Sensu, run the following command:
+To add the sensu/sensu-prometheus-collector dynamic runtime asset to Sensu, run the following command:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-prometheus-collector:1.3.2 -r sensu-prometheus-collector
@@ -387,7 +389,7 @@ The response should list the `sensu-prometheus-collector` dynamic runtime asset 
 
 ### Add a Sensu check that references the pipeline
 
-To add the [check][13] definition that uses the sensu/sensu-prometheus-collector dynamic runtime asset and your `prometheus_metrics_workflows` pipeline, run:
+To add the check definition that uses the sensu/sensu-prometheus-collector dynamic runtime asset and your `prometheus_metrics_workflows` pipeline, run:
 
 {{< language-toggle >}}
 
@@ -451,12 +453,12 @@ EOF
 
 {{< /language-toggle >}}
 
-The check subscription matches the [subscription][16] you added to your entity during [set-up][17].
+The check subscription matches the subscription you added to your entity at the beginning of this guide.
 The Sensu backend will coordinate check execution for you by comparing the subscriptions in your checks and entities.
 Sensu automatically executes a check when the check definition includes a subscription that matches a subscription for a Sensu entity.
 
-Open the Sensu [web UI][14] to view the events generated by the `prometheus_metrics` check.
-Visit `http://127.0.0.1:3000`, and log in as the admin user (created during the [initialization step][8] when you installed the Sensu backend).
+Open the Sensu web UI to view the events generated by the `prometheus_metrics` check.
+Visit `http://127.0.0.1:3000`, and log in as the admin user (created during the initialization step when you installed the Sensu backend).
 
 You can also view the metric event data using sensuctl.
 Run:
@@ -500,22 +502,30 @@ The page should include a graph with initial metrics, similar to this example:
 
 {{< figure src="/images/go/prometheus_metrics/grafana_up_or_down_detail.png" alt="Example Grafana dashboard for visualizing Prometheus metrics from Sensu" link="/images/go/prometheus_metrics/grafana_up_or_down_detail.png" target="_blank" >}}
 
-## Next steps
-
 You should now have a working observability pipeline with Prometheus scraping metrics.
 The sensu/sensu-prometheus-collector dynamic runtime asset runs via the `prometheus_metrics` Sensu check and collects metrics from the Prometheus API.
 
-The check sends metrics to the `prometheus_metrics_workflows` pipeline, and the `influxdb` handler sends the metrics to InfluxDB.
-You can visualize the metrics in a Grafana dashboard.
+The check sends metrics to the `prometheus_metrics_workflows` pipeline, the `influxdb` handler sends the metrics to InfluxDB, and you can visualize the metrics in a Grafana dashboard.
 
-Add the [sensu/sensu-prometheus-collector][19] to your Sensu ecosystem and include it in your [monitoring as code][9] repository.
-Use Prometheus to gather metrics and use Sensu to send them to the proper final destination.
+## What's next
+
+Learn more about the Sensu resources you created in this guide:
+
+- [Checks][13]
+- [Dynamic runtime assets][11]
+- [Handlers][12] and [pipelines][20]
+- [Subscriptions][16]
+
+Visit Bonsai, the Sensu asset index, for more information about the [sensu/sensu-influxdb-handler][18] and [sensu/sensu-prometheus-collector][19] assets.
+With the sensu/sensu-prometheus-collector in your Sensu ecosystem, you can use Prometheus to gather metrics and use Sensu to send them to the proper final destination.
 Prometheus has a [comprehensive list][7] of additional exporters to pull in metrics.
+
+Read about [sensuctl][15] and the Sensu [web UI][14] to learn how to use these features as you develop your monitoring and observability pipelines.
 
 
 [2]: https://prometheus.io/docs/instrumenting/exporters/
 [3]: https://prometheus.io/docs/prometheus/latest/querying/api/
-[4]: ../../../operations/deploy-sensu/install-sensu/
+[4]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [5]: https://github.com/prometheus/node_exporter/
 [6]: https://github.com/google/cadvisor/
 [7]: https://prometheus.io/docs/instrumenting/exporters/
@@ -532,3 +542,5 @@ Prometheus has a [comprehensive list][7] of additional exporters to pull in metr
 [18]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [19]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
 [20]: ../../observe-process/pipelines/
+[21]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[22]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
