@@ -76,136 +76,20 @@ sensuctl cluster health
 sensuctl create --file backup/psql_config_backup.json
 {{< /code >}}
 
-
-
 {{% notice note %}}
 **NOTE**: For details about the sensuctl dump command, read [Back up and recover resources with sensuctl](../../../sensuctl/back-up-recover/).
 {{% /notice %}}
 
-## Disaster recovery for embedded etcd
-
-{{% notice note %}}
-**NOTE**: This process uses [sensuctl dump](../../../sensuctl/back-up-recover/) to create backups.
-When you export users with sensuctl dump, passwords are not included &mdash; you must add the [`password_hash`](../../../sensuctl/#generate-a-password-hash) or `password` attribute back to exported user definitions before you can restore users with sensuctl create.
-Also, sensuctl create does not restore API keys from a sensuctl dump backup.<br><br>
-We suggest backing up API keys and users in a separate file that you can use as a reference for granting new API keys and adding the `password_hash` or `password` attribute to user definitions.
-{{% /notice %}}
-
-### Back up the Sensu configuration for embedded etcd
-
-If you use embedded etcd for your Sensu instance, follow these steps to create a backup of your Sensu configuration:
-
-1. Create a backup folder:
-
-   {{< code shell >}}
-mkdir backup
-{{< /code >}}
-
-2. Create a backup of the entire configuration (except events, API keys, and users) for all namespaces:
-
-   {{< code shell >}}
-sensuctl dump all \
---all-namespaces \
---omit core/v2.Event,core/v2.APIKey,core/v2.User \
---format wrapped-json \
---file backup/config_backup.json
-{{< /code >}}
-
-3. Export the API keys and users, for all namespaces:
-
-   {{< code shell >}}
-sensuctl dump core/v2.APIKey,core/v2.User \
---all-namespaces \
---format wrapped-json \
---file backup/apikeys_users_backup.json
-{{< /code >}}
-
-### Restore the Sensu configuration for embedded etcd
-
-If you use embedded etcd for your Sensu instance, follow these steps to restore your Sensu configuration:
-
-1. Stop each backend using the system manager:
-
-   {{< code shell >}}
-systemctl stop sensu-backend
-{{< /code >}}
-
-2. Delete the existing etcd directories for each backend:
-
-   {{< code shell >}}
-rm -rf /var/lib/sensu/sensu-backend/etcd/
-{{< /code >}}
-
-3. Start a new Sensu backend or cluster:
-
-   {{% notice warning %}}
-**IMPORTANT**: Update the example values in these startup commands according to your Sensu configuration before running the commands.
-{{% /notice %}}
-
-   {{< language-toggle >}}
-
-{{< code shell "Single backend startup" >}}
-sensu-backend start \
---etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380 \
---etcd-initial-cluster-token backend-1.example.com \
---etcd-initial-advertise-peer-urls http://localhost:2380 \
---etcd-advertise-client-urls http://localhost:2379
-{{< /code >}}
-
-{{< code shell "Clustered backend startup" >}}
-sensu-backend start \
---etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
---etcd-initial-cluster-token backend-1.example.com \
---etcd-initial-advertise-peer-urls http://backend-1.example.com:2380 \
---etcd-advertise-client-urls http://backend-1.example.com:2379
-
-sensu-backend start \
---etcd-initial-cluster backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
---etcd-initial-cluster-token backend-2.example.com \
---etcd-initial-advertise-peer-urls http://backend-2.example.com:2380 \
---etcd-advertise-client-urls http://backend-2.example.com:2379
-
-sensu-backend start \
---etcd-initial-cluster sbackend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
---etcd-initial-cluster-token backend-3.example.com \
---etcd-initial-advertise-peer-urls http://backend-3.example.com:2380 \
---etcd-advertise-client-urls http://backend-3.example.com:2379
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-4. Confirm that the new Sensu backend or cluster is running:
-
-   {{< code shell >}}
-systemctl status sensu-backend
-{{< /code >}}
-
-   The response should indicate `active (running)`.
-
-5. Restore the resources from backup with [`sensuctl create`][1]:
-
-   {{< code shell >}}
-sensuctl create -r -f backup/config_backup.json
-{{< /code >}}
-
-6. Recreate users and API keys, using the `backup/apikeys_users_backup.json` file as a reference.
-
-You should see the restored Sensu configuration in the web UI or sensuctl output.
-
-{{% notice note %}}
-**NOTE**: For details about the sensuctl dump command, read [Back up and recover resources with sensuctl](../../../sensuctl/back-up-recover/).
-{{% /notice %}}
-
-## Disaster recovery for external etcd
+## Disaster recovery for etcd
 
 {{% notice note %}}
 **NOTE**: This process uses the `etcdctl snapshot save` command to create a backup.
 For details about etcd snapshot and restore capabilities, read [etcd's disaster recovery documentation](https://etcd.io/docs/latest/op-guide/recovery/).
 {{% /notice %}}
 
-### Back up the Sensu configuration for external etcd
+### Snapshotting Sensu's etcd database
 
-If you use external etcd for your Sensu instance, use etcdctl to create a backup of your Sensu configuration:
+Whether using the embedded version of etcd for Sensu, or using an external etcd instance, you'll need to ensure that you have `etcdctl` installed the system you use to generate the snapshot. To install `etcdctl`, see [Etcd's installation docs][4].
 
 {{< language-toggle >}}
 
@@ -372,3 +256,4 @@ If you need access to all events, send events to a time-series database (TDSB) f
 [1]: ../../../sensuctl/create-manage-resources/#create-resources
 [2]: #best-practices-for-backups
 [3]: ../../../sensuctl/back-up-recover/
+[4]: https://etcd.io/docs/latest/install/
