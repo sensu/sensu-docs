@@ -3,11 +3,11 @@ title: "Restore your Sensu configuration for disaster recovery"
 linkTitle: "Restore Sensu Configuration"
 description: "Learn how to export and back up your Sensu resources and restore your Sensu configuration for disaster recovery (DR)."
 weight: 35
-version: "6.8"
+version: "6.9"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-6.8:
+  sensu-go-6.9:
     parent: maintain-sensu
 ---
 
