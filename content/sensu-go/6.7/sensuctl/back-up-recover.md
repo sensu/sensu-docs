@@ -11,6 +11,10 @@ menu:
     parent: sensuctl
 ---
 
+{{% notice protip %}}
+**PRO TIP**: For disaster recovery instructions, read [Restore your Sensu configuration for disaster recovery](../../operations/maintain-sensu/disaster-recovery/).
+{{% /notice %}}
+
 The sensuctl dump command allows you to export your [resources][6] to standard out (stdout) or to a file.
 You can export all resources or a subset of them based on a list of resource types.
 The dump command supports exporting in `wrapped-json` and `yaml`.
