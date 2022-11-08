@@ -3,7 +3,7 @@ title: "Secure PostgreSQL"
 linkTitle: "Secure PostgreSQL"
 guide_title: "Secure PostgreSQL"
 type: "guide"
-description: "Learn how to secure communication between Sensu and PostgreSQL with certificate authentication."
+description: "Learn how to secure communication between Sensu and the enterprise PostgreSQL event store with certificate authentication."
 weight: 65
 version: "6.7"
 product: "Sensu Go"
