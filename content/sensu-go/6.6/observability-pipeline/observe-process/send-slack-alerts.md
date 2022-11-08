@@ -19,7 +19,7 @@ You can use pipelines to send email alerts, create or resolve incidents (in Page
 This guide will help you send alerts to Slack in the channel `monitoring` by configuring a pipeline and adding it to a check named `check_cpu`.
 If you don't already have this check in place, follow [Monitor server resources][2] to add the check.
 
-Before you start, follow the RHEL family [install instructions][17] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+To follow this guide, install the Sensu [backend][17], make sure at least one Sensu [agent][23] is running, and install and configure [sensuctl][24].
 
 ## Configure a Sensu entity
 
@@ -491,9 +491,11 @@ Follow [Send PagerDuty alerts with Sensu][11] to configure a check that generate
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [15]: ../../../operations/monitoring-as-code/#build-as-you-go
 [16]: ../../../operations/monitoring-as-code/
-[17]: ../../../operations/deploy-sensu/install-sensu/
+[17]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [18]: ../../observe-schedule/checks/#pipelines-attribute
 [19]: ../../observe-filter/filters/#built-in-filter-is_incident
 [20]: ../../../sensuctl/
 [21]: ../../observe-schedule/subscriptions/
 [22]: ../../observe-filter/filters/#built-in-filter-not_silenced
+[23]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[24]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
