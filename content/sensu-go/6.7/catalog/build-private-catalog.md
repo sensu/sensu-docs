@@ -3,7 +3,7 @@ title: "Build a private catalog of Sensu integrations"
 linkTitle: "Build a Private Catalog"
 guide_title: "Build a private catalog of Sensu integrations"
 type: "guide"
-description: "Use Sensu's Catalog API to build and host your own private catalog of Sensu integrations."
+description: "Use Sensu's catalog-api tool to build your own private catalog of customized integrations and serve it to users directly in the Sensu web UI."
 weight: 40
 version: "6.7"
 product: "Sensu Go"
