@@ -192,7 +192,7 @@ To return events that include a `windows` check subscription and any email handl
 To save a web UI search:
 
 1. [Create a web UI search][4].
-2. Click the save icon at the right side of the search bar: ![save icon](/images/go/bsm_module/old_save_icon.png)
+2. Click the save icon at the right side of the search bar: ![save icon](/images/archived_version_images/old_save_icon.png)
 3. Click **Save this search**.
 4. Type the name you want to use for the saved search.
 5. Press **Return/Enter**.
@@ -213,8 +213,8 @@ To do this, recall a saved search, add the new search statement in the search ba
 
 To delete a saved search:
 
-1. Click the save icon in the search bar: ![save icon](/images/go/bsm_module/old_save_icon.png)
-2. Click the delete icon next to the search you want to delete: ![delete icon](/images/go/bsm_module/old_delete_icon.png)
+1. Click the save icon in the search bar: ![save icon](/images/archived_version_images/old_save_icon.png)
+2. Click the delete icon next to the search you want to delete: ![delete icon](/images/archived_version_images/old_delete_icon.png)
 
 ## Use the sort function
 

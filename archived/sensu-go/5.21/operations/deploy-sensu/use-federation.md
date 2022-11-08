@@ -356,7 +356,7 @@ spec:
 After you create clusters using the federation API, you can log in to the `gateway` Sensu web UI to view them as the `federation-viewer` user.
 Use the namespace switcher to change between namespaces across federated clusters:
 
-{{< figure src="/images/go/use_federation/federation_namespace_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/go/use_federation/federation_namespace_switcher.gif" target="_blank" >}}
+{{< figure src="/images/archived_version_images/federation_namespace_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/archived_version_images/federation_namespace_switcher.gif" target="_blank" >}}
 
 Because the `federation-viewer` user is granted only permissions provided by the built-in `view` role, this user should be able to view all resources across all clusters but should not be able to make any changes.
 If you haven't changed the permissions of the default `admin` user, that user should be able to view, create, delete, and update resources across all clusters.
