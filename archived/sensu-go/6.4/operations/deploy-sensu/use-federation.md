@@ -21,7 +21,7 @@ For more information, read [Get started with commercial features](../../../comme
 Sensu's [enterprise/federation/v1 API endpoints][1] allow you to register external clusters, gain single-pane-of-glass visibility into the health of your infrastructure and services across multiple distinct Sensu instances within the web UI, and mirror your changes in one cluster to follower clusters.
 This is useful when you want to provide a single entry point for Sensu users who need to manage monitoring across multiple distinct physical data centers, cloud regions, or providers.
 
-{{< figure src="/images/go/use_federation/federation_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/go/use_federation/federation_switcher.gif" target="_blank" >}}
+{{< figure src="/images/archived_version_images/federation_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/archived_version_images/federation_switcher.gif" target="_blank" >}}
 
 After you configure federation, you can also create, update, and delete clusters using sensuctl [create][5], [edit][6], and [delete][7] commands.
 
@@ -417,7 +417,7 @@ spec:
 After you create clusters using enterprise/federation/v1 API endpoints, you can log in to the `gateway` Sensu web UI to view them as the `federation-viewer` user.
 Use the namespace switcher to change between namespaces across federated clusters:
 
-{{< figure src="/images/go/use_federation/federation_namespace_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/go/use_federation/federation_namespace_switcher.gif" target="_blank" >}}
+{{< figure src="/images/archived_version_images/federation_namespace_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/archived_version_images/federation_namespace_switcher.gif" target="_blank" >}}
 
 Because the `federation-viewer` user is granted only permissions provided by the built-in `view` role, this user should be able to view all resources across all clusters but should not be able to make any changes.
 If you haven't changed the permissions of the default `admin` user, that user should be able to view, create, delete, and update resources across all clusters.

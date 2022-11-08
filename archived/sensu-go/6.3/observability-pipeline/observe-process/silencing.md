@@ -479,7 +479,7 @@ For example, to search for entities with the `system` subscription, enter `"syst
 5. In the New Silencing Entry dialog window, add any desired silence configuration options.
 6. Click **CREATE**.
 
-{{< figure src="/images/go/silencing_reference/old_silence_entities_by_subscription.gif" alt="Silence entities by subscription in the Sensu web UI" link="/images/go/silencing_reference/old_silence_entities_by_subscription.gif" target="_blank" >}}
+{{< figure src="/images/archived_version_images/old_silence_entities_by_subscription.gif" alt="Silence entities by subscription in the Sensu web UI" link="/images/archived_version_images/old_silence_entities_by_subscription.gif" target="_blank" >}}
 
 ## Silence a specific check on entities with a specific subscription
 

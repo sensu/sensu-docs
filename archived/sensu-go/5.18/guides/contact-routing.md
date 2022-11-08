@@ -24,7 +24,7 @@ To achieve this, you'll create two types of Sensu resources:
 Here's a quick overview of the configuration to set up contact routing.
 The check definition includes the `contacts: dev` label, which will result in an alert sent to the dev team but not to the ops team or the fallback option.
 
-{{< figure src="/images/go/route_alerts/contact_routing_old_dev_team.png" alt="Diagram that shows an event generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel" link="/images/go/route_alerts/contact_routing_old_dev_team.png" target="_blank" >}}
+{{< figure src="/images/archived_version_images/contact_routing_old_dev_team.png" alt="Diagram that shows an event generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel" link="/images/archived_version_images/contact_routing_old_dev_team.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/f66c930f-295d-458c-bde3-4e55edd9b2e8/0 -->
 
 <p style="text-align:center"><i>Sensu Go contact routing: Route alerts to the dev team using a check label</i></p>
@@ -308,7 +308,7 @@ spec:
 
 When the `check_cpu` check generates an incident, Sensu filters the event according to the `contact_ops` and `contact_dev` filters, resulting in an alert sent to #alert-ops and #alert-dev.
 
-{{< figure src="/images/go/route_alerts/contact_routing_old_dev_ops_teams.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/go/route_alerts/contact_routing_old_dev_ops_teams.png" target="_blank" >}}
+{{< figure src="/images/archived_version_images/contact_routing_old_dev_ops_teams.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/archived_version_images/contact_routing_old_dev_ops_teams.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3cbd2ad3-92ed-48cc-bbaa-a97f53dae1ba -->
 
 <p style="text-align:center"><i>Sensu Go contact routing: Route alerts to two contacts using a check label</i></p>
@@ -321,7 +321,7 @@ For more information about managing entity labels, see the [entity reference][10
 If contact labels are present in both the check and entity, the check contacts override the entity contacts.
 In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.
 
-{{< figure src="/images/go/route_alerts/old_label_overrides.png" alt="Diagram that shows that check labels override entity labels when both are present in an event" link="/images/go/route_alerts/old_label_overrides.png" target="_blank" >}}
+{{< figure src="/images/archived_version_images/old_label_overrides.png" alt="Diagram that shows that check labels override entity labels when both are present in an event" link="/images/archived_version_images/old_label_overrides.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/da41741f-15c5-47f8-b2b4-9197593a67d8/0 -->
 
 <p style="text-align:center"><i>Sensu Go contact routing: Check contacts override entity contacts</i></p>
