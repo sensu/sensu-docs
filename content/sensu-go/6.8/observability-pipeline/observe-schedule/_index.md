@@ -18,9 +18,9 @@ menu:
 
 **<button onclick="window.location.href='../observe-filter';">Next</button> or click any element in the pipeline to jump to it.**
 
-Sensu's schedule function is based on [subscriptions][12]: transport topics to which the Sensu [backend][2] publishes check requests.
-The subscriptions you specify in your Sensu [agent][11] definition determine which [checks][15] the agent will execute.
-The Sensu backend schedules checks, publishes check execution requests to [entities][3], and processes the [observation data (events)][6] it receives from the agent.
+Sensu's schedule function is based on subscriptions: transport topics to which the Sensu backend publishes check requests.
+The subscriptions you specify in your Sensu agent definition determine which checks the agent will execute.
+The Sensu backend schedules checks, publishes check execution requests to entities, and processes the observation data (events) it receives from the agent.
 
 ## Agent and backend
 
@@ -28,7 +28,7 @@ The Sensu agent is a lightweight process that runs on the infrastructure compone
 The agent registers with the Sensu backend as an entity with `type: "agent"`.
 Agent entities are responsible for creating [status and metrics events][6] to send to the [backend event pipeline][2].
 
-The Sensu backend includes an integrated structure for scheduling checks using subscriptions and an event pipeline that applies [event filters][15], [mutators][16], and [handlers][17], an embedded [etcd][10] datastore for storing configuration and state, and the Sensu [API][4], Sensu [web UI][5], and [sensuctl][19] command line tool.
+The Sensu backend includes an integrated structure for scheduling [checks][15] using subscriptions and an event pipeline that applies [event filters][16], [mutators][17], and [handlers][18], an embedded [etcd][10] datastore for storing configuration and state, and the Sensu [API][4], Sensu [web UI][5], and [sensuctl][19] command line tool.
 
 The Sensu agent is available for Linux, macOS, and Windows.
 The Sensu backend is available for Debian- and RHEL-family distributions of Linux.
