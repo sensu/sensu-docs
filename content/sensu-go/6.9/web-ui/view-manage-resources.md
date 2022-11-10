@@ -42,7 +42,7 @@ Click the ☰ icon at the top of the left-navigation menu to expand the menu and
 ## Manage events
 
 The Events page opens by default when you navigate to a namespace, with an automatic filter to show only events with a non-passing status (i.e. `event.check.state != passing`).
-The top row of the events list includes several other options for filtering and sorting events:
+The menu bar at the top of the events list includes several other options for filtering and sorting events:
 
 {{< figure src="/images/go/view_manage_resources/events_page_filter_sort_670.png" alt="Filter and sort events" link="/images/go/view_manage_resources/events_page_filter_sort_670.png" target="_blank" >}}
 
