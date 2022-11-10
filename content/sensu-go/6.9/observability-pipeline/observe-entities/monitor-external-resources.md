@@ -107,7 +107,7 @@ To make sure that the monitoring check is working properly, confirm that Sensu c
 
 2. Confirm that the Entities page lists a proxy entity named `sensu.io`.
 
-    {{< figure src="/images/go/monitor_external_resources/confirm_proxy_entity.png" alt="Confirm the sensu.io proxy entity is listed on the Entities page" link="/images/go/monitor_external_resources/confirm_proxy_entity.png" target="_blank" >}}
+    {{< figure src="/images/go/monitor_external_resources/confirm_proxy_entity_690.png" alt="Confirm the sensu.io proxy entity is listed on the Entities page" link="/images/go/monitor_external_resources/confirm_proxy_entity_690.png" target="_blank" >}}
 
 3. Click the `sensu.io` entity to open the individual entity page.
 

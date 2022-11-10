@@ -46,9 +46,9 @@ The menu bar at the top of the events list includes several other options for fi
 
 {{< figure src="/images/go/view_manage_resources/events_page_filter_sort_670.png" alt="Filter and sort events" link="/images/go/view_manage_resources/events_page_filter_sort_670.png" target="_blank" >}}
 
-Click the check boxes to select one or more events and resolve, silence, or delete them directly from the Events page:
+Click the check boxes to select one or more events and resolve, re-run, silence, or delete them directly from the Events page:
 
-{{< figure src="/images/go/view_manage_resources/group_events_670.png" alt="Select one or more events on the Events page" link="/images/go/view_manage_resources/group_events_670.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/group_events_690.png" alt="Select one or more events on the Events page" link="/images/go/view_manage_resources/group_events_690.png" target="_blank" >}}
 
 Click an event name to view details like status, output, number of occurrences, labels and annotations, related check configuration (if the event was produced by a service check), and entity summary, as well as a timeline that displays the event's last 20 statuses at a glance:
 
@@ -61,9 +61,9 @@ The top row of the entities list includes options for filtering and sorting enti
 
 {{< figure src="/images/go/view_manage_resources/entities_page_filter_sort_680.png" alt="Filter and sort entities" link="/images/go/view_manage_resources/entities_page_filter_sort_680.png" target="_blank" >}}
 
-Click the check boxes to select one or more entities and delete them directly from the Entities page:
+Click the check boxes to select one or more entities and silence or delete them directly from the Entities page:
 
-{{< figure src="/images/go/view_manage_resources/group_entities_680.png" alt="Select one or more entities on the Entities page" link="/images/go/view_manage_resources/group_entities_680.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/group_entities_690.png" alt="Select one or more entities on the Entities page" link="/images/go/view_manage_resources/group_entities_690.png" target="_blank" >}}
 
 Click an entity name to view details about the entity's creator, agent version (for agent entities), subscriptions, labels and annotations, associated events, and properties:
 
