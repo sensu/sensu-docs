@@ -26,11 +26,14 @@ Limited service accounts are also useful for performing automated processes.
 This guide explains how to create a limited service account to use with the [sensu/sensu-ec2-handler][13] dynamic runtime asset to automatically remove AWS EC2 instances that are not in a pending or running state.
 
 By default, Sensu includes a `default` namespace and an `admin` user with full permissions to create, modify, and delete resources within Sensu, including the RBAC resources required to configure a limited service account.
-This guide requires a running Sensu backend and a sensuctl instance configured to connect to the backend as the [`admin` user][2].
+
+## Requirements
+
+This guide requires a running Sensu [backend][3] and a [sensuctl][11] instance configured to connect to the backend as the [`admin` user][2].
 
 ## Create a limited service account
 
-A limited service account requires:
+Follow the steps in this section to create a limited service account, which requires:
 
 - A [user][7].
 - A [role][4] with get, list, and delete permissions for resources within the `default` [namespace][9].
@@ -38,7 +41,7 @@ A limited service account requires:
 - An [API key][12] for the user.
 
 {{% notice note %}}
-**NOTE**: To use a service account to manage Sensu resources in more than one namespace, create a [cluster role](../rbac/#cluster-role-example) instead of a role and a [cluster role binding](../rbac/#cluster-role-binding-example) instead of a role binding.
+**NOTE**: To use a service account to manage Sensu resources in more than one namespace, create a [cluster role](../rbac/#cluster-roles) instead of a role and a [cluster role binding](../rbac/#cluster-role-bindings) instead of a role binding.
 {{% /notice %}}
 
 1. Create a user with the username `ec2-service` and a dynamically created random password:
@@ -183,7 +186,7 @@ The `ec2-service` limited service account is now ready to use with the [sensu/se
 
 ## Add the sensu/sensu-ec2-handler dynamic runtime asset
 
-To power the handler to remove AWS EC2 instances, use sensuctl to add the [sensu/sensu-ec2-handler][13] [dynamic runtime asset][14]:
+To power the handler to remove AWS EC2 instances, use sensuctl to add the [sensu/sensu-ec2-handler][13] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-ec2-handler:0.4.0
@@ -199,13 +202,6 @@ You have successfully added the Sensu asset resource, but the asset will not get
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
 resource, populate the "runtime_assets" field with ["sensu/sensu-ec2-handler"].
 {{< /code >}}
-
-You can also download the dynamic runtime asset definition from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
-
-{{% notice note %}}
-**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
-{{% /notice %}}
 
 ## Configure an EC2 handler for the service account
 
@@ -254,11 +250,11 @@ spec:
     --sensu-api-url <http://localhost:8080>
   secrets:
     - name: AWS_ACCESS_KEY_ID
-      secret: <YOUR_AWS_ACCESS_KEY_ID>
+      secret: <SECRET_NAME_AWS_ACCESS_KEY_ID>
     - name: AWS_SECRET_KEY
-      secret: <YOUR_AWS_SECRET_KEY>
+      secret: <SECRET_NAME_AWS_SECRET_KEY>
     - name: SENSU_API_KEY
-      secret: <YOUR_SENSU_API_KEY>
+      secret: <SECRET_NAME_SENSU_API_KEY>
 EOF
 {{< /code >}}
 
@@ -283,15 +279,15 @@ cat << EOF | sensuctl create
     "secrets": [
       {
         "name": "AWS_ACCESS_KEY_ID",
-        "secret": "<YOUR_AWS_ACCESS_KEY_ID>"
+        "secret": "<SECRET_NAME_AWS_ACCESS_KEY_ID>"
       },
       {
         "name": "AWS_SECRET_KEY",
-        "secret": "<YOUR_AWS_SECRET_KEY>"
+        "secret": "<SECRET_NAME_AWS_SECRET_KEY>"
       },
       {
         "name": "SENSU_API_KEY",
-        "secret": "<YOUR_SENSU_API_KEY>"
+        "secret": "<SECRET_NAME_SENSU_API_KEY>"
       }
     ]
   }
@@ -303,10 +299,6 @@ EOF
 
 The handler will use the provided AWS credentials to check the specified EC2 instance.
 If the instance's status is not "pending" or "running," the handler will use the `ec2-service` user's API key to remove the corresponding entity.
-
-{{% notice note %}}
-**NOTE**: Instead of directly referencing your `AWS_ACCESS_KEY_ID`, `AWS_SECRET_KEY`, and `SENSU_API_KEY` as shown in the `sensu-ec2-handler` example handler definition above, use [secrets management](../../manage-secrets/secrets-management/) to configure these values as environment variables.
-{{% /notice %}}
 
 ## Best practices for limited service accounts
 
@@ -321,13 +313,15 @@ Adjust namespaces and permissions if needed by updating the role or cluster role
 
 [1]: ../rbac/
 [2]: ../rbac#default-users
-[4]: ../rbac/#roles-and-cluster-roles
-[5]: ../rbac/#role-bindings-and-cluster-role-bindings
+[3]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
+[4]: ../rbac/#roles
+[5]: ../rbac/#role-bindings
 [6]: ../rbac/#rule-attributes
 [7]: ../rbac/#users
 [8]: ../rbac/#groups
 [9]: ../namespaces/
 [10]: https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler#ec2-instance-states
+[11]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [12]: ../../../api/#authenticate-with-an-api-key
 [13]: https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler
 [14]: ../../../plugins/assets/
