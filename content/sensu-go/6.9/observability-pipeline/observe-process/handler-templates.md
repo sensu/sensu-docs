@@ -39,7 +39,7 @@ All text outside double curly braces is copied directly into the template output
 
 ## Available event attributes
 
-If you are using a [plugin][7] that supports template output, every attribute in the [Sensu event][3] is available.
+If you are using a plugin that supports template output, every attribute in the Sensu event is available for substitution via handler templating.
 However, the attribute capitalization pattern is different for handler templates than for event format.
 
 The table below lists the event attributes that are available to use in handler templates, in the correct dot notation and capitalization pattern.
@@ -192,7 +192,7 @@ Template String Output: Server: "webserver01 Check: check-http Status: passing"
 
 ## Sensu Email Handler plugin
 
-The [Sensu Email Handler plugin][9] allows you to provide a template for the body of the email.
+The [sensu/sensu-email-handler][9] dynamic runtime asset allows you to provide a template for the body of the email alert.
 For example, this template will produce an email body that includes the name of the check and entity associated with the event, the status and number of occurrences, and other event details:
 
 {{< code html >}}
@@ -251,4 +251,4 @@ Read the [Sensu PagerDuty Handler Bonsai page][10] for details.
 [8]: https://bonsai.sensu.io/assets/sensu/template-toolkit-command
 [9]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
 [10]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
-[11]: #print-available-event-attributes
+[11]: #template-toolkit-command
