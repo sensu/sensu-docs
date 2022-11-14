@@ -20,7 +20,10 @@ Sensu RBAC helps different teams and projects share a Sensu instance.
 RBAC allows you to manage users and their access to resources based on **namespaces**, **groups**, **roles**, and **bindings**.
 
 By default, Sensu includes a `default` namespace and an `admin` user with full permissions to create, modify, and delete resources within Sensu, including RBAC resources like users and roles.
-This guide requires a running Sensu backend and a sensuctl instance configured to connect to the backend as an [`admin` user][2].
+
+## Requirements
+
+This guide requires a running Sensu [backend][5] and a [sensuctl][6] instance configured to connect to the backend as the [`admin` user][2].
 
 ## Create a read-only user
 
@@ -56,8 +59,9 @@ sensuctl role create read-only --verb=get,list --resource=* --namespace=default
 {{< /code >}}
 
    This command creates the following role resource definition:
+
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 ---
 type: Role
 api_version: core/v2
@@ -72,7 +76,7 @@ spec:
     - get
     - list
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "Role",
   "api_version": "core/v2",
@@ -104,7 +108,7 @@ sensuctl role-binding create ops-read-only --role=read-only --group=ops
 
    This command creates the following role binding resource definition:
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 ---
 type: RoleBinding
 api_version: core/v2
@@ -118,7 +122,7 @@ spec:
   - name: ops
     type: Group
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "RoleBinding",
   "api_version": "core/v2",
@@ -181,8 +185,9 @@ sensuctl cluster-role create global-event-reader --verb=get,list --resource=even
 {{< /code >}}
 
    This command creates the following cluster role resource definition:
+
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 ---
 type: ClusterRole
 api_version: core/v2
@@ -197,7 +202,7 @@ spec:
     - get
     - list
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "ClusterRole",
   "api_version": "core/v2",
@@ -228,8 +233,9 @@ sensuctl cluster-role-binding create ops-event-reader --cluster-role=global-even
 {{< /code >}}
 
    This command creates the following cluster role binding resource definition:
+   
    {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YAML" >}}
 ---
 type: ClusterRoleBinding
 api_version: core/v2
@@ -243,7 +249,7 @@ spec:
   - name: ops
     type: Group
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "ClusterRoleBinding",
   "api_version": "core/v2",
@@ -268,7 +274,7 @@ spec:
 
 All users in the `ops` group now have read-only access to events across all namespaces.
 
-## Next steps
+## What's next
 
 Now that you know how to create a user, a role, and a role binding to assign a role to a user, check out the [RBAC reference][1] for in-depth documentation on role-based access control, examples, and information about cluster-wide permissions.
 
@@ -279,3 +285,5 @@ Read about [monitoring as code][3] with Sensu and learn how to [use SensuFlow][4
 [2]: ../rbac#default-users
 [3]: ../../monitoring-as-code/
 [4]: https://sensu.io/blog/monitoring-as-code-with-sensu-flow
+[5]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
+[6]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
