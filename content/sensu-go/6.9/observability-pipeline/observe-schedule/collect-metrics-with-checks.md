@@ -485,7 +485,7 @@ Visit Bonsai, the Sensu asset index, for more information about the [sensu/http-
 [10]: ../../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler
 [11]: ../../observe-events/events/#metrics-attribute
 [12]: ../../observe-events/events/#metrics-points
-[13]: ../../../operations/deploy-sensu/install-sensu/
+[13]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [14]: ../prometheus-metrics/
 [15]: ../../observe-process/pipelines/
 [16]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents

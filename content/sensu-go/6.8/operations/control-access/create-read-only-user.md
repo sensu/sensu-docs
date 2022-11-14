@@ -20,7 +20,10 @@ Sensu RBAC helps different teams and projects share a Sensu instance.
 RBAC allows you to manage users and their access to resources based on **namespaces**, **groups**, **roles**, and **bindings**.
 
 By default, Sensu includes a `default` namespace and an `admin` user with full permissions to create, modify, and delete resources within Sensu, including RBAC resources like users and roles.
-This guide requires a running Sensu backend and a sensuctl instance configured to connect to the backend as an [`admin` user][2].
+
+## Requirements
+
+This guide requires a running Sensu [backend][5] and a [sensuctl][6] instance configured to connect to the backend as the [`admin` user][2].
 
 ## Create a read-only user
 
@@ -271,7 +274,7 @@ spec:
 
 All users in the `ops` group now have read-only access to events across all namespaces.
 
-## Next steps
+## What's next
 
 Now that you know how to create a user, a role, and a role binding to assign a role to a user, check out the [RBAC reference][1] for in-depth documentation on role-based access control, examples, and information about cluster-wide permissions.
 
@@ -282,3 +285,5 @@ Read about [monitoring as code][3] with Sensu and learn how to [use SensuFlow][4
 [2]: ../rbac#default-users
 [3]: ../../monitoring-as-code/
 [4]: https://sensu.io/blog/monitoring-as-code-with-sensu-flow
+[5]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
+[6]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
