@@ -16,6 +16,10 @@ menu:
 By default, systems where systemd is the service manager do not write logs to `/var/log/sensu/` for the `sensu-agent` and the `sensu-backend` services.
 This guide explains how to add log forwarding from journald to syslog, have rsyslog write logging data to disk, and set up log rotation of the newly created log files.
 
+## Requirements
+
+To follow this guide, install the Sensu [backend][2] and make sure at least one Sensu [agent][3] is running.
+
 ## Configure journald
 
 To configure journald to forward logging data to syslog, modify `/etc/systemd/journald.conf` to include the following line:
@@ -26,7 +30,7 @@ ForwardToSyslog=yes
 
 ## Configure rsyslog
 
-Next, set up rsyslog to write the logging data received from journald to `/var/log/sensu/servicename.log`.
+Set up rsyslog to write the logging data received from journald to `/var/log/sensu/servicename.log`.
 In this example, the `sensu-backend` and `sensu-agent` logging data is sent to individual files named after the service.
 The `sensu-backend` is not required if you're only setting up log forwarding for the `sensu-agent` service.
 
@@ -111,11 +115,12 @@ The `-d` flag will output details, but it will not take action on the logs or ex
 logrotate -d /etc/logrotate.d/sensu.conf
 {{< /code >}}
 
-## Next steps
+## What's next
 
-Sensu also offers logging of observability event data to a separate JSON log file as a [commercial feature][2].
-Read the [Sensu backend reference][1] for more information about event logging.
+Sensu also offers observability event data logging to a separate JSON log file.
+Read the [backend reference][1] for more information about event logging.
 
 
 [1]: ../../../observability-pipeline/observe-schedule/backend/#event-logging
-[2]: ../../../commercial/
+[2]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
+[3]: ../../deploy-sensu/install-sensu/#install-sensu-agents
