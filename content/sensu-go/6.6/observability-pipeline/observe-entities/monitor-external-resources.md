@@ -19,11 +19,13 @@ When executing checks that include a `proxy_entity_name` or `proxy_requests` att
 
 This guide explains how to use a proxy entity to monitor website status, as well as how to use the [proxy checks][3] to monitor a group of websites.
 
-To follow this guide, you’ll need to [install][19] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+## Requirements
+
+To follow this guide, install the Sensu [backend][19], make sure at least one Sensu [agent][30] is running, and configure [sensuctl][31] to connect to the backend as the [`admin` user][32].
 
 ## Use a proxy entity to monitor a website
 
-In this section, you'll monitor the status of [sensu.io](https://sensu.io) by configuring a check with a **proxy entity name** so that Sensu creates an entity that represents the site and reports the status of the site under this entity.
+In this section, you'll use sensuctl to configure a check with a **proxy entity name** to monitor the status of https://sensu.io/ so that Sensu creates an entity that represents the site and reports the status of the site under this entity.
 
 ### Configure a Sensu entity
 
@@ -54,10 +56,10 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ### Register dynamic runtime asset
 
-To power the check, you'll use the [sensu/http-checks][16] dynamic runtime asset.
-This community-tier asset includes the http status check command that [your check][15] will rely on.
+To power the check for https://sensu.io/ status, you'll use the sensu/http-checks dynamic runtime asset.
+This community-tier asset includes the http status command that your check will rely on.
 
-Use [`sensuctl asset add`][21] to register the dynamic runtime asset:
+Use `sensuctl asset add` to register the dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/http-checks:0.5.0 -r http-checks
@@ -75,8 +77,6 @@ resource, populate the "runtime_assets" field with ["http-checks"].
 {{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `http-checks`.
-
-You can also download the dynamic runtime asset definition from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
 Use sensuctl to confirm that the dynamic runtime asset is ready to use:
 
@@ -99,14 +99,13 @@ The response should list the sensu/http-checks dynamic runtime asset (renamed to
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ### Create the check
 
-Now that the dynamic runtime asset is registered, you can create a check named `check-sensu-site` to run the command `http-check --url https://sensu.io` with the [sensu/http-checks][16] dynamic runtime asset, at an interval of 15 seconds, for all agents subscribed to the `run_proxies` subscription, using the `sensu-site` proxy entity name.
+Now that the dynamic runtime asset is registered, you can create a check named `check-sensu-site` to run the command `http-check --url https://sensu.io` with the sensu/http-checks dynamic runtime asset, at an interval of 15 seconds, for all agents subscribed to the `run_proxies` subscription, using the `sensu-site` proxy entity name.
 
-The check includes the [`round_robin` attribute][18] set to `true` to distribute the check execution across all agents subscribed to the `run_proxies` subscription and avoid duplicate events.
+The check includes the `round_robin` attribute set to `true` to distribute the check execution across all agents subscribed to the `run_proxies` subscription and avoid duplicate events.
 
 To create the `check-sensu-site` check, run:
 
@@ -216,9 +215,23 @@ You can also view the new proxy entity in your [Sensu web UI][10].
 ## Use proxy requests to monitor a group of websites
 
 Suppose that instead of monitoring just sensu.io, you want to monitor multiple sites, like docs.sensu.io, packagecloud.io, and github.com.
-In this section, you'll use the [`proxy_requests` check attribute][3] along with [entity labels][11] and [token substitution][12] to monitor three sites with the same check.
+In this section, you'll use sensuctl to configure the `proxy_requests` check attribute, entity labels, and token substitution required to monitor three sites with the same check.
 
-Before you start, [register the http-checks dynamic runtime asset][13] if you haven't already.
+Before you start, use `sensuctl asset add` to register the sensu/http-checks dynamic runtime asset if you haven't already:
+
+{{< code shell >}}
+sensuctl asset add sensu/http-checks:0.5.0 -r http-checks
+{{< /code >}}
+
+Also, add the `run_proxies` subscription to a Sensu agent entity.
+Replace `<ENTITY_NAME>` with the name of the entity on your system:
+
+{{< code shell >}}
+sensuctl entity update <ENTITY_NAME>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `run_proxies` and press enter.
 
 ### Create proxy entities
 
@@ -338,9 +351,9 @@ The response should list the new `sensu-docs`, `packagecloud-site`, and `github-
 
 ### Create a reusable HTTP check
 
-Now that you have three proxy entities set up, each with a `proxy_type` and `url` label, you can use proxy requests and [token substitution][12] to create a single check that monitors all three sites.
+Now that you have three proxy entities set up, each with a `proxy_type` and `url` label, you can use proxy requests and token substitution to create a single check that monitors all three sites.
 
-The check includes the [`round_robin` attribute][18] set to `true` to distribute the check execution across all agents subscribed to the `run_proxies` subscription and avoid duplicate events.
+The check includes the `round_robin` attribute set to `true` to distribute the check execution across all agents subscribed to the `run_proxies` subscription and avoid duplicate events.
 
 To create the following check definition, run:
 
@@ -422,8 +435,6 @@ The response should include the `check-http` check:
 
 ### Validate the check
 
-Before you validate the check, make sure that you've [registered the sensu/http-checks dynamic runtime asset][13] and [added the `run_proxies` subscription to a Sensu agent][14].
-
 Use sensuctl to confirm that Sensu is monitoring docs.sensu.io, packagecloud.io, and github.com with the `check-http` check, returning a status of `0` (OK):
 
 {{< code shell >}}
@@ -445,13 +456,9 @@ The response should list check status data for the `sensu-docs`, `packagecloud-s
   sensu-site          check-sensu-site   http-check OK: HTTP Status 200 for https://sensu.io                           0   false      2021-10-21 19:27:05 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
 {{< /code >}}
 
-## Next steps
+## What's next
 
-The files you created with check and entity definitions can become part of your [monitoring as code][4] repository.
-Storing your Sensu configurations the same way you would store code means they are portable and repeatable.
-Monitoring as code makes it possible to move to a more robust deployment without losing what you’ve started here and reproduce one environment’s configuration in another.
-
-Now that you know how to run a proxy check to verify website status and use proxy requests to run a check on two different proxy entities based on label evaluation, you can receive alerts based on the events your checks create.
+Now that you know how to run proxy checks to verify website status, you can receive alerts based on the events your checks create.
 Configure three more Sensu resources to start receiving alerts:
 
 - [Event filters][17], which the Sensu backend will apply to the observation data in events. Sensu then sends any events the filters do not remove for processing.
@@ -463,6 +470,19 @@ Follow any of these guides to learn how to configure event filters, handlers, an
 * [Send email alerts with a pipeline][5]
 * [Send PagerDuty alerts with Sensu][6]
 * [Send Slack alerts with a pipeline][7]
+
+Read more about the Sensu features you used in this guide:
+
+- [Dynamic runtime assets][13] and [sensu/http-checks][16]
+- [Proxy checks][3]
+- [Round robin checks][18]
+- [Token substitution][12]
+- [Entity labels][11]
+- [sensuctl][8]
+
+The files you created with check and entity definitions can become part of your [monitoring as code][4] repository.
+Storing your Sensu configurations the same way you would store code means they are portable and repeatable.
+Monitoring as code makes it possible to move to a more robust deployment without losing what you’ve started here and reproduce one environment’s configuration in another.
 
 
 [1]: ../../observe-entities/#proxy-entities
@@ -488,3 +508,6 @@ Follow any of these guides to learn how to configure event filters, handlers, an
 [21]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [22]: ../../observe-process/handlers/
 [23]: ../../observe-process/pipelines/
+[30]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[31]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[32]: ../../../operations/control-access/rbac/#default-users
