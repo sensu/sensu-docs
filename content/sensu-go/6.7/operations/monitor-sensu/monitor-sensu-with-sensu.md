@@ -33,9 +33,13 @@ The checks in this guide monitor the following ports and endpoints:
 | 2379 | `/health`  | Etcd health endpoint. Provides health status for etcd nodes. |
 | 8080 | `/health`  | Sensu Go health endpoint. Provides health status for Sensu backends, as well as for PostgreSQL (when enabled). |
 
+## Requirements
+
+To follow this guide, install the Sensu [backend][10], make sure at least one Sensu [agent][11] is running, and configure [sensuctl][12] to connect to the backend as the [`admin` user][13].
+
 ## Register dynamic runtime asset
 
-To power the checks to monitor your Sensu backend, external etcd, and PostgreSQL instances, add the [sensu/http-checks][5] dynamic runtime asset.
+To power the checks to monitor your Sensu backend, external etcd, and PostgreSQL instances, add the sensu/http-checks dynamic runtime asset.
 This asset includes the `http-json` plugin, which your checks will rely on.
 
 To register the sensu/http-checks dynamic runtime asset, run:
@@ -80,7 +84,6 @@ Because plugins are published for multiple platforms, including Linux and Window
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Monitor your Sensu backend instances
@@ -90,11 +93,11 @@ Monitor the host running the `sensu-backend` *locally* by a `sensu-agent` proces
 For Sensu components that must be running for Sensu to create events, you should also monitor the `sensu-backend` remotely from an independent Sensu instance.
 This will allow you to monitor whether your Sensu event pipeline is working.
 
-To do this, add checks that use the `http-json` plugin from the [sensu/http-checks][5] dynamic runtime asset to query Sensu's [/health API][2] for your primary (Backend Alpha) and secondary (Backend Beta) backends.
+To do this, add checks that use the `http-json` plugin from the sensu/http-checks dynamic runtime asset to query Sensu's /health API for your primary (Backend Alpha) and secondary (Backend Beta) backends.
 
 {{% notice note %}}
-**NOTE**: These examples use the [sensu/http-checks](https://bonsai.sensu.io/assets/sensu/http-checks) dynamic runtime asset.
-Follow the instructions above to [register the sensu/http-checks dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously register it.
+**NOTE**: These examples use the sensu/http-checks dynamic runtime asset.
+Follow the instructions above to [register sensu/http-checks](#register-dynamic-runtime-asset) if you have not previously registered it.
 {{% /notice %}}
 
 {{< language-toggle >}}
@@ -193,15 +196,13 @@ A successful health check result will be similar to this example:
 http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with expression "== true" and returned true
 {{< /code >}}
 
-To receive alerts based on your backend health checks, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definitions to reference the pipeline in the [pipelines attribute][8].
-
 ## Monitor external etcd
 
 If your Sensu Go deployment uses an external etcd cluster, you'll need to check the health of the respective etcd instances for your primary (Backend Alpha) and secondary (Backend Beta) backends.
 
 {{% notice note %}}
-**NOTE**: These examples use the [sensu/http-checks](https://bonsai.sensu.io/assets/sensu/http-checks) dynamic runtime asset.
-Follow the instructions above to [register the sensu/http-checks dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously register it.
+**NOTE**: These examples use the sensu/http-checks dynamic runtime asset.
+Follow the instructions above to [register sensu/http-checks](#register-dynamic-runtime-asset) if you have not previously registered it.
 {{% /notice %}}
 
 {{< language-toggle >}}
@@ -300,8 +301,6 @@ A successful health check result will be similar to this example:
 http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with expression "== true" and returned true
 {{< /code >}}
 
-To receive alerts based on your external etcd health checks, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definitions to reference the pipeline in the [pipelines attribute][8].
-
 ## Monitor PostgreSQL
 
 {{% notice commercial %}}
@@ -309,7 +308,6 @@ To receive alerts based on your external etcd health checks, configure a [pipeli
 For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
-Larger Sensu deployments may use [PostgreSQL as an alternative datastore][4] to process larger numbers of events.
 If you're using PostgreSQL for event storage, we recommend monitoring your PostgreSQL event store's health.
 
 The connection to PostgreSQL is exposed on Sensu's `/health` endpoint, which provides information about the event store's health.
@@ -356,11 +354,11 @@ PostgreSQL data from the `/health` endpoint will look like this example:
 }
 {{< /code >}}
 
-To monitor PostgreSQL's health from Sensu, create checks that use the `http-json` plugin from the [sensu/http-checks][5] dynamic runtime asset.
+To monitor PostgreSQL's health from Sensu, create checks that use the `http-json` plugin from the sensu/http-checks dynamic runtime asset.
 
 {{% notice note %}}
-**NOTE**: These examples use the [sensu/http-checks](https://bonsai.sensu.io/assets/sensu/http-checks) dynamic runtime asset.
-Follow the instructions above to [register the sensu/http-checks dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously register it.
+**NOTE**: These examples use the sensu/http-checks dynamic runtime asset.
+Follow the instructions above to [register sensu/http-checks](#register-dynamic-runtime-asset) if you have not previously registered it.
 {{% /notice %}}
 
 After you register the sensu/http-checks dynamic runtime asset, create two checks ("healthy" and "active") to monitor PostgreSQL's health from Sensu.
@@ -471,13 +469,29 @@ http-json OK:  The value true found at .PostgresHealth.[0].Healthy matched with 
 http-json OK:  The value true found at .PostgresHealth.[0].Active matched with expression "== true" and returned true
 {{< /code >}}
 
-In the Sensu [web UI][9], you should see check results similar to these examples:
+In the Sensu web UI, you should see check results similar to these examples:
 
 {{< figure src="/images/go/monitor_sensu_with_sensu/postgres_health_http_check.png" alt="Screenshot of Sensu Web UI shows a passing PostgreSQL health check" link="/images/go/monitor_sensu_with_sensu/postgres_health_http_check.png" target="_blank" >}}
 
 {{< figure src="/images/go/monitor_sensu_with_sensu/postgres_active_http_check.png" alt="Screenshot of Sensu Web UI shows a passing PostgreSQL active check" link="/images/go/monitor_sensu_with_sensu/postgres_active_http_check.png" target="_blank" >}}
 
-To receive alerts based on your PostgreSQL health check, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definition to reference the pipeline in the [pipelines attribute][8].
+## What's next
+
+To receive alerts based on your backend health checks, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definitions to reference the pipeline in the [pipelines attribute][8].
+
+Follow any of these guides to learn how to configure event filters, handlers, and pipelines and start sending alerts based on event data:
+
+* [Send email alerts with a pipeline][14]
+* [Send PagerDuty alerts with Sensu][15]
+* [Send Slack alerts with a pipeline][16]
+
+Read more about the Sensu features you used in this guide:
+
+- [Dynamic runtime assets][18] and [sensu/http-checks][5]
+- [sensuctl][17]
+- [/health API][2]
+- [PostgreSQL enterprise datastore][4]
+- [Web UI][9]
 
 
 [1]: ../../../plugins/use-assets-to-install-plugins/
@@ -489,3 +503,12 @@ To receive alerts based on your PostgreSQL health check, configure a [pipeline][
 [7]: ../../../observability-pipeline/observe-process/handlers/
 [8]: ../../../observability-pipeline/observe-schedule/checks/#pipelines-attribute
 [9]: ../../../web-ui/
+[10]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
+[11]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[12]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[13]: ../../../operations/control-access/rbac/#default-users
+[14]: ../../../observability-pipeline/observe-process/send-email-alerts/
+[15]: ../../../observability-pipeline/observe-process/send-pagerduty-alerts/
+[16]: ../../../observability-pipeline/observe-process/send-slack-alerts/
+[17]: ../../../sensuctl/
+[18]: ../../../plugins/assets/

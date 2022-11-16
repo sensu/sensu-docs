@@ -503,7 +503,7 @@ Monitoring as code makes it possible to move to a more robust deployment without
 [16]: https://bonsai.sensu.io/assets/sensu/http-checks
 [17]: ../../observe-filter/filters/
 [18]: ../../observe-schedule/checks#round-robin-checks
-[19]: ../../../operations/deploy-sensu/install-sensu/
+[19]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [20]: ../../observe-schedule/agent#restart-the-service
 [21]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [22]: ../../observe-process/handlers/
