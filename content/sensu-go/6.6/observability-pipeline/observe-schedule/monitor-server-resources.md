@@ -13,16 +13,18 @@ menu:
     parent: observe-schedule
 ---
 
-Sensu [checks][3] are commands (or scripts) the Sensu agent executes that output data and produce an exit code to indicate a state.
+Sensu [checks][3] are commands or scripts the Sensu agent executes that output data and produce an exit code to indicate a state.
 
-You can use checks to monitor server resources (for example, to learn how much disk space you have left), services, and application health (for example, to check whether NGINX is running) and [collect and analyze metrics][7].
-This guide includes two check examples to help you monitor server resources (specifically, CPU usage and NGINX status).
+You can use checks to monitor server resources, services, and application health, such as remaining disk space and whether NGINX is running.
+This guide includes two check examples to help you monitor server resources: specifically, CPU usage and NGINX status.
 
-To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+## Requirements
+
+To follow this guide, install the Sensu [backend][4], make sure at least one Sensu [agent][17] is running, and configure [sensuctl][18] to connect to the backend as the [`admin` user][19].
 
 ## Configure a Sensu entity
 
-Every Sensu agent has a defined set of [subscriptions][8] that determine which checks the agent will execute.
+Every Sensu agent has a defined set of subscriptions that determine which checks the agent will execute.
 For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
 To run the CPU and NGINX webserver checks, you'll need a Sensu entity with the subscriptions `system` and `webserver`.
 
@@ -39,7 +41,7 @@ sensuctl entity list
 
 The `ID` is the name of your entity.
 
-Replace `<ENTITY_NAME>` with the name of your agent entity in the following [sensuctl][16] command.
+Replace `<ENTITY_NAME>` with the name of your agent entity in the following sensuctl command.
 Run:
 
 {{< code shell >}}
@@ -61,11 +63,11 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 You can write shell scripts in the `command` field of your check definitions, but we recommend using existing check plugins instead.
 Check plugins must be available on the host where the agent is running for the agent to execute the check.
-This guide uses [dynamic runtime assets][2] to manage plugin installation.
+This guide uses dynamic runtime assets to manage plugin installation.
 
 ### Register the sensu/check-cpu-usage asset
 
-The [sensu/check-cpu-usage][1] dynamic runtime asset includes the `check-cpu-usage` command, which your CPU check will rely on.
+The sensu/check-cpu-usage dynamic runtime asset includes the `check-cpu-usage` command, which your CPU check will rely on.
 
 To register the sensu/check-cpu-usage dynamic runtime asset, run:
 
@@ -86,11 +88,9 @@ resource, populate the "runtime_assets" field with ["check-cpu-usage"].
 
 This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `check-cpu-usage`.
 
-You can also download dynamic runtime asset definitions from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml`.
+### Register the sensu/sensu-processes-check asset
 
-### Register the Sensu Processes Check asset
-
-Then, use this command to register the [Sensu Processes Check][15] dynamic runtime asset, which you'll use later for your webserver check:
+Then, use this command to register the sensu/sensu-processes-check dynamic runtime asset, which you'll use later for your webserver check:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-processes-check:0.2.0 -r sensu-processes-check
@@ -125,7 +125,6 @@ Because plugins are published for multiple platforms, including Linux and Window
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Create a check to monitor a server
@@ -233,12 +232,6 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
-
-If you want to share, reuse, and maintain this check just like you would code, you can [save it to a file][11] and start building a [monitoring as code repository][12].
-
-{{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
-{{% /notice %}}
 
 ### Validate the CPU check
 
@@ -456,8 +449,6 @@ spec:
 
 {{< /language-toggle >}}
 
-As with the `check_cpu` check, you can share, reuse, and maintain this check [just like code][12].
-
 ### Validate the webserver check
 
 It might take a few moments after you create the check for the check to be scheduled on the entity and the event to return to the Sensu backend.
@@ -515,20 +506,23 @@ sensuctl event list
 
 The response should list the `nginx_service` check with an OK status (`0`).
 
-## Next steps
+## What's next
 
 Now that you know how to create checks to monitor CPU usage and NGINX webserver status, read the [checks reference][3] and [assets reference][2] for more detailed information.
-Or, learn how to [monitor external resources with proxy checks and entities][5].
+Or, learn how to [collect and analyze metrics][7] or [monitor external resources with proxy checks and entities][5].
 
-You can also create [pipelines][10] to send alerts to [email][13], [PagerDuty][9], or [Slack][6] based on the status events your checks are generating.
-
+You can also create pipelines to send alerts to [email][13], [PagerDuty][9], or [Slack][6] based on the status events your checks are generating.
 Read the [pipelines reference][10] for information about configuring observability event processing workflows with event filters, mutators, and handlers.
+
+To share, reuse, and maintain the checks you created in this guide just like you would code, [save the check definitions to a file][11] and start building a [monitoring as code repository][12].
+
+Learn more about the [dynamic runtime assets][2] this guide uses: [sensu/check-cpu-usage][1] and [sensu/sensu-processes-check][15].
 
 
 [1]: https://bonsai.sensu.io/assets/sensu/check-cpu-usage
 [2]: ../../../plugins/assets/
 [3]: ../checks/
-[4]: ../../../operations/deploy-sensu/install-sensu/
+[4]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [5]: ../../observe-entities/monitor-external-resources/
 [6]: ../../observe-process/send-slack-alerts/
 [7]: ../collect-metrics-with-checks/
@@ -541,3 +535,6 @@ Read the [pipelines reference][10] for information about configuring observabili
 [14]: https://bonsai.sensu.io/
 [15]: https://bonsai.sensu.io/assets/sensu/sensu-processes-check
 [16]: ../../../sensuctl/
+[17]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[18]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[19]: ../../../operations/control-access/rbac/#default-users
