@@ -20,7 +20,7 @@ This guide includes two check examples to help you monitor server resources: spe
 
 ## Requirements
 
-To follow this guide, install the Sensu [backend][4], make sure at least one Sensu [agent][17] is running, and configure [sensuctl][18] to connect to the backend as the [`admin` user][19].
+To follow this guide, install the Sensu [backend][4], make sure at least one Sensu [agent][18] is running, and configure [sensuctl][17] to connect to the backend as the [`admin` user][19].
 
 ## Configure a Sensu entity
 
@@ -512,6 +512,7 @@ Now that you know how to create checks to monitor CPU usage and NGINX webserver 
 Or, learn how to [collect and analyze metrics][7] or [monitor external resources with proxy checks and entities][5].
 
 You can also create pipelines to send alerts to [email][13], [PagerDuty][9], or [Slack][6] based on the status events your checks are generating.
+Or, send status and metrics data to [Sumo Logic][20].
 Read the [pipelines reference][10] for information about configuring observability event processing workflows with event filters, mutators, and handlers.
 
 To share, reuse, and maintain the checks you created in this guide just like you would code, [save the check definitions to a file][11] and start building a [monitoring as code repository][12].
@@ -538,3 +539,4 @@ Learn more about the [dynamic runtime assets][2] this guide uses: [sensu/check-c
 [17]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [18]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
 [19]: ../../../operations/control-access/rbac/#default-users
+[20]: ../../observe-process/send-data-sumo-logic/

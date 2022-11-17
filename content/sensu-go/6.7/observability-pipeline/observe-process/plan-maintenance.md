@@ -20,7 +20,9 @@ This feature is useful when you're planning maintenance.
 You can configure silences to prevent handlers from taking actions based on check name, entity subscription, entity name, or a combination of these factors.
 In this guide, you'll create a silenced entry for a specific entity and its associated check to prevent alerts and create a time window for maintenance.
 
-To follow this guide, you’ll need to [install][10] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+## Requirements
+
+To follow this guide, install the Sensu [backend][10], make sure at least one Sensu [agent][21] is running, and configure [sensuctl][22] to connect to the backend as the [`admin` user][23].
 
 {{% notice note %}}
 **NOTE**: If you already have an entity and running check to use as the silencing target, skip ahead to [Create the silenced entry](#create-the-silenced-entry).
@@ -55,8 +57,8 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the http-checks dynamic runtime asset
 
-To power the check in your silenced entry, you'll use the [sensu/http-checks][12] dynamic runtime asset.
-This community-tier asset includes `http-check`, the http status check command that [your check][11] will rely on.
+To power the check in your silenced entry, you'll use the sensu/http-checks dynamic runtime asset.
+This community-tier asset includes `http-check`, the http status check command that your check will rely on.
 
 Register the sensu/http-checks dynamic runtime asset:
 
@@ -88,7 +90,6 @@ The response should list the sensu/http-checks dynamic runtime asset (renamed to
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Create the check
@@ -178,11 +179,6 @@ sensuctl silenced create \
 --reason 'Planned site maintenance'
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: Sensuctl supports several [time formats](../../../sensuctl/create-manage-resources/#time-formats) for the `begin` flag.
-This example uses [RFC 3339 format](https://www.ietf.org/rfc/rfc3339.txt) with space delimiters and numeric zone offset.
-{{% /notice %}}
-
 Use sensuctl to verify that the silenced entry against the entity `sensu-site` was created properly:
 
 {{< language-toggle >}}
@@ -239,7 +235,7 @@ spec:
 
 {{< /language-toggle >}}
 
-## Next steps
+## What's next
 
 When your silence goes into effect at the designated `begin` time, you will still see events for `check-http` on the `sensu-site` entity in the Sensu web UI.
 This is because **silences do not stop events from being produced &mdash; they stop events from being handled**.
@@ -254,19 +250,15 @@ The pipeline must include a workflow with the built-in [`not_silenced`][13] even
 
 Follow one of these guides to add a pipeline to your check:
 
-- [Send data to Sumo Logic with Sensu][16]
 - [Send email alerts with a pipeline][17]
 - [Send PagerDuty alerts with Sensu][18]
 - [Send Slack alerts with a pipeline][19]
 
-Read the [silencing reference][7] for in-depth documentation about silenced entries and more examples:
+Read the [silencing reference][7] for in-depth documentation about silenced entries and more examples for other silencing scenarios.
 
-- [Silence all checks on a specific entity][2]
-- [Silence a specific check on a specific entity][3]
-- [Silence all checks with a specific subscription][4]
-- [Silence all checks for entities with a specific subscription][9]
-- [Silence a specific check on entities with a specific subscription][5]
-- [Silence a specific check on every entity][6]
+Learn more about the [sensu/http-checks][12] [dynamic runtime asset][24].
+
+The example in this guide uses [RFC 3339 format][25] with space delimiters and numeric zone offset, but sensuctl supports several [time formats][26] for the `begin` flag.
 
 
 [1]: ../handlers/
@@ -278,7 +270,7 @@ Read the [silencing reference][7] for in-depth documentation about silenced entr
 [7]: ../silencing/
 [8]: ../../../sensuctl/create-manage-resources/#time-formats
 [9]: ../silencing/#silence-all-checks-for-entities-with-a-specific-subscription
-[10]: ../../../operations/deploy-sensu/install-sensu/
+[10]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [11]: #create-the-check
 [12]: https://bonsai.sensu.io/assets/sensu/http-checks
 [13]: ../../observe-filter/filters/#built-in-filter-not_silenced
@@ -289,3 +281,9 @@ Read the [silencing reference][7] for in-depth documentation about silenced entr
 [18]: ../send-pagerduty-alerts/
 [19]: ../send-slack-alerts/
 [20]: https://www.ietf.org/rfc/rfc3339.txt
+[21]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[22]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[23]: ../../../operations/control-access/rbac/#default-users
+[24]: ../../../plugins/assets/
+[25]: https://www.ietf.org/rfc/rfc3339.txt
+[26]: ../../../sensuctl/create-manage-resources/#time-formats

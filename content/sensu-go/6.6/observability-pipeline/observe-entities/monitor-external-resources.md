@@ -21,7 +21,7 @@ This guide explains how to use a proxy entity to monitor website status, as well
 
 ## Requirements
 
-To follow this guide, install the Sensu [backend][19], make sure at least one Sensu [agent][30] is running, and configure [sensuctl][31] to connect to the backend as the [`admin` user][32].
+To follow this guide, install the Sensu [backend][19], make sure at least one Sensu [agent][31] is running, and configure [sensuctl][30] to connect to the backend as the [`admin` user][32].
 
 ## Use a proxy entity to monitor a website
 
@@ -471,6 +471,8 @@ Follow any of these guides to learn how to configure event filters, handlers, an
 * [Send PagerDuty alerts with Sensu][6]
 * [Send Slack alerts with a pipeline][7]
 
+You can also send metrics and status data to [Sumo Logic][33].
+
 Read more about the Sensu features you used in this guide:
 
 - [Dynamic runtime assets][13] and [sensu/http-checks][16]
@@ -511,3 +513,4 @@ Monitoring as code makes it possible to move to a more robust deployment without
 [30]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [31]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
 [32]: ../../../operations/control-access/rbac/#default-users
+[33]: ../../observe-process/send-data-sumo-logic/

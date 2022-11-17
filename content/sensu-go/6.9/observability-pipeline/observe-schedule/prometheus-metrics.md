@@ -516,6 +516,8 @@ Learn more about the Sensu resources you created in this guide:
 - [Handlers][12] and [pipelines][20]
 - [Subscriptions][16]
 
+Now that you know how to extract metrics from check output, you can use a pipeline to [send data to Sumo Logic][23].
+
 Visit Bonsai, the Sensu asset index, for more information about the [sensu/sensu-influxdb-handler][18] and [sensu/sensu-prometheus-collector][19] assets.
 With the sensu/sensu-prometheus-collector in your Sensu ecosystem, you can use Prometheus to gather metrics and use Sensu to send them to the proper final destination.
 Prometheus has a [comprehensive list][7] of additional exporters to pull in metrics.
@@ -544,3 +546,4 @@ Read about [sensuctl][15] and the Sensu [web UI][14] to learn how to use these f
 [20]: ../../observe-process/pipelines/
 [21]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
 [22]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[23]: ../../observe-process/send-data-sumo-logic/

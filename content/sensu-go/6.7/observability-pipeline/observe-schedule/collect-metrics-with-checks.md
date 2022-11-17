@@ -455,8 +455,7 @@ The event will include a top-level metrics section populated with metrics points
 
 ## What's next
 
-Now that you know how to extract metrics from check output, learn to use a metrics handler to [populate service and time-series metrics in InfluxDB][5].
-For a turnkey experience with the Sensu InfluxDB Handler plugin, use our curated, configurable [quick-start template][6] to integrate Sensu with your existing workflows and store Sensu metrics in InfluxDB.
+Now that you know how to extract metrics from check output, learn to use a metrics handler to [populate service and time-series metrics in InfluxDB][5] or [send data to Sumo Logic][20].
 
 Read [Monitor server resources with checks][2] to learn how to monitor an NGINX webserver rather than collect metrics.
 You can also learn to use Sensu to [collect Prometheus metrics][14].
@@ -492,3 +491,4 @@ Visit Bonsai, the Sensu asset index, for more information about the [sensu/http-
 [17]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [18]: ../../observe-process/handlers/
 [19]: ../../../plugins/assets/
+[20]: ../../observe-process/send-data-sumo-logic/
