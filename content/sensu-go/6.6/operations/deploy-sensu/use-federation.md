@@ -27,7 +27,6 @@ After you configure federation, you can also create, update, and delete clusters
 
 Federation is not enabled by default.
 You must create a cluster resource for the federation cluster and [register it][14].
-
 Only cluster administrators can register a new cluster, but every user can [query the list of clusters][11].
 
 Complete federation of multiple Sensu instances relies on a combination of features:
@@ -47,7 +46,7 @@ The example assumes you wish to federate three named Sensu clusters:
 | `alpha` | sensu.alpha.example.com |
 | `beta` | sensu.beta.example.com |
 
-In this example, the `gateway` cluster will be the entry point for operators to manage Sensu resources in the `alpha` and `beta` clusters.
+The `gateway` cluster will be the entry point for operators to manage Sensu resources in the `alpha` and `beta` clusters.
 This guide assumes a single sensu-backend in each cluster, but named clusters composed of multiple sensu-backends are supported.
 
 This diagram depicts the federation relationship documented in this guide:
@@ -57,7 +56,7 @@ This diagram depicts the federation relationship documented in this guide:
 
 Complete the steps in this guide to browse events, entities, checks, and other resources in the `gateway`, `alpha`, and `beta` clusters from the `gateway` cluster web UI.
 
-## Configure backends for TLS
+## Requirements
 
 Because federation depends on communication with multiple disparate clusters, working TLS is required for successful federated operation.
 
@@ -98,7 +97,7 @@ The default values are not suitable for use under federation.
 
 Whether federated or standalone, Sensu backends issue JSON Web Tokens (JWTs) to users upon successful authentication.
 These tokens include a payload that describes the username and group affiliations.
-The payload is used to determine permissions based on the configured [RBAC policy][10].
+The payload is used to determine permissions based on the configured RBAC policy.
 
 In a federation of Sensu backends, each backend needs to have the same public/private key pair.
 These asymmetric keys are used to crypotgraphically vouch for the user's identity in the JWT payload.
@@ -119,7 +118,7 @@ openssl ec -in jwt_private.pem -pubout -out jwt_public.pem
 
 3. Save the JWT keys in `/etc/sensu/certs` on each cluster backend.
 
-4. Add the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` and specify the paths to the JWT private and public keys:
+4. Add the `jwt-private-key-file` and `jwt-public-key-file` attributes in `/etc/sensu/backend.yml` and specify the paths to the JWT private and public keys:
 {{< code yml >}}
 jwt-private-key-file: /etc/sensu/certs/jwt_private.pem
 jwt-public-key-file: /etc/sensu/certs/jwt_public.pem
@@ -160,11 +159,11 @@ Make a note of the password you entered &mdash; you'll use it to log in to the w
 
     This creates the following user:
 {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YML" >}}
 username: federation-viewer
 disabled: false
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "username": "federation-viewer",
   "disabled": false
@@ -220,14 +219,14 @@ spec:
 
 ## Create etcd replicators
 
-Etcd replicators use the [etcd make-mirror utility][12] for one-way replication of Sensu [RBAC policy resources][10].
+Etcd replicators use the [etcd make-mirror utility][12] for one-way replication of Sensu RBAC policy resources.
 This allows you to centrally define RBAC policy on the `gateway` cluster and replicate RBAC resources to other clusters in the federation (`alpha` and `beta`), ensuring consistent permissions for Sensu users across multiple clusters via the `gateway` web UI.
 
 1. Configure one etcd replicator per cluster for each RBAC policy resource, across all namespaces, for each backend in the federation.
 {{% notice note %}}
 **NOTE**: Create a replicator for each resource type you want to replicate.
 Replicating `namespace` resources will **not** replicate the Sensu resources that belong to those namespaces.<br><br>
-The [etcd replicators reference](../etcdreplicators/) includes [examples](../etcdreplicators#etcd-replicator-examples) you can follow for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
+The etcd replicators reference includes [examples](../etcdreplicators#etcd-replicator-examples) you can follow for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
 {{% /notice %}}
 
     In this example, the following etcd replicator resources will replicate ClusterRoleBinding resources from  the `gateway` cluster to the two target clusters:
@@ -421,10 +420,12 @@ Use the namespace switcher to change between namespaces across federated cluster
 Because the `federation-viewer` user is granted only permissions provided by the built-in `view` role, this user should be able to view all resources across all clusters but should not be able to make any changes.
 If you haven't changed the permissions of the default `admin` user, that user should be able to view, create, delete, and update resources across all clusters.
 
-## Next steps
+## What's next
 
-Learn more about configuring RBAC policies in our [RBAC reference documentation][10].
+Learn more about configuring Sensu RBAC policies in the [RBAC reference][10] and one-way replication of RBAC resources in the [etcd replicators reference][17].
 
+Read the backend reference for details about the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] used to crypotgraphically vouch for the user's identity in the JWT payload.
+ 
 
 [1]: ../../../api/enterprise/federation/
 [3]: ../../control-access/use-apikeys/
@@ -439,3 +440,4 @@ Learn more about configuring RBAC policies in our [RBAC reference documentation]
 [14]: #register-a-single-cluster
 [15]: https://support.dnsimple.com/articles/what-is-common-name/
 [16]: https://support.dnsimple.com/articles/what-is-ssl-san/
+[17]: ../etcdreplicators/
