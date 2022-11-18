@@ -23,16 +23,22 @@ You'll then add the filter to a [pipeline workflow][12] that includes a handler 
 
 You can take either of two approaches to create the event filter to handle occurrences: use sensuctl or use a filter dynamic runtime asset.
 
-To follow this guide, you’ll need to [install][17] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+## Requirements
+
+To follow this guide, install the Sensu [backend][17], make sure at least one Sensu [agent][21] is running, and configure [sensuctl][22] to connect to the backend as the [`admin` user][23].
+
+The examples in this guide rely on the `check_cpu` check from [Monitor server resources with checks][13].
+Before you begin, follow the instructions to [add the `sensu/check-cpu-usage`][19] dynamic runtime asset and the [`check_cpu`][20] check.
+
 In addition, if you don't already have a Slack handler in place, follow [Send Slack alerts with handlers][3] to create one before continuing with this guide.
 
 ## Configure a Sensu entity
 
-Every Sensu agent has a defined set of [subscriptions][16] that determine which checks the agent will execute.
+Every Sensu agent has a defined set of subscriptions that determine which checks the agent will execute.
 For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
 
-The examples for both approaches in this guide use the `check_cpu` check from [Monitor server resources with checks][13], which includes the subscription `system`.
-Use [sensuctl][18] to add a `system` subscription to one of your entities.
+The examples for both approaches in this guide use the `check_cpu` check from Monitor server resources with checks, which includes the subscription `system`.
+Use sensuctl to add a `system` subscription to one of your entities.
 
 Before you run the following code, replace `<ENTITY_NAME>` with the name of the entity on your system.
 
@@ -125,20 +131,10 @@ spec:
 
 {{< /language-toggle >}}
 
-If you want to share and reuse this event filter like code, you can [save it to a file][10] and start building a [monitoring as code repository][11].
-
-{{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
-{{% /notice %}}
-
 ### Add the event filter to a pipeline
 
-Now that you've created the `hourly` event filter, you can include it in a new pipeline, along with the `slack` handler created in [Send Slack alerts with handlers][3].
+Now that you've created the `hourly` event filter, you can include it in a new pipeline, along with the `slack` handler created in Send Slack alerts with handlers (see [Requirements][24] if you do not have a handler that sends alerts to a Slack channel).
 You'll also include the built-in `is_incident` filter so that only failing events are handled, which will further reduce the number of Slack messages Sensu sends.
-
-{{% notice note %}}
-**NOTE**: If you haven't already created the `slack` handler, follow [Send Slack alerts with handlers](../../observe-process/send-slack-alerts/) before continuing with this step.
-{{% /notice %}}
 
 To create a new pipeline that includes the `hourly` and `is_incident` event filters as well as the `slack` handler, run:
 
@@ -204,11 +200,10 @@ echo '{
 
 ### Assign the pipeline to a check
 
-To use the `reduce_alerts` pipeline, list it in a check definition's [pipelines array][14].
-This example uses the `check_cpu` check created in [Monitor server resources with checks][13]).
+To use the `reduce_alerts` pipeline, list it in a check definition's pipelines array.
 All the observability events that the check produces will be processed according to the pipeline's workflows.
 
-Assign your `reduce_alerts` pipeline to the `check_cpu` check to receive Slack alerts when the CPU usage of your system reaches the specific thresholds set in the check command.
+In this example, assign your `reduce_alerts` pipeline to the `check_cpu` check to receive Slack alerts when the CPU usage of your system reaches the specific thresholds set in the check command.
 
 To open the check definition in your text editor, run: 
 
@@ -332,12 +327,9 @@ Skip to [Confirm the event filter][15] to learn how to verify that the filter is
 
 ## Approach 2: Use an event filter dynamic runtime asset
 
-If you're not already familiar with [dynamic runtime assets][6], read [Use assets to install plugins][7].
-This will help you understand what dynamic runtime assets are and how they are used in Sensu. 
+In the dynamic runtime asset approach, the first step is to obtain an event filter asset that will allow you to replicate the behavior of the `hourly` event filter created in [Approach 1 via `sensuctl`][4].
 
-In this approach, the first step is to obtain an event filter dynamic runtime asset that will allow you to replicate the behavior of the `hourly` event filter created in [Approach 1 via `sensuctl`][4].
-
-Use `sensuctl asset add` to register the [sensu/sensu-go-fatigue-check-filter][8] dynamic runtime asset:
+Use `sensuctl asset add` to register the sensu/sensu-go-fatigue-check-filter dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-go-fatigue-check-filter:0.8.1 -r fatigue-filter
@@ -356,11 +348,8 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["fatigue-filter"].
 {{< /code >}}
 
-You can also download the asset directly from [Bonsai, the Sensu asset hub][9].
-
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 You've registered the dynamic runtime asset, but you still need to create the filter.
@@ -424,7 +413,6 @@ Now that you've added the dynamic runtime asset and created the event filter def
 ### Update a check for filter dynamic runtime asset use
 
 Next, you'll need to make some additions to any checks you want to use the `fatigue_check` filter with.
-This example uses the `check_cpu` check created in [Monitor server resources with checks][13]).
 All the observability events that the check produces will be processed according to the pipeline's workflows.
 
 Assign your `reduce_alerts` pipeline to the `check_cpu` check to receive Slack alerts when the CPU usage of your system reaches the specific thresholds set in the check command.
@@ -594,12 +582,8 @@ Next, you'll add the newly minted event filter and an existing handler to a pipe
 
 ### Add the event filter to a pipeline
 
-Now that you've created the `fatigue_check` event filter, you can add it to a pipeline along with the `slack` handler created in [Send Slack alerts with handlers][3].
+Now that you've created the `fatigue_check` event filter, you can add it to a pipeline along with the `slack` handler created in Send Slack alerts with handlers (see [Requirements][24] if you do not have a handler that sends alerts to a Slack channel).
 You'll also add the built-in `is_incident` filter so that only failing events are handled, which will further reduce the number of Slack messages Sensu sends.
-
-{{% notice note %}}
-**NOTE**: If you haven't already created the `slack` handler, follow [Send Slack alerts with handlers](../../observe-process/send-slack-alerts/) before continuing with this step.
-{{% /notice %}}
 
 {{< language-toggle >}}
 
@@ -638,12 +622,12 @@ echo '{
         "name": "slack_alerts",
         "filters": [
           {
-            "name": "fatigue_check",
+            "name": "is_incident",
             "type": "EventFilter",
             "api_version": "core/v2"
           },
           {
-            "name": "hourly",
+            "name": "fatigue_check",
             "type": "EventFilter",
             "api_version": "core/v2"
           }
@@ -676,9 +660,15 @@ Whenever an event is being handled, two log entries are added:
 
 However, if the event is being discarded by the event filter, a log entry with the message `event filtered` will appear instead.
 
-## Next steps
+## What's next
 
 Now that you know how to add event filters to pipelines and use a dynamic runtime asset to help reduce alert fatigue, read the [filters reference][1] for in-depth information about event filters.
+
+If you're not already familiar with [dynamic runtime assets][6], read [Use assets to install plugins][7].
+This will help you understand what dynamic runtime assets are and how they are used in Sensu.
+Read the asset page in Bonsai for details about the [sensu/sensu-go-fatigue-check-filter][8] dynamic runtime asset.
+
+If you want to share and reuse the `hourly` and `fatigue_check` event filters like code, you can [save them to a file][10] and start building a [monitoring as code repository][11].
 
 
 [1]:  ../filters/
@@ -697,5 +687,11 @@ Now that you know how to add event filters to pipelines and use a dynamic runtim
 [14]: ../../observe-schedule/checks/#pipelines-attribute
 [15]: #confirm-the-event-filter
 [16]: ../../observe-schedule/subscriptions/
-[17]: ../../../operations/deploy-sensu/install-sensu/
+[17]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [18]: ../../../sensuctl/
+[19]: ../../observe-schedule/monitor-server-resources/#register-the-sensucheck-cpu-usage-asset
+[20]: ../../observe-schedule/monitor-server-resources/#create-a-check-to-monitor-a-server
+[21]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[22]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[23]: ../../../operations/control-access/rbac/#default-users
+[24]: #requirements
