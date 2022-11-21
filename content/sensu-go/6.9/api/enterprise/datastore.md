@@ -75,25 +75,6 @@ output         | {{< code json >}}
       "created_by": "admin"
     },
     "spec": {
-      "batch_buffer": 0,
-      "batch_size": 1,
-      "batch_workers": 0,
-      "dsn": "postgresql://user:secret@host:port/otherdbname",
-      "max_conn_lifetime": "5m",
-      "max_idle_conns": 2,
-      "pool_size": 20,
-      "strict": true,
-      "enable_round_robin": true
-    }
-  },
-  {
-    "type": "PostgresConfig",
-    "api_version": "store/v1",
-    "metadata": {
-      "name": "my-postgres",
-      "created_by": "admin"
-    },
-    "spec": {
       "dsn": "postgresql://user:secret@host:port/dbname",
       "max_conn_lifetime": "5m",
       "max_idle_conns": 2,
