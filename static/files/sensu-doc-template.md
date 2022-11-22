@@ -1,56 +1,201 @@
 ---
-title: "Title of Your Doc/Guide"
-description: "Short Description of Your Doc/Guide"
-product: <!-- Sensu product here, e.g., "Sensu Core", "Sensu Enterprise", "Plugins" -->
-version: <!-- Sensu product version here, e.g., 1.0, 1.1, 2.3, 2.8, etc -->
-weight: 4 <!-- Change this to wherever you feel like the doc should live in the nav sidebar -->
+title: "Title of doc to display on page"
+linkTitle: "Title for Left Nav"
+guide_title: "Title of doc to list in guide index (if a guide)"
+type: "guide" <!-- If doc is a guide or reference, either "guide" or "reference" -->
+description: "Short description of the page, between 130 and 160 characters."
+weight: 160 <!-- Change to control the order in which this doc will appear in the left nav -->
+version: "6.9" <!-- Sensu product major or minor version -->
+product: "Sensu Go" <!-- Sensu product name: "Sensu Go", "Sensu Core", "Sensu Enterprise", "Uchiwa", "Sensu Enterprise Dashboard" -->
+platformContent: false <!-- Boolean to indicate whether the page includes platform-specific code blocks or instructions; if true, add a row for the list of platforms to display -->
 menu:
-  <!-- Full Sensu version here, e.g., sensu-core-1.0, sensu-enterprise-2.9 -->:
-    parent: api
+  sensu-go-6.9: <!-- Sensu product and major or minor version, formatted with hyphen separators -->
+    parent: observe-process <!-- Category the page is nested within -->
 ---    
-# Header 1
-When you write a doc and link to a site, it should look like this: `[sensuapp.org][1]`, so functionally: [sensuapp.org][1]
 
-# Header 2
-If you create code that needs highlighting, it should look like this:
+## Header level 2
+
+Do not use header level 1 (`# Heading`). Use heading levels 2 through 5.
+
+When you write a doc and link to a site, it should look like this: `[sensuapp.org][1]`, so functionally: [sensuapp.org][1]. Use numbers for link references.
+
+### Header level 3
+
+The Hugo platform uses [Chroma][4] (based on Pygments) for code syntax highlighting.
+Read the Hugo docs for a [list of available languages][3].
+
+Place code examples in blocks like this:
 
 ```
- {{< highlight shell >}}
- /usr/bin/whoami{{< /highlight >}}
+{{< code shell >}}
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
+sensu-backend init
+{{< /code >}}
 ```
 
-To elaborate: `{{< highlight >}}` is the opening tag for highlighting text. `{{< /highlight >}}` is a closing highlight tag. You can add specific highlighting to a tag. It should look something like:
-` {{< highlight json >}}`
+Use the language toggle shortcode to create tabbed code examples (see [example][2]):
 
-One note here, the `{{< /highlight >}}` tag should come _immediately_ after the text you wish to highlight, else there will be a weird space rendered in the highlighted text.
-
-Since the Hugo platform uses [Chroma](https://github.com/alecthomas/chroma) (based on Pygments), there are a number of styles you can add after `highlight`. For a full  list, click [here](https://github.com/alecthomas/chroma/tree/master/lexers)
-
-# Header 3
-You'll rarely want or need to do this, but here's a very complex example of syntax highlighting that we've standardized across the project:
 ```
-/aggregates/:name (GET) | 
-------------------------|------
-description             | Returns the list of aggregates for a given check.
-example url             | http://hostname:4567/aggregates/elasticsearch
-parameters              | <ul><li>`max_age`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: the maximum age of results to include, in seconds.</li></ul></li></ul>
-response type           | Array
-response codes          | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                  | {{< highlight json >}}{
-  "clients": 15,
-  "checks": 2,
-  "results": {
-    "ok": 18,
-    "warning": 0,
-    "critical": 1,
-    "unknown": 0,
-    "total": 19,
-    "stale": 0
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check_minimum
+spec:
+  command: collect.sh
+  handlers:
+  - slack
+  interval: 10
+  publish: true
+  subscriptions:
+  - system
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_minimum"
+  },
+  "spec": {
+    "command": "collect.sh",
+    "subscriptions": [
+      "system"
+    ],
+    "handlers": [
+      "slack"
+    ],
+    "interval": 10,
+    "publish": true
   }
-}{{< /highlight >}}
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 ```
 
-<!-- Your links should go here. -->
+To specify a non-code-based label for a tab, use quotation marks:
+
+```
+{{< language-toggle >}}
+
+{{< code shell "Debian family" >}}
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
+sensu-backend init
+{{< /code >}}
+
+{{< code shell "RHEL family" >}}
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
+sensu-backend init
+{{< /code >}}
+
+{{< /language-toggle >}}
+```
+
+To provide a code-formatted response example, use the `text` language signifier.
+The `Copy` button does not appear on code examples formatted with the `text` signifier:
+
+```
+The response will confirm that the asset was added:
+
+{{< code text >}}
+fetching bonsai asset: sensu/check-cpu-usage:0.2.2
+added asset: sensu/check-cpu-usage:0.2.2
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["check-cpu-usage"].
+{{< /code >}}
+```
+
+## Header level 2
+
+Here's an example of an attribute description table for a reference specification:
+
+```
+repeat       | 
+-------------|------
+description  | Interval at which the subdue should repeat. `weekdays` includes Mondays, Tuesdays, Wednesdays, Thursdays, and Fridays. `weekends` includes Saturdays and Sundays. Read [Subdues and repeat][85] for more information.{{% notice note %}}
+**NOTE**: Check subdue repeats are based on the specified `begin` and `end` times and not duration or the difference between the `begin` and `end` times.
+{{% /notice %}}
+required     | false
+type         | Array
+allowed values | `mondays`, `tuesdays`, `wednesdays`, `thursdays`, `fridays`, `saturdays`, `sundays`, `weekdays`, `weekends`, `daily`, `weekly`, `monthly`, `annually`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+repeat:
+- weekdays
+{{< /code >}}
+{{< code json >}}
+{
+  "repeat": [
+    "weekdays"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+```
+
+Here's an example of an endpoint description table for an API specification:
+
+```
+/checks/:check (GET) | 
+---------------------|------
+description          | Returns the specified check.
+example url          | http://hostname:8080/api/core/v2/namespaces/default/checks/check_cpu
+response type        | Map
+response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output               | {{< code text >}}
+{
+  "command": "check-cpu-usage.sh -w 75 -c 90",
+  "handlers": [],
+  "high_flap_threshold": 0,
+  "interval": 60,
+  "low_flap_threshold": 0,
+  "publish": true,
+  "runtime_assets": [
+    "check-cpu-usage"
+  ],
+  "subscriptions": [
+    "system"
+  ],
+  "proxy_entity_name": "",
+  "check_hooks": null,
+  "stdin": false,
+  "subdue": null,
+  "ttl": 0,
+  "timeout": 0,
+  "round_robin": false,
+  "output_metric_format": "",
+  "output_metric_handlers": null,
+  "env_vars": null,
+  "metadata": {
+    "name": "check_cpu",
+    "namespace": "default",
+    "created_by": "admin"
+  },
+  "secrets": null,
+  "pipelines": [
+    {
+      "name": "incident_alerts",
+      "type": "Pipeline",
+      "api_version": "core/v2"
+    }
+  ]
+}
+{{< /code >}}
+```
+
+
+<!-- List links at the end of the page. -->
 [1]: http://sensuapp.org
-[2]:
-[3]:
+[2]: https://docs.sensu.io/sensu-go/latest/observability-pipeline/observe-schedule/checks/#check-example-minimum-recommended-attributes
+[3]: https://gohugo.io/content-management/syntax-highlighting/#list-of-chroma-highlighting-languages
+[4]: https://github.com/alecthomas/chroma
