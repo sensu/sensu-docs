@@ -432,7 +432,7 @@ allowed_groups:
 {{< /code >}}
 {{< code json >}}
 {
-    "allowed_groups": [
+  "allowed_groups": [
     "Sensu_Viewers",
     "Sensu_Operators"
   ]
