@@ -785,6 +785,10 @@ spec:
 
 {{< /language-toggle >}}
 
+{{% notice note %}}
+**NOTE**: If you are using Active Directory (AD) or Lightweight Directory Access Protocol (LDAP) authentication, the names of users and groups listed in the subjects array must exactly match the user and group names the authentication provider returns to the Sensu backend.
+{{% /notice %}}
+
 To create this cluster role binding with [`sensuctl create`][31], first save the definition to a file like `clusterrolebindings.yml` or `clusterrolebindings.json`.
 Then, run:
 
@@ -3200,7 +3204,8 @@ type: Role
 
 name         | 
 -------------|------ 
-description  | Name of the user resource or group resource to bind in the role binding or cluster role binding.
+description  | Name of the user resource or group resource to bind in the role binding or cluster role binding.{{% notice note %}}**NOTE**: If you are using Active Directory (AD) or Lightweight Directory Access Protocol (LDAP) authentication, names of users and groups are case-sensitive. The user and group names listed in the cluster role binding configuration must exactly match the user and group names the authentication provider returns to the Sensu backend.
+{{% /notice %}}
 required     | true
 type         | String
 example      | {{< language-toggle >}}

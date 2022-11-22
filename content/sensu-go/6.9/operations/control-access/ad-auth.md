@@ -157,6 +157,10 @@ spec:
 
 {{< /language-toggle >}}
 
+{{% notice note %}}
+**NOTE**: If you specify allowed groups, the group names must exactly match the names the authentication provider returns to the Sensu backend.
+{{% /notice %}}
+
 **Example AD configuration: Use `memberOf` attribute instead of `group_search`**
 
 AD automatically returns a `memberOf` attribute in users' accounts.
