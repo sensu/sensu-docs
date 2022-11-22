@@ -157,6 +157,10 @@ spec:
 
 {{< /language-toggle >}}
 
+{{% notice note %}}
+**NOTE**: If you specify allowed groups, the group names must exactly match the names the authentication provider returns to the Sensu backend.
+{{% /notice %}}
+
 **Example AD configuration: Use `memberOf` attribute instead of `group_search`**
 
 AD automatically returns a `memberOf` attribute in users' accounts.
@@ -428,20 +432,21 @@ servers:
 
 | allowed_groups |   |
 -------------|------
-description  | An array of allowed AD group strings to include in the tokenized identity claim. Use to specify which groups to encode in the authentication provider's JSON Web Token (JWT) when the authenticated AD user is a member of many groups and the tokenized identity claim would be too large for correct web client operation.
+description  | An array of allowed AD group strings to include in the tokenized identity claim. Use to specify which groups to encode in the authentication provider's JSON Web Token (JWT) when the authenticated AD user is a member of many groups and the tokenized identity claim would be too large for correct web client operation.{{% notice note %}}**NOTE**: Allowed group names are case-sensitive and must exactly match the group names the authentication provider returns to the Sensu backend.
+{{% /notice %}}
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 allowed_groups:
-- sensu-viewers
-- sensu-operators
+- Sensu_Viewers
+- Sensu_Operators
 {{< /code >}}
 {{< code json >}}
 {
-  "allowed_groups": [
-    "sensu-viewers",
-    "sensu-operators"
+    "allowed_groups": [
+    "Sensu_Viewers",
+    "Sensu_Operators"
   ]
 }
 {{< /code >}}

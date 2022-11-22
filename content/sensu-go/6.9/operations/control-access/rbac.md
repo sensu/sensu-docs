@@ -757,7 +757,7 @@ spec:
     name: cluster-admin
     type: ClusterRole
   subjects:
-  - name: cluster-admins
+  - name: Cluster_Admins
     type: Group
 {{< /code >}}
 
@@ -775,7 +775,7 @@ spec:
     },
     "subjects": [
       {
-        "name": "cluster-admins",
+        "name": "Cluster_Admins",
         "type": "Group"
       }
     ]

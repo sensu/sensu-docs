@@ -439,14 +439,14 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 allowed_groups:
-- sensu-viewers
-- sensu-operators
+- Sensu_Viewers
+- Sensu_Operators
 {{< /code >}}
 {{< code json >}}
 {
-  "allowed_groups": [
-    "sensu-viewers",
-    "sensu-operators"
+    "allowed_groups": [
+    "Sensu_Viewers",
+    "Sensu_Operators"
   ]
 }
 {{< /code >}}

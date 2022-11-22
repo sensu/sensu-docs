@@ -152,6 +152,10 @@ spec:
 
 {{< /language-toggle >}}
 
+{{% notice note %}}
+**NOTE**: If you specify allowed groups, the group names must exactly match the names the authentication provider returns to the Sensu backend.
+{{% /notice %}}
+
 **Example LDAP configuration: Use `memberOf` attribute instead of `group_search`**
 
 If your LDAP server is configured to return a `memberOf` attribute when you perform a query, you can use `memberOf` in your Sensu LDAP implementation instead of `group_search`.
@@ -422,14 +426,14 @@ type         | Array of strings
 example      | {{< language-toggle >}}
 {{< code yml >}}
 allowed_groups:
-- sensu-viewers
-- sensu-operators
+- Sensu_Viewers
+- Sensu_Operators
 {{< /code >}}
 {{< code json >}}
 {
-  "allowed_groups": [
-    "sensu-viewers",
-    "sensu-operators"
+    "allowed_groups": [
+    "Sensu_Viewers",
+    "Sensu_Operators"
   ]
 }
 {{< /code >}}
