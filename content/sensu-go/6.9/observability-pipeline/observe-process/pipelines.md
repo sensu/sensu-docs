@@ -167,7 +167,7 @@ spec:
 
 ## Workflows
 
-The workflow attribute is an array of event processing workflows that Sensu will apply for events produced by any check that references the pipeline.
+The workflows attribute is an array of event processing workflows that Sensu will apply for events produced by any check that references the pipeline.
 
 Workflows do not have to include an event filter or mutator, but they must specify at least one handler.
 
