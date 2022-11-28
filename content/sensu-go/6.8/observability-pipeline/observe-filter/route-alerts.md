@@ -21,9 +21,6 @@ Each team wants to be alerted only for the things they care about, using their t
 There's also a fallback option for alerts that should not be routed to either the dev or ops team.
 To achieve this, you'll use a [pipeline][16] resource with three workflows, one for each contact option.
 
-To follow this guide, you’ll need to [install][1] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
-You will also need [cURL][5] and a [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team).
-
 Routing alerts requires three types of Sensu resources:
 
 - **Handlers** to store contact preferences for the dev and ops teams, plus a fallback option
@@ -36,13 +33,22 @@ Two of the check definitions include a `contacts` label, which allows the pipeli
 {{< figure src="/images/go/route_alerts/contact_routing_pipeline.png" alt="Diagram that shows events generated with and without labels, matched to the appropriate handler using a contact filter and routed to the appropriate Slack channel" link="/images/go/route_alerts/contact_routing_pipeline.png" target="_blank" >}}
 <!-- Source for image is contact_routing_pipeline at https://lucid.app/lucidchart/cd3a6110-aa74-48cc-8c74-64d542ba97bc/edit?viewport_loc=-229%2C-28%2C2219%2C1117%2C0_0&invitationId=inv_de0cf345-dd7d-40dd-8724-2f9592cf45ec# -->
 
+## Requirements
+
+To follow this guide, install the Sensu [backend][1], make sure at least one Sensu [agent][23] is running, and configure [sensuctl][22] to connect to the backend as the [`admin` user][24].
+
+You will also need [cURL][5], a [Slack webhook URL][6], and three different Slack channels to receive test alerts (one for each team).
+
+The examples in this guide rely on the `check_cpu` check from [Monitor server resources with checks][27].
+Before you begin, follow the instructions to [add the `sensu/check-cpu-usage`][28] dynamic runtime asset and the [`check_cpu`][29] check.
+
 ## Configure a Sensu entity
 
-Every Sensu agent has a defined set of [subscriptions][21] that determine which checks the agent will execute.
+Every Sensu agent has a defined set of subscriptions that determine which checks the agent will execute.
 For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
 
 This guide uses an example check that includes the subscription `system`.
-Use [sensuctl][7] to add a `system` subscription to one of your entities.
+Use sensuctl to add a `system` subscription to one of your entities.
 
 Before you run the following code, replace `<ENTITY_NAME>` with the name of the entity on your system.
 
@@ -68,8 +74,8 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register dynamic runtime assets
 
-Contact routing is powered by the [sensu/sensu-go-has-contact-filter][12] dynamic runtime asset.
-To add the asset to Sensu, use [sensuctl asset add][14]:
+Contact routing is powered by the sensu/sensu-go-has-contact-filter dynamic runtime asset.
+To add the asset to Sensu, use sensuctl asset add:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-go-has-contact-filter:0.3.0 -r contact-filter
@@ -88,7 +94,7 @@ resource, populate the "runtime_assets" field with ["contact-filter"].
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `contact-filter`.
 
-Next, add the [sensu/sensu-slack-handler][8] dynamic runtime asset to Sensu with sensuctl:
+Next, add the sensu/sensu-slack-handler dynamic runtime asset to Sensu with sensuctl:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
@@ -125,12 +131,11 @@ The response will confirm the available assets:
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Create contact filters
 
-The [Bonsai][12] documentation explains that the sensu/sensu-go-has-contact-filter dynamic runtime asset supports two functions:
+The sensu/sensu-go-has-contact-filter dynamic runtime asset supports two functions:
 
 - `has_contact`, which takes the Sensu event and the contact name as arguments
 - `no_contact`, which is available as a fallback in the absence of contact labels and takes only the event as an argument
@@ -235,9 +240,6 @@ echo '{
 {{< /code >}}
 
 {{< /language-toggle >}}
-
-You can also save these event filter resource definitions to a file named `filters.yml` or `filters.json` in your Sensu installation.
-When you're ready to manage your observability configurations the same way you do any other code, your `filters.yml` or `filters.json` file can become a part of your [monitoring as code][15] repository.
 
 Use sensuctl to confirm that the event filters were added:
 
@@ -387,8 +389,6 @@ echo '{
 
 {{< /language-toggle >}}
 
-Just like the event filters, you can save these handlers to a YAML or JSON file to create a handlers configuration file if you're implementing [monitoring as code][15].
-
 Use sensuctl to confirm that the handlers were added:
 
 {{< code shell >}}
@@ -410,7 +410,7 @@ The response should list the new `dev_handler`, `ops_handler`, and `fallback_han
 Create a pipeline with a three workflows: one for each contact group.
 
 Each workflow includes the contact event filter and the corresponding handler for one contact group.
-All of the workflows also include the built-in [is_incident event filter][20] to reduce noise.
+All of the workflows also include the built-in is_incident event filter to reduce noise.
 
 {{< language-toggle >}}
 
@@ -540,7 +540,7 @@ With your pipeline in place, you can send ad hoc events to test your configurati
 
 ## Send events to test your configuration
 
-Use the [agent API][13] to create ad hoc events and send them to your Slack pipeline.
+Use the agent API to create ad hoc events and send them to your Slack pipeline.
 
 First, create an event without a `contacts` label.
 You may need to modify the URL with your Sensu agent address.
@@ -607,7 +607,7 @@ To assign a check's alerts to a contact, you can add the `contacts` labels to ch
 
 ### Route contacts with checks
 
-To test contact routing with check-generated events, update the `check_cpu` check created in [Monitor server resources][9] to include the `ops` and `dev` contacts and the `slack_contact_routing` pipeline.
+To test contact routing with check-generated events, update the `check_cpu` check to include the `ops` and `dev` contacts and the `slack_contact_routing` pipeline.
 
 Use sensuctl to open the check in a text editor:
 
@@ -770,10 +770,6 @@ spec:
 
 {{< /language-toggle >}}
 
-{{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
-{{% /notice %}}
-
 Now when the `check_cpu` check generates an event, Sensu will filter the event according to the `contact_dev` and `contact_ops` event filters and send alerts to the #dev and #ops Slack channels:
 
 {{< figure src="/images/go/route_alerts/contact_routing_dev_ops_teams.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/go/route_alerts/contact_routing_dev_ops_teams.png" target="_blank" >}}
@@ -783,7 +779,6 @@ Now when the `check_cpu` check generates an event, Sensu will filter the event a
 
 You can specify contacts in entity labels instead of in check labels.
 The check definition should still include the pipeline.
-For more information about managing entity labels, read the [entities reference][10].
 
 If contact labels are present in both the check and entity, the check contacts override the entity contacts.
 In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #dev but not to #ops or #fallback:
@@ -791,13 +786,26 @@ In this example, the `dev` label in the check configuration overrides the `ops` 
 {{< figure src="/images/go/route_alerts/contact_routing_label_override.png" alt="Diagram that shows how check labels override entity labels when both are present in an event" link="/images/go/route_alerts/contact_routing_label_override.png" target="_blank" >}}
 <!-- Source for image is contact_routing_pipeline_3 at https://lucid.app/lucidchart/f8fc33b7-f9b3-45cc-bae8-444822f7e8cb/edit?viewport_loc=-349%2C-45%2C2219%2C1117%2C0_0&invitationId=inv_e623f4c9-d485-4a59-a1d6-fa1e9575b905# -->
 
-## Next steps
+## What's next
 
 Now that you've set up contact routing for two example teams, you can create additional filters, handlers, and labels to represent your team's contacts.
 Learn how to use Sensu to [Reduce alert fatigue][11].
 
+Read more about the Sensu features you used in this guide:
 
-[1]: ../../../operations/deploy-sensu/install-sensu/
+- [Subscriptions][21]
+- [sensuctl][7]
+- [Dynamic runtime assets][26], [Bonsai][25], [sensu/sensu-go-has-contact-filter][12], and [sensu/sensu-slack-handler][8]
+- [is_incident event filter][20]
+- [Agent API][13]
+- [Entity labels][10]
+
+Save the event filter, handler, and check definitions you created in this guide to YAML or JSON files to start developing a [monitoring as code][15] repository.
+Storing your Sensu configurations the same way you would store code means they are portable and repeatable.
+Monitoring as code makes it possible to reproduce an environment's configuration and move to a more robust deployment without losing what you’ve started.
+
+
+[1]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
 [7]: ../../../sensuctl/
@@ -815,3 +823,11 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [19]: #2-create-contact-filters
 [20]: ../filters/#built-in-filter-is_incident
 [21]: ../../observe-schedule/subscriptions/
+[22]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[23]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[24]: ../../../operations/control-access/rbac/#default-users
+[25]: https://bonsai.sensu.io/
+[26]: ../../../plugins/assets/
+[27]: ../../observe-schedule/monitor-server-resources/
+[28]: ../../observe-schedule/monitor-server-resources/#register-the-sensucheck-cpu-usage-asset
+[29]: ../../observe-schedule/monitor-server-resources/#create-a-check-to-monitor-a-server
