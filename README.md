@@ -72,6 +72,8 @@ yarn run server
 
 This builds the Hugo server so you can view the site in your local web browser at http://localhost:1313/.
 
+**NOTE**: If you navigate to a URL that uses the `latest` rewrite, such as `http://localhost:1313/sensu-go/latest/`, the local site will return a 404 error. Replace `latest` in the URL with a published docs version (for example, `http://localhost:1313/sensu-go/6.9/`) when running the docs locally.
+
 ### Troubleshooting
 
 Here are some things to try if you encounter an issue working with the site:
