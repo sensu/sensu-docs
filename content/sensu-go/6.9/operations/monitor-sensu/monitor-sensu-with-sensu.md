@@ -13,7 +13,8 @@ menu:
     parent: monitor-sensu
 ---
 
-This guide describes best practices and strategies for monitoring the Sensu backend with another Sensu backend or cluster.
+This guide 
+describes best practices and strategies for monitoring the Sensu backend with another Sensu backend or cluster.
 
 To completely monitor Sensu (a Sensu backend with internal etcd and an agent), you will need at least one independent Sensu instance in addition to the primary instance you want to monitor.
 The second Sensu instance will ensure that you are notified when the primary is down and vice versa.
