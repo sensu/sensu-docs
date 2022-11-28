@@ -10,6 +10,7 @@ menu:
     identifier: api
 ---
 
+
 **API version: v2**
 
 The Sensu backend REST API provides a centrally managed control plane for automated, repeatable monitoring and observability workflow configuration and observation event data access.
