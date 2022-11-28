@@ -19,17 +19,19 @@ You can use pipelines to send email alerts, create or resolve incidents (in Page
 When you are using Sensu in production, events will come from a check or metric you configure.
 For this guide, you will create an ad hoc event that you can trigger manually to test your email handler.
 
-To follow this guide, you’ll need to [install the Sensu backend][12], have at least one [Sensu agent][13] running on Linux, and [install and configure sensuctl][4].
-
 Your backend will execute a pipeline with a handler that sends notifications to the email address you specify.
 The pipeline will also include an [event filter][5] to make sure you only receive a notification when your event represents a status change.
 
+## Requirements
+
+To follow this guide, install the Sensu [backend][12], make sure at least one Sensu [agent][13] is running, and configure [sensuctl][4] to connect to the backend as the [`admin` user][19].
+
 ## Add the email handler dynamic runtime asset
 
-[Dynamic runtime assets][8] are shareable, reusable packages that help you deploy Sensu plugins.
-In this guide, you'll use the [sensu/sensu-email-handler][3] dynamic runtime asset to power an `email` handler.
+Dynamic runtime assets are shareable, reusable packages that help you deploy Sensu plugins.
+In this guide, you'll use the sensu/sensu-email-handler dynamic runtime asset to power an `email` handler.
 
-Use the following sensuctl example to register the [sensu/sensu-email-handler][3] dynamic runtime asset:
+Use the following sensuctl example to register the sensu/sensu-email-handler dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-email-handler:1.2.2 -r email-handler
@@ -48,8 +50,6 @@ resource, populate the "runtime_assets" field with ["email-handler"].
 
 The -r (rename) flag allows you to specify a shorter name for the dynamic runtime asset (in this case, `email-handler`).
 
-You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][3] and register the asset with `sensuctl create --file filename.yml`.
-
 To confirm that the handler dynamic runtime asset was added correctly, run:
 
 {{< code shell >}}
@@ -63,16 +63,15 @@ For a detailed list of everything related to the asset that Sensu added automati
 sensuctl asset info email-handler
 {{< /code >}}
 
-The sensu/sensu-email-handler dynamic runtime asset includes the `sensu-email-handler` command, which you will use when you [create the email handler definition][18] later in this guide.
+The sensu/sensu-email-handler dynamic runtime asset includes the `sensu-email-handler` command, which you will use when you create the email handler definition later in this guide.
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Add an event filter
 
-Event filters allow you to fine-tune how your events are handled and [reduce alert fatigue][7].
+Event filters allow you to fine-tune how your events are handled and reduce alert fatigue.
 In this guide, your event filter will send notifications only when your event's state changes (for example, for any change between `0` OK, `1` warning, and `2` critical).
 
 Here's an overview of how the `state_change_only` filter will work:
@@ -187,15 +186,12 @@ EOF
 
 {{< /language-toggle >}}
 
-The [Sensu Go Email Handler][3] dynamic runtime asset makes it possible to [add a template][14] that provides context for your email notifications.
-The email template functionality uses tokens to populate the values provided by the event, and you can use HTML to format the email.
-
 ## Create a pipeline
 
-With your event filter and handler configured, you can build a [pipeline][6] workflow.
+With your event filter and handler configured, you can build a pipeline workflow.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-In this case, the pipeline includes your `state_change_only` event filter and `email` handler, as well as two built-in event filters, [is_incident][10] and [not_silenced][11].
+In this case, the pipeline includes your `state_change_only` event filter and `email` handler, as well as two built-in event filters, is_incident and not_silenced.
 These two built-in filters are included in every Sensu backend installation, so you don't have to create them.
 The is_incident and not_silenced event filters ensure that you receive alerts for unsilenced events with *only* warning (`1`) or critical (`2`) status:
 
@@ -273,7 +269,7 @@ EOF
 
 {{< /language-toggle >}}
 
-Before your pipeline can send alerts to your email, you need an [event][16] that generates the alerts.
+Before your pipeline can send alerts to your email, you need an event that generates the alerts.
 In the final step, you will create an ad hoc event that you can trigger manually.
 
 ## Create and trigger an ad hoc event
@@ -403,12 +399,11 @@ You should receive another email because the event status changed to `0` (OK).
 
 ## Next steps
 
-Now that you know how to apply a handler to a check and take action on events:
+Now that you know how to apply a pipeline to a check and take action on events, reuse this email pipeline with the `check_cpu` check from our [Monitor server resources][2] guide.
+Check out [Route alerts with event filters][7] for a complex pipeline example that includes several workflows with different event filters and handlers.
 
-- Reuse this email handler with the `check_cpu` check from our [Monitor server resources][2] guide.
-- Learn how to use the event filter, handler, and pipeline resources you created to start developing a [monitoring as code][15] repository.
-- Read the [pipelines reference][6] for in-depth pipeline documentation.
-- Check out [Route alerts with event filters][7] for a complex pipeline example that includes several workflows with different event filters and handlers.
+The [sensu/sensu-email-handler][3] dynamic runtime asset makes it possible to [add a template][14] that provides context for your email notifications.
+The email template functionality uses tokens to populate the values provided by the event, and you can use HTML to format the email.
 
 
 [1]: ../../observe-events/events/
@@ -428,3 +423,4 @@ Now that you know how to apply a handler to a check and take action on events:
 [16]: ../../observe-filter/filters/
 [17]: #create-an-ad-hoc-event
 [18]: #create-the-email-handler-definition
+[19]: ../../../operations/control-access/rbac/#default-users
