@@ -22,14 +22,16 @@ Follow this guide to create a pipeline that sends data from a Sensu check to Sum
 Sensu [checks][2] are commands the Sensu agent executes that generate observability data in a status or metric [event][16].
 Sensu [pipelines][14] define the event filters and actions the Sensu backend executes on the events.
 
-To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+## Requirements
 
-In addition, this guide uses an example check named `check_cpu`.
-If you don't already have this check in place, follow [Monitor server resources][2] to add it.
+To follow this guide, install the Sensu [backend][21], make sure at least one Sensu [agent][23] is running, and configure [sensuctl][22] to connect to the backend as the [`admin` user][24].
+
+The examples in this guide rely on the `check_cpu` check from [Monitor server resources with checks][27].
+Before you begin, follow the instructions to [add the `sensu/check-cpu-usage`][28] dynamic runtime asset and the [`check_cpu`][29] check.
 
 ## Configure a Sensu entity
 
-Sensu checks have a [subscriptions][11] attribute, where you specify strings to indicate which subscribers will execute the checks.
+Sensu checks have a subscriptions attribute, where you specify strings to indicate which subscribers will execute the checks.
 For Sensu to execute a check, at least one entity must include a subscription that matches a subscription in the check definition.
 In the example in this guide, the `check_cpu` check includes the `system` subscription, so at least one entity must subscribe to `system` to run the check.
 
@@ -63,7 +65,7 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the dynamic runtime asset
 
-The [sensu/sensu-sumologic-handler][8] [dynamic runtime asset][5] includes the scripts your [handler][9] will need to send observability data to Sumo Logic.
+The sensu/sensu-sumologic-handler dynamic runtime asset includes the scripts your handler will need to send observability data to Sumo Logic.
 
 To add the sensu/sensu-sumologic-handler asset, run:
 
@@ -94,12 +96,11 @@ The response will list the available builds for the sensu/sensu-sumologic-handle
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Set up an HTTP Logs and Metrics Source
 
-Set up a Sumo Logic [HTTP Logs and Metrics Source][1] to collect your Sensu observability data.
+Set up a Sumo Logic HTTP Logs and Metrics Source to collect your Sensu observability data.
 
 {{% notice note %}}
 **NOTE**: If you have an existing Sumo Logic HTTP Logs and Metrics Source, you can send Sensu data there instead of creating a new source if you wish.
@@ -142,20 +143,19 @@ Log in to your Sumo Logic account and follow these instructions:
     {{< figure src="/images/go/sensu_plus/http_logs_and_metrics_source.png" alt="Select options for HTTP Logs & Metrics source" link="/images/go/sensu_plus/http_logs_and_metrics_source.png" target="_blank" >}}
 
 8. In the HTTP Source Address prompt, copy the listed URL and click OK.
-You will use this URL in the next step as the `SUMOLOGIC_URL` value for the secret in your Sensu [handler][9] definition.
+You will use this URL in the next step as the `SUMOLOGIC_URL` value for the secret in your Sensu handler definition.
 
     {{< figure src="/images/go/sensu_plus/http_source_address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/go/sensu_plus/http_source_address_url.png" target="_blank" >}}
 
 ## Add the Sumo Logic handler
 
-Now that you've set up a Sumo Logic HTTP Logs and Metrics Source, you can create a [handler][9] that uses the [sensu/sensu-sumologic-handler][8] dynamic runtime asset to send observability data to Sumo Logic.
+Now that you've set up a Sumo Logic HTTP Logs and Metrics Source, you can create a handler that uses the sensu/sensu-sumologic-handler dynamic runtime asset to send observability data to Sumo Logic.
 
 The Sensu Sumo Logic Handler asset requires a `SUMOLOGIC_URL` variable.
-The value for the `SUMOLOGIC_URL` variable is the Sumo Logic HTTP Source Address URL, which you retrieved in the last step of [setting up an HTTP Logs and Metrics Source][12].
+The value for the `SUMOLOGIC_URL` variable is the Sumo Logic HTTP Source Address URL, which you retrieved in the last step of setting up an HTTP Logs and Metrics Source.
 
 {{% notice note %}}
 **NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's `Env` secrets provider.
-Read [Use secrets management in Sensu](../../../operations/manage-secrets/secrets-management/) for more information about using the `Env` secrets provider.
 {{% /notice %}}
 
 ### Configure the SUMOLOGIC_URL environment variable
@@ -361,10 +361,6 @@ spec:
 
 {{< /language-toggle >}}
 
-{{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
-{{% /notice %}}
-
 ## Create a pipeline with the Sumo Logic handler
 
 With your Sumo Logic handler configured, you can add it to a [pipeline][14] workflow.
@@ -431,8 +427,8 @@ EOF
 
 ## Assign the pipeline to a check
 
-To use the `sensu_to_sumo` pipeline, list it in a check definition's [pipelines array][15].
-This example uses the `check_cpu` check created in [Monitor server resources][3], but you can add the pipeline to any Sensu check you wish.
+To use the `sensu_to_sumo` pipeline, list it in a check definition's pipelines array.
+This example uses the `check_cpu` check created in Monitor server resources, but you can add the pipeline to any Sensu check you wish.
 All the observability events that the check produces will be processed according to the pipeline's workflows.
 
 Assign your `sensu_to_sumo` pipeline to the `check_cpu` check to start sending Sensu data to Sumo Logic.
@@ -553,7 +549,7 @@ spec:
 ## View your Sensu data in Sumo Logic
 
 It will take a few moments after you add the pipeline to the check for your Sensu observability data to appear in Sumo Logic.
-Use the [Live Tail][13] feature to confirm that your data is reaching Sumo Logic.
+Use the Live Tail feature to confirm that your data is reaching Sumo Logic.
 
 1. In Sumo Logic, click the **+ New** button and select **Live Tail** from the drop-down menu.
 
@@ -571,12 +567,12 @@ Within a few seconds, the Live Tail page should begin to display your Sensu obse
 If you see Sensu data on the Live Tail page, well done!
 You have a successful workflow that sends Sensu observability data to your Sumo Logic account.
 
-## Next steps
+## What's next
 
 To share and reuse the check, handler, and pipeline like code, [save them to files][6] and start building a [monitoring as code repository][7].
 
-Learn more about the [sensu/sensu-sumologic-handler][19] dynamic runtime asset.
-You can also configure a [Sumo Logic dashboard][10] to search, view, and analyze the Sensu data you're sending to your Sumo Logic HTTP Logs and Metrics Source.
+Learn more about the [sensu/sensu-sumologic-handler][8] [dynamic runtime asset][5].
+You can also configure a [Sumo Logic dashboard][10] to search, view, and analyze the Sensu data you're sending to your Sumo Logic [HTTP Logs and Metrics Source][1].
 
 In addition to the traditional handler we used in this example, you can use [Sensu Plus][17], our built-in integration, to send metrics to Sumo Logic with a streaming [Sumo Logic metrics handler][18].
 
@@ -601,3 +597,12 @@ In addition to the traditional handler we used in this example, you can use [Sen
 [18]: ../sumo-logic-metrics-handlers/
 [19]: ../../../plugins/featured-integrations/sumologic/
 [20]: ../../observe-filter/filters/#built-in-filter-not_silenced
+[21]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
+[22]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[23]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[24]: ../../../operations/control-access/rbac/#default-users
+[25]: https://bonsai.sensu.io/
+[26]: ../../../plugins/assets/
+[27]: ../../observe-schedule/monitor-server-resources/
+[28]: ../../observe-schedule/monitor-server-resources/#register-the-sensucheck-cpu-usage-asset
+[29]: ../../observe-schedule/monitor-server-resources/#create-a-check-to-monitor-a-server
