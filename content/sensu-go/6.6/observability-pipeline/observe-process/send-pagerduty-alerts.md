@@ -23,7 +23,7 @@ To follow this guide, install the Sensu [backend][4], make sure at least one Sen
 
 You'll also need your [PagerDuty API integration key][1] to set up the handler in this guide.
 
-The examples in this guide rely on the `check_cpu` check from [Monitor server resources with checks][3].
+The example in this guide relies on the `check_cpu` check from [Monitor server resources with checks][3].
 Before you begin, follow the instructions to [add the `sensu/check-cpu-usage`][28] dynamic runtime asset and the [`check_cpu`][29] check.
 
 ## Configure a Sensu entity
