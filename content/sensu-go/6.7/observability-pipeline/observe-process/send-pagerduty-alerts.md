@@ -18,19 +18,22 @@ menu:
 Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
-Follow this guide to create a pipeline that sends incident alerts to PagerDuty.
+Follow this guide to create a pipeline that sends incident alerts to PagerDuty and add the pipeline to a check named `check_cpu`.
 Sensu [checks][2] are commands the Sensu agent executes that generate observability data in a status or metric [event][19].
 Sensu [pipelines][20] define the event filters and actions the Sensu backend executes on the events.
 
-This guide will help you send alerts to PagerDuty by configuring a pipeline and adding it to a check named `check_cpu`.
-If you don't already have this check in place, follow [Monitor server resources][3] to add it.
+## Requirements
 
-To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+To follow this guide, install the Sensu [backend][4], make sure at least one Sensu [agent][23] is running, and configure [sensuctl][24] to connect to the backend as the [`admin` user][25].
+
 You'll also need your [PagerDuty API integration key][1] to set up the handler in this guide.
+
+The examples in this guide rely on the `check_cpu` check from [Monitor server resources with checks][3].
+Before you begin, follow the instructions to [add the `sensu/check-cpu-usage`][28] dynamic runtime asset and the [`check_cpu`][29] check.
 
 ## Configure a Sensu entity
 
-Every Sensu agent has a defined set of [subscriptions][13] that determine which checks the agent will execute.
+Every Sensu agent has a defined set of subscriptions that determine which checks the agent will execute.
 For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
 To run the `check_cpu` check, you'll need a Sensu entity with the subscription `system`.
 
@@ -42,8 +45,8 @@ sensuctl entity list
 
 The `ID` in the response is the name of your entity.
 
-Replace `<ENTITY_NAME>` with the name of your entity in the [sensuctl][12] command below.
-Then run the command to add the `system` [subscription][13] to your entity:
+Replace `<ENTITY_NAME>` with the name of your entity in the sensuctl command below.
+Then run the command to add the `system` subscription to your entity:
 
 {{< code shell >}}
 sensuctl entity update <ENTITY_NAME>
@@ -62,7 +65,7 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the dynamic runtime asset
 
-The [sensu/sensu-pagerduty-handler][8] dynamic runtime asset includes the scripts you will need to send events to PagerDuty.
+The sensu/sensu-pagerduty-handler dynamic runtime asset includes the scripts you will need to send events to PagerDuty.
 
 To add the sensu/sensu-pagerduty-handler asset, run:
 
@@ -93,12 +96,11 @@ The response will list the available builds for the Sensu PagerDuty Handler dyna
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Add the PagerDuty handler
 
-Now that you've added the dynamic runtime asset, you can create a [handler][9] that uses the asset to send non-OK events to PagerDuty.
+Now that you've added the dynamic runtime asset, you can create a handler that uses the asset to send non-OK events to PagerDuty.
 
 In the following command, replace `<PAGERDUTY_KEY>` with your [PagerDuty API integration key][1].
 Then run the updated command:
@@ -109,13 +111,6 @@ sensuctl handler create pagerduty \
 --runtime-assets pagerduty-handler \
 --command "sensu-pagerduty-handler -t <PAGERDUTY_KEY>"
 {{< /code >}}
-
-{{% notice note %}}
-**NOTE**: For checks whose handlers use the Sensu PagerDuty Handler dynamic runtime asset (like the one you've created in this guide), you can use an alternative method for [authenticating and routing alerts based on PagerDuty teams](https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pager-teams).<br><br>
-To use this option, list the teams' PagerDuty API integration keys in the handler definition as environment variables or secrets or in the `/etc/default/sensu-backend` configuration file as environment variables.
-Then, add check or agent annotations to specify which PagerDuty teams should receive alerts based on check events.
-Sensu will look up the key in the handler definition or backend configuration file that corresponds to the team name in the check annotation to authenticate and send alerts.
-{{% /notice %}}
 
 Make sure that your handler was added by retrieving the complete handler definition in YAML or JSON format:
 
@@ -175,16 +170,12 @@ spec:
 
 {{< /language-toggle >}}
 
-{{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
-{{% /notice %}}
-
 ## Create a pipeline with event filters and a handler
 
-With your handler configured, you can add it to a [pipeline][17] workflow.
+With your handler configured, you can add it to a pipeline workflow.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-In this case, the pipeline includes the built-in [is_incident][21] and [not_silenced][22] event filters, as well as the `pagerduty` handler you've already configured.
+In this case, the pipeline includes the built-in is_incident and not_silenced event filters, as well as the `pagerduty` handler you've already configured.
 To create the pipeline, run:
 
 {{< language-toggle >}}
@@ -253,7 +244,7 @@ EOF
 
 ## Assign the pipeline to a check
 
-To use the `cpu_check_alerts` pipeline, list it in a check definition's [pipelines array][18] (in this case, the `check_cpu` check created in [Monitor server resources][3]).
+To use the `cpu_check_alerts` pipeline, list it in a check definition's pipelines array (in this case, the `check_cpu` check created in Monitor server resources.
 All the observability events that the check produces will be processed according to the pipeline's workflows.
 
 Assign your `cpu_check_alerts` pipeline to the `check_cpu` check to receive Slack alerts when the CPU usage of your system reaches the specific thresholds set in the check command.
@@ -429,21 +420,31 @@ The response should show that `cpu_check` has an OK (0) status:
   sensu-centos   check_cpu   check-cpu-usage OK: 4.17% CPU usage | cpu_idle=95.83, cpu_system=1.04, cpu_user=3.13, cpu_nice=0.00, cpu_iowait=0.00, cpu_irq=0.00, cpu_softirq=0.00, cpu_steal=0.00, cpu_guest=0.00, cpu_guestnice=0.00        0   false      2021-11-17 21:09:07 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
 {{< /code >}}
 
-The [web UI][11] Events page will also show that the `cpu_check` check is passing.
+The web UI Events page will also show that the `cpu_check` check is passing.
 
 ## Next steps
 
-You should now have a working set-up with a check and a pipeline that sends alerts to your PagerDuty account.
+You now have a working set-up with a check and a pipeline that sends alerts to your PagerDuty account.
 To share and reuse the check, handler, and pipeline like code, [save them to files][6] and start building a [monitoring as code repository][7].
 
-You can customize your PagerDuty handler with configuration options like [severity mapping][16], [PagerDuty team-based routing and authentication][17] via check and agent annotations, and [event-based templating][18].
-Learn more about the [Sensu PagerDuty integration][14] and our curated, configurable [quick-start template][15] for incident management to integrate Sensu with your existing PagerDuty workflows.
+For handlers that use the Sensu PagerDuty Handler dynamic runtime asset (like the one you created in this guide), you can use an alternative method for [authenticating and routing alerts based on PagerDuty teams][17].
+To use this option, list the teams' PagerDuty API integration keys in the handler definition as environment variables or secrets or in the `/etc/default/sensu-backend` configuration file as environment variables.
+Then, add check or agent annotations to specify which PagerDuty teams should receive alerts based on check events.
+Sensu will look up the key in the handler definition or backend configuration file that corresponds to the team name in the check annotation to authenticate and send alerts.
+You can also customize your PagerDuty handler with configuration options like [severity mapping][16] and [event-based templating][18].
+
+Learn more about the Sensu resources you used in this guide:
+
+- [Subscriptions][13]
+- [Handlers][9]
+- [Pipelines][20]
+- Built-in [is_incident][21] and [not_silenced][22] event filters
 
 
 [1]: https://support.pagerduty.com/docs/generating-api-keys#section-events-api-keys
 [2]: ../../observe-schedule/checks/
 [3]: ../../observe-schedule/monitor-server-resources/
-[4]: ../../../operations/deploy-sensu/install-sensu/
+[4]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [5]: ../../../plugins/assets/
 [6]: ../../../operations/monitoring-as-code/#build-as-you-go
 [7]: ../../../operations/monitoring-as-code/
@@ -462,3 +463,8 @@ Learn more about the [Sensu PagerDuty integration][14] and our curated, configur
 [20]: ../pipelines/
 [21]: ../../observe-filter/filters/#built-in-filter-is_incident
 [22]: ../../observe-filter/filters/#built-in-filter-not_silenced
+[23]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[24]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[25]: ../../../operations/control-access/rbac/#default-users
+[28]: ../../observe-schedule/monitor-server-resources/#register-the-sensucheck-cpu-usage-asset
+[29]: ../../observe-schedule/monitor-server-resources/#create-a-check-to-monitor-a-server
