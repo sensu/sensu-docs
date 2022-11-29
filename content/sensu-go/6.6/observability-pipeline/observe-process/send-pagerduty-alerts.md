@@ -417,7 +417,7 @@ The response should show that `cpu_check` has an OK (0) status:
 
 The web UI Events page will also show that the `cpu_check` check is passing.
 
-## Next steps
+## What's next
 
 You now have a working set-up with a check and a pipeline that sends alerts to your PagerDuty account.
 To share and reuse the check, handler, and pipeline like code, [save them to files][6] and start building a [monitoring as code repository][7].
