@@ -120,7 +120,8 @@ Sensu Go 6.9.1 fixes a UI XSS vulnerability issue that could be caused by a mali
 
 **FIXES:**
 
-- Fixed Graphql Selectors bug that caused the entity page to show events for all entities
+- Fixed Graphql Selectors bug that caused the entity page to show events for all entities.
+- ([Commercial feature][303]) In the web UI, added labels to Catalog list view items for easier readability.
 - ([Commercial feature][303]) In the web UI, fixed the Github URL for feedback suggestions on the "Catalog" view.
 - ([Commercial feature][303]) In the web UI, reimplemented saved searches on the entity list view.
 - ([Commercial feature][303]) In the web UI, fixed logic on the "Pipeline" edit form that previously caused the UI to crash
