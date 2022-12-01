@@ -116,12 +116,13 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **December 1, 2022** &mdash; The latest release of Sensu Go, version 6.9.1, is now available for download.
 
+Sensu Go 6.9.1 fixes a UI XSS vulnerability issue that could be caused by a malicious check output and addresses a crash in the pipeline edit page. Additionally we addressed issues with the entity details page’s event list, reimplemented the saved searches on the entity list view and fixed a few erroneous URLs.
 
 **FIXES:**
 
 - Fixed Graphql Selectors bug that caused the entity page to show events for all entities
-- ([Commercial feature][303]) In the web UI, fixed the Github URL for feedback suggestions on the "Catalog" view
-- ([Commercial feature][303]) In the web UI, reimplemented saved searches on the entity list view
+- ([Commercial feature][303]) In the web UI, fixed the Github URL for feedback suggestions on the "Catalog" view.
+- ([Commercial feature][303]) In the web UI, reimplemented saved searches on the entity list view.
 - ([Commercial feature][303]) In the web UI, fixed logic on the "Pipeline" edit form that previously caused the UI to crash
 - ([Commercial feature][303]) In the web UI, fixed a XSS vulnerability in check result outputs
 - ([Commercial feature][303]) In the web UI, removed erroneous links from edit page success messages
