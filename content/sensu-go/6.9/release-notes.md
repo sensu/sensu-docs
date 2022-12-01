@@ -116,7 +116,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **December 1, 2022** &mdash; The latest release of Sensu Go, version 6.9.1, is now available for download.
 
-Sensu Go 6.9.1 fixes a UI XSS vulnerability issue that could be caused by a malicious check output and addresses a crash in the pipeline edit page. Additionally we addressed issues with the entity details page’s event list, reimplemented the saved searches on the entity list view and fixed a few erroneous URLs.
+Sensu Go 6.9.1 fixes a UI XSS vulnerability issue that could be caused by a malicious check output and addresses a crash in the pipeline edit page. Additionally we addressed issues with the entity details page's event list, reimplemented the saved searches on the entity list view and fixed a few erroneous URLs.
 
 **FIXES:**
 
