@@ -9,6 +9,7 @@ version: "6.9"
 menu: "sensu-go-6.9"
 ---
 
+- [6.9.1 release notes](#691-release-notes)
 - [6.9.0 release notes](#690-release-notes)
 - [6.8.2 release notes](#682-release-notes)
 - [6.8.1 release notes](#681-release-notes)
