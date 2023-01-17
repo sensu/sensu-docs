@@ -59,7 +59,7 @@ To configure the agent and backend for mTLS authentication:
 
 {{% notice note %}}
 **NOTE**: For detailed information about the certificates and keys required for mTLS authentication, read [Generate certificates for your Sensu installation](../../../operations/deploy-sensu/generate-certificates/).
-For information about using the certificates and keys to secure your configuration, read [Secure Sensu](../../../operations/deploy-sensu/secure-sensu/). 
+For information about using the certificates and keys to secure your configuration, read [Secure Sensu](../../../operations/deploy-sensu/secure-sensu/).
 {{% /notice %}}
 
 The agent and backend will compare the provided certificates with the trusted CA certificate either in the system trust store or specified explicitly as the `agent-auth-trusted-ca-file` in the backend configuration and `trusted-ca-file` in the agent configuration.
@@ -381,7 +381,7 @@ This effectively sounds the "all clear" for this iteration of the task.
 
 #### API specification {#events-post-specification}
 
-/events (POST)     | 
+/events (POST)     |
 -------------------|------
 description        | Accepts JSON [event data][7] and passes the event to the Sensu backend event pipeline for processing.
 example url        | http://hostname:3031/events
@@ -417,7 +417,7 @@ ok
 
 #### API specification {#healthz-get-specification}
 
-/healthz (GET) | 
+/healthz (GET) |
 ----------------|------
 description     | Returns the agent status:<br>- `ok` if the agent is active and connected to a Sensu backend.<br>- `sensu backend unavailable` if the agent cannot connect to a backend.
 example url     | http://hostname:3031/healthz
@@ -536,7 +536,7 @@ Attributes specified in socket events appear in the resulting event data passed 
 **NOTE**: The Sensu agent socket ignores any attributes that are not included in this specification.
 {{% /notice %}}
 
-name         | 
+name         |
 -------------|------
 description  | Check name.
 required     | true
@@ -545,7 +545,7 @@ example      | {{< code json >}}{
   "name": "check-mysql-status"
 }{{< /code >}}
 
-status       | 
+status       |
 -------------|------
 description  | Check execution exit status code. An exit status code of `0` (zero) indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`. Exit status codes other than `0`, `1`, and `2` indicate an `UNKNOWN` or custom status.
 required     | true
@@ -554,7 +554,7 @@ example      | {{< code json >}}{
   "status": 0
 }{{< /code >}}
 
-output       | 
+output       |
 -------------|------
 description  | Output produced by the check `command`.
 required     | true
@@ -563,7 +563,7 @@ example      | {{< code json >}}{
   "output": "CheckHttp OK: 200, 78572 bytes"
 }{{< /code >}}
 
-source       | 
+source       |
 -------------|------
 description  | Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `source` attribute.
 required     | false
@@ -573,7 +573,7 @@ example      | {{< code json >}}{
   "source": "sensu-docs-site"
 }{{< /code >}}
 
-client       | 
+client       |
 -------------|------
 description  | Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `client` attribute. {{% notice note %}}
 **NOTE**: The `client` attribute is deprecated in favor of the `source` attribute.
@@ -585,7 +585,7 @@ example      | {{< code json >}}{
   "client": "sensu-docs-site"
 }{{< /code >}}
 
-executed     | 
+executed     |
 -------------|------
 description  | Time at which the check was executed. In seconds since the Unix epoch.
 required     | false
@@ -595,7 +595,7 @@ example      | {{< code json >}}{
   "executed": 1458934742
 }{{< /code >}}
 
-duration     | 
+duration     |
 -------------|------
 description  | Amount of time it took to execute the check. In seconds.
 required     | false
@@ -604,7 +604,7 @@ example      | {{< code json >}}{
   "duration": 1.903135228
 }{{< /code >}}
 
-command      | 
+command      |
 -------------|------
 description  | Command executed to produce the event. Use the `command` attribute to add context to the event data. Sensu does not execute the command included in this attribute.
 required     | false
@@ -613,7 +613,7 @@ example      | {{< code json >}}{
   "command": "http-check --url https://sensu.io"
 }{{< /code >}}
 
-interval     | 
+interval     |
 -------------|------
 description  | Interval used to produce the event. Use the `interval` attribute to add context to the event data. Sensu does not act on the value provided in this attribute.
 required     | false
@@ -623,7 +623,7 @@ example      | {{< code json >}}{
   "interval": 60
 }{{< /code >}}
 
-handlers     | 
+handlers     |
 -------------|------
 description  | Array of Sensu handler names to use for handling the event. Each handler name in the array must be a string.
 required     | false
@@ -715,6 +715,7 @@ Flags:
       --statsd-flush-interval int           number of seconds between statsd flush (default 10)
       --statsd-metrics-host string          address used for the statsd metrics server (default "127.0.0.1")
       --statsd-metrics-port int             port used for the statsd metrics server (default 8125)
+      --strip-networks                      Network information will not be collected for the agent entity state
       --subscriptions strings               comma-delimited list of agent subscriptions. This flag can also be invoked multiple times
       --trusted-ca-file string              TLS CA certificate bundle in PEM format
       --user string                         agent user (default "agent")
@@ -1024,6 +1025,19 @@ command line example   | {{< code shell >}}
 sensu-agent start --retry-multiplier 2.0{{< /code >}}
 agent.yml config file example | {{< code shell >}}
 retry-multiplier: 2.0{{< /code >}}
+
+<a id="strip-networks"></a>
+
+| strip-networks |      |
+--------------|------
+description   | Used to disable network information collection for the agent entity
+type          | Boolean
+default       | `False`
+environment variable | `SENSU_STRIP_NETWORKS`
+command line example   | {{< code shell >}}
+sensu-agent start --strip-networks{{< /code >}}
+agent.yml config file example | {{< code shell >}}
+strip-networks: True{{< /code >}}
 
 <a id="subscriptions-option"></a>
 
@@ -1608,7 +1622,7 @@ Here's how.
 1. Create the files from which the `sensu-agent` service configured by our supported packages will read environment variables:
 
      {{< language-toggle >}}
-     
+
 {{< code shell "Debian family" >}}
 sudo touch /etc/default/sensu-agent
 {{< /code >}}
@@ -1624,7 +1638,7 @@ sudo touch /etc/sysconfig/sensu-agent
 
 C:\ProgramData\sensu\config\agent.yml
 {{< /code >}}
-     
+
      {{< /language-toggle >}}
 
 2. Make sure the environment variable is named correctly.
@@ -1639,7 +1653,7 @@ All environment variables that control Sensu agent configuration begin with `SEN
 3. Add the environment variable to the environment file.
 
      In this example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`:
-     
+
      {{< language-toggle >}}
 
 {{< code shell "Debian family" >}}
@@ -2039,7 +2053,7 @@ View sensu-agent commands:
 sensu-agent help
 {{< /code >}}
 
-List options for a specific command (in this case, `sensu-agent start`): 
+List options for a specific command (in this case, `sensu-agent start`):
 
 {{< code shell >}}
 sensu-agent start --help
