@@ -242,7 +242,7 @@ key-file: "/etc/sensu/tls/agent-key.pem"
 trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
-You can use use certificates for authentication that are distinct from other communication channels used by Sensu, like etcd or the API.
+You can use certificates for authentication that are distinct from other communication channels used by Sensu, like etcd or the API.
 However, deployments can also use the same certificates and keys for etcd peer and client communication, the HTTP API, and agent authentication without issues.
 
 ### Certificate revocation check
