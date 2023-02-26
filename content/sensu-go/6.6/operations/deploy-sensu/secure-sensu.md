@@ -231,8 +231,7 @@ To enable agent mTLS authentication:
 2. Add the following configuration options and values to the backend configuration `/etc/sensu/backend.yml`:
 {{< code yml >}}
 agent-auth-cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
-agent-auth-key-file: "/etc/sensu/tls/backend-1-key
-.example.com.pem"
+agent-auth-key-file: "/etc/sensu/tls/backend-1-key.example.com.pem"
 agent-auth-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
