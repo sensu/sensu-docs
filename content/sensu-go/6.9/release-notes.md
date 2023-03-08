@@ -123,7 +123,7 @@ Sensu Go 6.9.2 fixes a UI crash on the Service Component detail page. Additional
 **FIXES:**
 
 - ([Commercial feature][303]) In the web UI, added GraphQL validator for query node depth.
-- ([Commercial feature][303]) In the web UI, fixed crash on BSM Service Component detail page.
+- ([Commercial feature][303]) In the web UI, fixed an issue causing crashes when viewing BSM Service Component detail pages.
 
 ## 6.9.1 release notes
 
