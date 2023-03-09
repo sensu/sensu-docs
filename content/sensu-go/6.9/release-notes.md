@@ -118,11 +118,11 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **March 8, 2023** &mdash; The latest release of Sensu Go, version 6.9.2, is now available for download.
 
-Sensu Go 6.9.2 fixes a UI crash on the Service Component detail page. Additionally we added a GraphQL validator for query node depth to prevent a potential unauthencated user DDoS.
+Sensu Go 6.9.2 fixes a UI crash on the Service Component detail page. Additionally, we added a GraphQL validator for query node depth to prevent a potential unauthenticated user DDoS.
 
 **FIXES:**
 
-- ([Commercial feature][303]) In the web UI, added GraphQL validator for query node depth to prevent a potential unauthencated user DDoS.
+- ([Commercial feature][303]) In the web UI, added GraphQL validator for query node depth to prevent a potential unauthenticated user DDoS.
 - ([Commercial feature][303]) In the web UI, fixed an issue causing crashes when viewing BSM Service Component detail pages.
 
 ## 6.9.1 release notes
