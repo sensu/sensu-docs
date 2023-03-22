@@ -123,7 +123,15 @@ GRANT ALL PRIVILEGES ON DATABASE sensu_events TO sensu;
 
    PostgreSQL will return a confirmation message: `GRANT`.
 
-5. Type `\q` to exit the PostgreSQL prompt.
+5. Grant the `sensu` role all privileges to the `public` schema (`This step is mandatory for Postgres 15`):
+
+   {{< code postgresql >}}
+GRANT ALL ON SCHEMA public TO sensu;
+{{< /code >}}
+
+   PostgreSQL will return a confirmation message: `GRANT`.   
+
+6. Type `\q` to exit the PostgreSQL prompt.
 
 With this configuration complete, PostgreSQL will have a `sensu_events` database for storing Sensu events and a `sensu` user with permissions to that database.
 
