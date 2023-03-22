@@ -39,13 +39,13 @@ To properly secure etcd communication, replace the default configuration option 
 1. Replace the placeholder with the path to your certificate and key for the `etcd-cert-file` and `etcd-key-file` to secure client communication:
 {{< code yml >}}
 etcd-cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
-etcd-key-file: "/etc/sensu/tls/backend-1.example.com-key.pem"
+etcd-key-file: "/etc/sensu/tls/backend-1-key.example.com.pem"
 {{< /code >}}
 
 2. Replace the placeholder with the path to your certificate and key for the `etcd-peer-cert-file` and `etcd-peer-key-file` to secure cluster communication:
 {{< code yml >}}
 etcd-peer-cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
-etcd-peer-key-file: "/etc/sensu/tls/backend-1.example.com-key.pem"
+etcd-peer-key-file: "/etc/sensu/tls/backend-1-key.example.com.pem"
 {{< /code >}}
 
 3. Replace the placeholder with the path to your `ca.pem` certificate for the `etcd-trusted-ca-file` and `etcd-peer-trusted-ca-file` to secure communication with the etcd client server and between etcd cluster members:
@@ -93,7 +93,7 @@ Configure the following backend secure sockets layer (SSL) attributes in `/etc/s
 {{< code yml >}}
 trusted-ca-file: "/etc/sensu/tls/ca.pem"
 cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
-key-file: "/etc/sensu/tls/backend-1.example.com-key.pem"
+key-file: "/etc/sensu/tls/backend-1-key.example.com.pem"
 {{< /code >}}
 
 2. Set the `insecure-skip-tls-verify` configuration option to `false`:
@@ -231,7 +231,7 @@ To enable agent mTLS authentication:
 2. Add the following configuration options and values to the backend configuration `/etc/sensu/backend.yml`:
 {{< code yml >}}
 agent-auth-cert-file: "/etc/sensu/tls/backend-1.example.com.pem"
-agent-auth-key-file: "/etc/sensu/tls/backend-1.example.com-key.pem"
+agent-auth-key-file: "/etc/sensu/tls/backend-1-key.example.com.pem"
 agent-auth-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 

@@ -191,7 +191,7 @@ In our example with [three backends][18], the directory listing for `/etc/sensu/
 
 {{< code text >}}
 /etc/sensu/tls/
-├── backend-1.example.com-key.pem
+├── backend-1-key.example.com.pem
 ├── backend-1.example.com.pem
 ├── backend-1.example.com.csr
 ├── backend-2-key.example.com.pem
@@ -263,7 +263,7 @@ To continue the example with [three backends][18], the directory listing for `/e
 ├── agent-key.pem
 ├── agent.pem
 ├── agent.csr
-├── backend-1.example.com-key.pem
+├── backend-1-key.example.com.pem
 ├── backend-1.example.com.pem
 ├── backend-1.example.com.csr
 ├── backend-2-key.example.com.pem
