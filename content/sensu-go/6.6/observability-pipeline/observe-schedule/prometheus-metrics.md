@@ -5,11 +5,11 @@ guide_title: "Collect Prometheus metrics with Sensu"
 type: "guide"
 description: "Use the Sensu Prometheus Collector integration to collect Prometheus metrics so Sensu can route the collected metrics to a time-series database like InfluxDB."
 weight: 160
-version: "6.6"
+version: "6.9"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-6.6:
+  sensu-go-6.9:
     parent: observe-schedule
 ---
 
@@ -17,11 +17,11 @@ The Prometheus ecosystem contains a number of actively maintained exporters, suc
 These exporters expose metrics that Sensu can collect and route to one or more time-series databases.
 Sensu and Prometheus can run in parallel, complementing each other and making use of environments where Prometheus is already deployed.
 
-You can use the [sensu/sensu-prometheus-collector][19] dynamic runtime asset to create checks that collect [metrics][10] from a [Prometheus exporter][2] or the [Prometheus query API][3].
+You can use the [HTTP checks collection][19] to create checks that collect [metrics][10] from a [Prometheus exporter][2] or the [Prometheus query API][3].
 This allows Sensu to route the collected metrics to one or more time-series databases, such as InfluxDB or Graphite.
 
 At the end of this guide, Prometheus will be scraping metrics.
-The check that uses the sensu/sensu-prometheus-collector asset will query the Prometheus API as a Sensu check and send the metrics to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance.
+The check that uses the sensu/http-checks asset will query the Prometheus API as a Sensu check and send the metrics to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance.
 Finally, Grafana will query InfluxDB to display the collected metrics.
 
 ## Requirements
@@ -224,14 +224,14 @@ sensuctl asset list
 The response should list the `sensu-influxdb-handler` dynamic runtime asset:
 
 {{< code text >}}
-             Name                                                     URL                                            Hash    
+             Name                                                     URL                                            Hash
 ───────────────────────────── ──────────────────────────────────────────────────────────────────────────────────── ──────────
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_386.tar.gz           6719527  
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_amd64.tar.gz         d05650d  
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_armv7.tar.gz         38918c1  
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_arm64.tar.gz         944075f  
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_windows_amd64.tar.gz       8228cbc  
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_darwin_amd64.tar.gz        7c73e1d  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_386.tar.gz           6719527
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_amd64.tar.gz         d05650d
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_armv7.tar.gz         38918c1
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_arm64.tar.gz         944075f
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_windows_amd64.tar.gz       8228cbc
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_darwin_amd64.tar.gz        7c73e1d
 {{< /code >}}
 
 ### Add an InfluxDB handler
@@ -340,56 +340,57 @@ Now you can add the `prometheus_metrics_workflows` pipeline to a check for check
 
 ## Collect Prometheus metrics with Sensu
 
-### Add the sensu/sensu-prometheus-collector asset
+### Add the sensu/http-checks asset
 
-To add the sensu/sensu-prometheus-collector dynamic runtime asset to Sensu, run the following command:
+To add the sensu/http-checks dynamic runtime asset to Sensu, run the following command:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-prometheus-collector:1.3.2 -r sensu-prometheus-collector
+sensuctl asset add sensu/http-checks -r http-checks
 {{< /code >}}
 
 The response will confirm that the asset was added:
 
 {{< code text >}}
-fetching bonsai asset: sensu/sensu-prometheus-collector:1.3.2
-added asset: sensu/sensu-prometheus-collector:1.3.2
+no version specified, using latest: 0.8.0
+fetching bonsai asset: sensu/http-checks:0.8.0
+added asset: sensu/http-checks:0.8.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
-resource, populate the "runtime_assets" field with ["sensu-prometheus-collector"].
+resource, populate the "runtime_assets" field with ["http-checks"].
 {{< /code >}}
 
-This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-prometheus-collector`.
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `http-checks`.
 
-To confirm that the `sensu-prometheus-collector` asset is ready to use, run:
+To confirm that the `http-checks` asset is ready to use, run:
 
 {{< code shell >}}
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `sensu-prometheus-collector` dynamic runtime asset along with the previously added `sensu-influxdb-handler` asset:
+The response should list the `http-checks` dynamic runtime asset along with the previously added `sensu-influxdb-handler` asset:
 
 {{< code text >}}
-             Name                                                     URL                                            Hash    
+             Name                                                     URL                                            Hash
 ───────────────────────────── ──────────────────────────────────────────────────────────────────────────────────── ──────────
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_386.tar.gz           6719527  
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_amd64.tar.gz         d05650d  
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_armv7.tar.gz         38918c1  
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_arm64.tar.gz         944075f  
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_windows_amd64.tar.gz       8228cbc  
-  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_darwin_amd64.tar.gz        7c73e1d  
-  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_windows_amd64.tar.gz   77f47c9  
-  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_darwin_amd64.tar.gz    5e25a41  
-  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_linux_armv7.tar.gz     2ae6727  
-  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_linux_armv6.tar.gz     acad256  
-  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_linux_arm64.tar.gz     6bfdbfc  
-  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_linux_386.tar.gz       69e6d02  
-  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_linux_amd64.tar.gz     aca56fa  
+  http-checks                  //assets.bonsai.sensu.io/.../http-checks_0.8.0_linux_amd64.tar.gz                    e1f7f69
+  http-checks                  //assets.bonsai.sensu.io/.../http-checks_0.8.0_linux_386.tar.gz                      8629c1e
+  http-checks                  //assets.bonsai.sensu.io/.../http-checks_0.8.0_linux_arm64.tar.gz                    aed9d9b
+  http-checks                  //assets.bonsai.sensu.io/.../http-checks_0.8.0_linux_armv7.tar.gz                    2948ebc
+  http-checks                  //assets.bonsai.sensu.io/.../http-checks_0.8.0_darwin_amd64.tar.gz                   29889d1
+  http-checks                  //assets.bonsai.sensu.io/.../http-checks_0.8.0_windows_amd64.tar.gz                  167d08f
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_386.tar.gz           6719527
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_amd64.tar.gz         d05650d
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_armv7.tar.gz         38918c1
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_arm64.tar.gz         944075f
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_windows_amd64.tar.gz       8228cbc
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_darwin_amd64.tar.gz        7c73e1d
+
 {{< /code >}}
 
 ### Add a Sensu check that references the pipeline
 
-To add the check definition that uses the sensu/sensu-prometheus-collector dynamic runtime asset and your `prometheus_metrics_workflows` pipeline, run:
+To add the check definition that uses the sensu/http-checks dynamic runtime asset and your `prometheus_metrics_workflows` pipeline, run:
 
 {{< language-toggle >}}
 
@@ -401,7 +402,7 @@ api_version: core/v2
 metadata:
   name: prometheus_metrics
 spec:
-  command: sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up
+  command: http-get --url http://localhost:9090
   handlers: []
   interval: 10
   publish: true
@@ -414,7 +415,7 @@ spec:
   - app_tier
   timeout: 0
   runtime_assets:
-  - sensu-prometheus-collector
+  - http-checks
 EOF
 {{< /code >}}
 
@@ -427,7 +428,7 @@ cat << EOF | sensuctl create
     "name": "prometheus_metrics"
   },
   "spec": {
-    "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
+    "command": "http-get --url http://localhost:9090",
     "handlers": [],
     "interval": 10,
     "publish": true,
@@ -444,7 +445,7 @@ cat << EOF | sensuctl create
     ],
     "timeout": 0,
     "runtime_assets": [
-      "sensu-prometheus-collector"
+      "http-checks"
     ]
   }
 }
@@ -470,9 +471,9 @@ sensuctl event list
 The response should be similar to this example:
 
 {{< code text >}}
-     Entity            Check                                          Output                                   Status   Silenced             Timestamp                             UUID                  
+     Entity            Check                                          Output                                   Status   Silenced             Timestamp                             UUID
 ─────────────── ──────────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
-  sensu-centos   keepalive            Keepalive last sent from sensu-centos at 2022-01-14 15:23:00 +0000 UTC        0   false      2022-01-14 15:23:00 +0000 UTC   a9kr7kf8-21h8-459k-v6f8-ad93mf82mkfd  
+  sensu-centos   keepalive            Keepalive last sent from sensu-centos at 2022-01-14 15:23:00 +0000 UTC        0   false      2022-01-14 15:23:00 +0000 UTC   a9kr7kf8-21h8-459k-v6f8-ad93mf82mkfd
   sensu-centos   prometheus_metrics   up,instance=localhost:9090,job=prometheus value=1 1642173795                  0   false      2022-01-14 15:23:15 +0000 UTC   sd8j4ls9-34gf-fr77-456g-92384738jd72
 {{< /code >}}
 
@@ -503,7 +504,7 @@ The page should include a graph with initial metrics, similar to this example:
 {{< figure src="/images/go/prometheus_metrics/grafana_up_or_down_detail.png" alt="Example Grafana dashboard for visualizing Prometheus metrics from Sensu" link="/images/go/prometheus_metrics/grafana_up_or_down_detail.png" target="_blank" >}}
 
 You should now have a working observability pipeline with Prometheus scraping metrics.
-The sensu/sensu-prometheus-collector dynamic runtime asset runs via the `prometheus_metrics` Sensu check and collects metrics from the Prometheus API.
+The sensu/http-checks dynamic runtime asset runs via the `prometheus_metrics` Sensu check and collects metrics from the Prometheus API.
 
 The check sends metrics to the `prometheus_metrics_workflows` pipeline, the `influxdb` handler sends the metrics to InfluxDB, and you can visualize the metrics in a Grafana dashboard.
 
@@ -518,8 +519,8 @@ Learn more about the Sensu resources you created in this guide:
 
 Now that you know how to extract metrics from check output, you can use a pipeline to [send data to Sumo Logic][23].
 
-Visit Bonsai, the Sensu asset index, for more information about the [sensu/sensu-influxdb-handler][18] and [sensu/sensu-prometheus-collector][19] assets.
-With the sensu/sensu-prometheus-collector in your Sensu ecosystem, you can use Prometheus to gather metrics and use Sensu to send them to the proper final destination.
+Visit Bonsai, the Sensu asset index, for more information about the [sensu/sensu-influxdb-handler][18] and [sensu/http-checks][19] assets.
+With the sensu/http-checks in your Sensu ecosystem, you can use Prometheus to gather metrics and use Sensu to send them to the proper final destination.
 Prometheus has a [comprehensive list][7] of additional exporters to pull in metrics.
 
 Read about [sensuctl][15] and the Sensu [web UI][14] to learn how to use these features as you develop your monitoring and observability pipelines.
@@ -542,7 +543,7 @@ Read about [sensuctl][15] and the Sensu [web UI][14] to learn how to use these f
 [16]: ../subscriptions/
 [17]: #configure-a-sensu-entity
 [18]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
-[19]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
+[19]: https://bonsai.sensu.io/assets/sensu/http-checks
 [20]: ../../observe-process/pipelines/
 [21]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
 [22]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
