@@ -5,12 +5,12 @@ reference_title: "Agent"
 type: "reference"
 description: "Read this reference to learn how Sensu's agent runs as a lightweight client on infrastructure components you want to monitor and creates observability events."
 weight: 10
-version: "6.6"
+version: "6.9"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Linux", "Windows"]
 menu:
-  sensu-go-6.6:
+  sensu-go-6.9:
     parent: observe-schedule
 ---
 
@@ -59,7 +59,7 @@ To configure the agent and backend for mTLS authentication:
 
 {{% notice note %}}
 **NOTE**: For detailed information about the certificates and keys required for mTLS authentication, read [Generate certificates for your Sensu installation](../../../operations/deploy-sensu/generate-certificates/).
-For information about using the certificates and keys to secure your configuration, read [Secure Sensu](../../../operations/deploy-sensu/secure-sensu/). 
+For information about using the certificates and keys to secure your configuration, read [Secure Sensu](../../../operations/deploy-sensu/secure-sensu/).
 {{% /notice %}}
 
 The agent and backend will compare the provided certificates with the trusted CA certificate either in the system trust store or specified explicitly as the `agent-auth-trusted-ca-file` in the backend configuration and `trusted-ca-file` in the agent configuration.
@@ -131,6 +131,7 @@ For more information about clustering, read [Backend datastore configuration][35
 
 Sensu keepalives are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
 Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval`][4] configuration option.
+All Sensu agent data provided in keepalive events is stored in the agent registry and used to add context to Sensu events and detect Sensu agents in an unhealthy state.
 
 If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout`][4] configuration option, the Sensu backend creates a keepalive **critical** alert in the Sensu web UI.
 The `keepalive-critical-timeout` is set to `0` (disabled) by default to help ensure that it will not interfere with your `keepalive-warning-timeout` setting.
@@ -153,7 +154,34 @@ The agent maps [`keepalive-critical-timeout`][4] and [`keepalive-warning-timeout
 Use the [core/v2/events API](../../../api/core/events/) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
-### Handle keepalive events
+### Process keepalive events
+
+Process keepalive events with a [pipeline][66] or [handler][67].
+
+#### Keepalive pipelines
+
+Use the [`keepalive-pipelines`][64] configuration option to send keepalive events to any [pipeline][63] you have configured.
+
+To specify pipelines for the `keepalive-pipelines` option, use the [fully qualified name][65] for pipelines (`core/v2.Pipeline`) plus the pipeline name (e.g. `slack` or `store-keepalives`).
+For example:
+
+{{< language-toggle >}}
+
+{{< code shell "Command Line" >}}
+sensu-agent start --keepalive-pipelines core/v2.Pipeline.slack,core/v2.Pipeline.store-keepalives
+{{< /code >}}
+
+{{< code yml "/etc/sensu/agent.yml" >}}
+keepalive-pipelines:
+- core/v2.Pipeline.slack
+- core/v2.Pipeline.store-keepalives
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+If you do not specify a pipeline with the `keepalive-pipelines` option, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI for keepalives.
+
+#### Keepalive handlers
 
 You can use a keepalive handler to connect keepalive events to your monitoring workflows.
 Sensu looks for an [event handler][8] named `keepalive` and automatically uses it to process keepalive events.
@@ -353,7 +381,7 @@ This effectively sounds the "all clear" for this iteration of the task.
 
 #### API specification {#events-post-specification}
 
-/events (POST)     | 
+/events (POST)     |
 -------------------|------
 description        | Accepts JSON [event data][7] and passes the event to the Sensu backend event pipeline for processing.
 example url        | http://hostname:3031/events
@@ -389,7 +417,7 @@ ok
 
 #### API specification {#healthz-get-specification}
 
-/healthz (GET) | 
+/healthz (GET) |
 ----------------|------
 description     | Returns the agent status:<br>- `ok` if the agent is active and connected to a Sensu backend.<br>- `sensu backend unavailable` if the agent cannot connect to a backend.
 example url     | http://hostname:3031/healthz
@@ -508,7 +536,7 @@ Attributes specified in socket events appear in the resulting event data passed 
 **NOTE**: The Sensu agent socket ignores any attributes that are not included in this specification.
 {{% /notice %}}
 
-name         | 
+name         |
 -------------|------
 description  | Check name.
 required     | true
@@ -517,7 +545,7 @@ example      | {{< code json >}}{
   "name": "check-mysql-status"
 }{{< /code >}}
 
-status       | 
+status       |
 -------------|------
 description  | Check execution exit status code. An exit status code of `0` (zero) indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`. Exit status codes other than `0`, `1`, and `2` indicate an `UNKNOWN` or custom status.
 required     | true
@@ -526,7 +554,7 @@ example      | {{< code json >}}{
   "status": 0
 }{{< /code >}}
 
-output       | 
+output       |
 -------------|------
 description  | Output produced by the check `command`.
 required     | true
@@ -535,7 +563,7 @@ example      | {{< code json >}}{
   "output": "CheckHttp OK: 200, 78572 bytes"
 }{{< /code >}}
 
-source       | 
+source       |
 -------------|------
 description  | Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `source` attribute.
 required     | false
@@ -545,7 +573,7 @@ example      | {{< code json >}}{
   "source": "sensu-docs-site"
 }{{< /code >}}
 
-client       | 
+client       |
 -------------|------
 description  | Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `client` attribute. {{% notice note %}}
 **NOTE**: The `client` attribute is deprecated in favor of the `source` attribute.
@@ -557,7 +585,7 @@ example      | {{< code json >}}{
   "client": "sensu-docs-site"
 }{{< /code >}}
 
-executed     | 
+executed     |
 -------------|------
 description  | Time at which the check was executed. In seconds since the Unix epoch.
 required     | false
@@ -567,7 +595,7 @@ example      | {{< code json >}}{
   "executed": 1458934742
 }{{< /code >}}
 
-duration     | 
+duration     |
 -------------|------
 description  | Amount of time it took to execute the check. In seconds.
 required     | false
@@ -576,7 +604,7 @@ example      | {{< code json >}}{
   "duration": 1.903135228
 }{{< /code >}}
 
-command      | 
+command      |
 -------------|------
 description  | Command executed to produce the event. Use the `command` attribute to add context to the event data. Sensu does not execute the command included in this attribute.
 required     | false
@@ -585,7 +613,7 @@ example      | {{< code json >}}{
   "command": "http-check --url https://sensu.io"
 }{{< /code >}}
 
-interval     | 
+interval     |
 -------------|------
 description  | Interval used to produce the event. Use the `interval` attribute to add context to the event data. Sensu does not act on the value provided in this attribute.
 required     | false
@@ -595,7 +623,7 @@ example      | {{< code json >}}{
   "interval": 60
 }{{< /code >}}
 
-handlers     | 
+handlers     |
 -------------|------
 description  | Array of Sensu handler names to use for handling the event. Each handler name in the array must be a string.
 required     | false
@@ -665,10 +693,12 @@ Flags:
       --keepalive-critical-timeout uint32   number of seconds until agent is considered dead by backend to create a critical event
       --keepalive-handlers strings          comma-delimited list of keepalive handlers for this entity. This flag can also be invoked multiple times
       --keepalive-interval int              number of seconds to send between keepalive events (default 20)
+      --keepalive-pipelines strings         comma-delimited list of pipeline references for keepalive event
       --keepalive-warning-timeout uint32    number of seconds until agent is considered dead by backend to create a warning event (default 120)
       --key-file string                     key for TLS authentication
       --labels stringToString               entity labels map (default [])
       --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "info")
+      --max-session-length                  maximum amount of time after which the agent will reconnect to one of the configured backends (no maximum by default)
       --name string                         agent name (defaults to hostname) (default "my_hostname")
       --namespace string                    agent namespace (default "default")
       --password string                     agent password (default "P@ssw0rd!")
@@ -928,6 +958,19 @@ sensu-agent start --log-level debug{{< /code >}}
 agent.yml config file example | {{< code shell >}}
 log-level: debug{{< /code >}}
 
+<a id="max-session-length-attribute"></a>
+
+| max-session-length |      |
+--------------|------
+description   | Maximum duration for any one agent connection. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`). Use max-session-length to prevent agent connection distribution from becoming skewed over time.<br><br>The max-session-length algorithm includes random jitter so that agents will not disconnect and reconnect all at once. Based on the random jitter calculation, at some time before a connection reaches the specified maximum duration, Sensu will force the agent to disconnect and reconnect to an available configured backend.
+type          | String
+default       | Defaults to no maximum.
+environment variable | `SENSU_MAX_SESSION_LENGTH`
+command line example   | {{< code shell >}}
+sensu-agent start --max-session-length 15m{{< /code >}}
+agent.yml config file example | {{< code shell >}}
+max-session-length: 15m{{< /code >}}
+
 <a id="name-attribute"></a>
 
 | name        |      |
@@ -1136,6 +1179,22 @@ command line example   | {{< code shell >}}
 sensu-agent start --keepalive-interval 30{{< /code >}}
 agent.yml config file example | {{< code shell >}}
 keepalive-interval: 30{{< /code >}}
+
+<a id="keepalive-pipelines-flag"></a>
+
+| keepalive-pipelines |      |
+--------------------|------
+description         | [Pipelines][63] to use for processing keepalive events, specified in a comma-delimited list. If keepalive pipelines are not specified, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.<br><br>To specify pipelines for the `keepalive-pipelines` configuration option, use the [fully qualified name][65] for pipeline resources (`core/v2.Pipeline`) plus the pipeline name.
+type                | List
+default             | `keepalive`
+environment variable   | `SENSU_KEEPALIVE_PIPELINES`
+command line example   | {{< code shell >}}
+sensu-agent start --keepalive-pipelines core/v2.Pipeline.slack,core/v2.Pipeline.store-keepalives{{< /code >}}
+agent.yml config file example | {{< code shell >}}
+keepalive-pipelines:
+- core/v2.Pipeline.slack
+- core/v2.Pipeline.store-keepalives
+{{< /code >}}
 
 <a id="keepalive-warning-timeout-option"></a>
 
@@ -1549,7 +1608,7 @@ Here's how.
 1. Create the files from which the `sensu-agent` service configured by our supported packages will read environment variables:
 
      {{< language-toggle >}}
-     
+
 {{< code shell "Debian family" >}}
 sudo touch /etc/default/sensu-agent
 {{< /code >}}
@@ -1558,14 +1617,6 @@ sudo touch /etc/default/sensu-agent
 sudo touch /etc/sysconfig/sensu-agent
 {{< /code >}}
 
-{{< code shell "Windows" >}}
-# By default, the agent loads configuration from %ALLUSERSPROFILE%\sensu\config\agent.yml.
-# If you did not change the location for the configuration file during installation,
-# the sensu-agent configuration file path is:
-
-C:\ProgramData\sensu\config\agent.yml
-{{< /code >}}
-     
      {{< /language-toggle >}}
 
 2. Make sure the environment variable is named correctly.
@@ -1580,7 +1631,7 @@ All environment variables that control Sensu agent configuration begin with `SEN
 3. Add the environment variable to the environment file.
 
      In this example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`:
-     
+
      {{< language-toggle >}}
 
 {{< code shell "Debian family" >}}
@@ -1589,13 +1640,6 @@ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
 
 {{< code shell "RHEL family" >}}
 echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
-{{< /code >}}
-
-{{< code shell "Windows" >}}
-# Save the following environment variable in the configuration file
-# at C:\ProgramData\sensu\config\agent.yml:
-
-SENSU_API_HOST="0.0.0.0"
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1612,16 +1656,34 @@ sudo systemctl restart sensu-agent
 sudo systemctl restart sensu-agent
 {{< /code >}}
 
-{{< code shell "Windows" >}}
-sc.exe start SensuAgent
-{{< /code >}}
-
      {{< /language-toggle >}}
 
 {{% notice note %}}
 **NOTE**: Sensu includes an environment variable for each agent configuration option.
 They are listed in the [configuration description tables](#general-configuration).
 {{% /notice %}}
+
+Environment variables on the Windows agent are located in the Windows Registry. Here's how to add environment variables to the agent.
+
+1. Open up the `Run` dialog:
+
+{{< code shell >}}
+windows + r
+{{< /code >}}
+
+2. Open the registry editor by typing the following in the `Run` dialog:
+
+{{< code shell >}}
+regedit
+{{< /code >}}
+
+3. Navigate to the following registry path: `Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment`
+
+4. Click Edit --> New --> String Value
+
+5. Edit the new string entry and change the "Value name" to be `SENSU_API_HOST` and the "Value data" to be `0.0.0.0`
+
+6. Log out of any sessions on your Windows device, or optionally reboot to have the environment variable loaded.
 
 ### Format for label and annotation environment variables
 
@@ -1855,21 +1917,34 @@ sc.exe stop SensuAgent
 
 ### Restart the service
 
-Restart the agent using a service manager:
+You must restart the agent to implement any configuration updates.
 
-{{< language-toggle >}}
+{{< platformBlock "Linux" >}}
 
-{{< code shell "Linux" >}}
+**Linux**
+
+Restart the agent with a service manager:
+
+{{< code shell >}}
 sudo systemctl restart sensu-agent
 {{< /code >}}
 
-{{< code shell "Windows" >}}
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+Restart the agent with a service manager:
+
+{{< code shell >}}
 sc.exe start SensuAgent
 {{< /code >}}
 
-{{< /language-toggle >}}
+On Windows platforms, the Sensu Agent service will automatically restart after failures.
+You'll still need to use a service manager restart Windows agents to implement configuration updates.
 
-You must restart the agent to implement any configuration updates.
+{{< platformBlockClose >}}
 
 ### Enable on boot
 
@@ -1967,7 +2042,7 @@ View sensu-agent commands:
 sensu-agent help
 {{< /code >}}
 
-List options for a specific command (in this case, `sensu-agent start`): 
+List options for a specific command (in this case, `sensu-agent start`):
 
 {{< code shell >}}
 sensu-agent start --help
@@ -2009,7 +2084,7 @@ sensu-agent start --help
 [34]: #backend-heartbeat-interval
 [35]: ../backend/#datastore-and-cluster-configuration
 [36]: ../../../operations/deploy-sensu/cluster-sensu/
-[37]: ../backend/#general-configuration
+[37]: ../backend/#deregistration-handler-attribute
 [38]: #name
 [39]: ../../../operations/control-access/rbac/#agent-user
 [40]: ../../observe-process/send-slack-alerts/
@@ -2034,6 +2109,12 @@ sensu-agent start --help
 [60]: #log-level
 [61]: #retry-min
 [62]: #retry-multiplier
+[63]: ../../observe-process/pipelines/
+[64]: #keepalive-pipelines-flag
+[65]: ../../../sensuctl/create-manage-resources/#supported-resource-types
+[66]: #keepalive-pipelines
+[67]: #keepalive-handlers
 [68]: #create-configuration-overrides
 [69]: #agent-configuration-file
 [70]: #agent-configuration-methods
+[71]: https://en.wikipedia.org/wiki/Configuration_management_database
