@@ -5,12 +5,12 @@ reference_title: "Agent"
 type: "reference"
 description: "Read this reference to learn how Sensu's agent runs as a lightweight client on infrastructure components you want to monitor and creates observability events."
 weight: 10
-version: "6.9"
+version: "6.6"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Linux", "Windows"]
 menu:
-  sensu-go-6.9:
+  sensu-go-6.6:
     parent: observe-schedule
 ---
 
