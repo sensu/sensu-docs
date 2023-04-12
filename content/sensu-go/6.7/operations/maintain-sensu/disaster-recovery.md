@@ -134,7 +134,7 @@ chown -R /var/lib/sensu/sensu-backend/new_sensu
 {{< code shell "Single backend startup" >}}
 sensu-backend start \
 --etcd-initial-cluster sensu-backend-01=http://sensu-backend-01:2380 \
---etcd-initial-cluster-token sensu-backend-01 \
+--etcd-initial-cluster-token sensu-backend \
 --etcd-initial-advertise-peer-urls http://localhost:2380 \
 --etcd-advertise-client-urls http://localhost:2379
 --state-dir /var/lib/sensu/sensu-backend/new_sensu
@@ -143,21 +143,21 @@ sensu-backend start \
 {{< code shell "Clustered backend startup" >}}
 sensu-backend start \
 --etcd-initial-cluster sensu-backend-01=http://sensu-backend-01:2380,sensu-backend-02=http://sensu-backend-02:2380,sensu-backend-03=http://sensu-backend-03:2380 \
---etcd-initial-cluster-token sensu-backend-01 \
+--etcd-initial-cluster-token sensu-backend \
 --etcd-initial-advertise-peer-urls http://sensu-backend-01:2380 \
 --etcd-advertise-client-urls http://sensu-backend-01:2379
 --state-dir /var/lib/sensu/sensu-backend/new_sensu
 
 sensu-backend start \
 --etcd-initial-cluster sensu-backend-01=http://sensu-backend-01:2380,sensu-backend-02=http://sensu-backend-02:2380,sensu-backend-03=http://sensu-backend-03:2380 \
---etcd-initial-cluster-token sensu-backend-02 \
+--etcd-initial-cluster-token sensu-backend \
 --etcd-initial-advertise-peer-urls http://sensu-backend-02:2380 \
 --etcd-advertise-client-urls http://sensu-backend-02:2379
 --state-dir /var/lib/sensu/sensu-backend/new_sensu
 
 sensu-backend start \
 --etcd-initial-cluster sensu-backend-01=http://sensu-backend-01:2380,sensu-backend-02=http://sensu-backend-02:2380,sensu-backend-03=http://sensu-backend-03:2380 \
---etcd-initial-cluster-token sensu-backend-03 \
+--etcd-initial-cluster-token sensu-backend \
 --etcd-initial-advertise-peer-urls http://sensu-backend-03:2380 \
 --etcd-advertise-client-urls http://sensu-backend-03:2379
 --state-dir /var/lib/sensu/sensu-backend/new_sensu
@@ -183,7 +183,7 @@ systemctl status sensu-backend
 ETCDCTL_API=3 etcdctl snapshot restore sensu_etcd_snapshot.db \
 --name sensu-backend-01 \
 --initial-cluster sensu-backend-01=http://sensu-backend-01:2380 \
---initial-cluster-token sensu-backend-01 \
+--initial-cluster-token sensu-backend \
 --initial-advertise-peer-urls http://sensu-backend-01:2380 \
 --data-dir /var/lib/sensu/sensu-backend/etcd/data \
 --wal-dir /var/lib/sensu/sensu-backend/etcd/wal
@@ -193,7 +193,7 @@ ETCDCTL_API=3 etcdctl snapshot restore sensu_etcd_snapshot.db \
 ETCDCTL_API=3 etcdctl snapshot restore sensu_etcd_snapshot.db \
 --name sensu-backend-01 \
 --initial-cluster sensu-backend-01=http://sensu-backend-01:2380,sensu-backend-02=http://sensu-backend-02:2380,sensu-backend-03=http://sensu-backend-03:2380 \
---initial-cluster-token sensu-backend-01 \
+--initial-cluster-token sensu-backend \
 --initial-advertise-peer-urls http://sensu-backend-01:2380 \
 --data-dir /var/lib/sensu/sensu-backend/etcd/data \
 --wal-dir /var/lib/sensu/sensu-backend/etcd/wal
@@ -201,7 +201,7 @@ ETCDCTL_API=3 etcdctl snapshot restore sensu_etcd_snapshot.db \
 ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 --name sensu-backend-02 \
 --initial-cluster sensu-backend-01=http://sensu-backend-01:2380,sensu-backend-02=http://sensu-backend-02:2380,sensu-backend-03=http://sensu-backend-03:2380 \
---initial-cluster-token sensu-backend-02 \
+--initial-cluster-token sensu-backend \
 --initial-advertise-peer-urls http://sensu-backend-02:2380 \
 --data-dir /var/lib/sensu/sensu-backend/etcd/data \
 --wal-dir /var/lib/sensu/sensu-backend/etcd/wal
@@ -209,7 +209,7 @@ ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 --name sensu-backend-03 \
 --initial-cluster sensu-backend-01=http://sensu-backend-01:2380,sensu-backend-02=http://sensu-backend-02:2380,sensu-backend-03=http://sensu-backend-03:2380 \
---initial-cluster-token sensu-backend-03 \
+--initial-cluster-token sensu-backend \
 --initial-advertise-peer-urls http://sensu-backend-03:2380 \
 --data-dir /var/lib/sensu/sensu-backend/etcd/data \
 --wal-dir /var/lib/sensu/sensu-backend/etcd/wal
@@ -241,7 +241,7 @@ mkdir -p /var/lib/etcd/new_sensu/wal
 {{< /code >}}
 
 3. Start up etcd using the data and wal directories you created:
-   
+
    {{< code shell >}}
 etcd \
 --listen-client-urls "https://10.0.0.1:2379" \
@@ -313,7 +313,7 @@ etcd \
 ETCDCTL_API=3 etcdctl snapshot restore sensu_etcd_snapshot.db \
 --name backend-1.example.com \
 --initial-cluster backend-1.example.com=http://10.0.01:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
---initial-cluster-token backend-1.example.com \
+--initial-cluster-token sensu-backend \
 --initial-advertise-peer-urls http://backend-1.example.com:2380 \
 --data-dir /var/lib/etcd/data \
 --wal-dir /var/lib/etcd/wal
@@ -321,7 +321,7 @@ ETCDCTL_API=3 etcdctl snapshot restore sensu_etcd_snapshot.db \
 ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 --name backend-2.example.com \
 --initial-cluster backend-1.example.com=http://10.0.01:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
---initial-cluster-token backend-2.example.com \
+--initial-cluster-token sensu-backend \
 --initial-advertise-peer-urls http://backend-2.example.com:2380 \
 --data-dir /var/lib/etcd/data \
 --wal-dir /var/lib/etcd/wal
@@ -329,7 +329,7 @@ ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
 --name backend-3.example.com \
 --initial-cluster backend-1.example.com=http://10.0.01:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380 \
---initial-cluster-token backend-3.example.com \
+--initial-cluster-token sensu-backend \
 --initial-advertise-peer-urls http://backend-3.example.com:2380 \
 --data-dir /var/lib/etcd/data \
 --wal-dir /var/lib/etcd/wal
@@ -409,7 +409,7 @@ curl -s https://10.0.0.1:2379/health
 {{< /code >}}
 
 7. Start up Sensu and point it at the new etcd cluster:
-   
+
    {{< code shell >}}
 sensu-backend start \
 --etcd-trusted-ca-file=./ca.pem \
