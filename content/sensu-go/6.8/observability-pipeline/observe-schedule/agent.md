@@ -5,12 +5,12 @@ reference_title: "Agent"
 type: "reference"
 description: "Read this reference to learn how Sensu's agent runs as a lightweight client on infrastructure components you want to monitor and creates observability events."
 weight: 10
-version: "6.8"
+version: "6.9"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Linux", "Windows"]
 menu:
-  sensu-go-6.8:
+  sensu-go-6.9:
     parent: observe-schedule
 ---
 
@@ -59,7 +59,7 @@ To configure the agent and backend for mTLS authentication:
 
 {{% notice note %}}
 **NOTE**: For detailed information about the certificates and keys required for mTLS authentication, read [Generate certificates for your Sensu installation](../../../operations/deploy-sensu/generate-certificates/).
-For information about using the certificates and keys to secure your configuration, read [Secure Sensu](../../../operations/deploy-sensu/secure-sensu/). 
+For information about using the certificates and keys to secure your configuration, read [Secure Sensu](../../../operations/deploy-sensu/secure-sensu/).
 {{% /notice %}}
 
 The agent and backend will compare the provided certificates with the trusted CA certificate either in the system trust store or specified explicitly as the `agent-auth-trusted-ca-file` in the backend configuration and `trusted-ca-file` in the agent configuration.
@@ -381,7 +381,7 @@ This effectively sounds the "all clear" for this iteration of the task.
 
 #### API specification {#events-post-specification}
 
-/events (POST)     | 
+/events (POST)     |
 -------------------|------
 description        | Accepts JSON [event data][7] and passes the event to the Sensu backend event pipeline for processing.
 example url        | http://hostname:3031/events
@@ -417,7 +417,7 @@ ok
 
 #### API specification {#healthz-get-specification}
 
-/healthz (GET) | 
+/healthz (GET) |
 ----------------|------
 description     | Returns the agent status:<br>- `ok` if the agent is active and connected to a Sensu backend.<br>- `sensu backend unavailable` if the agent cannot connect to a backend.
 example url     | http://hostname:3031/healthz
@@ -536,7 +536,7 @@ Attributes specified in socket events appear in the resulting event data passed 
 **NOTE**: The Sensu agent socket ignores any attributes that are not included in this specification.
 {{% /notice %}}
 
-name         | 
+name         |
 -------------|------
 description  | Check name.
 required     | true
@@ -545,7 +545,7 @@ example      | {{< code json >}}{
   "name": "check-mysql-status"
 }{{< /code >}}
 
-status       | 
+status       |
 -------------|------
 description  | Check execution exit status code. An exit status code of `0` (zero) indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`. Exit status codes other than `0`, `1`, and `2` indicate an `UNKNOWN` or custom status.
 required     | true
@@ -554,7 +554,7 @@ example      | {{< code json >}}{
   "status": 0
 }{{< /code >}}
 
-output       | 
+output       |
 -------------|------
 description  | Output produced by the check `command`.
 required     | true
@@ -563,7 +563,7 @@ example      | {{< code json >}}{
   "output": "CheckHttp OK: 200, 78572 bytes"
 }{{< /code >}}
 
-source       | 
+source       |
 -------------|------
 description  | Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `source` attribute.
 required     | false
@@ -573,7 +573,7 @@ example      | {{< code json >}}{
   "source": "sensu-docs-site"
 }{{< /code >}}
 
-client       | 
+client       |
 -------------|------
 description  | Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `client` attribute. {{% notice note %}}
 **NOTE**: The `client` attribute is deprecated in favor of the `source` attribute.
@@ -585,7 +585,7 @@ example      | {{< code json >}}{
   "client": "sensu-docs-site"
 }{{< /code >}}
 
-executed     | 
+executed     |
 -------------|------
 description  | Time at which the check was executed. In seconds since the Unix epoch.
 required     | false
@@ -595,7 +595,7 @@ example      | {{< code json >}}{
   "executed": 1458934742
 }{{< /code >}}
 
-duration     | 
+duration     |
 -------------|------
 description  | Amount of time it took to execute the check. In seconds.
 required     | false
@@ -604,7 +604,7 @@ example      | {{< code json >}}{
   "duration": 1.903135228
 }{{< /code >}}
 
-command      | 
+command      |
 -------------|------
 description  | Command executed to produce the event. Use the `command` attribute to add context to the event data. Sensu does not execute the command included in this attribute.
 required     | false
@@ -613,7 +613,7 @@ example      | {{< code json >}}{
   "command": "http-check --url https://sensu.io"
 }{{< /code >}}
 
-interval     | 
+interval     |
 -------------|------
 description  | Interval used to produce the event. Use the `interval` attribute to add context to the event data. Sensu does not act on the value provided in this attribute.
 required     | false
@@ -623,7 +623,7 @@ example      | {{< code json >}}{
   "interval": 60
 }{{< /code >}}
 
-handlers     | 
+handlers     |
 -------------|------
 description  | Array of Sensu handler names to use for handling the event. Each handler name in the array must be a string.
 required     | false
@@ -1608,7 +1608,7 @@ Here's how.
 1. Create the files from which the `sensu-agent` service configured by our supported packages will read environment variables:
 
      {{< language-toggle >}}
-     
+
 {{< code shell "Debian family" >}}
 sudo touch /etc/default/sensu-agent
 {{< /code >}}
@@ -1617,14 +1617,6 @@ sudo touch /etc/default/sensu-agent
 sudo touch /etc/sysconfig/sensu-agent
 {{< /code >}}
 
-{{< code shell "Windows" >}}
-# By default, the agent loads configuration from %ALLUSERSPROFILE%\sensu\config\agent.yml.
-# If you did not change the location for the configuration file during installation,
-# the sensu-agent configuration file path is:
-
-C:\ProgramData\sensu\config\agent.yml
-{{< /code >}}
-     
      {{< /language-toggle >}}
 
 2. Make sure the environment variable is named correctly.
@@ -1639,7 +1631,7 @@ All environment variables that control Sensu agent configuration begin with `SEN
 3. Add the environment variable to the environment file.
 
      In this example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`:
-     
+
      {{< language-toggle >}}
 
 {{< code shell "Debian family" >}}
@@ -1648,13 +1640,6 @@ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
 
 {{< code shell "RHEL family" >}}
 echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
-{{< /code >}}
-
-{{< code shell "Windows" >}}
-# Save the following environment variable in the configuration file
-# at C:\ProgramData\sensu\config\agent.yml:
-
-SENSU_API_HOST="0.0.0.0"
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1671,16 +1656,34 @@ sudo systemctl restart sensu-agent
 sudo systemctl restart sensu-agent
 {{< /code >}}
 
-{{< code shell "Windows" >}}
-sc.exe start SensuAgent
-{{< /code >}}
-
      {{< /language-toggle >}}
 
 {{% notice note %}}
 **NOTE**: Sensu includes an environment variable for each agent configuration option.
 They are listed in the [configuration description tables](#general-configuration).
 {{% /notice %}}
+
+Environment variables on the Windows agent are located in the Windows Registry. Here's how to add environment variables to the agent.
+
+1. Open up the `Run` dialog:
+
+{{< code shell >}}
+windows + r
+{{< /code >}}
+
+2. Open the registry editor by typing the following in the `Run` dialog:
+
+{{< code shell >}}
+regedit
+{{< /code >}}
+
+3. Navigate to the following registry path: `Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment`
+
+4. Click Edit --> New --> String Value
+
+5. Edit the new string entry and change the "Value name" to be `SENSU_API_HOST` and the "Value data" to be `0.0.0.0`
+
+6. Log out of any sessions on your Windows device, or optionally reboot to have the environment variable loaded.
 
 ### Format for label and annotation environment variables
 
@@ -1938,7 +1941,7 @@ Restart the agent with a service manager:
 sc.exe start SensuAgent
 {{< /code >}}
 
-As of Sensu Go 6.8.2, the Sensu Agent service on Windows platforms will automatically restart after failures.
+On Windows platforms, the Sensu Agent service will automatically restart after failures.
 You'll still need to use a service manager restart Windows agents to implement configuration updates.
 
 {{< platformBlockClose >}}
@@ -2039,7 +2042,7 @@ View sensu-agent commands:
 sensu-agent help
 {{< /code >}}
 
-List options for a specific command (in this case, `sensu-agent start`): 
+List options for a specific command (in this case, `sensu-agent start`):
 
 {{< code shell >}}
 sensu-agent start --help
