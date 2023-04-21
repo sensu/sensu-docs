@@ -10,7 +10,7 @@ product: "Sensu Go"
 platformContent: true
 platforms: ["Linux", "Windows"]
 menu:
-  sensu-go-6.9:
+  sensu-go-6.7:
     parent: observe-schedule
 ---
 
