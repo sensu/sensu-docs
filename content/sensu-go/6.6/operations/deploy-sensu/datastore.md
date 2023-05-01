@@ -36,6 +36,8 @@ Do not configure external etcd in Sensu via backend command line flags or the ba
 
 As your deployment grows beyond the proof-of-concept stage, review [Deployment architecture for Sensu][6] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
 
+If you need to upgrade your version of Etcd to match the version used by Sensu backends, please refer to [Etcd's documentation and upgrade procedures][etcd_upgrade].
+
 ## Scale event storage
 
 {{% notice commercial %}}
@@ -244,6 +246,10 @@ Mar 10 17:35:04 sensu-centos sensu-backend[1365]: {"component":"store-providers"
 When you disable the PostgreSQL event store, event data cuts over from PostgreSQL to etcd, which results in a loss of recent event history.
 No restarts or Sensu backend configuration changes are required to disable the PostgreSQL event store.
 
+### Upgrading PostgreSQL
+
+When upgrading PostgreSQL, we recommend following [PostgreSQL's upgrade instructions][pg_upgrade] for your particular version of PostgreSQL.
+
 ## Datastore specification
 
 ### Top-level attributes
@@ -449,7 +455,7 @@ dsn: 'postgresql://user:secret@host:port/dbname'
 
 enable_round_robin |      |
 -------------|------
-description  | If `true`, enables [round robin scheduling][5] on PostgreSQL. Any existing round robin scheduling will stop and migrate to PostgreSQL as entities check in with keepalives. Sensu will gradually delete the existing etcd scheduler state as keepalives on the etcd scheduler keys expire over time. Otherwise, `false`.<br><br>We recommend using PostgreSQL rather than etcd for round robin scheduling because etcd leases are not reliable enough to produce precise [round robin behavior][5]. 
+description  | If `true`, enables [round robin scheduling][5] on PostgreSQL. Any existing round robin scheduling will stop and migrate to PostgreSQL as entities check in with keepalives. Sensu will gradually delete the existing etcd scheduler state as keepalives on the etcd scheduler keys expire over time. Otherwise, `false`.<br><br>We recommend using PostgreSQL rather than etcd for round robin scheduling because etcd leases are not reliable enough to produce precise [round robin behavior][5].
 required     | false
 default      | false
 type         | Boolean
@@ -466,7 +472,7 @@ enable_round_robin: true
 
 max_conn_lifetime    |      |
 -------------|------
-description  | Maximum time a connection can persist before being destroyed. Specify values with a numeral and a letter indicator: `s` to indicate seconds, `m` to indicate minutes, and `h` to indicate hours. For example, `1m`, `2h`, and `2h1m3s` are valid. 
+description  | Maximum time a connection can persist before being destroyed. Specify values with a numeral and a letter indicator: `s` to indicate seconds, `m` to indicate minutes, and `h` to indicate hours. For example, `1m`, `2h`, and `2h1m3s` are valid.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
@@ -482,7 +488,7 @@ max_conn_lifetime: 5m
 
 max_idle_conns    |      |
 -------------|------
-description  | Maximum number of number of idle connections to retain. 
+description  | Maximum number of number of idle connections to retain.
 required     | false
 default      | `2`
 type         | Integer
@@ -499,7 +505,7 @@ max_idle_conns: 2
 
 pool_size    |      |
 -------------|------
-description  | Maximum number of connections to hold in the PostgreSQL connection pool. We recommend `20` for most instances. 
+description  | Maximum number of connections to hold in the PostgreSQL connection pool. We recommend `20` for most instances.
 required     | false
 default      | `0` (unlimited)
 type         | Integer
@@ -557,3 +563,5 @@ strict: true
 [22]: ../../../observability-pipeline/observe-schedule/backend/#environment-variables
 [23]: https://www.postgresql.org/docs/current/libpq.html
 [24]: #use-environment-variables-to-configure-postgresql
+[pg_upgrade]: https://www.postgresql.org/docs/14/pgupgrade.html
+[etcd_upgrade]: https://etcd.io/docs/v3.5/upgrades/upgrade_3_5/#upgrade-procedure
