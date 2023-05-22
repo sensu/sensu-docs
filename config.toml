@@ -74,6 +74,10 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     version = "6.7"
     platforms = []
 
+    [[params.products.sensu_go.versions]]
+    version = "6.6"
+    platforms = []
+
   [params.products.sensu_core]
     identifier = "sensu-core"
     name = "Sensu Core"
