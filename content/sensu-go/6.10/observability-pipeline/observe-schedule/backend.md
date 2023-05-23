@@ -376,6 +376,7 @@ General Flags:
       --key-file string                           TLS certificate key in PEM format
       --labels stringToString                     entity labels map (default [])
       --log-level string                          logging level [panic, fatal, error, warn, info, debug, trace] (default "warn")
+      --log-millisecond-timestamps                use millisecond precision timestamps in logging output (default "false")
       --metrics-refresh-interval string           Go duration value (e.g. 1h5m30s) that governs how often metrics are refreshed. (default "1m")
       --pipelined-buffer-size int                 number of events to handle that can be buffered (default 100)
       --pipelined-workers int                     number of workers spawned for handling events through the event pipeline (default 100)
@@ -607,6 +608,19 @@ command line example   | {{< code shell >}}
 sensu-backend start --log-level debug{{< /code >}}
 backend.yml config file example | {{< code shell >}}
 log-level: "debug"{{< /code >}}
+
+<a id="log-millisecond-timestamps"></a>
+
+| log-millisecond-timestamps |      |
+---------------------------|------
+description                | If `true`, use millisecond precision timestamps in logging output. Otherwise, `false`.
+type                       | Boolean
+default                    | `false`
+environment variable | `SENSU_BACKEND_LOG_MILLISECOND_TIMESTAMPS`
+command line example   | {{< code shell >}}
+sensu-backend start --log-millisecond-timestamps{{< /code >}}
+backend.yml config file example | {{< code shell >}}
+log-millisecond-timestamps: true{{< /code >}}
 
 <a id="metrics-refresh-interval"></a>
 
