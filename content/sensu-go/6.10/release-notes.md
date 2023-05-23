@@ -139,7 +139,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 - ([Commercial feature][303]) Users are now automatically logged out of the UI after a period of inactivity (12h)
 - Handler errors are now logged at "error" level instead of "info."
 - Addressed uncontrolled recursion vulnerability ([CVE-2022-37315][306]) by upgrading the graphql-go library to v0.8.1
-- A number of vulnerabilities in the Hashicorp Vault library were addressed by upgrading the Vault library to v1.2.1-0.20220920125708-57ac8f323643
+- Addressed a number of vulnerabilities in the Hashicorp Vault library by upgrading the vault library to v1.2.1-0.20220920125708-57ac8f323643
 
 ## 6.9.2 release notes
 
