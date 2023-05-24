@@ -372,6 +372,41 @@ BSM service components and rule templates are Sensu resources with complete defi
 
 You can also use [sensuctl][5] to create and manage service components and rule templates via the APIs from the command line.
 
+## Disable BSM
+
+Some users may want to disable BSM in the UI, this can be accomplished via [GlobalConfig][7]:
+
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: GlobalConfig
+api_version: web/v1
+metadata:
+  name: default
+spec:
+  disable_bsm: true
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+   "type": "GlobalConfig",
+   "api_version": "web/v1",
+   "metadata": {
+      "name": "default"
+   },
+   "spec": {
+      "disable_bsm": true
+   }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 [1]: ../service-components/
 [2]: ../rule-templates/
@@ -379,3 +414,4 @@ You can also use [sensuctl][5] to create and manage service components and rule 
 [4]: #service-component-example
 [5]: ../../../sensuctl/
 [6]: ../rule-templates/#built-in-rule-template-aggregate
+[7]: ../../../catalog/build-private-catalog/#create-a-ui-globalconfig-definition
