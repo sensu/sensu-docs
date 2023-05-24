@@ -715,6 +715,7 @@ Flags:
       --statsd-flush-interval int           number of seconds between statsd flush (default 10)
       --statsd-metrics-host string          address used for the statsd metrics server (default "127.0.0.1")
       --statsd-metrics-port int             port used for the statsd metrics server (default 8125)
+      --strip-networks                      do not include Network info in agent entity state
       --subscriptions strings               comma-delimited list of agent subscriptions. This flag can also be invoked multiple times
       --trusted-ca-file string              TLS CA certificate bundle in PEM format
       --user string                         agent user (default "agent")
@@ -1024,6 +1025,20 @@ command line example   | {{< code shell >}}
 sensu-agent start --retry-multiplier 2.0{{< /code >}}
 agent.yml config file example | {{< code shell >}}
 retry-multiplier: 2.0{{< /code >}}
+
+<a id="strip-networks"></a>
+
+| subscriptions |      |
+----------------|------
+description     | When set to `true`, prevents network information from being collected by the Sensu agent.
+type            | Boolean
+environment variable | `SENSU_STRIP_NETWORKS`
+command line example   | {{< code shell >}}
+sensu-agent start --strip-networks
+{{< /code >}}
+agent.yml config file example | {{< code shell >}}
+strip-networks: true
+{{< /code >}}
 
 <a id="subscriptions-option"></a>
 
