@@ -192,7 +192,7 @@ For contributing guidelines and more information, visit the [Sensu Catalog GitHu
 
 ## Disable the catalog
 
-For users that maintain control over how integrations are deployed in your environment, you may want to disable catalog via a [UI GlobalConfig definition] [23]
+For users that maintain control over how integrations are deployed in your environment, you may want to disable catalog via a [UI GlobalConfig definition][23]
 
 
 {{< language-toggle >}}
@@ -250,4 +250,4 @@ EOF
 [20]: ../../plugins/assets/
 [21]: ../../web-ui/
 [22]: https://github.com/sensu/catalog
-[23]: ../../build-private-catalog/#create-a-ui-globalconfig-definition
+[23]: ../build-private-catalog/#create-a-ui-globalconfig-definition
