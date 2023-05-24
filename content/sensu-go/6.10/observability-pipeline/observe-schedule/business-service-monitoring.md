@@ -374,7 +374,7 @@ You can also use [sensuctl][5] to create and manage service components and rule 
 
 ## Disable BSM
 
-Some users may want to disable BSM in the UI, this can be accomplished via [GlobalConfig] [7]:
+Some users may want to disable BSM in the UI, this can be accomplished via [GlobalConfig][7]:
 
 
 {{< language-toggle >}}
