@@ -117,7 +117,11 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.10.0 release notes
 
-**May 2023** &mdash; The latest release of Sensu Go, version 6., is now available for download.
+**May 2023** &mdash; The latest release of Sensu Go, version 6., is now available for download. Sensu Go 6.10.0 adds a number of features to let the user specify millisecond timestamps in log files, sort silences by expiration time and let them truncate the system network properties from events, which can greatly reduce the event size. It also addresses vulnerability issues related to sessions and refresh tokens, GraphQL and Hashicorp Vault. Finally it also addresses Web UI inconveniences with among other things pagination, entity list view and the dark color scheme.
+
+{{% notice note %}}
+**NOTE**: Custom commands making use of $SENSU_ACCESS_TOKEN and $SENSU_REFRESH_TOKEN may be impacted by the changes to sessions and refresh tokens. We recommend setting up an API key and using $SENSU_API_KEY in light of these changes.
+{{% /notice %}}
 
 **IMPROVEMENTS**
 
