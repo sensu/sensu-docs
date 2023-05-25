@@ -190,6 +190,44 @@ These definitions are universal [monitoring as code][15] templates: they do not 
 The Sensu Catalog is an open marketplace, and you can contribute by sharing Sensu configurations.
 For contributing guidelines and more information, visit the [Sensu Catalog GitHub repository][22].
 
+## Disable the catalog
+
+For users that maintain control over how integrations are deployed in your environment, you may want to disable catalog via a [UI GlobalConfig definition][23]
+
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+---
+type: GlobalConfig
+api_version: web/v1
+metadata:
+  name: default
+spec:
+  catalog:
+    disabled: true
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+   "type": "GlobalConfig",
+   "api_version": "web/v1",
+   "metadata": {
+      "name": "default"
+   },
+   "spec": {
+      "catalog": {
+         "disabled": true
+      }
+   }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 
 [1]: ../../plugins/plugins/
 [2]: ../../observability-pipeline/observe-schedule/checks/
@@ -212,3 +250,4 @@ For contributing guidelines and more information, visit the [Sensu Catalog GitHu
 [20]: ../../plugins/assets/
 [21]: ../../web-ui/
 [22]: https://github.com/sensu/catalog
+[23]: ../build-private-catalog/#create-a-ui-globalconfig-definition
