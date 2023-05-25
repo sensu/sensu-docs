@@ -9,6 +9,7 @@ version: "6.10"
 menu: "sensu-go-6.10"
 ---
 
+- [6.10.0 release notes](#6100-release-notes)
 - [6.9.2 release notes](#692-release-notes)
 - [6.9.1 release notes](#691-release-notes)
 - [6.9.0 release notes](#690-release-notes)
@@ -113,6 +114,36 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.10.0 release notes
+
+**May 2023** &mdash; The latest release of Sensu Go, version 6., is now available for download. Sensu Go 6.10.0 adds a number of features to let the user specify millisecond timestamps in log files, sort silences by expiration time and let them truncate the system network properties from events, which can greatly reduce the event size. It also addresses vulnerability issues related to sessions and refresh tokens, GraphQL and Hashicorp Vault. Finally it also addresses Web UI inconveniences with among other things pagination, entity list view and the dark color scheme.
+
+{{% notice note %}}
+**NOTE**: Custom commands making use of $SENSU_ACCESS_TOKEN and $SENSU_REFRESH_TOKEN may be impacted by the changes to sessions and refresh tokens. We recommend setting up an API key and using $SENSU_API_KEY in light of these changes.
+{{% /notice %}}
+
+**IMPROVEMENTS**
+
+- ([Commercial feature][303]) In the web UI, a label was added to the Catalog page to make viewing integrations at a glance easier
+- ([Commercial feature][303]) For the web UI configuration, added disable BSM (`disable_bsm: true`) flag to hide BSM from Web UI
+- ([Commercial feature][303]) In the web UI, added the ability to sort silences by expiration time
+- Added the flag `strip-networks` to the Sensu  agent to avoid collecting `system.networks` information
+- Added the `log-millisecond-timestamps` backend configuration flag to allow for greater logging precision
+- Added a session store to the backend to detect and prevent refresh token reuse
+
+**FIXES**
+- ([Commercial feature][303]) In the web UI, solved a crash when an invalid sort order was specified in the web config
+- ([Commercial feature][303]) In the web UI, page pagination sizes are added back
+- ([Commercial feature][303]) Fix search parameters persisting when paginating on list views
+- ([Commercial feature][303]) In the web UI, handler sets now show configured handlers on handler list page
+- ([Commercial feature][303]) In the web UI, fix incorrect URLs displaying in resource labels
+- ([Commercial feature][303]) In the web UI, fixed bug on Entity List view where too many subscriptions would cause overflow
+- ([Commercial feature][303]) In the web UI, fixed poor color contrast in check result output
+- ([Commercial feature][303]) Users are now automatically logged out of the UI after a period of inactivity (12h)
+- Handler errors are now logged at "error" level instead of "info."
+- Addressed uncontrolled recursion vulnerability ([CVE-2022-37315][306]) by upgrading the graphql-go library to v0.8.1
+- Addressed a number of vulnerabilities in the Hashicorp Vault library by upgrading the vault library to v1.2.1-0.20220920125708-57ac8f323643
 
 ## 6.9.2 release notes
 
@@ -2608,3 +2639,4 @@ To get started with Sensu Go:
 [303]: /sensu-go/6.9/commercial/
 [304]: /sensu-go/6.9/operations/manage-secrets/secrets-providers/#cyberarkprovider-spec-attributes
 [305]: /sensu-go/6.9/operations/manage-secrets/secrets-management/#use-cyberark-conjur-for-secrets-management
+[306]: https://devhub.checkmarx.com/cve-details/CVE-2022-37315/?utm_source=jetbrains&utm_medium=referral&utm_campaign=goland&utm_term=go
