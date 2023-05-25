@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>{{ .Title }}{{ if not .IsHome }} - {{ .Site.Title }}{{ end }}</title>
     {{ hugo.Generator }}
-	  
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -34,7 +34,7 @@
       <meta name="docsearch:version" content="{{ .Page.Params.version }}" />
     {{ end}}
 
-    {{ if not (eq .Params.version "6.9") }}
+    {{ if not (eq .Params.version "6.10") }}
     <meta name="robots" content="noindex">
     {{ end }}
 
@@ -83,7 +83,7 @@
       var jQueryScript = document.createElement('script');
       jQueryScript.src = encodeURI('/js/vendor/jquery-3.4.1.min.js')
       var head = document.getElementsByTagName('head')[0];
-      
+
       if ((css(span, 'font-family')) !== 'FontAwesome') {
         head.appendChild(faScript);
       }
