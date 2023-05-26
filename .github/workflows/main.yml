@@ -14,12 +14,12 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install yamllint
-        run: pip install yamllint
+      - name: Install PyYAML
+        run: pip install PyYAML
 
       - name: Lint YAML files
         working-directory: ./tests
-        run: yamllint -c yamllint_sensudocs.yml ../content  
+        run: python yaml-validator.py --directory ../content --extension .md
   validate-json:
     runs-on: ubuntu-latest
     steps:
@@ -33,4 +33,3 @@ jobs:
       - name: Lint JSON files
         working-directory: ./tests
         run: python json-validator.py --directory ../content --extension .md
-        
