@@ -1,5 +1,5 @@
 ---
-name: Linting json and yaml
+name: Build the site
 
 on: push
 
@@ -15,6 +15,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+
+---
+name: Lint YAML code blocks
+
+on: push
+
+jobs:
 
   validate-yaml:
     runs-on: ubuntu-latest
@@ -32,6 +39,13 @@ jobs:
       - name: Lint YAML files
         working-directory: ./tests
         run: python yaml-validator.py --directory ../content --extension .md
+
+---
+name: Lint JSON code blocks
+
+on: push
+
+jobs:
 
   validate-json:
     runs-on: ubuntu-latest
