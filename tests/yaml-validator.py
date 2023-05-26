@@ -23,9 +23,10 @@ for root, dirs, files in os.walk(args.directory):
 
             for yaml_block in x:
                 try:
-                    yaml.safe_load(yaml_block)
+                    yaml_docs = yaml.safe_load_all(yaml_block)
+                    for doc in yaml_docs:
+                        pass  # We just need to consume the generator to validate all documents
                 except yaml.YAMLError as exception:
-                    print("In file " + validation_file.name + " the following YAML is invalid\n" + \
-                    str(exception) + "\n" + yaml_block + "\n")
+                    print(f"In file {validation_file.name} the following YAML is invalid\n{str(exception)}\n{yaml_block}\n")
                     exit_status = 2
 sys.exit(exit_status)
