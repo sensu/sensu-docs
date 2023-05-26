@@ -1,5 +1,5 @@
 ---
-name: Build site using Node 18 & 20
+name: Build site using Node
 
 on: push
 
