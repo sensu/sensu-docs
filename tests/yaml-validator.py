@@ -7,11 +7,8 @@ import sys
 
 
 def preprocess(yaml_block):
-    # replace Go template substitutions with a dummy value
-    yaml_block = re.sub(r"{{.*?}}", "dummy_value", yaml_block)
-    # strip leading whitespaces from each line
-    yaml_block = "\n".join(line.lstrip() for line in yaml_block.splitlines())
-    return yaml_block
+    return re.sub(r"{{.*?}}", "dummy_value", yaml_block)
+
 
 parser = argparse.ArgumentParser(description='Find text between markdown YAML tags')
 parser.add_argument('--extension', help='Extension of files to validate')
@@ -25,8 +22,8 @@ for root, dirs, files in os.walk(args.directory):
         with open(os.path.join(root, filename), "r") as validation_file:
 
             validation_data = validation_file.read()
-            x = re.findall(r'{{< code yml >}}(.*?){{< /code >}}',
-                           validation_data, re.DOTALL)
+            x = re.findall(r'{{< code yaml >}}\s*\n(.*?)\n\s*{{< /code >}}',
+               validation_data, re.DOTALL)
 
             for yaml_block in x:
                 yaml_block = preprocess(yaml_block)  # preprocess the YAML block
