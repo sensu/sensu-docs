@@ -7,8 +7,11 @@ import sys
 
 
 def preprocess(yaml_block):
-    return re.sub(r"{{.*?}}", "dummy_value", yaml_block)
-
+    # replace Go template substitutions with a dummy value
+    yaml_block = re.sub(r"{{.*?}}", "dummy_value", yaml_block)
+    # strip leading whitespaces from each line
+    yaml_block = "\n".join(line.lstrip() for line in yaml_block.splitlines())
+    return yaml_block
 
 parser = argparse.ArgumentParser(description='Find text between markdown YAML tags')
 parser.add_argument('--extension', help='Extension of files to validate')
