@@ -1,0 +1,18 @@
+name: Lint JSON code blocks
+
+on: push
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 2.7
+
+      - name: Lint JSON files
+        working-directory: ./tests
+        run: python json-validator.py --directory ../content --extension .md
