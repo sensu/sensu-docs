@@ -6,6 +6,10 @@ import re
 import sys
 
 
+def preprocess(yaml_block):
+    return re.sub(r"{{.*?}}", "dummy_value", yaml_block)
+
+
 parser = argparse.ArgumentParser(description='Find text between markdown YAML tags')
 parser.add_argument('--extension', help='Extension of files to validate')
 parser.add_argument('--directory', help='Path of directory to recursively go through')
@@ -22,6 +26,7 @@ for root, dirs, files in os.walk(args.directory):
                            validation_data, re.DOTALL)
 
             for yaml_block in x:
+                yaml_block = preprocess(yaml_block)  # preprocess the YAML block
                 try:
                     yaml_docs = yaml.safe_load_all(yaml_block)
                     for doc in yaml_docs:
