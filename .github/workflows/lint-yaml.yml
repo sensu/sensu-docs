@@ -1,0 +1,22 @@
+
+name: Lint YAML code blocks
+
+on: push
+
+jobs:
+  validate-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install PyYAML
+        run: pip install PyYAML
+
+      - name: Lint YAML files
+        working-directory: ./tests
+        run: python yaml-validator.py --directory ../content --extension .md
