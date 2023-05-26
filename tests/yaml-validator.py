@@ -25,6 +25,7 @@ for root, dirs, files in os.walk(args.directory):
                 try:
                     yaml.safe_load(yaml_block)
                 except yaml.YAMLError as exception:
-                    print(f"In file {validation_file.name} the following YAML is invalid\n{str(exception)}\n{yaml_block}\n")
+                    print("In file " + validation_file.name + " the following YAML is invalid\n" + \
+                    str(exception) + "\n" + yaml_block + "\n")
                     exit_status = 2
 sys.exit(exit_status)
