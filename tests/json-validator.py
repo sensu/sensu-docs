@@ -25,7 +25,7 @@ for root, dirs, files in os.walk(args.directory):
                 try:
                     json.loads(json_block)
                 except ValueError as exception:
-                    print "In file " + validation_file.name + " the following JSON is invalid\n" + \
-                    str(exception) + "\n" + json_block + "\n"
+                    print("In file " + validation_file.name + " the following JSON is invalid\n" + \
+                    str(exception) + "\n" + json_block + "\n")
                     exit_status = 2
 sys.exit(exit_status)
