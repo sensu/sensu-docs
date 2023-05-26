@@ -25,7 +25,7 @@ For example, the `check_cpu` check includes the `system` subscription.
 All three entities include the `system` subscription, so all three entities will execute the `check_cpu` check.
 However, only the `server01` and `database01` entities will execute `check_sshd_process` &mdash; the `webserver01` entity does not include the `linux` subscription required to execute `check_sshd_process`.
 
-{{< figure src="/images/subscriptions_line.png" alt="Example of Sensu check execution based on subscriptions" link="/images/subscriptions_line.png" target="_blank" >}}
+{{< figure src="/images/go/subscriptions_reference/subscriptions_diagram.png" alt="Diagram showing example of Sensu check execution based on subscriptions" link="/images/go/subscriptions_reference/subscriptions_diagram.png" target="_blank" >}}
 
 <!--Source at https://lucid.app/lucidchart/invitations/accept/inv_e898337e-e3f2-4194-8a33-fc8a6a474234-->
 
@@ -157,7 +157,7 @@ For example, suppose you want to set up monitoring for these servers:
 
 This diagram shows the subscriptions to list for each of the 12 servers (the entities) and for each check to achieve the example monitoring configuration:
 
-{{< figure src="/images/subscriptions_multiple_servers.png" alt="Example of Sensu check execution for multiple server entities based on subscriptions" link="/images/subscriptions_multiple_servers.png" target="_blank" >}}
+{{< figure src="/images/go/subscriptions_reference/subscriptions_multiple_servers.png" alt="Diagram showing an example of Sensu check execution for multiple server entities based on subscriptions" link="/images/go/subscriptions_reference/subscriptions_multiple_servers.png" target="_blank" >}}
 
 <!--Source at https://lucid.app/lucidchart/invitations/accept/inv_b8325487-1e67-4fba-bc20-45eb088c0d7c-->
 

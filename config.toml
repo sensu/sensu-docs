@@ -25,7 +25,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
 
 [params]
   # General information
-  description = "Sensu is the industry-leading solution for multi-cloud monitoring at scale. Use Sensu's observability pipeline to automate monitoring workflows and gain deep visibility into multi-cloud environments. Built by operators, for operators, open source is at the heart of the product and company."
+  description = "Sensu is the industry-leading solution for multi-cloud monitoring at scale. Sensu's observability pipeline automates monitoring and offers deep visibility for multi-cloud environments. Built by operators, for operators, open source is at the heart of the product."
   copyright = ""
 
   # Repository
@@ -56,22 +56,26 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     description = "The next-generation monitoring event pipeline"
     notice = "Replaces Sensu Core and Enterprise"
     weight = 1
-    latest = "6.6"
+    latest = "6.10"
+
+    [[params.products.sensu_go.versions]]
+    version = "6.10"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
+    version = "6.9"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
+    version = "6.8"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
+    version = "6.7"
+    platforms = []
 
     [[params.products.sensu_go.versions]]
     version = "6.6"
-    platforms = []
-
-    [[params.products.sensu_go.versions]]
-    version = "6.5"
-    platforms = []
-
-    [[params.products.sensu_go.versions]]
-    version = "6.4"
-    platforms = []
-
-    [[params.products.sensu_go.versions]]
-    version = "6.3"
     platforms = []
 
   [params.products.sensu_core]

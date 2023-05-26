@@ -17,7 +17,7 @@ The Sensu backend includes the **Sensu web UI**: a unified view of your events, 
 For more information, see [Get started with commercial features](../commercial/).
 {{% /notice %}}
 
-{{< figure src="/images/web-ui.png" alt="Sensu web UI homepage" link="/images/web-ui.png" target="_blank" >}}
+{{< figure src="/images/archived_version_images/old_web_ui.png" alt="Sensu web UI homepage" link="/images/archived_version_images/old_web_ui.png" target="_blank" >}}
 
 ## Access the web UI
 

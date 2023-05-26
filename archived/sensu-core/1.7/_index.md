@@ -1,6 +1,6 @@
 ---
 title: "Sensu Core"
-description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures."
+description: "Sensu is the open-source monitoring event pipeline built to reduce operator burden and meet the challenges of hybrid-cloud and ephemeral infrastructures."
 weight: -100
 menu: "sensu-core-1.7"
 version: "1.7"
@@ -31,7 +31,7 @@ Started in 2011, Sensu’s flexible approach solves the challenges of monitoring
 
 **Automate your monitoring workflows**: Limitless pipelines let you validate and correlate events, mutate data formats, send alerts, manage incidents, collect and store metrics, and more.
 
-<img alt="Sensu event pipeline diagram" title="Sensu lets you take monitoring events from your system and use pipelines to take the right action for your workflow." src="/images/pipeline.png">
+{{< figure src="/images/core/homepage/sensu_core_event_pipeline.png" alt="Sensu Core event pipeline diagram" link="/images/core/homepage/sensu_core_event_pipeline.png" target="_blank" >}}
 
 **Reduce alert fatigue**: Sensu gives you full control over your alerts with flexible filters, context-rich notifications, reporting, event handling, and auto-remediation.
 
@@ -43,7 +43,7 @@ Started in 2011, Sensu’s flexible approach solves the challenges of monitoring
 
 > Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [Greg Poirier, Monitorama 2016](https://vimeo.com/173610062)
 
-<img alt="Sensu system diagram" src="/images/system.png">
+{{< figure src="/images/core/homepage/monitoring_infrastructure_diagram.png" alt="Sensu Core monitoring infrastructure diagram" link="/images/core/homepage/monitoring_infrastructure_diagram.png" target="_blank" >}}
 
 Sensu is an agent-based monitoring tool that you install on your organization's infrastructure.
 The Sensu client gives you visibility into everything you care about; the Sensu server gives you flexible, automated workflows to route metrics and alerts.

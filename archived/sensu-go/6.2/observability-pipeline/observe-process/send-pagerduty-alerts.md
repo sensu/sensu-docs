@@ -318,7 +318,7 @@ The failing check's events will be listed on the Events page.
 After Sensu detects the non-OK event, the handler you set up will send the alert to PagerDuty.
 Log in to your PagerDuty account to view an event similar to this one:
 
-{{< figure src="/images/pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/pagerduty_alert_example.png" target="_blank" >}}
+{{< figure src="/images/go/send_pagerduty_alerts/pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/go/send_pagerduty_alerts/pagerduty_alert_example.png" target="_blank" >}}
 
 ## Resolve the alert in PagerDuty
 

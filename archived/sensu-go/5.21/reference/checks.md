@@ -137,7 +137,7 @@ For checks with `round_robin` set to `true`, Sensu executes the check once per i
 
 For example, for three agents configured with the `system` subscription (agents A, B, and C), a check configured with the `system` subscription and `round_robin` set to `true` results in one monitoring event per interval, with the agent creating the event following the pattern A -> B -> C -> A -> B -> C for the first six intervals.
 
-{{< figure src="/images/round-robin.png" alt="Round robin check diagram" link="/images/round-robin.png" target="_blank" >}}
+{{< figure src="/images/go/checks_reference/round_robin_diagram.png" alt="Round robin check diagram" link="/images/go/checks_reference/round_robin_diagram.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/41787f16-3457-49d9-9135-efc69b0e2b50 -->
 
 In the diagram above, the standard check is executed by agents A, B, and C every 60 seconds.

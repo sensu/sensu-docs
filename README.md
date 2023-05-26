@@ -2,9 +2,9 @@
 
 Welcome to the Sensu Docs project! This repository is the home of [docs.sensu.io][site].
 
-[Read the docs][site] | [Contributing guide](CONTRIBUTING.md) | [Style guide][wiki] | [Code of conduct][coc] | [Contact admins][email] | [Open an issue][issue]
+[Read the docs][site] | [Contributing guide](CONTRIBUTING.md) | [Style guide][wiki] | [Code of conduct][coc] | [Contact admins][discourse] | [Open an issue][issue]
 
-[![Travis build status](https://travis-ci.com/sensu/sensu-docs.svg?branch=master)](https://travis-ci.com/sensu/sensu-docs)
+[![Travis build status](https://travis-ci.com/sensu/sensu-docs.svg?branch=main)](https://travis-ci.com/sensu/sensu-docs)
 
 ---
 
@@ -25,6 +25,8 @@ You can also submit documentation feedback by [opening an issue][issue].
 The Sensu Docs site is a static site built with [Hugo][hugo] and markdown. These instructions will help you get the site running locally.
 
 To contribute to the Sensu Docs, please read the [contributing guide](CONTRIBUTING.md).
+
+**NOTE**: You must install [node][node] version 12 through 18 to run the docs locally.
 
 #### 1. Install Git and Yarn
 
@@ -48,7 +50,7 @@ Clone using SSH:
 git clone git@github.com:sensu/sensu-docs.git && cd sensu-docs
 ```
 
-If you prefer, [download the repo from GitHub](https://github.com/sensu/sensu-docs/archive/master.zip).
+If you prefer, [download the repo from GitHub](https://github.com/sensu/sensu-docs/archive/main.zip).
 
 #### 3. Run `yarn`
 
@@ -70,21 +72,20 @@ yarn run server
 
 This builds the Hugo server so you can view the site in your local web browser at http://localhost:1313/.
 
+**NOTE**: If you navigate to a URL that uses the `latest` rewrite, such as `http://localhost:1313/sensu-go/latest/`, the local site will return a 404 error. Replace `latest` in the URL with a published docs version (for example, `http://localhost:1313/sensu-go/6.9/`) when running the docs locally.
+
 ### Troubleshooting
 
 Here are some things to try if you encounter an issue working with the site:
 
-* Run `yarn hugo-version` to print the running version of Hugo. Version 0.72.0 or newer is required.
+* Run `yarn hugo-version` to print the running version of Hugo. Version 0.101.0 or newer is required.
+* Make sure you are running node version 12 through 18.
 * If you're still having trouble viewing the site, [open an issue][issue], and we'll be happy to help!
 
 #### Internet Explorer Users
 
 The docs site displays incorrectly in Internet Explorer.
 If you cannot use a different browser, you can access a PDF copy of the Sensu documentation on our [supported versions][supp-vers] page.
-
-### Theme
-
-This project uses a [fork](themes/hugo-material-docs/) of the wonderful [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme.
 
 ### Developing Offline Docs
 
@@ -94,7 +95,7 @@ Offline documentation uses a set of layouts located in the `offline` directory. 
 yarn run server --layoutDir=offline
 ```
 
-To exclude content from the offline documentation, the following can be added to a markdown file's front matter:
+To exclude content from the offline documentation, add this line to the front matter in the markdown file:
 
 ```
 offline: false
@@ -102,17 +103,18 @@ offline: false
 
 ### Deploying the site
 
-Whenever changes are merged to the `master` branch, this project is automatically deployed to [docs.sensu.io][site]. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
+Whenever changes are merged to the `main` branch, this project is automatically deployed to [docs.sensu.io][site]. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
+
 
 [slack]: https://slack.sensu.io
 [wiki]: https://github.com/sensu/sensu-docs/wiki/Sensu-docs-style-guide
 [coc]: https://sensu.io/conduct
-[email]: mailto:docs@sensu.io
+[email]: https://discourse.sensu.io/c/sensu-docs/27
 [git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 [yarn]: https://yarnpkg.com/
 [yarn-install]: https://yarnpkg.com/lang/en/docs/install/
 [hugo]: https://gohugo.io/documentation/
 [site]: https://docs.sensu.io
 [issue]: https://github.com/sensu/sensu-docs/issues/new
-[supp-vers]: https://docs.sensu.io/sensu-go/latest/getting-started/versions/
-
+[supp-vers]: https://docs.sensu.io/sensu-go/latest/versions/
+[node]: https://nodejs.org/en/

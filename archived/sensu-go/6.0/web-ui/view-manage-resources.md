@@ -25,7 +25,7 @@ To switch namespaces, select the menu icon in the upper-left corner and choose a
 For more information, see [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
-{{< figure src="/images/namespace-switcher-1.png" alt="Sensu web UI namespace switcher" link="/images/namespace-switcher-1.png" target="_blank" >}}
+{{< figure src="/images/archived_version_images/old_namespace_switcher.png" alt="Sensu web UI namespace switcher" link="/images/archived_version_images/old_namespace_switcher.png" target="_blank" >}}
 
 ## Manage events
 

@@ -21,7 +21,7 @@ To install an asset definition directly from Bonsai, use `sensuctl asset add <na
 
 Replace `<namespace/name>` with the namespace and name of the asset from Bonsai:
 
-![Bonsai page for InfluxDB handler showing namespace and name][2]
+{{< figure src="/images/go/sensuctl_bonsai/name_namespace_location_bonsai_asset.png" alt="Bonsai page for the Sensu InfluxDB handler showing the location of the asset namespace and name" link="/images/go/sensuctl_bonsai/name_namespace_location_bonsai_asset.png" target="_blank" >}}
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.1

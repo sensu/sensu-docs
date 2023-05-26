@@ -1,6 +1,6 @@
 ---
 title: "Sensu Enterprise"
-description: "Sensu Enterprise is the reliable, scalable monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures."
+description: "Sensu Enterprise is the scalable monitoring event pipeline that reduces operator burden and meets monitoring challenges of hybrid-cloud and ephemeral infrastructures."
 product: "Sensu Enterprise"
 version: "3.8"
 weight: 1
@@ -17,7 +17,7 @@ Built on [Sensu Core][3], Sensu Enterprise includes built-in integrations and fe
 
 **Automate your monitoring workflows**: Limitless pipelines let you validate and correlate events, mutate data formats, send alerts, manage incidents, collect and store metrics, and more.
 
-<img alt="Sensu Enterprise event pipeline diagram" title="Sensu Enterprise lets you take monitoring events from your system and use pipelines to take the right action for your workflow." src="/images/pipeline-enterprise.png">
+{{< figure src="/images/enterprise/homepage/sensu_enterprise_event_pipeline.png" alt="Sensu Enterprise event pipeline diagram" link="/images/enterprise/homepage/sensu_enterprise_event_pipeline.png" target="_blank" >}}
 
 <i class="fa fa-youtube-play" aria-hidden="true"></i> <a target="_blank" href="https://www.youtube.com/watch?v=jUW4rAqazwA">Listen to Sensu Inc. CEO Caleb Hailey explain the Sensu monitoring event pipeline.</a>
 
@@ -31,7 +31,7 @@ Built on [Sensu Core][3], Sensu Enterprise includes built-in integrations and fe
 
 > Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [Greg Poirier, Monitorama 2016](https://vimeo.com/173610062)
 
-<img alt="Sensu Enterprise system diagram" src="/images/system-enterprise.png">
+{{< figure src="/images/enterprise/homepage/enterprise_monitoring_infrastructure_diagram.png" alt="Sensu Enterprise monitoring infrastructure diagram" link="/images/enterprise/homepage/enterprise_monitoring_infrastructure_diagram.png" target="_blank" >}}
 
 Sensu Enterprise is an agent-based monitoring tool that you install on your organization's infrastructure.
 The Sensu client gives you visibility into everything you care about; the Sensu Enterprise server gives you flexible, automated workflows to route metrics and alerts; and the Sensu Enterprise Dashboard gives you a heads-up-display view into the state of your systems.
@@ -64,7 +64,7 @@ The Sensu Enterprise Dashboard delivers visibility at scale with comprehensive a
 
 **Sensu Enterprise Dashboard:**
 
-<img alt="screenshot of Sensu Enterprise Dashboard" src="/images/enterprise-dashboard-hud-hero.png" width="400px">
+{{< figure src="/images/enterprise/homepage/sensu_enterprise_dashboard.png" alt="Screenshot showing the Sensu Enterprise Dashboard" link="/images/enterprise/homepage/sensu_enterprise_dashboard.png" target="_blank" >}}
 
 ## Installing Sensu Enterprise
 

@@ -53,7 +53,7 @@ Upon completion of these steps, you'll be able to browse events, entities, check
 
 This diagram depicts the federation relationship documented in this guide:
 
-{{< figure src="/images/federation-guide-diagram.png" alt="Diagram depicting this guide's example federation architecture" link="/images/federation-guide-diagram.png" target="_blank" >}}
+{{< figure src="/images/go/use_federation/example_federation.png" alt="Diagram depicting this guide's example federation architecture" link="/images/go/use_federation/example_federation.png" target="_blank" >}}
 <!-- Federation diagram source: https://www.lucidchart.com/documents/edit/1b676df9-534e-40e4-9881-6313013ecd28/n~8S.VTyl5JQ -->
 
 
@@ -356,7 +356,7 @@ spec:
 After you create clusters using the federation API, you can log in to the `gateway` Sensu web UI to view them as the `federation-viewer` user.
 Use the namespace switcher to change between namespaces across federated clusters:
 
-{{< figure src="/images/federation-switcher-animated.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-animated.gif" target="_blank" >}}
+{{< figure src="/images/archived_version_images/federation_namespace_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/archived_version_images/federation_namespace_switcher.gif" target="_blank" >}}
 
 Because the `federation-viewer` user is granted only permissions provided by the built-in `view` role, this user should be able to view all resources across all clusters but should not be able to make any changes.
 If you haven't changed the permissions of the default `admin` user, that user should be able to view, create, delete, and update resources across all clusters.

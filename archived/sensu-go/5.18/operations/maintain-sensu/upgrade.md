@@ -50,7 +50,7 @@ Connections from new agents will fail and result in a log message like this:
 
 In the web UI, you will see the following message when you reach the 100-entity limit:
 
-![Sensu web UI warning when the entity limit is reached][3]
+{{< figure src="/images/go/upgrade/web_ui_entity_warning.png" alt="Example web UI warning message when you reach the 100-entity limit" link="/images/go/upgrade/web_ui_entity_warning.png" target="_blank" >}}
 
 If your Sensu instance includes more than 100 entities, [contact Sales][4] to learn how to upgrade your installation and increase your limit.
 See [our blog announcement][5] for more information about our usage policy.

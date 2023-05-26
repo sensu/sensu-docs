@@ -406,7 +406,7 @@ Confirm metrics in Grafana with `admin:admin` login at http://127.0.0.1:4000.
 
 Once logged in, click on Home in the upper left corner, then below click on the Up or Down Sample 2 dashboard. Once there, you should see a graph that has started showing metrics like this
 
-![up_or_down_detail](/images/prometheus-collector/up_or_down_detail.png)
+{{< figure src="/images/go/prometheus_metrics/grafana_up_or_down_detail.png" alt="Example Grafana dashboard for visualizing Prometheus metrics from Sensu" link="/images/go/prometheus_metrics/grafana_up_or_down_detail.png" target="_blank" >}}
 
 ## Conclusion
 

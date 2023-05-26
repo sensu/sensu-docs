@@ -42,7 +42,7 @@ and download your license file using the "Download license" link.
 
 _Sensu account: Download Sensu license._
 
-<img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
+{{< figure src="/images/go/commercial/license_download.png" alt="Screenshot of Sensu account license download" link="/images/go/commercial/license_download.png" target="_blank" >}}
 
 With the license file downloaded, you can activate your license using sensuctl.
 

@@ -26,7 +26,7 @@ To automatically install the latest version of the plugin, you do not need to sp
 If you do not specify a version to install, Sensu automatically installs the latest version, which may include breaking changes.
 {{% /notice %}}
 
-![Bonsai page for InfluxDB handler showing namespace and name][2]
+{{< figure src="/images/go/sensuctl_bonsai/name_namespace_location_bonsai_asset.png" alt="Bonsai page for the Sensu InfluxDB handler showing the location of the asset namespace and name" link="/images/go/sensuctl_bonsai/name_namespace_location_bonsai_asset.png" target="_blank" >}}
 
 For example, to install version 3.1.1 of the [Sensu InfluxDB Handler][4] dynamic runtime asset:
 
