@@ -26,7 +26,7 @@ for root, dirs, files in os.walk(args.directory):
         with open(os.path.join(root, filename), "r") as validation_file:
 
             validation_data = validation_file.read()
-            x = re.findall(r'{{< code yaml >}}\s*\n(.*?)\n\s*{{< /code >}}',
+            x = re.findall(r'{{< code yml >}}\s*\n(.*?)\n\s*{{< /code >}}',
                validation_data, re.DOTALL)
 
             for yaml_block in x:
