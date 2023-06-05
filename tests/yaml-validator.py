@@ -7,7 +7,11 @@ import sys
 
 
 def preprocess(yaml_block):
-    return re.sub(r"{{.*?}}", "dummy_value", yaml_block)
+    # replace Go template substitutions with a dummy value
+    yaml_block = re.sub(r"{{.*?}}", "dummy_value", yaml_block)
+    # replace ... with # ...
+    yaml_block = yaml_block.replace("...", "# ...")
+    return yaml_block
 
 
 parser = argparse.ArgumentParser(description='Find text between markdown YAML tags')
