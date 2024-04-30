@@ -39,7 +39,7 @@ Sensu curates, tests, and maintains the Catalog integrations, and installation f
 
 ## Find integrations
 
-Find integrations in the Sensu Catalog by browsing [alphabetized][15], [categorized][16], and [metadata-based][17] lists.
+Find integrations in the Sensu Catalog by browsing [alphabetized][16], [categorized][17], and [metadata-based][18] lists.
 You can also [search][19] the Sensu Catalog based on integration metadata.
 
 ### Browse the alphabetized list
