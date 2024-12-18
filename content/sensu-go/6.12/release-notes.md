@@ -127,14 +127,14 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.21.0.
 
 - ([Commercial feature][311]) Users can now change their passwords in the web UI.
 - Added several backend configuration options:
-    - Use [enable-cert-revocation-check][314] to enable and disable certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) [checks for SSL certificate revocation][315].
+    - Use [enable-cert-revocation-check][314] to enable and disable certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) checks for SSL certificate revocation.
     - Use [default-silenced-expiry-time][313] to specify default expiry times to apply to silences that do not have a set expiration time.
     - Use [max-silenced-expiry-time-allowed][312] to specify the maximum length of time for which silences can be set.
 
 **IMPROVEMENTS**
 
 - ([Commercial feature][311]) Upgraded Alpine version from 3.16 to 3.20.
-- Added support for Ubuntu 24.04 LTS.
+- Added support for Ubuntu 24.04 LTS and Debian 13.
 - Upgraded Go version from 1.21.3 to 1.21.11.
 - Upgraded etcd version from 3.5.10 to 3.5.15.
 
@@ -2689,6 +2689,5 @@ To get started with Sensu Go:
 [311]: /sensu-go/6.12/commercial/
 [312]: /sensu-go/6.12/observability-pipeline/observe-schedule/backend/#max-silenced-expiry-time-allowed
 [313]: /sensu-go/6.12/observability-pipeline/observe-schedule/backend/#default-silenced-expiry-time-attribute
-[314]: /sensu-go/6.12/
-[315]: /sensu-go/6.12/operations/deploy-sensu/secure-sensu/#certificate-revocation-check
+[314]: /sensu-go/6.12/observability-pipeline/observe-schedule/backend/#enable-cert-revocation-check
 

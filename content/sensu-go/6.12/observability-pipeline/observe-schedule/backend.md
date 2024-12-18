@@ -362,6 +362,7 @@ General Flags:
       --default-silenced-expiry-time              Default expiry time for silenced if not set in minutes
       --deregistration-handler string             default deregistration handler
       --disable-platform-metrics                  disable platform metrics logging
+      --enable-cert-revocation-check              
       --event-log-buffer-size int                 buffer size of the event logger (default 100000)
       --event-log-buffer-wait string              full buffer wait time (default "10ms")
       --event-log-file string                     path to the event log file
@@ -805,6 +806,19 @@ command line example   | {{< code shell >}}
 sensu-backend start --cert-file /path/to/tls/backend-1.pem{{< /code >}}
 backend.yml config file example | {{< code shell >}}
 cert-file: "/path/to/tls/backend-1.pem"{{< /code >}}
+
+<a id="enable-cert-revocation-check"></a>
+
+| enable-cert-revocation-check|      |
+---------------------------|------
+description                | If `true`, enable certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) [checks for SSL certificate revocation][80]. Otherwise, `false`.
+type                       | Boolean
+default                    | `false`
+environment variable | `SENSU_BACKEND_ENABLE_CERT_REVOCATION_CHECK`
+command line example   | {{< code shell >}}
+sensu-backend start --enable-cert-revocation-check{{< /code >}}
+backend.yml config file example | {{< code shell >}}
+enable-cert-revocation-check: true{{< /code >}}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
@@ -2019,3 +2033,5 @@ sensu-backend start --help
 [77]: #backend-configuration-options
 [78]: #environment-variables
 [79]: #backend-configuration-methods
+[80]: ../../../operations/deploy-sensu/secure-sensu/#certificate-revocation-check
+
