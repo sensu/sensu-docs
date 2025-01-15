@@ -128,7 +128,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.12.0.
 - ([Commercial feature][311]) Users can now change their passwords in the web UI.
 - Added several backend configuration options:
     - Use [enable-cert-revocation-check][314] to enable and disable certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) checks for SSL certificate revocation.
-    - Use [default-silenced-expiry-time][313] to specify default expiry times to apply to silences that do not have a set expiration time.
+    - Use [default-silenced-expiry-time][313] to specify a default expiration time to apply to silences that do not include the `expire_at` attribute. This configuration option allows you to ensure that all silences have an expiration time.
     - Use [max-silenced-expiry-time-allowed][312] to specify the maximum length of time for which silences can be set.
 
 **IMPROVEMENTS**

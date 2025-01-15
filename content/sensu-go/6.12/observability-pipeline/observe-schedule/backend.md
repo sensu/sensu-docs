@@ -570,7 +570,7 @@ debug: true{{< /code >}}
 
 | default-silenced-expiry-time |      |
 -------------------------------|------
-description | Default expiry time to apply for silences that do not have a set expiration time. In minutes (`m`).
+description | Default expiration time to apply for [silences][82] that do not include the [`expire_at`][81] attribute and therefore would not otherwise expire. In minutes (`m`).
 type        | String
 default     | `1440m`
 environment variable | `SENSU_BACKEND_DEFAULT_SILENCED_EXPIRY_TIME`
@@ -2034,4 +2034,6 @@ sensu-backend start --help
 [78]: #environment-variables
 [79]: #backend-configuration-methods
 [80]: ../../../operations/deploy-sensu/secure-sensu/#certificate-revocation-check
+[81]: ../../observe-process/silencing/#silence-expireat
+[82]: ../../observe-process/silencing/
 

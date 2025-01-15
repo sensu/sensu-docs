@@ -218,4 +218,4 @@ This table lists the supported versions of Sensu Go with links to active documen
 [97]: https://docs.sensu.io/sensu-go/latest/release-notes/#692-release-notes
 [98]: https://docs.sensu.io/sensu-go/latest/release-notes/#6100-release-notes
 [99]: https://docs.sensu.io/sensu-go/latest/release-notes/#6110-release-notes
-[99]: https://docs.sensu.io/sensu-go/latest/release-notes/#6120-release-notes
+[100]: https://docs.sensu.io/sensu-go/latest/release-notes/#6120-release-notes
