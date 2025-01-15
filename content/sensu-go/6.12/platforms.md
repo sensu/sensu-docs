@@ -29,27 +29,43 @@ Supported packages are available from [sensu/stable][8] on packagecloud and the 
 |----------------------|---------|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} |
 | `arm64` | {{< check >}} | {{< check >}} | {{< check >}} |
-| `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} |
+| `ppc64el`/`ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} |
 
 ### Sensu agent
 
-|  | RHEL<br>family<br>6, 7, 8, 9 | Debian<br>8, 9, 10,<br>11, 13 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04<br>22.04<br>24.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
+|  | RHEL<br>family<br>6, 7, 8, 9 | Debian<br>8, 9, 10,<br>11 | Debian 13 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04<br>22.04 | Ubuntu 24.04 |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
-| `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `armv5` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | |
+| `armv6` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+| `armv7` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+| `arm64` | | | {{< check >}} | | {{< check >}} |
+| `ppc64el`/`ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+| `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+
+|  | Windows 7 and later | Windows Server 2008 R2<br>and later |
+|--|---------------------|----------------------------------|
+| `amd64` | {{< check >}} | {{< check >}} |
+| `386` | {{< check >}} | {{< check >}} |
 
 ### Sensuctl command line tool
 
-|  | RHEL<br>family<br>6, 7, 8, 9 | Debian<br>8, 9, 10,<br>11, 13 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04<br>22.04<br>24.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
+|  | RHEL<br>family<br>6, 7, 8, 9 | Debian<br>8, 9, 10,<br>11 | Debian 13 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04<br>22.04 | Ubuntu 24.04 |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
-| `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `armv5` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | |
+| `armv6` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+| `armv7` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+| `arm64` | | | {{< check >}} | | {{< check >}} |
+| `ppc64el`/`ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+| `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+
+|  | Windows 7 and later | Windows Server 2008 R2<br>and later |
+|--|---------------------|----------------------------------|
+| `amd64` | {{< check >}} | {{< check >}} |
+| `386` | {{< check >}} | {{< check >}} |
 
 ## Docker images
 

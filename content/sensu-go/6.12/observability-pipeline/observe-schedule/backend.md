@@ -362,7 +362,7 @@ General Flags:
       --default-silenced-expiry-time              Default expiry time for silenced if not set in minutes
       --deregistration-handler string             default deregistration handler
       --disable-platform-metrics                  disable platform metrics logging
-      --enable-cert-revocation-check              
+      --enable-cert-revocation-check              Boolean flag to enable OCSP & CRL check for certificate during mTLS (default true)
       --event-log-buffer-size int                 buffer size of the event logger (default 100000)
       --event-log-buffer-wait string              full buffer wait time (default "10ms")
       --event-log-file string                     path to the event log file
