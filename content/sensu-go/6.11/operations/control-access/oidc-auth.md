@@ -214,7 +214,7 @@ provider: Okta
 {
   "provider": "Okta"
 }
-#{{< /code >}}
+{{< /code >}}
 {{< /language-toggle >}}
 
 | additional_scopes |   |
