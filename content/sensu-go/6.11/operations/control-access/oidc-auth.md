@@ -494,9 +494,10 @@ spec:
   "type": "oidc",
   "api_version": "authentication/v2",
   "metadata": {
-    "name": "okta"
+    "name": "Okta"
   },
   "spec": {
+    "provider": "Okta",
     "additional_scopes": [
       "groups",
       "email"
@@ -571,7 +572,7 @@ spec:
     "name": "EntraID"
   },
   "spec": {
-    "provider": "EntraID"
+    "provider": "EntraID",
     "additional_scopes": [
       "groups",
       "email"
