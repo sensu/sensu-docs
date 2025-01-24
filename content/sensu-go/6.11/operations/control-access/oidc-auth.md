@@ -516,6 +516,81 @@ spec:
 
 {{< /language-toggle >}}
 
+## Register an Entra ID application
+
+To use Entra ID for authentication, register Sensu Go as an OIDC web application.
+Before you start, install Sensu Go with a valid commercial license and make sure you have access to the EntraID Administrator Dashboard.
+
+Follow the steps in this section to create an Entra ID application and configure an Entra ID OIDC provider in Sensu.
+
+### Create an Entra ID application
+
+1. Create a `user` with required fields.
+2. Create a group and assign the `group` name to match the `group created` in `Sensu`. For example, Sensu creates a default group called `cluster-admins` , which is assigned to the `default user admin`.
+3. Register an application in `Entra ID`.
+4. In the Certificates & Secrets section, generate a `client ID` and `secret`.
+5. In the Token Configuration section, `add` a `group claim` to the application.
+6. In the API Permissions section, add the following Microsoft Graph API permissions:
+    - `Directory.Read.All`
+    - `User.Read`
+7. The provider in the OIDC file should be set to `EntraID`.
+
+### Configure an Entra ID OIDC provider
+
+Your Entra ID OIDC provider configuration should be similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: oidc
+api_version: authentication/v2
+metadata:
+  name: EntraID
+spec:
+  provider: EntraID 
+  additional_scopes:
+  - groups
+  - email
+  client_id: 4sd5jxiwxfvg82PoZ5d7
+  client_secret: r78316494besnNCmtmEBnS47ee792f31bf6216
+  redirect_uri: http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback
+  server: https://dev-459543913.com
+  disable_offline_access: false
+  groups_claim: groups
+  username_claim: email
+  groups_prefix: 'oidc:'
+  username_prefix: 'oidc:'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "oidc",
+  "api_version": "authentication/v2",
+  "metadata": {
+    "name": "EntraID"
+  },
+  "spec": {
+    "provider": "EntraID"
+    "additional_scopes": [
+      "groups",
+      "email"
+    ],
+    "client_id": "4sd5jxiwxfvg82PoZ5d7",
+    "client_secret": "r78316494besnNCmtmEBnS47ee792f31bf6216",
+    "redirect_uri": "http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback",
+    "server": "https://dev-459543913.com",
+    "disable_offline_access": false,
+    "groups_claim": "groups",
+    "username_claim": "email",
+    "groups_prefix": "oidc:",
+    "username_prefix": "oidc:"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Configure authorization for OIDC users
 
 Configure [authorization][3] via role-based access control (RBAC) for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
