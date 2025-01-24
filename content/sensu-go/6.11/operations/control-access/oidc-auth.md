@@ -199,6 +199,24 @@ name: oidc_provider
 
 #### OIDC spec attributes
 
+| provider   |      |
+-------------|------
+description  | A unique string used to identify the OIDC provider. The name cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]). {{% notice note %}}
+**NOTE**: The current OIDC providers are `Okta`,`PingFederate`,`EntraID`.
+{{% /notice %}}
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+provider: Okta
+{{< /code >}}
+{{< code json >}}
+{
+  "provider": "Okta"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 | additional_scopes |   |
 -------------|------
 description  | Scopes to include in the claims, in addition to the default `openid` scope. {{% notice note %}}
@@ -456,6 +474,7 @@ api_version: authentication/v2
 metadata:
   name: okta
 spec:
+  provider: Okta
   additional_scopes:
   - groups
   - email
