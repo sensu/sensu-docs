@@ -199,6 +199,24 @@ name: oidc_provider
 
 #### OIDC spec attributes
 
+| provider   |      |
+-------------|------
+description  | A unique string used to identify the OIDC provider. The name cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]). {{% notice note %}}
+**NOTE**: The current OIDC providers are `Okta`,`PingFederate`,`EntraID`.
+{{% /notice %}}
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+provider: Okta
+{{< /code >}}
+{{< code json >}}
+{
+  "provider": "Okta"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 | additional_scopes |   |
 -------------|------
 description  | Scopes to include in the claims, in addition to the default `openid` scope. {{% notice note %}}
@@ -456,6 +474,7 @@ api_version: authentication/v2
 metadata:
   name: okta
 spec:
+  provider: Okta
   additional_scopes:
   - groups
   - email
@@ -475,9 +494,10 @@ spec:
   "type": "oidc",
   "api_version": "authentication/v2",
   "metadata": {
-    "name": "okta"
+    "name": "Okta"
   },
   "spec": {
+    "provider": "Okta",
     "additional_scopes": [
       "groups",
       "email"
@@ -486,6 +506,81 @@ spec:
     "client_secret": "r78316494besnNCmtmEBnS47ee792f31bf6216",
     "redirect_uri": "http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback",
     "server": "https://dev-459543913.okta.com",
+    "disable_offline_access": false,
+    "groups_claim": "groups",
+    "username_claim": "email",
+    "groups_prefix": "oidc:",
+    "username_prefix": "oidc:"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Register an Entra ID application
+
+To use Entra ID for authentication, register Sensu Go as an OIDC web application.
+Before you start, install Sensu Go with a valid commercial license and make sure you have access to the EntraID Administrator Dashboard.
+
+Follow the steps in this section to create an Entra ID application and configure an Entra ID OIDC provider in Sensu.
+
+### Create an Entra ID application
+
+1. Create a `user` with required fields.
+2. Create a group and assign the `group` name to match the `group created` in `Sensu`. For example, Sensu creates a default group called `cluster-admins` , which is assigned to the `default user admin`.
+3. Register an application in `Entra ID`.
+4. In the Certificates & Secrets section, generate a `client ID` and `secret`.
+5. In the Token Configuration section, `add` a `group claim` to the application.
+6. In the API Permissions section, add the following Microsoft Graph API permissions:
+    - `Directory.Read.All`
+    - `User.Read`
+7. The provider in the OIDC file should be set to `EntraID`.
+
+### Configure an Entra ID OIDC provider
+
+Your Entra ID OIDC provider configuration should be similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: oidc
+api_version: authentication/v2
+metadata:
+  name: EntraID
+spec:
+  provider: EntraID 
+  additional_scopes:
+  - groups
+  - email
+  client_id: 4sd5jxiwxfvg82PoZ5d7
+  client_secret: r78316494besnNCmtmEBnS47ee792f31bf6216
+  redirect_uri: http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback
+  server: https://dev-459543913.com
+  disable_offline_access: false
+  groups_claim: groups
+  username_claim: email
+  groups_prefix: 'oidc:'
+  username_prefix: 'oidc:'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "oidc",
+  "api_version": "authentication/v2",
+  "metadata": {
+    "name": "EntraID"
+  },
+  "spec": {
+    "provider": "EntraID",
+    "additional_scopes": [
+      "groups",
+      "email"
+    ],
+    "client_id": "4sd5jxiwxfvg82PoZ5d7",
+    "client_secret": "r78316494besnNCmtmEBnS47ee792f31bf6216",
+    "redirect_uri": "http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback",
+    "server": "https://dev-459543913.com",
     "disable_offline_access": false,
     "groups_claim": "groups",
     "username_claim": "email",
