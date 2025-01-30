@@ -525,7 +525,7 @@ Follow the steps in this section to create an Entra ID application and configure
 ### Create an Entra ID application
 
 1. Create a `user` with required fields.
-2. Create a group and assign the `group` name to match the `group created` in `Sensu`. For example, Sensu creates a default group called `cluster-admins` , which is assigned to the `default user admin`.
+2. Create a group and assign the `group` name to match the `group created` in `Sensu`. For example, Sensu creates a default group called `cluster-admins`, which is assigned to the `default user admin`.
 3. Register an application in `Entra ID`.
 4. In the Certificates & Secrets section, generate a `client ID` and `secret`.
 5. In the Token Configuration section, `add` a `group claim` to the application.
