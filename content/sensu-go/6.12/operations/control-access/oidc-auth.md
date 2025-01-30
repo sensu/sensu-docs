@@ -201,9 +201,7 @@ name: oidc_provider
 
 | provider   |      |
 -------------|------
-description  | A unique string used to identify the OIDC provider. The name cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]). {{% notice note %}}
-**NOTE**: The current OIDC providers are `Okta`,`PingFederate`,`EntraID`.
-{{% /notice %}}
+description  | A unique string used to identify the OIDC provider. The name cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).
 required     | true
 type         | String
 example      | {{< language-toggle >}}
