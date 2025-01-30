@@ -204,6 +204,7 @@ name: oidc_provider
 description  | A unique string used to identify the OIDC provider. The name cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).
 required     | true
 type         | String
+allowed values | `Okta`, `PingFederate`, `EntraID`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 provider: Okta
