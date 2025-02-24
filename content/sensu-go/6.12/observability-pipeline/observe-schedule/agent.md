@@ -1188,7 +1188,7 @@ keepalive-handlers:
 description          | Number of seconds between keepalive events.
 type                 | Integer
 default              | `20`
-environment variable   | `SENSU_KEEPALIVE_INTERNAL`
+environment variable   | `SENSU_KEEPALIVE_INTERVAL`
 command line example   | {{< code shell >}}
 sensu-agent start --keepalive-interval 30{{< /code >}}
 agent.yml config file example | {{< code shell >}}
