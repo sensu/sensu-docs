@@ -43,7 +43,7 @@ If you use YAML, separate the resource definitions by a line with three hyphens:
 If you use wrapped JSON, separate the resources *without* a comma.
 
 {{% notice note %}}
-**NOTE**: You can also use the `sensuctl <RESORUCE_TYPE> create` command to create resources with sensuctl.
+**NOTE**: You can also use the `sensuctl <RESOURCE_TYPE> create` command to create resources with sensuctl.
 Read [Use the create subcommand](#use-the-create-subcommand) for more information and an example.
 {{% /notice %}}
 
