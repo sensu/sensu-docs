@@ -44,8 +44,8 @@ spec:
   additional_scopes:
   - groups
   - email
-  client_id: a8e43af034e7f2608780
-  client_secret: b63968394be6ed2edb61c93847ee792f31bf6216
+  client_id: Your client ID
+  client_secret: Your client secret
   disable_offline_access: false
   redirect_uri: http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback
   server: https://oidc.example.com:9031
@@ -67,8 +67,8 @@ spec:
       "groups",
       "email"
     ],
-    "client_id": "a8e43af034e7f2608780",
-    "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
+    "client_id": "Your client ID",
+    "client_secret": "Your client secret",
     "disable_offline_access": false,
     "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
     "server": "https://oidc.example.com:9031",
@@ -148,8 +148,8 @@ spec:
   additional_scopes:
   - groups
   - email
-  client_id: a8e43af034e7f2608780
-  client_secret: b63968394be6ed2edb61c93847ee792f31bf6216
+  client_id: Your client ID
+  client_secret: Your client secret
   disable_offline_access: false
   redirect_uri: http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback
   server: https://oidc.example.com:9031
@@ -165,8 +165,8 @@ spec:
       "groups",
       "email"
     ],
-    "client_id": "a8e43af034e7f2608780",
-    "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
+    "client_id": "Your client ID",
+    "client_secret": "Your client secret",
     "disable_offline_access": false,
     "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
     "server": "https://oidc.example.com:9031",
@@ -250,11 +250,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-client_id: 1c9ae3e6f3cc79c9f1786fcb22692d1f
+client_id: Your client ID
 {{< /code >}}
 {{< code json >}}
 {
-  "client_id": "1c9ae3e6f3cc79c9f1786fcb22692d1f"
+  "client_id": "Your client ID"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -268,11 +268,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-client_secret: a0f2a3c1dcd5b1cac71bf0c03f2ff1bd
+client_secret: Your client secret
 {{< /code >}}
 {{< code json >}}
 {
-  "client_secret": "a0f2a3c1dcd5b1cac71bf0c03f2ff1bd"
+  "client_secret": "Your client secret"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -477,8 +477,8 @@ spec:
   additional_scopes:
   - groups
   - email
-  client_id: 4sd5jxiwxfvg82PoZ5d7
-  client_secret: r78316494besnNCmtmEBnS47ee792f31bf6216
+  client_id: Your client ID
+  client_secret: Your client secret
   redirect_uri: http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback
   server: https://dev-459543913.okta.com
   disable_offline_access: false
@@ -501,8 +501,8 @@ spec:
       "groups",
       "email"
     ],
-    "client_id": "4sd5jxiwxfvg82PoZ5d7",
-    "client_secret": "r78316494besnNCmtmEBnS47ee792f31bf6216",
+    "client_id": "Your client ID",
+    "client_secret": "Your client secret",
     "redirect_uri": "http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback",
     "server": "https://dev-459543913.okta.com",
     "disable_offline_access": false,
@@ -552,8 +552,8 @@ spec:
   additional_scopes:
   - groups
   - email
-  client_id: 4sd5jxiwxfvg82PoZ5d7
-  client_secret: r78316494besnNCmtmEBnS47ee792f31bf6216
+  client_id: Your client ID
+  client_secret: Your client secret
   redirect_uri: http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback
   server: https://dev-459543913.com
   disable_offline_access: false
@@ -576,8 +576,8 @@ spec:
       "groups",
       "email"
     ],
-    "client_id": "4sd5jxiwxfvg82PoZ5d7",
-    "client_secret": "r78316494besnNCmtmEBnS47ee792f31bf6216",
+    "client_id": "Your client ID",
+    "client_secret": "Your client secret",
     "redirect_uri": "http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback",
     "server": "https://dev-459543913.com",
     "disable_offline_access": false,
