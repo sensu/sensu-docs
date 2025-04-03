@@ -72,7 +72,7 @@ spec:
 
 ## Install location for dynamic runtime assets
 
-If you use a Sensu [package][32], dynamic runtime assets are installed at `/var/cache`.
+If you use a Sensu [package][32], dynamic runtime assets are installed at `/var/cache` (Linux) or `C:\ProgramData\Sensu\cache\sensu-agent` (Windows).
 
 If you use a Sensu [Docker image][31], dynamic runtime assets are installed at `/var/lib`.
 
