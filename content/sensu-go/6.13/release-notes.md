@@ -120,7 +120,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.13.0 release notes
 
-Write
+Put release notes here
 
 ## 6.12.0 release notes
 
