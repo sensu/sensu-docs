@@ -120,7 +120,25 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.13.0 release notes
 
-Put release notes here
+**April 10, 2025** &mdash; The latest release of Sensu Go, version 6.13.0, is now available for download.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.13.0.
+
+**NEW FEATURES:**
+
+- Added `access-token-expiry` (in minutes) backend configuration variable to control expiry of access token.
+- Added `refresh-token-expiry` (in minutes) backend configuration variable to control expiry of refresh token.
+
+**IMPROVEMENTS**
+
+- Improvement in handling of silences where users were facing issues after new config values of "max-silenced-expiry-time-allowed" & "default-silenced-expiry-time".
+- Improved configuration error reporting with file and line details when utilizing `sensuctl`.
+- Updated dependencies:
+    - Updated [Go Time](https://pkg.go.dev/golang.org/x/time) from 0.3.0 to 0.9.0.
+    - Updated [Go Cryptography](https://pkg.go.dev/golang.org/x/crypto) from 0.21.0 to 0.33.0.
+    - Updated [Jennifer](https://github.com/dave/jennifer/blob/master/README.md) from 0.0.0-20171207062344-d8bdbdbee4e1 to 1.7.1.
+    - Updated [gRPC-Go](https://pkg.go.dev/google.golang.org/grpc) from 1.59.0 to 1.70.0.
+    - Updated [gorilla/mux](https://github.com/gorilla/mux/blob/main/README.md) from 1.8.0 to 1.8.1.
 
 ## 6.12.0 release notes
 
@@ -2386,7 +2404,7 @@ To get started with Sensu Go:
 - [Install Sensu Go][8].
 - [Get started monitoring server resources][9].
 
-[1]: /sensu-go/latest/operations/maintain-sensu/upgrade/
+[1]: /sensu-go/6.13/operations/maintain-sensu/upgrade/
 [2]: https://semver.org/spec/v2.0.0.html
 [3]: /sensu-go/5.1/operations/maintain-sensu/upgrade/#upgrade-sensu-backend-binaries-to-510
 [4]: /sensu-go/5.1/observability-pipeline/observe-schedule/agent/
@@ -2444,7 +2462,7 @@ To get started with Sensu Go:
 [57]: /sensu-go/5.9/operations/deploy-sensu/install-sensu/
 [58]: /sensu-go/5.9/observability-pipeline/observe-events/events/#occurrences-and-occurrences-watermark
 [59]: /sensu-go/5.9/operations/maintain-sensu/upgrade/#upgrade-sensu-clusters-from-570-or-earlier-to-580-or-later
-[60]: /sensu-go/latest/commercial/
+[60]: /sensu-go/6.13/commercial/
 [61]: /sensu-go/5.10/operations/deploy-sensu/datastore/
 [62]: /sensu-go/5.10/api/core/cluster/#the-clusterid-API-endpoint
 [63]: /sensu-go/5.10/sensuctl/create-manage-resources/#create-resources-across-namespaces
@@ -2647,7 +2665,7 @@ To get started with Sensu Go:
 [264]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
 [265]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
 [266]: /sensu-go/6.6/web-ui/search/#events-and-entities-search-limits
-[267]: /sensu-go/latest/operations/deploy-sensu/datastore/#strict-attribute
+[267]: /sensu-go/6.13/operations/deploy-sensu/datastore/#strict-attribute
 [268]: /sensu-go/6.7/commercial/
 [269]: /sensu-go/6.7/catalog/sensu-catalog/
 [270]: /sensu-go/6.7/web-ui/
