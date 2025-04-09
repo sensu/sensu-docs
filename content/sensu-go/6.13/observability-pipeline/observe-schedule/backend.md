@@ -332,6 +332,7 @@ Usage:
   sensu-backend start [flags]
 
 General Flags:
+      --access-token-expiry                       Control expiry of access token
       --agent-auth-cert-file string               TLS certificate in PEM format for agent certificate authentication
       --agent-auth-crl-urls strings               URLs of CRLs for agent certificate authentication
       --agent-auth-key-file string                TLS certificate key in PEM format for agent certificate authentication
@@ -379,12 +380,13 @@ General Flags:
       --labels stringToString                     entity labels map (default [])
       --log-level string                          logging level [panic, fatal, error, warn, info, debug, trace] (default "warn")
       --log-millisecond-timestamps                use millisecond precision timestamps in logging output (default "false")
-      --max-silenced-expiry-time-allowed           Maximum expiry time allowed for silenced in minutes
+      --max-silenced-expiry-time-allowed          Maximum expiry time allowed for silenced in minutes
       --metrics-refresh-interval string           Go duration value (e.g. 1h5m30s) that governs how often metrics are refreshed. (default "1m")
       --pipelined-buffer-size int                 number of events to handle that can be buffered (default 100)
       --pipelined-workers int                     number of workers spawned for handling events through the event pipeline (default 100)
       --platform-metrics-log-file string          platform metrics log file path
       --platform-metrics-logging-interval string  platform metrics logging interval
+      --refresh-token-expiry                      Control expiry of refresh token
       --require-fips                              indicates whether fips support should be required in openssl  
       --trusted-ca-file string                    TLS CA certificate bundle in PEM format
 
