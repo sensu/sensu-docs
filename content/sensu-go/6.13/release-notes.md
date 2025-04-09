@@ -133,32 +133,22 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.13.0.
 
 - Improvement in handling of silences where users were facing issues after new config values of "max-silenced-expiry-time-allowed" & "default-silenced-expiry-time".
 - Improved configuration error reporting with file and line details when utilizing `sensuctl`.
+- ([Commercial feature][311]) Improved configuration error reporting with file and line details when utilizing `sensuctl`.
 - Updated dependencies:
-    - Updated [Go Time](https://pkg.go.dev/golang.org/x/time) from 0.3.0 to 0.9.0.
-    - Updated [Go Cryptography](https://pkg.go.dev/golang.org/x/crypto) from 0.21.0 to 0.33.0.
+    - Updated [Go Time](https://pkg.go.dev/golang.org/x/time) from 0.3.0 to 0.9.0.
+    - Updated [Go Cryptography](https://pkg.go.dev/golang.org/x/crypto) from 0.21.0 to 0.33.0.
     - Updated [Jennifer](https://github.com/dave/jennifer/blob/master/README.md) from 0.0.0-20171207062344-d8bdbdbee4e1 to 1.7.1.
-    - Updated [gRPC-Go](https://pkg.go.dev/google.golang.org/grpc) from 1.59.0 to 1.70.0.
-    - Updated [gorilla/mux](https://github.com/gorilla/mux/blob/main/README.md) from 1.8.0 to 1.8.1.
-
-### Sensu Enterprise Go
-
-**NEW FEATURES:**
-
-- Added `access-token-expiry` (in minutes) backend configuration variable to control expiry of access token.
-- Added `refresh-token-expiry` (in minutes) backend configuration variable to control expiry of refresh token.
-
-**IMPROVEMENTS**
-
-- Improved configuration error reporting with file and line details when utilizing `sensuctl`.
-- Updated dependencies: 
+    - Updated [gRPC-Go](https://pkg.go.dev/google.golang.org/grpc) from 1.59.0 to 1.70.0.
+    - Updated [gorilla/mux](https://github.com/gorilla/mux/blob/main/README.md) from 1.8.0 to 1.8.1.
+- ([Commercial feature][311]) Updated dependencies:
    - Updated [Hashicorp Vault API](https://github.com/hashicorp/vault/blob/main/api/README.md) from 1.10.0 to 1.15.0.
    - Updated [jwt-go](https://github.com/golang-jwt/jwt/blob/main/README.md) from 4.5.0 to 4.5.1.
    - Updated [OAuth2 for Go](https://pkg.go.dev/golang.org/x/oauth2) from 0.21.0 to 0.26.0.
 
 **FIXES**
 
-- [Web] UI timeout fixed where web UI is getting timeout when tabs are not visible/inactive.
-- OIDC fix for Okta group binding.
+- ([Commercial feature][311]) [Web] UI timeout fixed where web UI is getting timeout when tabs are not visible/inactive.
+- ([Commercial feature][311]) OIDC fix for Okta group binding.
 
 ## 6.12.0 release notes
 
