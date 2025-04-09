@@ -2,7 +2,7 @@
     "name": "sensu-docs",
     "description": "Documentation for Sensu Inc. software products",
     "website": "https://docs.sensu.io",
-    "stack": "heroku-20",
+    "stack": "heroku-24",
     "buildpacks": [
         {
             "url": "urn:buildpack:heroku/nodejs"
