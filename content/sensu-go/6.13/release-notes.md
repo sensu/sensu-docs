@@ -140,6 +140,26 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.13.0.
     - Updated [gRPC-Go](https://pkg.go.dev/google.golang.org/grpc) from 1.59.0 to 1.70.0.
     - Updated [gorilla/mux](https://github.com/gorilla/mux/blob/main/README.md) from 1.8.0 to 1.8.1.
 
+### Sensu Enterprise Go
+
+**NEW FEATURES:**
+
+- Added `access-token-expiry` (in minutes) backend configuration variable to control expiry of access token.
+- Added `refresh-token-expiry` (in minutes) backend configuration variable to control expiry of refresh token.
+
+**IMPROVEMENTS**
+
+- Improved configuration error reporting with file and line details when utilizing `sensuctl`.
+- Updated dependencies: 
+   - Updated [Hashicorp Vault API](https://github.com/hashicorp/vault/blob/main/api/README.md) from 1.10.0 to 1.15.0.
+   - Updated [jwt-go](https://github.com/golang-jwt/jwt/blob/main/README.md) from 4.5.0 to 4.5.1.
+   - Updated [OAuth2 for Go](https://pkg.go.dev/golang.org/x/oauth2) from 0.21.0 to 0.26.0.
+
+**FIXES**
+
+- [Web] UI timeout fixed where web UI is getting timeout when tabs are not visible/inactive.
+- OIDC fix for Okta group binding.
+
 ## 6.12.0 release notes
 
 **November 13, 2024** &mdash; The latest release of Sensu Go, version 6.12.0, is now available for download.
