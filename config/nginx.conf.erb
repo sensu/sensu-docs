@@ -16,15 +16,8 @@ http {
   gzip_proxied any;
 
   server_tokens off;
-
-
   access_log logs/access.log;
-
-
-
   error_log stderr error;
-
-
   include mime.types;
   default_type application/octet-stream;
   sendfile on;
@@ -41,30 +34,9 @@ http {
 
     error_page 404 500 //404.html;
 
-
-
-
-
-    mruby_post_read_handler /app/bin/config/lib/ngx_mruby/headers.rb cache;
-
-    location / {
-      mruby_set $fallback /app/bin/config/lib/ngx_mruby/routes_fallback.rb cache;
-
-      try_files $uri $uri/ $fallback;
-
-    }
-
-
-
-
     if ($http_x_forwarded_proto != "https") {
       return 301 https://$host$request_uri;
     }
-
-
-
-
-
 
   # need this b/c setting $fallback to =404 will try #{root}=404 instead of returning a 404
   location @404 {
