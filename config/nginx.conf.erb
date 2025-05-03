@@ -1,87 +1,418 @@
 daemon off;
-# stay attached to the dyno process, run in Procfile / web
-
-pid /app/nginx.pid;
-# /app is $HOME & working directory of Heroku dyno
-
-error_log stderr info;
-# As documented for Nginx, but we still see error during start-up in log:
-# >  nginx: [alert] could not open error log file: open() "./logs/error.log"
-
-worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
-# Heroku dynos have at least 4 cores.
+worker_processes auto;
 
 events {
-	use epoll;
-	accept_mutex on;
-	worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
+  use epoll;
+  accept_mutex on;
+  worker_connections 512;
 }
 
 http {
-	gzip on;
-	gzip_comp_level 2;
-	gzip_min_length 512;
-	gzip_proxied any; # Heroku router sends Via header
+  gzip on;
+  gzip_comp_level 6;
+  gzip_min_length 512;
+  gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+  gzip_vary on;
+  gzip_proxied any;
 
-	server_tokens off;
+  server_tokens off;
+  access_log logs/access.log;
+  error_log stderr error;
 
-	log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
-	access_log /dev/stdout l2met;
-	# Remote IP, request path, HTTP status, & timestamp are all logged by Heroku Router, so not useful to include here.
 
-	include mime.types;
-	default_type application/octet-stream;
-	sendfile on;
+  include mime.types;
+  default_type application/octet-stream;
+  sendfile on;
 
-	client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
-	# Must read the body in 5 seconds.
+  #Must read the body in 5 seconds.
+  client_body_timeout 5;
 
-	server {
-		listen <%= ENV["PORT"] %>;
-		server_name _;
-		keepalive_timeout 5;
-		client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
+  server {
+    listen 52118 reuseport;
+    charset UTF-8;
+    port_in_redirect off;
+    keepalive_timeout 5;
+    root /app/public/;
 
-		## HTTPS Only
-		if ($http_x_forwarded_proto != "https") {
-			return 301 https://$host$request_uri;
-		}
+    error_page 404 500 //404.html;
 
-		## Document root
-		root /app/public;
+    if ($http_x_forwarded_proto != "https") {
+      return 301 https://$host$request_uri;
+    }
 
-		location / {
-			## Clean URLs: match on extensionless requests.
-			# try_files $uri $uri/ $uri.html =404;
+  # need this b/c setting $fallback to =404 will try #{root}=404 instead of returning a 404
+  location @404 {
+    return 404;
+  }
 
-			## Single-page app client-side routing: returns index.html if the requested path doesn't exist.
-			## When enabled, the client-side app must handle its own 404 errors.
-			# error_page 404 = /index.html;
-		}
+  # fallback redirects pattern match
 
-		## Define specific behaviors for sub directories and other locations.
-		# location /assets {
-		# 	expires 7d;
-		# }
+    location ~ ^/sensu-core/1.[0-9]/?((?<=/).*)?$ {
+      return 301 /sensu-core/latest/$1;
+    }
 
-		location ~ ^/sensu-go/6.13/?((?<=/).*)?$ {
-          return 302 /sensu-go/latest/$1;
-        }
+    location ~ ^/sensu-core/0.29/?((?<=/).*)?$ {
+      return 301 /sensu-core/latest/$1;
+    }
 
-		## Custom error pages
-		# error_page 404 /404.html;
-		# error_page 500 /500.html;
-	}
+    location ~ ^/sensu-core/2.0/?((?<=/).*)?$ {
+      return 301 /sensu-go/latest/$1;
+    }
 
-	## Canonical Host: redirect to a canonical hostname.
-	## Multiple server blocks may be used, one for each hostname to redirect from.
-	# server {
-	# 	server_name some-other-name.example.com;
-	# 	return 301 https://canonical-name.example.com$request_uri;
-	# }
-	# server {
-	# 	server_name yet-another-name.example.com;
-	# 	return 301 https://canonical-name.example.com$request_uri;
-	# }
-	# …
+    location ~ ^/uchiwa/1.0/?((?<=/).*)?$ {
+      return 301 /uchiwa/latest/$1;
+    }
+
+    location ~ ^/sensu-enterprise/3.[0-8]/?((?<=/).*)?$ {
+      return 301 /sensu-enterprise/latest/$1;
+    }
+
+    location ~ ^/sensu-enterprise/2.[6-8]/?((?<=/).*)?$ {
+      return 301 /sensu-enterprise/latest/$1;
+    }
+
+    location ~ ^/sensu-enterprise-dashboard/2.1[0-6]/?((?<=/).*)?$ {
+      return 301 /sensu-enterprise-dashboard/latest/$1;
+    }
+
+    location ~ ^/sensu-enterprise-dashboard/2.9/?((?<=/).*)?$ {
+      return 301 /sensu-enterprise-dashboard/latest/$1;
+    }
+
+    location ~ ^/sensu-go/latest/guides/create-a-ready-only-user/?$ {
+      return 301 /sensu-go/latest/operations/control-access/create-read-only-user;
+    }
+
+    location ~ ^/sensu-go/6.12/?((?<=/).*)?$ {
+      return 302 /sensu-go/latest/$1;
+    }
+
+    location ~ ^/sensu-go/6.[0-8]/?((?<=/).*)?$ {
+      return 301 /sensu-go/latest/$1;
+    }
+
+    location ~ ^/sensu-go/5.2[0-1]/?((?<=/).*)?$ {
+      return 301 /sensu-go/latest/$1;
+    }
+
+    location ~ ^/sensu-go/5.1[0-9]/?((?<=/).*)?$ {
+      return 301 /sensu-go/latest/$1;
+    }
+
+    location ~ ^/sensu-go/5.[0-9]/?((?<=/).*)?$ {
+      return 301 /sensu-go/latest/$1;
+    }
+
+    location ~ ^/plugins/?((?<=/).*)?$ {
+      return 301 /sensu-go/latest/plugins;
+    }
+
+    location ~ ^/sensu-go/latest/guides/securing-sensu/?$ {
+      return 301 /sensu-go/latest/operations/deploy-sensu/secure-sensu;
+    }
+
+    location ~ ^/sensu-go/5.2[0-9]/?((?<=/).*)?/guides/securing-sensu/?$ {
+      return 301 /sensu-go/latest/operations/deploy-sensu/secure-sensu;
+    }
+
+    location ~ ^/sensu-go/latest/guides/troubleshooting/?$ {
+      return 301 /sensu-go/latest/operations/maintain-sensu/troubleshoot;
+    }
+
+    location ~ ^/sensu-go/5.2[0-9]/?((?<=/).*)?/guides/troubleshooting/?$ {
+      return 301 /sensu-go/latest/operations/maintain-sensu/troubleshoot;
+    }
+
+    location ~ ^/sensu-go/latest/reference/events/?$ {
+      return 301 /sensu-go/latest/observability-pipeline/observe-events/events;
+    }
+
+    location ~ ^/sensu-go/latest/learn/sandbox/?$ {
+      return 301 /sensu-go/latest/learn;
+    }
+
+    location ~ ^/sensu-go/6.[0-9]/learn/sandbox/?$ {
+      return 301 /sensu-go/latest/learn;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/apikeys/?$ {
+      return 301 /sensu-go/latest/api/core/apikeys/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/apikeys/?$ {
+      return 301 /sensu-go/latest/api/core/apikeys/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/assets/?$ {
+      return 301 /sensu-go/latest/api/core/assets/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/assets/?$ {
+      return 301 /sensu-go/latest/api/core/assets/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/checks/?$ {
+      return 301 /sensu-go/latest/api/core/checks/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/checks/?$ {
+      return 301 /sensu-go/latest/api/core/checks/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/cluster/?$ {
+      return 301 /sensu-go/latest/api/core/cluster/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/cluster/?$ {
+      return 301 /sensu-go/latest/api/core/cluster/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/entities/?$ {
+      return 301 /sensu-go/latest/api/core/entities/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/entities/?$ {
+      return 301 /sensu-go/latest/api/core/entities/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/events/?$ {
+      return 301 /sensu-go/latest/api/core/events/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/events/?$ {
+      return 301 /sensu-go/latest/api/core/events/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/filters/?$ {
+      return 301 /sensu-go/latest/api/core/filters/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/filters/?$ {
+      return 301 /sensu-go/latest/api/core/filters/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/handlers/?$ {
+      return 301 /sensu-go/latest/api/core/handlers/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/handlers/?$ {
+      return 301 /sensu-go/latest/api/core/handlers/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/hooks/?$ {
+      return 301 /sensu-go/latest/api/core/hooks/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/hooks/?$ {
+      return 301 /sensu-go/latest/api/core/hooks/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/mutators/?$ {
+      return 301 /sensu-go/latest/api/core/mutators/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/mutators/?$ {
+      return 301 /sensu-go/latest/api/core/mutators/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/namespaces/?$ {
+      return 301 /sensu-go/latest/api/core/namespaces/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/namespaces/?$ {
+      return 301 /sensu-go/latest/api/core/namespaces/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/pipeline-resource/?$ {
+      return 301 /sensu-go/latest/api/core/pipelines/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/pipeline-resource/?$ {
+      return 301 /sensu-go/latest/api/core/pipelines/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/role-bindings/?$ {
+      return 301 /sensu-go/latest/api/core/rolebindings/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/role-bindings/?$ {
+      return 301 /sensu-go/latest/api/core/rolebindings/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/roles/?$ {
+      return 301 /sensu-go/latest/api/core/roles/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/roles/?$ {
+      return 301 /sensu-go/latest/api/core/roles/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/silenced/?$ {
+      return 301 /sensu-go/latest/api/core/silenced/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/silenced/?$ {
+      return 301 /sensu-go/latest/api/core/silenced/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/tessen/?$ {
+      return 301 /sensu-go/latest/api/core/tessen/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/tessen/?$ {
+      return 301 /sensu-go/latest/api/core/tessen/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/users/?$ {
+      return 301 /sensu-go/latest/api/core/users/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/users/?$ {
+      return 301 /sensu-go/latest/api/core/users/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/authproviders/?$ {
+      return 301 /sensu-go/latest/api/enterprise/authproviders/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/authproviders/?$ {
+      return 301 /sensu-go/latest/api/enterprise/authproviders/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/business-service-monitoring/?$ {
+      return 301 /sensu-go/latest/api/enterprise/business-service-monitoring/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/business-service-monitoring/?$ {
+      return 301 /sensu-go/latest/api/enterprise/business-service-monitoring/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/federation/?$ {
+      return 301 /sensu-go/latest/api/enterprise/federation/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/federation/?$ {
+      return 301 /sensu-go/latest/api/enterprise/federation/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/pipeline/?$ {
+      return 301 /sensu-go/latest/api/enterprise/pipeline/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/pipeline/?$ {
+      return 301 /sensu-go/latest/api/enterprise/pipeline/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/prune/?$ {
+      return 301 /sensu-go/latest/api/enterprise/prune/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/prune/?$ {
+      return 301 /sensu-go/latest/api/enterprise/prune/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/searches/?$ {
+      return 301 /sensu-go/latest/api/enterprise/searches/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/searches/?$ {
+      return 301 /sensu-go/latest/api/enterprise/searches/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/secrets/?$ {
+      return 301 /sensu-go/latest/api/enterprise/secrets/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/secrets/?$ {
+      return 301 /sensu-go/latest/api/enterprise/secrets/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/datastore/?$ {
+      return 301 /sensu-go/latest/api/enterprise/datastore/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/datastore/?$ {
+      return 301 /sensu-go/latest/api/enterprise/datastore/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/webconfig/?$ {
+      return 301 /sensu-go/latest/api/enterprise/webconfig/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/webconfig/?$ {
+      return 301 /sensu-go/latest/api/enterprise/webconfig/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/auth/?$ {
+      return 301 /sensu-go/latest/api/other/auth/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/auth/?$ {
+      return 301 /sensu-go/latest/api/other/auth/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/health/?$ {
+      return 301 /sensu-go/latest/api/other/health/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/health/?$ {
+      return 301 /sensu-go/latest/api/other/health/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/license/?$ {
+      return 301 /sensu-go/latest/api/other/license/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/license/?$ {
+      return 301 /sensu-go/latest/api/other/license/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/metrics/?$ {
+      return 301 /sensu-go/latest/api/other/metrics/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/metrics/?$ {
+      return 301 /sensu-go/latest/api/other/metrics/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-6]/api/version/?$ {
+      return 301 /sensu-go/latest/api/other/version/$1;
+    }
+
+    location ~ ^/sensu-go/latest/api/version/?$ {
+      return 301 /sensu-go/latest/api/other/version/$1;
+    }
+
+    location ~ ^/sensu-go/6.7/web-ui/sensu-catalog/?$ {
+      return 301 /sensu-go/6.7/catalog/sensu-catalog/$1;
+    }
+
+    location ~ ^/sensu-go/6.8/web-ui/sensu-catalog/?$ {
+      return 301 /sensu-go/6.8/catalog/sensu-catalog/$1;
+    }
+
+    location ~ ^/sensu-go/6.9/web-ui/sensu-catalog/?$ {
+      return 301 /sensu-go/6.9/catalog/sensu-catalog/$1;
+    }
+
+    location ~ ^/sensu-go/latest/web-ui/sensu-catalog/?$ {
+      return 301 /sensu-go/latest/catalog/sensu-catalog/$1;
+    }
+
+    location ~ ^/sensu-go/6.[3-7]/plugins/supported-integrations/?((?<=/).*)?$ {
+      return 301 /sensu-go/latest/plugins/featured-integrations/$1;
+    }
+
+    location ~ ^/sensu-go/latest/plugins/supported-integrations/?((?<=/).*)?$ {
+      return 301 /sensu-go/latest/plugins/featured-integrations/$1;
+    }
+
+    location ~ ^/sensu-go/latest/guides/install-check-executables-with-assets/?((?<=/).*)?$ {
+      return 301 /sensu-go/latest/plugins/use-assets-to-install-plugins/$1;
+    }
+
+    location ~ ^/sensu-go/latest/reference/assets/?((?<=/).*)?$ {
+      return 301 /sensu-go/latest/plugins/assets/$1;
+    }
+  }
 }
