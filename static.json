@@ -41,7 +41,7 @@
         },
         "~ ^/sensu-go/6.13/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
-            "status": 302
+            "status": 301
         },
         "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",

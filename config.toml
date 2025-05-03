@@ -59,6 +59,10 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     latest = "6.13"
 
     [[params.products.sensu_go.versions]]
+    version = "6.13"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
     version = "6.12"
     platforms = []
 
