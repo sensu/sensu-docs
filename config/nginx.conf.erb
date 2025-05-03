@@ -64,8 +64,8 @@ http {
 		# 	expires 7d;
 		# }
 
-		location ~ ^/sensu-go/6\.13(/(.*))?$ {
-            return 302 /sensu-go/latest/$1;
+		location ~ ^/sensu-go/6.13/?((?<=/).*)?$ {
+          return 302 /sensu-go/latest/$1;
         }
 
 		## Custom error pages
