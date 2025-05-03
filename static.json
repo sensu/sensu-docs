@@ -43,6 +43,10 @@
             "url": "/sensu-go/latest/$1",
             "status": 302
         },
+        "~ ^/sensu-go/6.13/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 302
+        },
         "~ ^/sensu-go/6.[0-8]/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
