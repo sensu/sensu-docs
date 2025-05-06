@@ -47,6 +47,10 @@ http {
 			return 301 https://$host$request_uri;
 		}
 
+        upstream app_server {
+    		server unix:/tmp/nginx.socket fail_timeout=0;
+    	}
+
 		## Document root
 		root /app/public;
 
@@ -57,6 +61,10 @@ http {
 			## Single-page app client-side routing: returns index.html if the requested path doesn't exist.
 			## When enabled, the client-side app must handle its own 404 errors.
 			# error_page 404 = /index.html;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+            proxy_redirect off;
+            proxy_pass http://app_server;
 		}
 
         rewrite ^/sensu-go/6\.13/?(\.*)?$ /sensu-go/latest/$1 permanent;
