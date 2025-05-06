@@ -42,6 +42,13 @@ http {
 		keepalive_timeout 5;
 		client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
 
+		# force portless redirect host
+        set $redirect_host $host;
+
+        if ($http_host ~* "^([^:]+)(:\d+)?$") {
+          set $redirect_host $1;
+        }
+
 		## Document root
 		root /app/public;
 
