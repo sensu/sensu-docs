@@ -58,16 +58,15 @@ http {
 
         error_page 404 /404.html;
 
-        location ^~ /sensu-go/6.13/ {
-            rewrite ^/sensu-go/6\.13/(.*)$ /latest/$1 break;
-        }
+
 
          # === BEGIN REDIRECT RULES ===
         rewrite ^/sensu-core/0\.19/?(\.*)?$ https://$redirect_host/sensu-core/latest/$1 permanent;
         rewrite ^/sensu-core/2\.0/?(\.*)?$ https://$redirect_host/sensu-go/latest/$1 permanent;
         rewrite ^/uchiwa/0\.3/?(\.*)?$ https://$redirect_host/uchiwa/latest/$1 permanent;
         rewrite ^/sensu-enterprise/3\.[0-8]/?(\.*)?$ https://$redirect_host/sensu-enterprise/latest/$1 permanent;
-        rewrite ^/sensu-go/6\.13/?(\.*)?$ https://$redirect_host/sensu-go/latest/$1 redirect;
+        #rewrite ^/sensu-go/6\.13/?(\.*)?$ https://$redirect_host/sensu-go/latest/$1 redirect;
+        rewrite ^/sensu-go/6\.13/(.*)$ https://$redirect_host/sensu-go/latest/$1 permanent;
         rewrite ^/plugins/?(\.*)?$ https://$redirect_host/sensu-go/latest/plugins permanent;
         rewrite ^/sensu-core/1\.[0-9]/?(\.*)?$ https://$redirect_host/sensu-core/latest/$1 permanent;
         rewrite ^/sensu-core/0\.89/?(\.*)?$ https://$redirect_host/sensu-core/latest/$1 permanent;
