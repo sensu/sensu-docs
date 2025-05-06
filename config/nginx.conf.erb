@@ -63,7 +63,6 @@ http {
         rewrite ^/sensu-core/2\.0/?(\.*)?$ /sensu-go/latest/$1 permanent;
         rewrite ^/uchiwa/0\.3/?(\.*)?$ /uchiwa/latest/$1 permanent;
         rewrite ^/sensu-enterprise/3\.[0-8]/?(\.*)?$ /sensu-enterprise/latest/$1 permanent;
-        rewrite ^/sensu-go/6\.13/?(\.*)?$ /sensu-go/latest/$1 redirect;
         rewrite ^/plugins/?(\.*)?$ /sensu-go/latest/plugins permanent;
         rewrite ^/sensu-core/1\.[0-9]/?(\.*)?$ /sensu-core/latest/$1 permanent;
         rewrite ^/sensu-core/0\.89/?(\.*)?$ /sensu-core/latest/$1 permanent;
