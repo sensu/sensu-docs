@@ -42,11 +42,18 @@ http {
 		keepalive_timeout 5;
 		client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
 
+		# force portless redirect host
+        set $redirect_host $host;
+
+        if ($http_host ~* "^([^:]+)(:\d+)?$") {
+          set $redirect_host $1;
+        }
+
 		## Document root
 		root /app/public;
 
 		if ($http_x_forwarded_proto != "https") {
-          return 301 https://$host$request_uri;
+          return 301 https://$redirect_host$request_uri;
         }
 
         error_page 404 /404.html;
@@ -56,7 +63,6 @@ http {
         rewrite ^/sensu-core/2\.0/?(\.*)?$ /sensu-go/latest/$1 permanent;
         rewrite ^/uchiwa/0\.3/?(\.*)?$ /uchiwa/latest/$1 permanent;
         rewrite ^/sensu-enterprise/3\.[0-8]/?(\.*)?$ /sensu-enterprise/latest/$1 permanent;
-        rewrite ^/sensu-go/6\.13/?(\.*)?$ /sensu-go/latest/$1 redirect;
         rewrite ^/plugins/?(\.*)?$ /sensu-go/latest/plugins permanent;
         rewrite ^/sensu-core/1\.[0-9]/?(\.*)?$ /sensu-core/latest/$1 permanent;
         rewrite ^/sensu-core/0\.89/?(\.*)?$ /sensu-core/latest/$1 permanent;
