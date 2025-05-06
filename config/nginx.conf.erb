@@ -59,6 +59,8 @@ http {
 			# error_page 404 = /index.html;
 		}
 
+        rewrite ^/sensu-go/6\.13/?(\.*)?$ /sensu-go/latest/$1 redirect;
+
 		## Define specific behaviors for sub directories and other locations.
 		# location /assets {
 		# 	expires 7d;
