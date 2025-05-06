@@ -1,0 +1,243 @@
+daemon off;
+# stay attached to the dyno process, run in Procfile / web
+
+pid /app/nginx.pid;
+# /app is $HOME & working directory of Heroku dyno
+
+error_log stderr info;
+# As documented for Nginx, but we still see error during start-up in log:
+# >  nginx: [alert] could not open error log file: open() "./logs/error.log"
+
+worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
+# Heroku dynos have at least 4 cores.
+
+events {
+	use epoll;
+	accept_mutex on;
+	worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
+}
+
+http {
+	gzip on;
+	gzip_comp_level 2;
+	gzip_min_length 512;
+	gzip_proxied any; # Heroku router sends Via header
+
+	server_tokens off;
+
+	log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
+	access_log /dev/stdout l2met;
+	# Remote IP, request path, HTTP status, & timestamp are all logged by Heroku Router, so not useful to include here.
+
+	include mime.types;
+	default_type application/octet-stream;
+	sendfile on;
+
+	client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
+	# Must read the body in 5 seconds.
+
+	server {
+		listen <%= ENV["PORT"] %>;
+		server_name _;
+		keepalive_timeout 5;
+		client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
+
+		## Document root
+		root /app/public;
+
+		if ($http_x_forwarded_proto != "https") {
+          return 301 https://$host$request_uri;
+        }
+
+        error_page 404 /404.html;
+
+        # === BEGIN REDIRECT RULES ===
+        rewrite ^/sensu-core/0\.19/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/2\.0/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/uchiwa/0\.3/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/sensu-enterprise/3\.[0-8]/?(\.*)?$ /sensu-enterprise/latest/$1 permanent;
+        rewrite ^/sensu-go/6\.13/?(\.*)?$ /sensu-go/latest/$1 redirect;
+        rewrite ^/plugins/?(\.*)?$ /sensu-go/latest/plugins permanent;
+        rewrite ^/sensu-core/1\.[0-9]/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.89/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.0/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.59/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.7/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.29/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/uchiwa/2\.4/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.99/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.49/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/uchiwa/3\.4/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.39/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.69/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.9/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.4/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.79/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.99/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.9/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/0\.6/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.8/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.1/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.69/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.59/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.29/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.3/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.6/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.2/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.39/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.7/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.5/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.8/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.0/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.19/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.1/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.9/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.0/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.29/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.4/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.79/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.2/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.3/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.8/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.7/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.6/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.89/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.49/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.39/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.69/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.59/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.99/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.29/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.79/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.19/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.09/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.1/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.2/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.3/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.4/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.5/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.6/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.7/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.8/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/1\.9/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/2\.0/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-core/2\.1/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.0/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.1/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.2/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.3/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.4/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.5/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.6/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.7/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.8/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.9/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/2\.0/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/2\.1/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/2\.2/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/2\.3/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/2\.4/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/uchiwa/2\.5/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/sensu-go/latest/guides/create-a-ready-only-user/?$ /sensu-go/latest/operations/control-access/create-read-only-user permanent;
+        rewrite ^/sensu-go/6\.13/?(\.*)?$ /sensu-go/latest/$1 redirect;
+        rewrite ^/sensu-go/6\.[0-9]/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.20/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.21/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.22/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.23/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.24/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.25/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.26/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.27/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.28/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.29/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/sensu-go/5\.30/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/plugins/?(\.*)?$ /sensu-go/latest/plugins permanent;
+        rewrite ^/sensu-go/latest/guides/securing-sensu/?$ /sensu-go/latest/operations/deploy-sensu/secure-sensu permanent;
+        rewrite ^/sensu-go/5\.20/.*/guides/securing-sensu/?$ /sensu-go/latest/operations/deploy-sensu/secure-sensu permanent;
+        rewrite ^/sensu-go/5\.21/.*/guides/securing-sensu/?$ /sensu-go/latest/operations/deploy-sensu/secure-sensu permanent;
+        rewrite ^/sensu-go/5\.22/.*/guides/securing-sensu/?$ /sensu-go/latest/operations/deploy-sensu/secure-sensu permanent;
+        rewrite ^/sensu-go/5\.23/.*/guides/securing-sensu/?$ /sensu-go/latest/operations/deploy-sensu/secure-sensu permanent;
+        rewrite ^/sensu-go/latest/guides/troubleshooting/?$ /sensu-go/latest/operations/maintain-sensu/troubleshoot permanent;
+        rewrite ^/sensu-go/5\.20/.*/guides/troubleshooting/?$ /sensu-go/latest/operations/maintain-sensu/troubleshoot permanent;
+        rewrite ^/sensu-go/5\.21/.*/guides/troubleshooting/?$ /sensu-go/latest/operations/maintain-sensu/troubleshoot permanent;
+        rewrite ^/sensu-go/latest/reference/events/?$ /sensu-go/latest/observability-pipeline/observe-events/events permanent;
+        rewrite ^/sensu-go/latest/learn/sandbox/?$ /sensu-go/latest/learn permanent;
+        rewrite ^/sensu-go/6\.[0-9]/learn/sandbox/?$ /sensu-go/latest/learn permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/apikeys/?$ /sensu-go/latest/api/core/apikeys/$1 permanent;
+        rewrite ^/sensu-go/latest/api/apikeys/?$ /sensu-go/latest/api/core/apikeys/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/assets/?$ /sensu-go/latest/api/core/assets/$1 permanent;
+        rewrite ^/sensu-go/latest/api/assets/?$ /sensu-go/latest/api/core/assets/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/checks/?$ /sensu-go/latest/api/core/checks/$1 permanent;
+        rewrite ^/sensu-go/latest/api/checks/?$ /sensu-go/latest/api/core/checks/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/cluster/?$ /sensu-go/latest/api/core/cluster/$1 permanent;
+        rewrite ^/sensu-go/latest/api/cluster/?$ /sensu-go/latest/api/core/cluster/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/entities/?$ /sensu-go/latest/api/core/entities/$1 permanent;
+        rewrite ^/sensu-go/latest/api/entities/?$ /sensu-go/latest/api/core/entities/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/events/?$ /sensu-go/latest/api/core/events/$1 permanent;
+        rewrite ^/sensu-go/latest/api/events/?$ /sensu-go/latest/api/core/events/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/filters/?$ /sensu-go/latest/api/core/filters/$1 permanent;
+        rewrite ^/sensu-go/latest/api/filters/?$ /sensu-go/latest/api/core/filters/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/handlers/?$ /sensu-go/latest/api/core/handlers/$1 permanent;
+        rewrite ^/sensu-go/latest/api/handlers/?$ /sensu-go/latest/api/core/handlers/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/hooks/?$ /sensu-go/latest/api/core/hooks/$1 permanent;
+        rewrite ^/sensu-go/latest/api/hooks/?$ /sensu-go/latest/api/core/hooks/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/mutators/?$ /sensu-go/latest/api/core/mutators/$1 permanent;
+        rewrite ^/sensu-go/latest/api/mutators/?$ /sensu-go/latest/api/core/mutators/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/namespaces/?$ /sensu-go/latest/api/core/namespaces/$1 permanent;
+        rewrite ^/sensu-go/latest/api/namespaces/?$ /sensu-go/latest/api/core/namespaces/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/pipeline-resource/?$ /sensu-go/latest/api/core/pipelines/$1 permanent;
+        rewrite ^/sensu-go/latest/api/pipeline-resource/?$ /sensu-go/latest/api/core/pipelines/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/role-bindings/?$ /sensu-go/latest/api/core/rolebindings/$1 permanent;
+        rewrite ^/sensu-go/latest/api/role-bindings/?$ /sensu-go/latest/api/core/rolebindings/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/roles/?$ /sensu-go/latest/api/core/roles/$1 permanent;
+        rewrite ^/sensu-go/latest/api/roles/?$ /sensu-go/latest/api/core/roles/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/silenced/?$ /sensu-go/latest/api/core/silenced/$1 permanent;
+        rewrite ^/sensu-go/latest/api/silenced/?$ /sensu-go/latest/api/core/silenced/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/tessen/?$ /sensu-go/latest/api/core/tessen/$1 permanent;
+        rewrite ^/sensu-go/latest/api/tessen/?$ /sensu-go/latest/api/core/tessen/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/users/?$ /sensu-go/latest/api/core/users/$1 permanent;
+        rewrite ^/sensu-go/latest/api/users/?$ /sensu-go/latest/api/core/users/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/authproviders/?$ /sensu-go/latest/api/enterprise/authproviders/$1 permanent;
+        rewrite ^/sensu-go/latest/api/authproviders/?$ /sensu-go/latest/api/enterprise/authproviders/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/business-service-monitoring/?$ /sensu-go/latest/api/enterprise/business-service-monitoring/$1 permanent;
+        rewrite ^/sensu-go/latest/api/business-service-monitoring/?$ /sensu-go/latest/api/enterprise/business-service-monitoring/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/federation/?$ /sensu-go/latest/api/enterprise/federation/$1 permanent;
+        rewrite ^/sensu-go/latest/api/federation/?$ /sensu-go/latest/api/enterprise/federation/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/pipeline/?$ /sensu-go/latest/api/enterprise/pipeline/$1 permanent;
+        rewrite ^/sensu-go/latest/api/pipeline/?$ /sensu-go/latest/api/enterprise/pipeline/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/prune/?$ /sensu-go/latest/api/enterprise/prune/$1 permanent;
+        rewrite ^/sensu-go/latest/api/prune/?$ /sensu-go/latest/api/enterprise/prune/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/searches/?$ /sensu-go/latest/api/enterprise/searches/$1 permanent;
+        rewrite ^/sensu-go/latest/api/searches/?$ /sensu-go/latest/api/enterprise/searches/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/secrets/?$ /sensu-go/latest/api/enterprise/secrets/$1 permanent;
+        rewrite ^/sensu-go/latest/api/secrets/?$ /sensu-go/latest/api/enterprise/secrets/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/datastore/?$ /sensu-go/latest/api/enterprise/datastore/$1 permanent;
+        rewrite ^/sensu-go/latest/api/datastore/?$ /sensu-go/latest/api/enterprise/datastore/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/webconfig/?$ /sensu-go/latest/api/enterprise/webconfig/$1 permanent;
+        rewrite ^/sensu-go/latest/api/webconfig/?$ /sensu-go/latest/api/enterprise/webconfig/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/auth/?$ /sensu-go/latest/api/other/auth/$1 permanent;
+        rewrite ^/sensu-go/latest/api/auth/?$ /sensu-go/latest/api/other/auth/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/health/?$ /sensu-go/latest/api/other/health/$1 permanent;
+        rewrite ^/sensu-go/latest/api/health/?$ /sensu-go/latest/api/other/health/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/license/?$ /sensu-go/latest/api/other/license/$1 permanent;
+        rewrite ^/sensu-go/latest/api/license/?$ /sensu-go/latest/api/other/license/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/metrics/?$ /sensu-go/latest/api/other/metrics/$1 permanent;
+        rewrite ^/sensu-go/latest/api/metrics/?$ /sensu-go/latest/api/other/metrics/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-6]/api/version/?$ /sensu-go/latest/api/other/version/$1 permanent;
+        rewrite ^/sensu-go/latest/api/version/?$ /sensu-go/latest/api/other/version/$1 permanent;
+        rewrite ^/sensu-go/6\.7/web-ui/sensu-catalog/?$ /sensu-go/6.7/catalog/sensu-catalog/$1 permanent;
+        rewrite ^/sensu-go/6\.8/web-ui/sensu-catalog/?$ /sensu-go/6.8/catalog/sensu-catalog/$1 permanent;
+        rewrite ^/sensu-go/6\.9/web-ui/sensu-catalog/?$ /sensu-go/6.9/catalog/sensu-catalog/$1 permanent;
+        rewrite ^/sensu-go/latest/web-ui/sensu-catalog/?$ /sensu-go/latest/catalog/sensu-catalog/$1 permanent;
+        rewrite ^/sensu-go/6\.[3-7]/plugins/supported-integrations/?(\.*)?$ /sensu-go/latest/plugins/featured-integrations/$1 permanent;
+        rewrite ^/sensu-go/latest/plugins/supported-integrations/?(\.*)?$ /sensu-go/latest/plugins/featured-integrations/$1 permanent;
+        rewrite ^/sensu-go/latest/guides/install-check-executables-with-assets/?(\.*)?$ /sensu-go/latest/plugins/use-assets-to-install-plugins/$1 permanent;
+        rewrite ^/sensu-go/latest/reference/assets/?(\.*)?$ /sensu-go/latest/plugins/assets/$1 permanent;
+        # === END REDIRECT RULES ===
+
+        location / {
+          try_files $uri $uri/ /404.html;
+        }
+	}
+}
