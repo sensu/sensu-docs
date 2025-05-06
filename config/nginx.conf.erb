@@ -53,7 +53,7 @@ http {
 		root /app/public;
 
 		if ($http_x_forwarded_proto != "https") {
-          return 301 https://$host$request_uri;
+          return 301 https://$redirect_host$request_uri;
         }
 
         error_page 404 /404.html;
