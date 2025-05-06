@@ -8,7 +8,7 @@
             "url": "urn:buildpack:heroku/nodejs"
         },
         {
-            "url": "https://github.com/sensu/heroku-buildpack-static.git"
+            "url": "urn:buildpack:heroku-community/nginx"
         }
       ]
 }
