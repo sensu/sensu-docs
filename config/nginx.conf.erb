@@ -1,41 +1,73 @@
-worker_processes 1;
-events { worker_connections 1024; }
+daemon off;
+# stay attached to the dyno process, run in Procfile / web
+
+pid /app/nginx.pid;
+# /app is $HOME & working directory of Heroku dyno
+
+error_log stderr info;
+# As documented for Nginx, but we still see error during start-up in log:
+# >  nginx: [alert] could not open error log file: open() "./logs/error.log"
+
+worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
+# Heroku dynos have at least 4 cores.
+
+events {
+	use epoll;
+	accept_mutex on;
+	worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
+}
 
 http {
-  include mime.types;
-  default_type application/octet-stream;
-  sendfile on;
+	gzip on;
+	gzip_comp_level 2;
+	gzip_min_length 512;
+	gzip_proxied any; # Heroku router sends Via header
 
-  server {
-    listen <%= ENV["PORT"] %>;
-    server_name localhost;
+	server_tokens off;
 
-    root /app/public;
-    index index.html;
+	log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
+	access_log /dev/stdout l2met;
+	# Remote IP, request path, HTTP status, & timestamp are all logged by Heroku Router, so not useful to include here.
 
-    if ($http_x_forwarded_proto != "https") {
-      return 301 https://$host$request_uri;
-    }
+	include mime.types;
+	default_type application/octet-stream;
+	sendfile on;
 
-    error_page 404 /404.html;
+	client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
+	# Must read the body in 5 seconds.
 
-    # === BEGIN REDIRECT RULES ===
-    rewrite ^/sensu-core/1\.[0-9]/?(\.*)?$ /sensu-core/latest/$1 permanent;
-    rewrite ^/sensu-core/0\.29/?(\.*)?$ /sensu-core/latest/$1 permanent;
-    rewrite ^/sensu-core/2\.0/?(\.*)?$ /sensu-go/latest/$1 permanent;
-    rewrite ^/uchiwa/1\.0/?(\.*)?$ /uchiwa/latest/$1 permanent;
-    rewrite ^/sensu-enterprise/3\.[0-8]/?(\.*)?$ /sensu-enterprise/latest/$1 permanent;
-    rewrite ^/sensu-enterprise/2\.[6-8]/?(\.*)?$ /sensu-enterprise/latest/$1 permanent;
-    rewrite ^/sensu-enterprise-dashboard/2\.1[0-6]/?(\.*)?$ /sensu-enterprise-dashboard/latest/$1 permanent;
-    rewrite ^/sensu-enterprise-dashboard/2\.9/?(\.*)?$ /sensu-enterprise-dashboard/latest/$1 permanent;
-    rewrite ^/sensu-go/latest/guides/create-a-ready-only-user/?$ /sensu-go/latest/operations/control-access/create-read-only-user permanent;
-    rewrite ^/sensu-go/6\.13/?(\.*)?$ /sensu-go/latest/$1 redirect;
-    rewrite ^/sensu-go/6\.[0-9]/?(\.*)?$ /sensu-go/latest/$1 permanent;
-    rewrite ^/plugins/?(\.*)?$ /sensu-go/latest/plugins permanent;
-    # === END REDIRECT RULES ===
+	server {
+		listen <%= ENV["PORT"] %>;
+		server_name _;
+		keepalive_timeout 5;
+		client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
 
-    location / {
-      try_files $uri $uri/ /404.html;
-    }
-  }
+		## Document root
+		root /app/public;
+
+		if ($http_x_forwarded_proto != "https") {
+          return 301 https://$host$request_uri;
+        }
+
+        error_page 404 /404.html;
+
+        # === BEGIN REDIRECT RULES ===
+        rewrite ^/sensu-core/1\.[0-9]/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/0\.29/?(\.*)?$ /sensu-core/latest/$1 permanent;
+        rewrite ^/sensu-core/2\.0/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/uchiwa/1\.0/?(\.*)?$ /uchiwa/latest/$1 permanent;
+        rewrite ^/sensu-enterprise/3\.[0-8]/?(\.*)?$ /sensu-enterprise/latest/$1 permanent;
+        rewrite ^/sensu-enterprise/2\.[6-8]/?(\.*)?$ /sensu-enterprise/latest/$1 permanent;
+        rewrite ^/sensu-enterprise-dashboard/2\.1[0-6]/?(\.*)?$ /sensu-enterprise-dashboard/latest/$1 permanent;
+        rewrite ^/sensu-enterprise-dashboard/2\.9/?(\.*)?$ /sensu-enterprise-dashboard/latest/$1 permanent;
+        rewrite ^/sensu-go/latest/guides/create-a-ready-only-user/?$ /sensu-go/latest/operations/control-access/create-read-only-user permanent;
+        rewrite ^/sensu-go/6\.13/?(\.*)?$ /sensu-go/latest/$1 redirect;
+        rewrite ^/sensu-go/6\.[0-9]/?(\.*)?$ /sensu-go/latest/$1 permanent;
+        rewrite ^/plugins/?(\.*)?$ /sensu-go/latest/plugins permanent;
+        # === END REDIRECT RULES ===
+
+        location / {
+          try_files $uri $uri/ /404.html;
+        }
+	}
 }
