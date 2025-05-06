@@ -36,6 +36,10 @@ http {
 	client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
 	# Must read the body in 5 seconds.
 
+    upstream app_server {
+    		server unix:/tmp/nginx.socket fail_timeout=0;
+    }
+
 	server {
 		listen <%= ENV["PORT"] %>;
 		server_name _;
@@ -47,9 +51,7 @@ http {
 			return 301 https://$host$request_uri;
 		}
 
-        upstream app_server {
-    		server unix:/tmp/nginx.socket fail_timeout=0;
-    	}
+
 
 		## Document root
 		root /app/public;
