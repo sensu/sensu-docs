@@ -1,87 +1,41 @@
-daemon off;
-# stay attached to the dyno process, run in Procfile / web
-
-pid /app/nginx.pid;
-# /app is $HOME & working directory of Heroku dyno
-
-error_log stderr info;
-# As documented for Nginx, but we still see error during start-up in log:
-# >  nginx: [alert] could not open error log file: open() "./logs/error.log"
-
-worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
-# Heroku dynos have at least 4 cores.
-
-events {
-	use epoll;
-	accept_mutex on;
-	worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
-}
+worker_processes 1;
+events { worker_connections 1024; }
 
 http {
-	gzip on;
-	gzip_comp_level 2;
-	gzip_min_length 512;
-	gzip_proxied any; # Heroku router sends Via header
+  include mime.types;
+  default_type application/octet-stream;
+  sendfile on;
 
-	server_tokens off;
+  server {
+    listen <%= ENV["PORT"] %>;
+    server_name localhost;
 
-	log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
-	access_log /dev/stdout l2met;
-	# Remote IP, request path, HTTP status, & timestamp are all logged by Heroku Router, so not useful to include here.
+    root /app/public;
+    index index.html;
 
-	include mime.types;
-	default_type application/octet-stream;
-	sendfile on;
+    if ($http_x_forwarded_proto != "https") {
+      return 301 https://$host$request_uri;
+    }
 
-	client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
-	# Must read the body in 5 seconds.
+    error_page 404 /404.html;
 
-	server {
-		listen <%= ENV["PORT"] %>;
-		server_name _;
-		keepalive_timeout 5;
-		client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
+    # === BEGIN REDIRECT RULES ===
+    rewrite ^/sensu-core/1\.[0-9]/?(\.*)?$ /sensu-core/latest/$1 permanent;
+    rewrite ^/sensu-core/0\.29/?(\.*)?$ /sensu-core/latest/$1 permanent;
+    rewrite ^/sensu-core/2\.0/?(\.*)?$ /sensu-go/latest/$1 permanent;
+    rewrite ^/uchiwa/1\.0/?(\.*)?$ /uchiwa/latest/$1 permanent;
+    rewrite ^/sensu-enterprise/3\.[0-8]/?(\.*)?$ /sensu-enterprise/latest/$1 permanent;
+    rewrite ^/sensu-enterprise/2\.[6-8]/?(\.*)?$ /sensu-enterprise/latest/$1 permanent;
+    rewrite ^/sensu-enterprise-dashboard/2\.1[0-6]/?(\.*)?$ /sensu-enterprise-dashboard/latest/$1 permanent;
+    rewrite ^/sensu-enterprise-dashboard/2\.9/?(\.*)?$ /sensu-enterprise-dashboard/latest/$1 permanent;
+    rewrite ^/sensu-go/latest/guides/create-a-ready-only-user/?$ /sensu-go/latest/operations/control-access/create-read-only-user permanent;
+    rewrite ^/sensu-go/6\.13/?(\.*)?$ /sensu-go/latest/$1 redirect;
+    rewrite ^/sensu-go/6\.[0-9]/?(\.*)?$ /sensu-go/latest/$1 permanent;
+    rewrite ^/plugins/?(\.*)?$ /sensu-go/latest/plugins permanent;
+    # === END REDIRECT RULES ===
 
-		## HTTPS Only
-		if ($http_x_forwarded_proto != "https") {
-			return 301 https://$host$request_uri;
-		}
-
-		## Document root
-		root /app/public;
-
-		location / {
-			## Clean URLs: match on extensionless requests.
-			# try_files $uri $uri/ $uri.html =404;
-
-			## Single-page app client-side routing: returns index.html if the requested path doesn't exist.
-			## When enabled, the client-side app must handle its own 404 errors.
-			# error_page 404 = /index.html;
-		}
-
-        location ~ ^/sensu-go/6\.13(/.*)?$ {
-            return 302 /sensu-go/latest$1;
-        }
-
-		## Define specific behaviors for sub directories and other locations.
-		# location /assets {
-		# 	expires 7d;
-		# }
-
-		## Custom error pages
-		# error_page 404 /404.html;
-		# error_page 500 /500.html;
-	}
-
-	## Canonical Host: redirect to a canonical hostname.
-	## Multiple server blocks may be used, one for each hostname to redirect from.
-	# server {
-	# 	server_name some-other-name.example.com;
-	# 	return 301 https://canonical-name.example.com$request_uri;
-	# }
-	# server {
-	# 	server_name yet-another-name.example.com;
-	# 	return 301 https://canonical-name.example.com$request_uri;
-	# }
-	# …
+    location / {
+      try_files $uri $uri/ /404.html;
+    }
+  }
 }
