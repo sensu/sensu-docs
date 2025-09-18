@@ -459,19 +459,6 @@ sensu-backend start --access-token-expiry 1440m
 access-token-expiry: 1440m  
 {{< /code >}} |
 
-| refresh-token-expiry | |
-|----------------------|-----|
-| description | Control expiry of refresh token. The duration must be specified in minutes. |
-| type | String |
-| default | 10080m |
-| environment variable | SENSU_BACKEND_REFRESH_TOKEN_EXPIRY |
-| command line example | {{< code shell >}}  
-sensu-backend start --refresh-token-expiry 10080m  
-{{< /code >}} |
-| backend.yml config file example | {{< code shell >}}  
-refresh-token-expiry: 10080m  
-{{< /code >}} |
-
 
 | api-listen-address  |      |
 -------------|------
@@ -696,6 +683,19 @@ backend.yml config file example | {{< code shell >}}
 metrics-refresh-interval: 10s{{< /code >}}
 
 <a id="state-dir-option"></a>
+
+| refresh-token-expiry | |
+|----------------------|-----|
+| description | Control expiry of refresh token. The duration must be specified in minutes. |
+| type | String |
+| default | 10080m |
+| environment variable | SENSU_BACKEND_REFRESH_TOKEN_EXPIRY |
+| command line example | {{< code shell >}}  
+sensu-backend start --refresh-token-expiry 10080m  
+{{< /code >}} |
+| backend.yml config file example | {{< code shell >}}  
+refresh-token-expiry: 10080m  
+{{< /code >}} |
 
 | state-dir  |      |
 -------------|------
