@@ -9,6 +9,7 @@ version: "6.13"
 menu: "sensu-go-6.13"
 ---
 
+- [6.13.1 release notes](#6130-release-notes)
 - [6.13.0 release notes](#6130-release-notes)
 - [6.12.0 release notes](#6120-release-notes)
 - [6.11.0 release notes](#6110-release-notes)
@@ -115,6 +116,33 @@ PATCH versions include backward-compatible bug fixes.
 ### Upgrading
 
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
+
+---
+
+## 6.13.1 — October 29, 2025
+The latest release of Sensu Go, version 6.13.1, is now available for download.  
+Read the [upgrade guide][1] to upgrade Sensu to version 6.13.1.
+
+### New Features
+- Added `access-token-expiry` backend configuration variable to control expiry of access tokens.  
+  *(The duration must be specified in minutes, e.g., `access-token-expiry: 1440m`)*
+- Added `refresh-token-expiry` backend configuration variable to control expiry of refresh tokens.  
+  *(The duration must be specified in minutes, e.g., `refresh-token-expiry: 10080m`)*
+
+### Improvements
+- Introduced fine-grained token expiry control via new backend configuration options.
+- Enhanced backend configurability to support environments requiring custom session lifetimes.
+
+### Fixes
+- Minor improvements and optimizations applied to backend configuration handling.
+- **Silence Creation Issues**: Fixed a bug where users were unable to create silences via the `curl` command when `max-silenced-expiry-time-allowed` and `default-silenced-expiry-time` flags were not set in `backend.yml`. These flags are now optional, allowing silences to be created via Web UI, `sensuctl`, and API without requiring these fields.
+- **UID Mapping Issues in Docker (RedHat and Alpine)**: Resolved a compatibility issue where Sensu Docker containers failed to run on systems using cgroupsv2, due to a file (`etcdctl`) having a UID exceeding the 65535 limit. All UIDs are now within the allowed range to support UID remapping and avoid container runtime errors.
+- **OIDC Integration Improvements for Microsoft Entra ID**: Resolved an issue where users were prompted for approval on every login when using Microsoft Entra ID as the OIDC provider. The login experience is now smoother, with Entra ID respecting previously granted permissions and reducing unnecessary approval prompts.
+
+### Removals
+- **Removed Tessen Telemetry Service**:  
+  The Tessen functionality has been removed from Sensu Go. Tessen previously collected and transmitted anonymized usage data to Sensu for product insights. Since the backend infrastructure supporting telemetry collection is no longer available, Tessen has been fully deprecated and removed from this release.  
+  Documentation related to Tessen has been updated or removed accordingly.
 
 ---
 
