@@ -145,8 +145,10 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.13.0.
 
 **NEW FEATURES:**
 
-- Added `access-token-expiry` (in minutes) backend configuration variable to control expiry of access token.
-- Added `refresh-token-expiry` (in minutes) backend configuration variable to control expiry of refresh token.
+- Added `access-token-expiry` backend configuration variable to control expiry of access tokens.  
+*(The duration must be specified in minutes, e.g., `access-token-expiry: 1440m`)*
+- Added `refresh-token-expiry` backend configuration variable to control expiry of refresh tokens.  
+*(The duration must be specified in minutes, e.g., `refresh-token-expiry: 10080m`)*
 
 **IMPROVEMENTS**
 
@@ -168,6 +170,12 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.13.0.
 
 - ([Commercial feature][311]) [Web] UI timeout fixed where web UI is getting timeout when tabs are not visible/inactive.
 - ([Commercial feature][311]) OIDC fix for Okta group binding.
+
+**REMOVALS**
+
+- **Removed Tessen Telemetry Service**:  
+  The Tessen functionality has been removed from Sensu Go. Tessen previously collected and transmitted anonymized usage data to Sensu for product insights. Since the backend infrastructure supporting telemetry collection is no longer available, Tessen has been fully deprecated and removed from this release.  
+  Documentation related to Tessen has been updated or removed accordingly.
 
 ## 6.12.0 release notes
 
