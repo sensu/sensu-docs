@@ -124,22 +124,30 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **April 10, 2026** &mdash; The latest release of Sensu Go, version 6.14.0, is now available for download.
 
-**NEW FEATURES:**
-- Introduces Prometheus metrics to the Sensu API server, tracking total HTTP requests, request durations, and client error counts.
+**Commercial Features**
 
-**IMPROVEMENTS:**
-- Creates a fallback pipeline type to provide a method of executing a pipeline when a previous pipeline execution fails. Updates the legacy handler pipeline adapter to return an error when pipe handlers return a non-zero exit status.
-- Adds backend-side validation for runtime_assets in CheckConfig creation and update. If any referenced asset does not exist in the namespace, the request will be rejected with a validation error.
-- Introduces the ability to configure the event status when a check TTL expires (warning, critical). Additionally, it allows disabling the intermediate warning state for keepalives by setting `keepalive-warning-timeout = 0`. Also added default `keepalive-crtical-timout=240`.
-- Introduces automatic cleanup of unused agent runtime assets by purging assets that have not been accessed within a configurable time window, along with improved event handling for failed asset downloads.
-- Introduces native support for retrieving secrets from AWS Secrets Manager in Sensu by implementing a new AWS secrets provider.
-- Adds support for FIPS 140-3 compliance with strict mode.
+- Creates a fallback pipeline type to provide a method of executing a pipeline when a previous pipeline execution fails. Update the legacy handler pipeline adapter to return an error when pipe handlers return a non-zero exit status. 
+- Introduces automatic cleanup of unused agent runtime assets by purging assets that have not been accessed within a configurable time window, along with improved event handling for failed asset downloads. 
+- Introduces native support for retrieving secrets from AWS Secrets Manager in Sensu by implementing a new AWS secrets provider. 
+- Supports FIPS 140-3 compliance with strict mode.
+
+**New Features**
+
+- Addition of dynamic logging feature to change log level without restarting or reloading Sensu-backend daemon.
+- Purge silences for deleted entities.
+
+**Improvements**
+
+- Introduces Prometheus metrics to the Sensu API server, tracking total HTTP requests, request durations, and client error counts.
+- Adds backend-side validation for `runtime_assets` in `CheckConfig` creation and update. If any referenced asset does not exist in the namespace, the request will be rejected with a validation error.
 - Adds logging for the payload size during prune requests to improve visibility and usability.
-- Purges silences for deleted entities.
-- Adds a dynamic logging feature to change log level without restarting or reloading Sensu-backend daemon.
-- Upgrade go version from go 1.23.x to 1.26.x
-- Upgrade sensu-enterprise frontend from node 14.x.x to 20.x.x
-- Adds `silenced.reason` as a `fieldSelector` in the web UI and sensuctl.
+- Upgrades go version from go 1.23.x to 1.26.x
+- Upgrades `sensu-enterprise` frontend from node 14.x.x to 20.x.x.
+- Adds `silenced.reason` as a `fieldSelector` in the web UI and sensuctl.
+
+**Bug Fixes**
+
+- Introduces the ability to configure the event status when a check TTL expires (`warning`, `critical`). Additionally, it allows disabling the intermediate warning state for keepalives by setting `keepalive-warning-timeout = 0`. Also added default `keepalive-crtical-timout=240`.
 
 ---
 
