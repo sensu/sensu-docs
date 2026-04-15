@@ -122,7 +122,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 # 6.14.0 release notes
 
-**April 10, 2026** &mdash; The latest release of Sensu Go, version 6.14.0, is now available for download.
+**April 15, 2026** &mdash; The latest release of Sensu Go, version 6.14.0, is now available for download.
 
 **Commercial Features**
 
