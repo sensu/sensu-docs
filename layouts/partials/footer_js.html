@@ -202,9 +202,10 @@
         ],
         [
           {{ if isset .Page.Params "product" }}
-            'version:{{ .Page.Params.version }}'
+            'version:{{ .Page.Params.version }}'{{- if eq (.Page.Params.version | string) "6.14" -}}, 'version:6.13'{{- end -}}
           {{ else }}
             'version:6.14',
+            'version:6.13',
             'version:1.0',
             'version:2.16',
             'version:1.9',
