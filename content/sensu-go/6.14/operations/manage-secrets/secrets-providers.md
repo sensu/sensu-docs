@@ -367,25 +367,22 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-type         | 
--------------|------
-description  | Top-level attribute that specifies the resource type.
-required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
-type         | String
-allowed values | - `Env` if using Sensu's secrets provider
-- `CyberArkProvider` if using CyberArk Conjur as the secrets provider
-- `VaultProvider` if using HashiCorpVault as the secrets provider
-- `AWSProvider` is using AWS as the secrets provider
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: VaultProvider
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "VaultProvider"
-}
-{{< /code >}}
-{{< /language-toggle >}}
+| type           |      |
+|----------------|------|
+| description    | Top-level attribute that specifies the resource type. |
+| required       | Required for secrets configuration in `wrapped-json` or `yaml` format. |
+| type           | String |
+| allowed values | - `Env` if using Sensu's secrets provider<br/>- `CyberArkProvider` if using CyberArk Conjur as the secrets provider<br/>- `VaultProvider` if using HashiCorpVault as the secrets provider<br/>- `AWSProvider` is using AWS as the secrets provider |
+| example        | {{< language-toggle >}}  
+{{< code yml >}}  
+type: VaultProvider  
+{{< /code >}}  
+{{< code json >}}  
+{  
+  "type": "VaultProvider"  
+}  
+{{< /code >}}  
+{{< /language-toggle >}} |
 
 ### Metadata attributes
 
