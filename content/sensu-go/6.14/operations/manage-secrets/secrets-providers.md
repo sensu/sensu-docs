@@ -13,7 +13,7 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the `Env`, `CyberArkProvider`, and `VaultProvider` secrets provider datatypes in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the `Env`, `CyberArkProvider`, `VaultProvider` and `AWSProvider` secrets provider datatypes in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
@@ -31,9 +31,9 @@ For checks, hooks, and dynamic runtime assets, you must [enable mutual TLS (mTLS
 Sensu will not transmit secrets to agents that do not use mTLS.
 
 The [Sensu Go commercial distribution][1] includes a secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
-You can also use the `CyberArkProvider` and `VaultProvider` secrets providers.
+You can also use the `CyberArkProvider`, `VaultProvider` and `AWSProvider` secrets providers.
 
-You can configure any number of `CyberArkProvider` and `VaultProvider` secrets providers.
+You can configure any number of `CyberArkProvider`, `VaultProvider` and `AWSProvider` secrets providers.
 However, you can only have a single `Env` secrets provider: the one that is included with the Sensu Go [commercial distribution][1].
 
 Secrets providers are cluster-wide resources and compatible with generic functions.
@@ -173,6 +173,47 @@ spec:
 
 {{< /language-toggle >}}
 
+## AWSProvider secrets provider example
+
+The `AWSProvider` secrets provider allows you to retrieve secrets from AWS.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: AWSProvider
+api_version: secrets/v1
+metadata:
+  name: aws
+spec:
+  client:
+    region: ap-south-1
+    access_key: xxxxx
+    secret_key: xxxx
+    timeout: 60
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "AWSProvider",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "aws"
+  },
+  "spec": {
+    "client": {
+      "region": "ap-south-1",
+      "access_key": "xxxxx",
+      "secret_key": "xxxx",
+      "timeout": 60
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+
 ## Secrets provider configuration
 
 You can use the [enterprise/secrets/v1 API endpoints][2] to create, view, and manage your secrets provider configuration.
@@ -184,7 +225,7 @@ curl -X GET \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 -H "Authorization: Key $SENSU_API_KEY"
 {{< /code >}}
- 
+
 ## Secrets provider specification
 
 {{% notice note %}}
@@ -233,7 +274,7 @@ metadata:
 
 spec         | 
 -------------|------
-description  | Top-level map that includes secrets provider configuration spec attributes. Read [VaultProvider spec attributes][8] and [CyberArkProvider spec attributes][19] for details.
+description  | Top-level map that includes secrets provider configuration spec attributes. Read [VaultProvider spec attributes][8], [CyberArkProvider spec attributes][19], and AWSProvider spec attributes for details.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
 CyberArkProvider example | {{< language-toggle >}}
@@ -303,23 +344,45 @@ spec:
 }
 {{< /code >}}
 {{< /language-toggle >}}
-
-type         | 
--------------|------
-description  | Top-level attribute that specifies the resource type.
-required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
-type         | String
-allowed values | - `Env` if using Sensu's secrets provider<br>- `CyberArkProvider` if using CyberArk Conjur as the secrets provider<br>- `VaultProvider` if using HashiCorpVault as the secrets provider
-example      | {{< language-toggle >}}
+AWSProvider example | {{< language-toggle >}}
 {{< code yml >}}
-type: VaultProvider
+spec:
+  client:
+    region: ap-south-1
+    access_key: xxxxx
+    secret_key: xxxx
+    timeout: 60
 {{< /code >}}
 {{< code json >}}
 {
-  "type": "VaultProvider"
+  "spec": {
+    "client": {
+      "region": "ap-south-1",
+      "access_key": "xxxxx",
+      "secret_key": "xxxx",
+      "timeout": 60
+    }
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+| type           |      |
+|----------------|------|
+| description    | Top-level attribute that specifies the resource type. |
+| required       | Required for secrets configuration in `wrapped-json` or `yaml` format. |
+| type           | String |
+| allowed values | - `Env` if using Sensu's secrets provider<br/>- `CyberArkProvider` if using CyberArk Conjur as the secrets provider<br/>- `VaultProvider` if using HashiCorpVault as the secrets provider<br/>- `AWSProvider` is using AWS as the secrets provider |
+| example        | {{< language-toggle >}}  
+{{< code yml >}}  
+type: VaultProvider  
+{{< /code >}}  
+{{< code json >}}  
+{  
+  "type": "VaultProvider"  
+}  
+{{< /code >}}  
+{{< /language-toggle >}} |
 
 ### Metadata attributes
 
@@ -708,6 +771,80 @@ limit: 10.0
 {{< /code >}}
 {{< /language-toggle >}}
 
+### AWSProvider spec attributes
+
+client       | 
+-------------|------ 
+description  | Map that includes AWSProvider client attributes.
+required     | true
+type         | Map of key-value pairs
+example      | {{< language-toggle >}}
+{{< code yml >}}
+client:
+  region: ap-south-1
+  access_key: xxxxx
+  secret_key: xxxx
+  timeout: 60
+{{< /code >}}
+{{< code json >}}
+{
+  "client": {
+    "region": "ap-south-1",
+    "access_key": "xxxxx",
+    "secret_key": "xxxx",
+    "timeout": 60
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### AWSProvider client attributes
+
+region       | 
+-------------|------ 
+description  | AWS region where the secrets are stored.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+region: ap-south-1
+{{< /code >}}
+{{< code json >}}
+{
+  "region": "ap-south-1"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+access_key   | 
+-------------|------ 
+description  | AWS access key used for authentication.
+required     | true
+type         | String
+
+secret_key   | 
+-------------|------ 
+description  | AWS secret key used for authentication.
+required     | true
+type         | String
+
+timeout      | 
+-------------|------ 
+description  | Provider connection timeout (in seconds).
+required     | false
+type         | Integer
+default      | 60
+example      | {{< language-toggle >}}
+{{< code yml >}}
+timeout: 60
+{{< /code >}}
+{{< code json >}}
+{
+  "timeout": 60
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 
 [1]: ../../../commercial/
 [2]: ../../../api/enterprise/secrets/
@@ -729,3 +866,4 @@ limit: 10.0
 [18]: https://www.conjur.org/
 [19]: #cyberarkprovider-spec-attributes
 [20]: #cyberarkprovider-client-attributes
+ 

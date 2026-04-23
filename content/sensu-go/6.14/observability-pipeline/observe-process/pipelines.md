@@ -34,6 +34,7 @@ We recommend migrating your existing handler sets and stacks to pipeline workflo
 **NOTE**: To use pipelines, [upgrade](../../../operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-650-from-any-previous-version) your agents to Sensu Go 6.5.0.
 {{% /notice %}}
 
+
 ## Pipeline example
 
 This example shows a pipeline resource definition that includes event filters, a mutator, and a handler:
@@ -858,6 +859,407 @@ type: Mutator
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+
+## FALLBACK PIPELINE
+
+Consist of multiple Pipelines, and have the ability to execute core.v2.Pipeline until the execution of a pipeline succeeds or there are no more pipelines to execute.
+
+{{% notice note %}}
+**NOTE**: Fallback pipelines are available as a commercial feature.
+{{% /notice %}}
+
+## Fallback Pipeline example
+
+This example shows a fallback pipeline resource definition.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+api_version: fallback_pipeline/v1
+type: FallbackPipeline
+metadata:
+  name: custom-fallback-pipeline
+  namespace: default
+spec:
+  pipelines:
+    - name: custom-pipeline1
+      type: Pipeline
+      api_version: core/v2
+    - name: custom-pipeline2
+      type: Pipeline
+      api_version: core/v2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "api_version": "fallback_pipeline/v1",
+  "type": "FallbackPipeline",
+  "metadata": {
+    "name": "custom-fallback-pipeline",
+    "namespace": "default"
+  },
+  "spec": {
+    "pipelines": [
+      {
+        "name": "custom-pipeline1",
+        "type": "Pipeline",
+        "api_version": "core/v2"
+      },
+      {
+        "name": "custom-pipeline2",
+        "type": "Pipeline",
+        "api_version": "core/v2"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+To use this pipeline in a check, list it in the check’s fallback pipeline. For example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: custom-pipeline-check
+spec:
+  command: >-
+    check-cpu-usage
+    --critical 95
+    --warning 85
+    --sample-interval 2
+  interval: 10
+  publish: true
+  subscriptions:
+  - linux
+  fallback_pipeline:
+    type: FallbackPipeline
+    api_version: fallback_pipeline/v1
+    name: custom-fallback-pipeline
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "custom-pipeline-check"
+  },
+  "spec": {
+    "command": "check-cpu-usage --critical 95 --warning 85 --sample-interval 2",
+    "interval": 10,
+    "publish": true,
+    "subscriptions": [
+      "linux"
+    ],
+    "fallback_pipeline": {
+      "type": "FallbackPipeline",
+      "api_version": "fallback_pipeline/v1",
+      "name": "custom-fallback-pipeline"
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+## Pipeline specification
+
+### Top-level attributes
+
+#### api_version
+
+| Field | Value |
+|------|------|
+| description | Top-level attribute that specifies the Sensu API group and version. For pipelines in this version of Sensu, the api_version should always be `fallback_pipeline/v1` |
+| required | Required for fallback pipeline definitions in wrapped-json or yaml format for use with sensuctl create. |
+| type | String |
+| example | {{< language-toggle >}}
+
+{{< code yml >}}
+api_version: fallback_pipeline/v1
+{{< /code >}}
+
+{{< code json >}}
+{
+  "api_version": "fallback_pipeline/v1"
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+#### metadata
+
+| Field | Value |
+|------|------|
+| description | Top-level collection of metadata about the fallback pipeline that includes name, namespace, and created_by as well as custom labels and annotations. The metadata map is always at the top level of the fallback pipeline definition. This means that in wrapped-json and yaml formats, the metadata scope occurs outside the spec scope. Read metadata attributes for details. |
+| required | Required for fallback pipeline definitions in wrapped-json or yaml format for use with sensuctl create. |
+| type | Map of key-value pairs |
+| example | {{< language-toggle >}}
+
+{{< code yml >}}
+metadata:
+  name: custom-fallback-pipeline
+  namespace: default
+{{< /code >}}
+
+{{< code json >}}
+{
+  "metadata": {
+    "name": "custom-fallback-pipeline",
+    "namespace": "default"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+#### spec
+
+| Field | Value |
+|------|------|
+| description | Top-level map that includes the pipeline spec attributes. |
+| required | Required for fallback pipeline definitions in wrapped-json or yaml format for use with sensuctl create. |
+| type | Map of key-value pairs |
+| example | {{< language-toggle >}}
+
+{{< code yml >}}
+pipelines:
+  - name: custom-pipeline1
+    type: Pipeline
+    api_version: core/v2
+  - name: custom-pipeline2
+    type: Pipeline
+    api_version: core/v2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "pipelines": [
+    {
+      "name": "custom-pipeline1",
+      "type": "Pipeline",
+      "api_version": "core/v2"
+    },
+    {
+      "name": "custom-pipeline2",
+      "type": "Pipeline",
+      "api_version": "core/v2"
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+#### type
+
+| Field | Value |
+|------|------|
+| description | Top-level attribute that specifies the sensuctl create resource type. Fallback Pipeline should always be type FallbackPipeline. |
+| required | Required for pipeline definitions in wrapped-json or yaml format for use with sensuctl create. |
+| type | String |
+| example | {{< language-toggle >}}
+
+{{< code yml >}}
+type: FallbackPipeline
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "FallbackPipeline"
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+## Metadata attributes
+
+### annotations
+
+| Field | Value |
+|------|------|
+| description | Non-identifying metadata to include with observation event data that you can access with event filters. You can use annotations to add data that’s meaningful to people or external tools that interact with Sensu. In contrast to labels, you cannot use annotations in API response filtering, sensuctl response filtering, or web UI views. |
+| required | false |
+| type | Map of key-value pairs. Keys and values can be any valid UTF-8 string. |
+| default | null |
+| example | {{< language-toggle >}}
+
+{{< code yml >}}
+annotations:
+  managed-by: ops
+  slack-channel: "#incidents"
+{{< /code >}}
+
+{{< code json >}}
+{
+  "annotations": {
+    "managed-by": "ops",
+    "slack-channel": "#incidents"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+### created_by
+
+| Field | Value |
+|------|------|
+| description | Username of the Sensu user who created the pipeline or last updated the handler. Sensu automatically populates the created_by field when the pipeline is created or updated. |
+| required | false |
+| type | String |
+| example | {{< language-toggle >}}
+
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+### labels
+
+| Field | Value |
+|------|------|
+| description | Custom attributes to include with observation event data that you can use for response and web UI view filtering. If you include labels in your event data, you can filter API responses, sensuctl responses, and web UI views based on them. In other words, labels allow you to create meaningful groupings for your data. Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will not need to use in response filtering, use annotations rather than labels. |
+| required | false |
+| type | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string. |
+| default | null |
+| example | {{< language-toggle >}}
+
+{{< code yml >}}
+labels:
+  environment: production
+  region: us-west-1
+{{< /code >}}
+
+{{< code json >}}
+{
+  "labels": {
+    "environment": "production",
+    "region": "us-west-1"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+### name
+
+| Field | Value |
+|------|------|
+| description | Unique string used to identify the pipeline. Pipeline names cannot contain special characters or spaces (validated with Go regex \A[\w\.\-]+\z). Each pipeline must have a unique name within its namespace. |
+| required | true |
+| type | String |
+| example | {{< language-toggle >}}
+
+{{< code yml >}}
+name: incident_alerts
+{{< /code >}}
+
+{{< code json >}}
+{
+  "name": "incident_alerts"
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+### namespace
+
+| Field | Value |
+|------|------|
+| description | Sensu RBAC namespace that the fallback pipeline belongs to. |
+| required | false |
+| type | String |
+| default | default |
+| example | {{< language-toggle >}}
+
+{{< code yml >}}
+namespace: default
+{{< /code >}}
+
+{{< code json >}}
+{
+  "namespace": "default"
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+---
+
+## Spec attributes
+
+### pipelines
+
+| Field | Value |
+|------|------|
+| description | Array of pipelines (by name) to use when filtering, mutating, and handling observability events with a fallbak pipeline. Each array item must be a string. Read pipelines attributes for details |
+| required | true |
+| type | Array |
+| example | {{< language-toggle >}}
+
+{{< code yml >}}
+pipelines:
+  - name: custom-pipeline1
+    type: Pipeline
+    api_version: core/v2
+  - name: custom-pipeline2
+    type: Pipeline
+    api_version: core/v2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "pipelines": [
+    {
+      "name": "custom-pipeline1",
+      "type": "Pipeline",
+      "api_version": "core/v2"
+    },
+    {
+      "name": "custom-pipeline2",
+      "type": "Pipeline",
+      "api_version": "core/v2"
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 
 
 [1]: ../handlers/#handler-sets

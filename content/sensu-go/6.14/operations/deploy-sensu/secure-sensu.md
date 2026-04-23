@@ -265,6 +265,10 @@ For PostgreSQL on systems *without* FIPS kernel mode, Sensu backends with FIPS k
 
 Sensu agents and sensuctl on systems with and without FIPS kernel mode can connect to Sensu backends on systems with FIPS kernel mode.
 
+## FIPS 140-3 key size requirements
+
+Under FIPS 140-3, cryptographic key sizes must align with guidance from NIST. For RSA-based certificates, a minimum key size of greater than `2048` bits is required. Larger key sizes (such as `3072` or `4096` bits) are supported and may be used to meet stronger security or long-term protection requirements.
+
 ### Configuration example for embedded etcd
 
 To configure the Sensu backend for FIPS mode with embedded etcd, update the backend configuration file at `/etc/sensu/backend.yml` to use the following settings:

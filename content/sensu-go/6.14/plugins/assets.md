@@ -1274,6 +1274,80 @@ Deleting a dynamic runtime asset does not delete the archive or downloaded files
 You must remove the archive and downloaded files from the asset cache manually.
 
 
+## Clean up unused assets from Sensu agents
+ 
+As the Sensu agent processes checks and sends events to the backend, it may download and use dynamic runtime assets. Over time, some of these assets may become stale and remain on disk even though they are no longer in use. These unused assets can consume disk space unnecessarily.
+ 
+To address this, Sensu provides an automatic cleanup feature for unused assets.
+ 
+---
+ 
+## Enable automatic asset cleanup
+ 
+You can enable automatic cleanup of unused assets by configuring the `assets-cleanup-interval` setting in the Sensu agent configuration.
+ 
+- **Default value:** `0` (disabled)  
+- When set to a value greater than `0`, the agent will periodically check for unused assets and remove them from disk.
+ 
+### Example
+ 
+```yaml
+assets-cleanup-interval: 3600
+```
+ 
+In this example, the agent will run the cleanup process every hour (3600 seconds).
+ 
+---
+ 
+## Configure maximum age for unused assets
+ 
+You can control how long an unused asset is retained before being deleted by configuring the `assets-cleanup-max-age` setting.
+ 
+- **Default value:** `172800` seconds (48 hours)
+ 
+Assets that have not been accessed within this time window will be eligible for deletion during the cleanup process.
+ 
+### Example
+ 
+```yaml
+assets-cleanup-max-age: 86400
+```
+ 
+In this example, assets unused for 24 hours (86400 seconds) will be removed.
+ 
+---
+ 
+## How it works
+ 
+Once enabled:
+ 
+- The agent periodically scans for unused assets  
+- Assets that have not been accessed within the configured `assets-cleanup-max-age` are deleted  
+- This helps reclaim disk space and keeps the agent environment clean  
+ 
+---
+ 
+## Manually trigger asset cleanup
+ 
+In addition to automatic cleanup, you can manually trigger the cleanup process using `sensuctl`.
+ 
+A new command, `purge-assets`, has been introduced to support this functionality.
+ 
+### Dry run example
+ 
+Use the `--dry-run` flag to preview which assets would be deleted without actually removing them:
+ 
+```bash
+sensuctl purge-assets --dry-run --last-accessed 86400
+```
+ 
+### Parameters
+ 
+- `--dry-run`: Displays the list of assets that would be deleted without performing the deletion  
+- `--last-accessed`: Specifies the threshold (in seconds) for last access time  
+
+
+
 [1]: ../../observability-pipeline/observe-filter/sensu-query-expressions/
 [2]: ../../operations/control-access/namespaces/
 [3]: ../../observability-pipeline/observe-schedule/tokens/#manage-dynamic-runtime-assets

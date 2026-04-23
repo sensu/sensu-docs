@@ -29,7 +29,7 @@ The [secrets reference][3] includes the specification, sensuctl configuration su
 ## Secrets providers
 
 The [Sensu Go commercial distribution][2] includes a secrets provider, `Env`, that exposes secrets from environment variables on your Sensu backend nodes.
-You can also use the `CyberArkProvider` type to authenticate via CyberArk Conjur or `VaultProvider` to authenticate via HashiCorp Vault.
+You can also use the `CyberArkProvider` type to authenticate via CyberArk Conjur or `VaultProvider` to authenticate via HashiCorp Vault, or the `AWS provider`to authenticate via AWS `AWS Secrets Manager`
 
 Read the [secrets providers reference][4] for Sensu resource specifications, instructions for retrieving your secrets providers configuration via the Sensu API, and examples.
 
