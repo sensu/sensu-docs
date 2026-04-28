@@ -861,7 +861,7 @@ type: Mutator
 {{< /language-toggle >}}
 
 
-## FALLBACK PIPELINE
+## Fallback pipeline
 
 Consist of multiple Pipelines, and have the ability to execute core.v2.Pipeline until the execution of a pipeline succeeds or there are no more pipelines to execute.
 
