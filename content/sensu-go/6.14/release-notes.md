@@ -136,6 +136,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
     - In v6.14.0, upgrading Node.js from 14.x to 20.x introduced unintended ANSI escape code rendering in the Event Summary page, causing some text to appear mangled or improperly formatted. 
     - This fix restores correct text rendering and display behavior in the Event Summary UI.
 
+
 ---
 
 # 6.14.0 release notes
