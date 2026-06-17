@@ -9,6 +9,7 @@ version: "6.14"
 menu: "sensu-go-6.14"
 ---
 
+- [6.14.2 release notes](#6142-release-notes)
 - [6.14.0 release notes](#6140-release-notes)
 - [6.13.1 release notes](#6131-release-notes)
 - [6.13.0 release notes](#6130-release-notes)
@@ -117,6 +118,27 @@ PATCH versions include backward-compatible bug fixes.
 ### Upgrading
 
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
+
+---
+
+## 6.14.2 release notes
+
+**June 23, 2026** &mdash; The latest release of Sensu Go, version 6.14.2, is now available for download.
+
+**FIXES**
+
+- **CVE vulnerability fixes and Go version upgrade**. Resolved multiple dependency vulnerabilities by upgrading Go from 1.26.0 to 1.26.3 and updating the following critical dependencies:
+    - `golang.org/x/crypto` to v0.51.0
+    - `golang.org/x/net` to v0.55.0
+    - `google.golang.org/grpc` to v1.81.1
+- **Excessive etcd warning logs in non-customized deployments**. After the etcd upgrade introduced in 6.14.0, environments using default etcd configurations experienced a high volume of warning-level log messages related to unary request durations and apply durations. This occurred because the upgraded etcd library's default thresholds were unset (zero-value), which caused nearly all operations to trigger warnings. Version 6.14.2 resolves this by explicitly restoring etcd's official default values for `WarningApplyDuration` and `WarningUnaryRequestDuration` when no custom values are configured, eliminating the spurious log noise.
+- **WebSocket library upgrade**. Updated the internal WebSocket fork (`github.com/sensu/websocket`) from v1.0.1 to v1.0.2, which replaces `github.com/gorilla/websocket`. This update delivers stability and security improvements to the WebSocket transport layer used for agent-backend communication.
+
+**NEW FEATURES**
+
+- **ANSI-formatted output rendering in the Event Summary page**. Version 6.14.1 resolved the ANSI text mangling caused by the Node.js 14.x to 20.x upgrade, but the underlying web-worker-based ANSI rendering approach remained fragile. Version 6.14.2 replaces the custom web worker implementation with the `ansi-to-react` library, providing a more reliable and maintainable way to render ANSI-formatted check output on the Event Summary page. This change removes the `ANSIColor.worker.js` web worker in favor of native React component rendering, improving both the stability and performance of ANSI color display.
+
+- **DigiCert code signing for Windows packages**. Windows installers for `sensu-agent` and `sensu-cli` (`sensuctl`) are now signed using DigiCert certificates. This ensures Windows systems recognize the packages as trusted during installation, eliminating SmartScreen warnings and meeting enterprise software distribution requirements.
 
 ---
 
