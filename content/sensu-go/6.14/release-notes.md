@@ -10,6 +10,7 @@ menu: "sensu-go-6.14"
 ---
 
 - [6.14.2 release notes](#6142-release-notes)
+- [6.14.1 release notes](#6141-release-notes)
 - [6.14.0 release notes](#6140-release-notes)
 - [6.13.1 release notes](#6131-release-notes)
 - [6.13.0 release notes](#6130-release-notes)
@@ -139,6 +140,21 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 - **ANSI-formatted output rendering in the Event Summary page**. Version 6.14.1 resolved the ANSI text mangling caused by the Node.js 14.x to 20.x upgrade, but the underlying web-worker-based ANSI rendering approach remained fragile. Version 6.14.2 replaces the custom web worker implementation with the `ansi-to-react` library, providing a more reliable and maintainable way to render ANSI-formatted check output on the Event Summary page. This change removes the `ANSIColor.worker.js` web worker in favor of native React component rendering, improving both the stability and performance of ANSI color display.
 
 - **DigiCert code signing for Windows packages**. Windows installers for `sensu-agent` and `sensu-cli` (`sensuctl`) are now signed using DigiCert certificates. This ensures Windows systems recognize the packages as trusted during installation, eliminating SmartScreen warnings and meeting enterprise software distribution requirements.
+
+## 6.14.1 release notes
+
+**May 21, 2025** &mdash; The latest release of Sensu Go, version 6.14.1, is now available for download.
+
+**FIXES**
+
+- WebSocket handshake compatibility in mixed-version deployments:
+    - In v6.14.0, FIPS 140-3 compliance changes modified the WebSocket handshake implementation for both FIPS and non-FIPS builds, changing the hashing algorithm in shared code from SHA-1 to SHA-256. As a result, environments running mixed versions of agents and backends, for example, a v6.14.0 backend paired with an older agent, or vice versa could experience failed WebSocket handshakes due to the algorithm mismatch. 
+    - This fix restores the original SHA-1 behavior for non-FIPS builds while retaining SHA-256 for FIPS 140-3 builds.
+    - This fix also restores the compatibility for mixed-version non-FIPS deployments while preserving the required cryptographic behavior for FIPS environments.
+
+- ANSI formatting in the Event Summary page:
+    - In v6.14.0, upgrading Node.js from 14.x to 20.x introduced unintended ANSI escape code rendering in the Event Summary page, causing some text to appear mangled or improperly formatted. 
+    - This fix restores correct text rendering and display behavior in the Event Summary UI.
 
 ---
 
