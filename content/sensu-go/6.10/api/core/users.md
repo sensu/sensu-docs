@@ -337,6 +337,52 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Change your password without bcrypt hash {#usersuserpasswordwithouthash-put}
+
+The `/users/:user/change_password` API endpoint provides HTTP PUT access to change your Sensu user password.
+
+{{% notice note %}}
+**NOTE**: The `/users/:user/change_password` API endpoint allows a user to update their own password, without any permissions.
+This differs from the `/users/:user/reset_password` API endpoint, which requires explicit [`users` permissions](../../../operations/control-access/rbac/#users) to change the user password.
+{{% /notice %}}
+
+### Example {#usersuserpasswordwithouthash-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`.
+
+The `password` is your current password in cleartext.
+The `password_new` is your new password in cleartext.
+
+{{< code shell >}}
+curl -X PUT \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/json' \
+-d '{
+  "username": "alice",
+  "password": "P@ssw0rd!",
+  "password_new": "P@ssw0rd!123"
+}' \
+http://127.0.0.1:8080/api/core/v2/users/alice/change_password
+{{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
+
+### API Specification {#usersuserpassword-put-specification}
+
+/users/:user/change_password (PUT) | 
+----------------|------
+description     | Changes the password for the specified Sensu user without usage of [bcrypt][3] hash.
+example URL     | http://hostname:8080/api/core/v2/users/alice/change_password
+payload parameters | Required: <ul><li>`username`: string; the username for the Sensu user</li><li>`password`: string; the user's current password in cleartext</li><li>`password_new`: string; the user's new password in cleartext</li></ul>
+payload         | {{< code shell >}}
+{
+  "username": "alice",
+  "password": "P@ssw0rd!",
+  "password_new": "P@ssw0rd!123"
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## Reinstate a disabled user {#usersuserreinstate-put}
 
 The `/users/:user/reinstate` API endpoint provides HTTP PUT access to reinstate a disabled user.
